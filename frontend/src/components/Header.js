@@ -10,11 +10,11 @@ const Header = () => {
                          <Navbar.Toggle aria-controls="basic-navbar-nav" />
                          <Navbar.Collapse id="basic-navbar-nav">
                               <Nav className="ml-auto">
-                                   <Nav.Link className="text-white pr-4" style={{ fontSize: '1rem' }} href="/cart"><i className="fa fa-shopping-cart pr-1" aria-hidden="true"></i> Cart</Nav.Link>
-                                   <Nav.Link className="text-white" style={{ fontSize: '1rem' }} href="/signup"><i className="fa fa-user-plus pr-1" aria-hidden="true"></i> Sign In</Nav.Link>
+                                   <Nav.Link className="nav_link text-white pr-4" href="/cart"><i className="fa fa-shopping-cart pr-1" aria-hidden="true"></i> CART</Nav.Link>
+                                   <Nav.Link className="nav_link text-white"  href="/signup"><i className="fa fa-user-plus pr-1" aria-hidden="true"></i> SIGN IN</Nav.Link>
                               </Nav>
                               <Form className="pl-5" inline>
-                                   <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                                   <FormControl className="search_box" type="text" placeholder="Search" className="mr-sm-2" />
                                    <Button variant="outline-success">Search</Button>
                               </Form>
                          </Navbar.Collapse>
