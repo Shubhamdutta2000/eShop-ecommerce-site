@@ -1,0 +1,29 @@
+.owl-carousel .fa {
+  position: absolute;
+  cursor: pointer;
+  top: 34%;
+}
+
+.owl-carousel .fa-angle-left {
+  color: #0a7ab6;
+  left: -20px;
+}
+
+.owl-carousel .fa-angle-right {
+  color: #0a7ab6;
+  right: -20px;
+}
+
+.owl-carousel .fa-angle-right.disabled,
+.owl-carousel .fa-angle-left.disabled {
+  pointer-events: none;
+  opacity: 0.1;
+}
+
+.owl-carousel .fa-angle-left:hover {
+  color: #70e0e6;
+}
+
+.owl-carousel .fa-angle-right:hover {
+  color: #70e0e6;
+}

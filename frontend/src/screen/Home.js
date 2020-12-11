@@ -13,11 +13,20 @@ import {
   home_appliances,
 } from "../products";
 
+import "../styles/Screen/Home.css";
+
 export default function Home() {
   const options = {
-    loop: true,
+    loop: false,
+    slideSpeed: 1000,
     margin: 10,
     nav: true,
+    singleItem: true,
+    transitionStyle: "fade",
+    navText: [
+      "<i class='fa fa-2x fa-angle-left'></i>",
+      "<i class='fa fa-2x fa-angle-right'></i>",
+    ],
     responsive: {
       0: {
         items: 1,
