@@ -44,12 +44,45 @@ export default function Home() {
   };
   return (
     <>
-      <h1> Electronics Accessories </h1>
+      <h1 className="pt-5"> Electronics Accessories </h1>
       <Row>
         <OwlCarousel className="owl-theme" {...options}>
           {electronics.map((electronic) => (
             <Col>
               <Product product={electronic} />
+            </Col>
+          ))}
+        </OwlCarousel>
+      </Row>
+
+      <h1 className="pt-5">Home Appliances</h1>
+      <Row>
+        <OwlCarousel className="owl-theme" {...options}>
+          {home_appliances.map((home_appliance) => (
+            <Col>
+              <Product product={home_appliance} />
+            </Col>
+          ))}
+        </OwlCarousel>
+      </Row>
+
+      <h1 className="pt-5">Men's Accessories</h1>
+      <Row>
+        <OwlCarousel className="owl-theme" {...options}>
+          {mens_accessories.map((mens_accessory) => (
+            <Col>
+              <Product product={mens_accessory} />
+            </Col>
+          ))}
+        </OwlCarousel>
+      </Row>
+
+      <h1 className="pt-5">Women's Accessories</h1>
+      <Row>
+        <OwlCarousel className="owl-theme" {...options}>
+          {womens_accessories.map((womens_accessory) => (
+            <Col>
+              <Product product={womens_accessory} />
             </Col>
           ))}
         </OwlCarousel>

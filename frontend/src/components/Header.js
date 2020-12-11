@@ -11,7 +11,7 @@ import {
 const Header = () => {
   return (
     <header>
-      <Navbar className="navbar py-2" sticky="top" expand="lg" collapseOnSelect>
+      <Navbar className="navbar py-3" sticky="top" expand="lg" collapseOnSelect>
         <Container>
           <Navbar.Brand
             className="text-white"
