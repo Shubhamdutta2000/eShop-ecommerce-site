@@ -4035,6 +4035,7 @@ input[type="submit"].btn-block {
   display: block;
 }
 .navbar {
+  background-color: #0995e0;
   position: relative;
   display: -ms-flexbox;
   display: flex;
