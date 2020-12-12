@@ -134,7 +134,7 @@ const home_appliances = [
   },
   {
     _id: "3",
-    name: "Samsung 9 Kg Front Loading Fully Automatic Washing Machine",
+    name: "Samsung 9 Kg Fully Automatic Washing Machine",
     image: "/assets/images/home_appliances/washing_machine.jpg",
     description:
       "Samsung WD90K6410OX/TL Front Loading Fully Automatic Washing Machine, Measuring 60 cms in width, 65 cms in depth and 85 cms in height, this front load washing machine can be easily placed in the dry area of your home or at the side wall near the bathroom or in any other preferred corner of your home",
@@ -161,7 +161,7 @@ const home_appliances = [
 
   {
     _id: "5",
-    name: "OnePlus 138.8 cm Q1 Series 4K Certified Android QLED TV",
+    name: "OnePlus 138.8 cm Q1 Series 4K Android QLED TV",
     image: "/assets/images/home_appliances/TV1.jpg",
     description:
       "Smart TV : Built-In Wifi | One Click Amazon Prime Video Button Remote | Android TV | Google assistant | Oxygen OS with Android Pie (9) | RAM 3 GB | 16 GB Storage | CPU: A53*4 | OnePlus PQ Engine Gamma Color Magic",
