@@ -46,7 +46,7 @@ export default function Home() {
         <OwlCarousel className="owl-theme" {...options}>
           {electronics.map((electronic, index) => (
             <Col key={index}>
-              <Product product={electronic} />
+              <Product path="electronics" product={electronic} />
             </Col>
           ))}
         </OwlCarousel>
@@ -57,7 +57,7 @@ export default function Home() {
         <OwlCarousel className="owl-theme" {...options}>
           {home_appliances.map((home_appliance, index) => (
             <Col key={index}>
-              <Product product={home_appliance} />
+              <Product path="home_appliances" product={home_appliance} />
             </Col>
           ))}
         </OwlCarousel>
@@ -68,7 +68,7 @@ export default function Home() {
         <OwlCarousel className="owl-theme" {...options}>
           {mens_accessories.map((mens_accessory, index) => (
             <Col key={index}>
-              <Product product={mens_accessory} />
+              <Product path="mens_accessories" product={mens_accessory} />
             </Col>
           ))}
         </OwlCarousel>
@@ -79,7 +79,7 @@ export default function Home() {
         <OwlCarousel className="owl-theme" {...options}>
           {womens_accessories.map((womens_accessory, index) => (
             <Col key={index}>
-              <Product product={womens_accessory} />
+              <Product path="womens_accessories" product={womens_accessory} />
             </Col>
           ))}
         </OwlCarousel>

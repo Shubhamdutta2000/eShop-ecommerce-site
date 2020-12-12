@@ -4036,6 +4036,7 @@ input[type="submit"].btn-block {
 }
 .navbar {
   background-color: #0995e0;
+  box-shadow: 0 10px 6px -6px rgba(110, 102, 102, 0.6);
   position: relative;
   display: -ms-flexbox;
   display: flex;
@@ -9488,10 +9489,6 @@ a.text-dark:hover {
     color: inherit;
     border-color: #dee2e6;
   }
-}
-.navbar {
-  border-style: solid;
-  border-width: 0 1px 4px 1px;
 }
 .bg-primary {
   border-color: #127ba3;
