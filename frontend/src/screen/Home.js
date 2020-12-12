@@ -18,11 +18,8 @@ import "../styles/Screen/Home.css";
 export default function Home() {
   const options = {
     loop: false,
-    slideSpeed: 1000,
     margin: 10,
     nav: true,
-    singleItem: true,
-    transitionStyle: "fade",
     navText: [
       "<i class='fa fa-2x fa-angle-left'></i>",
       "<i class='fa fa-2x fa-angle-right'></i>",
@@ -47,8 +44,8 @@ export default function Home() {
       <h1 className="pt-5"> Electronics Accessories </h1>
       <Row>
         <OwlCarousel className="owl-theme" {...options}>
-          {electronics.map((electronic) => (
-            <Col>
+          {electronics.map((electronic, index) => (
+            <Col key={index}>
               <Product product={electronic} />
             </Col>
           ))}
@@ -58,8 +55,8 @@ export default function Home() {
       <h1 className="pt-5">Home Appliances</h1>
       <Row>
         <OwlCarousel className="owl-theme" {...options}>
-          {home_appliances.map((home_appliance) => (
-            <Col>
+          {home_appliances.map((home_appliance, index) => (
+            <Col key={index}>
               <Product product={home_appliance} />
             </Col>
           ))}
@@ -69,8 +66,8 @@ export default function Home() {
       <h1 className="pt-5">Men's Accessories</h1>
       <Row>
         <OwlCarousel className="owl-theme" {...options}>
-          {mens_accessories.map((mens_accessory) => (
-            <Col>
+          {mens_accessories.map((mens_accessory, index) => (
+            <Col key={index}>
               <Product product={mens_accessory} />
             </Col>
           ))}
@@ -80,8 +77,8 @@ export default function Home() {
       <h1 className="pt-5">Women's Accessories</h1>
       <Row>
         <OwlCarousel className="owl-theme" {...options}>
-          {womens_accessories.map((womens_accessory) => (
-            <Col>
+          {womens_accessories.map((womens_accessory, index) => (
+            <Col key={index}>
               <Product product={womens_accessory} />
             </Col>
           ))}
