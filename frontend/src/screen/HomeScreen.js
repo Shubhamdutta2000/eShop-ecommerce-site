@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/Products";
 
@@ -6,7 +6,9 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 
-import products from "../products";
+// import products from "../products";
+
+import axios from "axios";
 
 import "../styles/Screen/HomeScreen.css";
 
@@ -34,6 +36,19 @@ export default function Home() {
       },
     },
   };
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const res = await axios.get("/products");
+
+      setProducts(res.data);
+      console.log(res.data);
+    };
+
+    fetchProducts();
+  }, []);
   return (
     <>
       {/*//////////////////////////       CAROUSAL      /////////////////////////////////////// */}
