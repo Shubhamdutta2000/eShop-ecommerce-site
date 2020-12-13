@@ -33,7 +33,7 @@ export default function ProductScreen({ match }) {
       </Link>
 
       <Row>
-        <Col md={6}>
+        <Col lg={6}>
           <Image
             className="shadow"
             src={product.image}
@@ -41,7 +41,7 @@ export default function ProductScreen({ match }) {
             fluid
           />
         </Col>
-        <Col md={3}>
+        <Col lg={3}>
           <ListGroup className="shadow" varient="flush">
             <ListGroup.Item>
               <h3 className="font-weight-bold text-primary">{product.name}</h3>
@@ -68,7 +68,7 @@ export default function ProductScreen({ match }) {
             </ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col md={3}>
+        <Col lg={3}>
           <Card>
             <ListGroup varient="flush">
               <ListGroup.Item>
