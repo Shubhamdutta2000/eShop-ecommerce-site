@@ -2641,14 +2641,13 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(255, 94, 84, 0.5);
 }
 .btn-light {
-  color: #222;
-  background-color: #f6f6f6;
-  border-color: #f6f6f6;
+  color: #0995e0;
+  background-color: #dff3f4;
+  border-color: #82cef1;
 }
 .btn-light:hover {
-  color: #222;
-  background-color: #e3e3e3;
-  border-color: #ddd;
+  color: #ffffff;
+  background-color: #6db9e2;
 }
 .btn-light.focus,
 .btn-light:focus {
@@ -4663,10 +4662,11 @@ input[type="submit"].btn-block {
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   list-style: none;
-  background-color: #f0f0f0;
+  background-color: #dff2f4;
   border-radius: 0.25rem;
 }
 .breadcrumb-item {
+  font-size: 1.2rem;
   display: -ms-flexbox;
   display: flex;
 }
@@ -9532,7 +9532,7 @@ a.text-dark:hover {
   border-color: #ff7702;
 }
 .btn-light {
-  border-color: #e9e9e9;
+  border-color: #a9ddf5;
 }
 .btn-dark {
   border-color: #484848;
@@ -9700,7 +9700,7 @@ a.text-dark:hover {
   border-top-width: 1px;
 }
 .breadcrumb {
-  border-color: #e3e3e3;
+  border-color: #a9ddf5;
   border-style: solid;
   border-width: 0 1px 4px 1px;
 }

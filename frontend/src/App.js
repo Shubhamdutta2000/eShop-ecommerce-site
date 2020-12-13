@@ -11,11 +11,9 @@ function App() {
     <Router>
       <div className="body">
         <Header />
-        <main className="py-4">
-          <Container>
-            <Route path="/" component={Home} exact />
-            <Route path="/products/:category/:id" component={ProductScreen} />
-          </Container>
+        <main className="mx-5 px-4 py-4">
+          <Route path="/" component={Home} exact />
+          <Route path="/products/:category/:id" component={ProductScreen} />
         </main>
         <Footer />
       </div>
