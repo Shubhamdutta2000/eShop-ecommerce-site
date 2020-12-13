@@ -36,6 +36,9 @@ export default function Home() {
   };
   return (
     <>
+      {/*//////////////////////////       CAROUSAL      /////////////////////////////////////// */}
+
+      {/* ELECTRONICS */}
       <h1 className="pt-5"> Electronics Accessories </h1>
       <Row>
         <OwlCarousel className="owl-theme" {...options}>
@@ -49,6 +52,7 @@ export default function Home() {
         </OwlCarousel>
       </Row>
 
+      {/* HOME APPLIANCES */}
       <h1 className="pt-5">Home Appliances</h1>
       <Row>
         <OwlCarousel className="owl-theme" {...options}>
@@ -62,6 +66,7 @@ export default function Home() {
         </OwlCarousel>
       </Row>
 
+      {/* MENS'S ACCESSORIES */}
       <h1 className="pt-5">Men's Accessories</h1>
       <Row>
         <OwlCarousel className="owl-theme" {...options}>
@@ -75,6 +80,7 @@ export default function Home() {
         </OwlCarousel>
       </Row>
 
+      {/* WOMEN'S ACCESSORIES */}
       <h1 className="pt-5">Women's Accessories</h1>
       <Row>
         <OwlCarousel className="owl-theme" {...options}>
@@ -86,6 +92,18 @@ export default function Home() {
               </Col>
             ))}
         </OwlCarousel>
+      </Row>
+
+      {/*//////////////////////////       CAROUSAL ENDS      /////////////////////////////////////// */}
+
+      {/* ALL PRODUCTS */}
+      <h1 className="pt-5">Latest Products</h1>
+      <Row>
+        {products.map((home_appliance, index) => (
+          <Col md={3} key={index}>
+            <Product product={home_appliance} />
+          </Col>
+        ))}
       </Row>
     </>
   );
