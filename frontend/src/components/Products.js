@@ -9,11 +9,11 @@ export default function Products({ product, path }) {
   return (
     <>
       <Card className="card my-3 rounded">
-        <Link to={`products/${path}/${product._id}`}>
+        <Link to={`products/${product.category}/${product._id}`}>
           <Card.Img src={product.image} />
         </Link>
         <Card.Body>
-          <Link to={`products/${path}/${product._id}`}>
+          <Link to={`products/${product.category}/${product._id}`}>
             <Card.Title
               as="div"
               style={{ fontSize: "16px", textDecoration: "none" }}

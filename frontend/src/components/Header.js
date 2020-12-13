@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 
 import { NavLink } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 
 const Header = () => {
   return (
@@ -16,16 +17,16 @@ const Header = () => {
       <Navbar className="navbar py-3" sticky="top" expand="lg" collapseOnSelect>
         <Container>
           {/* Home Page Link */}
-          <NavLink to="/">
+          <LinkContainer to="/">
             <Navbar.Brand className="text-white" style={{ fontSize: "1.8rem" }}>
               eShop
             </Navbar.Brand>
-          </NavLink>
+          </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ml-auto">
+            <Nav className="ml-auto pr-4">
               {/* Cart Page Link */}
-              <NavLink to="/cart">
+              <LinkContainer to="/cart">
                 <Nav.Link className="nav_link text-white pr-4">
                   <i
                     className="fa fa-shopping-cart pr-1"
@@ -33,15 +34,15 @@ const Header = () => {
                   ></i>
                   CART
                 </Nav.Link>
-              </NavLink>
+              </LinkContainer>
 
               {/* Link to Login Page */}
-              <NavLink to="/login">
+              <LinkContainer to="/login">
                 <Nav.Link className="nav_link text-white">
                   <i className="fa fa-user-plus pr-1" aria-hidden="true"></i>
                   SIGN IN
                 </Nav.Link>
-              </NavLink>
+              </LinkContainer>
             </Nav>
             <Form inline>
               <FormControl

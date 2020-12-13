@@ -6,14 +6,9 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 
-import {
-  electronics,
-  mens_accessories,
-  womens_accessories,
-  home_appliances,
-} from "../products";
+import products from "../products";
 
-import "../styles/Screen/Home.css";
+import "../styles/Screen/HomeScreen.css";
 
 export default function Home() {
   const options = {
@@ -44,44 +39,52 @@ export default function Home() {
       <h1 className="pt-5"> Electronics Accessories </h1>
       <Row>
         <OwlCarousel className="owl-theme" {...options}>
-          {electronics.map((electronic, index) => (
-            <Col key={index}>
-              <Product path="electronics" product={electronic} />
-            </Col>
-          ))}
+          {products
+            .filter((p) => p.category === "electronics")
+            .map((electronic, index) => (
+              <Col key={index}>
+                <Product product={electronic} />
+              </Col>
+            ))}
         </OwlCarousel>
       </Row>
 
       <h1 className="pt-5">Home Appliances</h1>
       <Row>
         <OwlCarousel className="owl-theme" {...options}>
-          {home_appliances.map((home_appliance, index) => (
-            <Col key={index}>
-              <Product path="home_appliances" product={home_appliance} />
-            </Col>
-          ))}
+          {products
+            .filter((p) => p.category == "home_appliances")
+            .map((home_appliance, index) => (
+              <Col key={index}>
+                <Product product={home_appliance} />
+              </Col>
+            ))}
         </OwlCarousel>
       </Row>
 
       <h1 className="pt-5">Men's Accessories</h1>
       <Row>
         <OwlCarousel className="owl-theme" {...options}>
-          {mens_accessories.map((mens_accessory, index) => (
-            <Col key={index}>
-              <Product path="mens_accessories" product={mens_accessory} />
-            </Col>
-          ))}
+          {products
+            .filter((p) => p.category == "mens_accessories")
+            .map((mens_accessory, index) => (
+              <Col key={index}>
+                <Product product={mens_accessory} />
+              </Col>
+            ))}
         </OwlCarousel>
       </Row>
 
       <h1 className="pt-5">Women's Accessories</h1>
       <Row>
         <OwlCarousel className="owl-theme" {...options}>
-          {womens_accessories.map((womens_accessory, index) => (
-            <Col key={index}>
-              <Product path="womens_accessories" product={womens_accessory} />
-            </Col>
-          ))}
+          {products
+            .filter((p) => p.category == "womens_accessories")
+            .map((womens_accessory, index) => (
+              <Col key={index}>
+                <Product product={womens_accessory} />
+              </Col>
+            ))}
         </OwlCarousel>
       </Row>
     </>
