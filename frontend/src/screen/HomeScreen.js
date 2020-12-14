@@ -41,10 +41,10 @@ export default function Home() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await axios.get("/products");
+      const { data } = await axios.get("/products");
 
-      setProducts(res.data);
-      console.log(res.data);
+      setProducts(data);
+      console.log(data.filter((p) => p.category == "electronics"));
     };
 
     fetchProducts();
