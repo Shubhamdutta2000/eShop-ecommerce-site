@@ -1,9 +1,15 @@
 import dotenv from "dotenv";
 
 import express from "express";
+import dbConnection from "./config/db.js";
 import products from "./data/products.js";
 
 const app = express();
+
+////////////    Configuring all .env files   /////////////
+dotenv.config();
+
+dbConnection();
 
 app.get("/", (req, res) => {
   res.send("API works Fine");
@@ -27,7 +33,7 @@ app.get("/products/:category/:id", (req, res) => {
   res.json(product);
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
   console.log(
