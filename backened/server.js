@@ -14,13 +14,13 @@ app.get("/products", (req, res) => {
 });
 
 app.get("/products/:category", (req, res) => {
-  product = products.filter((p) => p.category == req.params.category);
+  const product = products.filter((p) => p.category == req.params.category);
 
   res.json(product);
 });
 
 app.get("/products/:category/:id", (req, res) => {
-  product = products.find(
+  const product = products.find(
     (p) => p.category == req.params.category && p._id == req.params.id
   );
 
@@ -30,5 +30,7 @@ app.get("/products/:category/:id", (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server is running in ${process.env.NODE_ENV} at port ${PORT}`);
+  console.log(
+    `Server is running in ${process.env.NODE_ENV} mode at port ${PORT}`
+  );
 });
