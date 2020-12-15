@@ -153,7 +153,7 @@ export default function Home() {
       <h1 className="pt-5">Latest Products</h1>
       <Row>
         {products.map((product, index) => (
-          <Col md={3} key={index}>
+          <Col md={4} lg={3} key={index}>
             <Product product={product} />
           </Col>
         ))}
