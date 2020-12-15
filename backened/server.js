@@ -1,15 +1,15 @@
 import dotenv from "dotenv";
-
+import colors from "colors";
 import express from "express";
 import dbConnection from "./config/db.js";
 import products from "./data/products.js";
-
-const app = express();
 
 ////////////    Configuring all .env files   /////////////
 dotenv.config();
 
 dbConnection();
+
+const app = express();
 
 app.get("/", (req, res) => {
   res.send("API works Fine");
@@ -33,10 +33,11 @@ app.get("/products/:category/:id", (req, res) => {
   res.json(product);
 });
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(
-    `Server is running in ${process.env.NODE_ENV} mode at port ${PORT}`
+    `Server is running in ${process.env.NODE_ENV} mode at port ${PORT}`.magenta
+      .bold
   );
 });

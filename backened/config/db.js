@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import colors from "colors";
 import mongoose from "mongoose";
 
 const dbConnect = async () => {
@@ -9,9 +10,15 @@ const dbConnect = async () => {
       useCreateIndex: true,
     });
 
-    console.log(`MongoDb Connected Successfully: ${connect.connection.host}`);
+    console.log(
+      `MongoDb Connected Successfully: ${connect.connection.host}`.cyan
+        .underline.bold
+    );
   } catch (error) {
-    console.log(`Error while connecting to DB: ${error.message}`);
+    console.log(
+      `Error while connecting to DB: ${error.message}`.brightRed.underline
+        .italic
+    );
     process.exit(1);
   }
 };
