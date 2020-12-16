@@ -9,7 +9,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon backened/server",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backened/seeders",
+    "data:destroy": "node backened/seeders -d"
+    
   },
   "repository": {
     "type": "git",
