@@ -1,6 +1,5 @@
 const products = [
   {
-    _id: "1",
     name: "Airpods Wireless Bluetooth Headphones",
     image: "/assets/images/electronics/airpods.jpg",
     description:
@@ -13,7 +12,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: "2",
     name: "iPhone 11 Pro 256GB Memory",
     image: "/assets/images/electronics/phone.jpg",
     description:
@@ -26,7 +24,6 @@ const products = [
     numReviews: 8,
   },
   {
-    _id: "3",
     name: "Cannon EOS 80D DSLR Camera",
     image: "/assets/images/electronics/camera.jpg",
     description:
@@ -39,7 +36,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: "4",
     name: "Sony Playstation 4 Pro White Version",
     image: "/assets/images/electronics/playstation.jpg",
     description:
@@ -52,7 +48,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: "5",
     name: "Logitech G-Series Gaming Mouse",
     image: "/assets/images/electronics/mouse.jpg",
     description:
@@ -65,7 +60,6 @@ const products = [
     numReviews: 10,
   },
   {
-    _id: "6",
     name: "Amazon Echo Dot 3rd Generation",
     image: "/assets/images/electronics/alexa.jpg",
     description:
@@ -78,7 +72,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: "7",
     name: "Tomzon D55 4K Drone with Camera",
     image: "/assets/images/electronics/drone.jpg",
     description:
@@ -91,7 +84,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: "8",
     name: "Audio Technica - ATH-M20x",
     image: "/assets/images/electronics/headphone.jpg",
     description:
@@ -105,7 +97,6 @@ const products = [
   },
 
   {
-    _id: "9",
     name: "Panasonic 584 litres Side-by-Side Refrigerator",
     image: "/assets/images/home_appliances/fridge.jpg",
     description:
@@ -118,7 +109,6 @@ const products = [
     numReviews: 14,
   },
   {
-    _id: "10",
     name: "Pigeon By stovekraft Amaze Plus 1.5 Litre Electric kettle",
     image: "/assets/images/home_appliances/kettle.jpg",
     description:
@@ -131,7 +121,6 @@ const products = [
     numReviews: 10,
   },
   {
-    _id: "11",
     name: "Samsung 9 Kg Fully Automatic Washing Machine",
     image: "/assets/images/home_appliances/washing_machine.jpg",
     description:
@@ -144,7 +133,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: "12",
     name: "Samsung 23 L Solo Microwave Oven",
     image: "/assets/images/home_appliances/microwave.jpg",
     description:
@@ -158,7 +146,6 @@ const products = [
   },
 
   {
-    _id: "13",
     name: "OnePlus 138.8 cm Q1 Series 4K Android QLED TV",
     image: "/assets/images/home_appliances/TV1.jpg",
     description:
@@ -172,7 +159,6 @@ const products = [
   },
 
   {
-    _id: "14",
     name: "Fossil Sport Backpack",
     image: "/assets/images/mens_accessories/mens_bag.jpg",
     description:
@@ -185,7 +171,6 @@ const products = [
     numReviews: 14,
   },
   {
-    _id: "15",
     name: "Versace EROS Samples/Decants",
     image: "/assets/images/mens_accessories/mens_scent.jpg",
     description:
@@ -198,7 +183,6 @@ const products = [
     numReviews: 10,
   },
   {
-    _id: "16",
     name: " Nike Mens Viale Running Shoes ",
     image: "/assets/images/mens_accessories/mens_shoes.jpg",
     description:
@@ -211,7 +195,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: "17",
     name: "Fastrack Black Square Sunglasses for Guys",
     image: "/assets/images/mens_accessories/mens_sunglass.jpg",
     description:
@@ -225,7 +208,6 @@ const products = [
   },
 
   {
-    _id: "18",
     name: "Nate Chronograph Black Stainless Steel Watch",
     image: "/assets/images/mens_accessories/mens_watch.jpg",
     description:
@@ -239,7 +221,6 @@ const products = [
   },
 
   {
-    _id: "19",
     name: "Fossil Stevie Crossbody",
     image: "/assets/images/womens_accessories/ladies_bag.jpg",
     description:
@@ -252,7 +233,6 @@ const products = [
     numReviews: 14,
   },
   {
-    _id: "20",
     name: "Round Shiny Black 100% UV Protected Sunglasses",
     image: "/assets/images/womens_accessories/ladies_sunglass.jpg",
     description:
@@ -265,7 +245,6 @@ const products = [
     numReviews: 10,
   },
   {
-    _id: "21",
     name: "Gabrielle Chanel EDP Samples/Decants",
     image: "/assets/images/womens_accessories/womens_perfume.jpg",
     description:
@@ -278,7 +257,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: "22",
     name: "Lace-Up Stiletto Heels",
     image: "/assets/images/womens_accessories/womens_shoes.jpg",
     description:
@@ -292,7 +270,6 @@ const products = [
   },
 
   {
-    _id: "23",
     name: "FOSSIL Charter Hybrid HR FTW7013 Smart Watch",
     image: "/assets/images/womens_accessories/womens_watch.jpg",
     description:
