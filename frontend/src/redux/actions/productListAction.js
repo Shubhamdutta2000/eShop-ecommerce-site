@@ -26,8 +26,7 @@ const productsFailed = (errMess) => ({
 
 export const listProducts = () => async (dispatch) => {
   try {
-    dispatch(reqProducts);
-
+    dispatch(reqProducts());
     const { data } = await axios.get("/products");
 
     dispatch(addProducts(data));

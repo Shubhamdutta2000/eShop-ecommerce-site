@@ -4,7 +4,10 @@ import {
   PRODUCT_LIST_FAILED,
 } from "../actionTypes/productConstants";
 
-export const productList = (state = { products: [] }, action) => {
+export const productList = (
+  state = { loading: false, products: [], error: null },
+  action
+) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
       return { loading: true, products: [], error: [] };
