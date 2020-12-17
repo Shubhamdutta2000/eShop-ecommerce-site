@@ -1,5 +1,7 @@
 import express from "express";
 import Products from "../models/productsModel.js";
+
+// for handling exceptions inside of async express routes
 import asyncHandler from "express-async-handler";
 
 const router = express.Router();
@@ -13,12 +15,6 @@ router.get(
   asyncHandler(async (req, res) => {
     const products = await Products.find({});
     res.json(products);
-
-    //   Products.find({}, (err, products) => {
-    //     if (!err) {
-    //       res.json(products);
-    //     }
-    //   });
   })
 );
 
@@ -37,11 +33,6 @@ router.get(
         .status(404)
         .json({ message: "Requested caegory of products not found" });
     }
-    //   Products.find({ category: req.params.category }, (err, products) => {
-    //     if (!err) {
-    //       res.json(products);
-    //     }
-    //   });
   })
 );
 
@@ -62,18 +53,6 @@ router.get(
     } else {
       res.status(404).json({ message: "Requested product not found" });
     }
-    //   Products.findOne(
-    //     { category: req.params.category, _id: req.params.id },
-    //     (err, product) => {
-    //       if (!err) {
-    //         if (product) {
-    //           res.json(product);
-    //         } else {
-    //           res.status(404).json({ message: "Requested product not found" });
-    //         }
-    //       }
-    //     }
-    //   );
   })
 );
 
