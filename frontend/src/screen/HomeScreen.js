@@ -8,7 +8,10 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 
 // import products from "../products";
 
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { listProducts } from "../redux/actions/productListAction";
+
+// import axios from "axios";
 
 import "../styles/Screen/HomeScreen.css";
 
@@ -37,8 +40,6 @@ export default function Home() {
     },
   };
 
-  const [products, setProducts] = useState([]);
-
   const [category, setCategory] = useState({
     electronics: [],
     home_appliances: [],
@@ -46,27 +47,13 @@ export default function Home() {
     womens_accessories: [],
   });
 
+  const dispatch = useDispatch();
+  const productList = useSelector((state) => state.productList);
+  const { loading, products, error } = productList;
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get("/products");
-
-      setProducts(data);
-
-      // filter all products by category
-      setCategory({
-        electronics: data.filter((p) => p.category == "electronics"),
-        home_appliances: data.filter((p) => p.category == "home_appliances"),
-        mens_accessories: data.filter((p) => p.category == "mens_accessories"),
-        womens_accessories: data.filter(
-          (p) => p.category == "womens_accessories"
-        ),
-      });
-    };
-
-    fetchProducts();
-  }, []);
-
-  // console.log(category);
+    dispatch(listProducts());
+  }, [dispatch]);
 
   return (
     <>
@@ -78,17 +65,15 @@ export default function Home() {
       {/* ELECTRONICS */}
       <h1 className="pt-5"> Electronics Accessories </h1>
       <Row>
-        {category && (
-          <OwlCarousel
-            key={category.electronics.length}
-            className="owl-theme"
-            {...options}
-          >
-            {category.electronics.map((electronic, index) => (
-              <Col key={index}>
-                <Product product={electronic} />
-              </Col>
-            ))}
+        {products && (
+          <OwlCarousel key={products.length} className="owl-theme" {...options}>
+            {products
+              .filter((p) => p.category == "electronics")
+              .map((electronic, index) => (
+                <Col key={index}>
+                  <Product product={electronic} />
+                </Col>
+              ))}
           </OwlCarousel>
         )}
       </Row>
@@ -96,17 +81,15 @@ export default function Home() {
       {/* HOME APPLIANCES */}
       <h1 className="pt-5">Home Appliances</h1>
       <Row>
-        {category && (
-          <OwlCarousel
-            key={category.home_appliances.length}
-            className="owl-theme"
-            {...options}
-          >
-            {category.home_appliances.map((home_appliance, index) => (
-              <Col key={index}>
-                <Product product={home_appliance} />
-              </Col>
-            ))}
+        {products && (
+          <OwlCarousel key={products.length} className="owl-theme" {...options}>
+            {products
+              .filter((p) => p.category == "home_appliances")
+              .map((home_appliance, index) => (
+                <Col key={index}>
+                  <Product product={home_appliance} />
+                </Col>
+              ))}
           </OwlCarousel>
         )}
       </Row>
@@ -114,17 +97,15 @@ export default function Home() {
       {/* MENS'S ACCESSORIES */}
       <h1 className="pt-5">Men's Accessories</h1>
       <Row>
-        {category && (
-          <OwlCarousel
-            key={category.mens_accessories.length}
-            className="owl-theme"
-            {...options}
-          >
-            {category.mens_accessories.map((mens_accessory, index) => (
-              <Col key={index}>
-                <Product product={mens_accessory} />
-              </Col>
-            ))}
+        {products && (
+          <OwlCarousel key={products.length} className="owl-theme" {...options}>
+            {products
+              .filter((p) => p.category == "mens_accessories")
+              .map((mens_accessory, index) => (
+                <Col key={index}>
+                  <Product product={mens_accessory} />
+                </Col>
+              ))}
           </OwlCarousel>
         )}
       </Row>
@@ -132,17 +113,15 @@ export default function Home() {
       {/* WOMEN'S ACCESSORIES */}
       <h1 className="pt-5">Women's Accessories</h1>
       <Row>
-        {category && (
-          <OwlCarousel
-            key={category.womens_accessories.length}
-            className="owl-theme"
-            {...options}
-          >
-            {category.womens_accessories.map((womens_accessory, index) => (
-              <Col key={index}>
-                <Product product={womens_accessory} />
-              </Col>
-            ))}
+        {products && (
+          <OwlCarousel key={products.length} className="owl-theme" {...options}>
+            {products
+              .filter((p) => p.category == "womens_accessories")
+              .map((womens_accessory, index) => (
+                <Col key={index}>
+                  <Product product={womens_accessory} />
+                </Col>
+              ))}
           </OwlCarousel>
         )}
       </Row>
