@@ -29,9 +29,9 @@ router.get(
     if (products) {
       res.json(products);
     } else {
-      res
-        .status(404)
-        .json({ message: "Requested caegory of products not found" });
+      res.status(404);
+
+      throw new Error("Category of Product Not Found");
     }
   })
 );
@@ -51,7 +51,9 @@ router.get(
     if (product) {
       res.json(product);
     } else {
-      res.status(404).json({ message: "Requested product not found" });
+      res.status(404);
+
+      throw new Error("Product Not Found");
     }
   })
 );
