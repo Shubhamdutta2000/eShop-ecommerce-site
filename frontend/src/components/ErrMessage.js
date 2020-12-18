@@ -3,7 +3,15 @@ import { Alert } from "react-bootstrap";
 
 const ErrMessage = ({ varient, children }) => {
   return (
-    <Alert variant={varient} style={{ width: "100%" }}>
+    <Alert
+      style={{
+        marginTop: "16px",
+        fontSize: "1.4em",
+        width: "100%",
+        backgroundColor: `${varient}`,
+      }}
+      dismissible
+    >
       {children}
     </Alert>
   );

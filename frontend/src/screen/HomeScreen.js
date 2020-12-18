@@ -65,7 +65,7 @@ export default function Home() {
         {loading ? (
           <Loader />
         ) : error ? (
-          <ErrMess varient="danger">{error}</ErrMess>
+          <ErrMess varient="#FC308B">{error}</ErrMess>
         ) : (
           products && (
             <OwlCarousel
@@ -92,7 +92,7 @@ export default function Home() {
         {loading ? (
           <Loader />
         ) : error ? (
-          <ErrMess varient="danger">{error}</ErrMess>
+          <ErrMess varient="#FC308B">{error}</ErrMess>
         ) : (
           products && (
             <OwlCarousel
@@ -119,7 +119,7 @@ export default function Home() {
         {loading ? (
           <Loader />
         ) : error ? (
-          <ErrMess varient="danger">{error}</ErrMess>
+          <ErrMess varient="#FC308B">{error}</ErrMess>
         ) : (
           products && (
             <OwlCarousel
@@ -146,7 +146,7 @@ export default function Home() {
         {loading ? (
           <Loader />
         ) : error ? (
-          <ErrMess varient="danger">{error}</ErrMess>
+          <ErrMess varient="#FC308B">{error}</ErrMess>
         ) : (
           products && (
             <OwlCarousel
@@ -175,7 +175,7 @@ export default function Home() {
         {loading ? (
           <Loader />
         ) : error ? (
-          <ErrMess varient="danger">{error}</ErrMess>
+          <ErrMess varient="#FC308B">{error}</ErrMess>
         ) : (
           products.map((product, index) => (
             <Col md={4} lg={3} key={index}>
