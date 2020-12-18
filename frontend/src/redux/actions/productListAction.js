@@ -4,7 +4,7 @@ import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_FAILED,
-} from "../actionTypes/productConstants";
+} from "../actionTypes/productListConstants";
 
 /////////////////////    ACTIONS    ///////////////////////////////
 
@@ -26,8 +26,7 @@ const productsFailed = (errMess) => ({
 
 export const listProducts = () => async (dispatch) => {
   try {
-    dispatch(reqProducts);
-
+    dispatch(reqProducts());
     const { data } = await axios.get("/products");
 
     dispatch(addProducts(data));

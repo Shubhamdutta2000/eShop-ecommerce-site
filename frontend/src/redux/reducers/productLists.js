@@ -2,18 +2,21 @@ import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_FAILED,
-} from "../actionTypes/productConstants";
+} from "../actionTypes/productListConstants";
 
-export const productList = (state = { products: [] }, action) => {
+export const productList = (
+  state = { loading: false, products: [], error: null },
+  action
+) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
-      return { loading: true, products: [], error: [] };
+      return { loading: true, products: [], error: null };
 
     case PRODUCT_LIST_SUCCESS:
       return {
         loading: false,
         products: action.payload,
-        error: [],
+        error: null,
       };
 
     case PRODUCT_LIST_FAILED:
