@@ -1,10 +1,16 @@
 import React from "react";
 import { Alert } from "react-bootstrap";
 
-export default function ErrMessage({ varient, children }) {
-  return <Alert varient={varient}>{children}</Alert>;
-}
+const ErrMessage = ({ varient, children }) => {
+  return (
+    <Alert variant={varient} style={{ width: "100%" }}>
+      {children}
+    </Alert>
+  );
+};
 
 ErrMessage.defaultProps = {
   varient: "info",
 };
+
+export default ErrMessage;

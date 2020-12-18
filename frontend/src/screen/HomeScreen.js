@@ -15,6 +15,8 @@ import ErrMess from "../components/ErrMessage";
 import "../styles/Screen/HomeScreen.css";
 
 export default function Home() {
+  ///////////////////////      options for CAROUSAL     ///////////////////////
+
   const options = {
     loop: false,
     margin: 10,
@@ -39,6 +41,8 @@ export default function Home() {
     },
   };
 
+  //////////////////     fetching datas of productList from redux state   ////////////////////////
+
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, products, error } = productList;
@@ -57,11 +61,13 @@ export default function Home() {
       {/* ELECTRONICS */}
       <h1 className="pt-5"> Electronics Accessories </h1>
 
-      {loading ? (
-        <Loader />
-      ) : (
-        <Row>
-          {products && (
+      <Row>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <ErrMess varient="danger">{error}</ErrMess>
+        ) : (
+          products && (
             <OwlCarousel
               key={products.length}
               className="owl-theme"
@@ -75,18 +81,20 @@ export default function Home() {
                   </Col>
                 ))}
             </OwlCarousel>
-          )}
-        </Row>
-      )}
+          )
+        )}
+      </Row>
 
       {/* HOME APPLIANCES */}
       <h1 className="pt-5">Home Appliances</h1>
 
-      {loading ? (
-        <Loader />
-      ) : (
-        <Row>
-          {products && (
+      <Row>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <ErrMess varient="danger">{error}</ErrMess>
+        ) : (
+          products && (
             <OwlCarousel
               key={products.length}
               className="owl-theme"
@@ -100,18 +108,20 @@ export default function Home() {
                   </Col>
                 ))}
             </OwlCarousel>
-          )}
-        </Row>
-      )}
+          )
+        )}
+      </Row>
 
       {/* MENS'S ACCESSORIES */}
       <h1 className="pt-5">Men's Accessories</h1>
 
-      {loading ? (
-        <Loader />
-      ) : (
-        <Row>
-          {products && (
+      <Row>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <ErrMess varient="danger">{error}</ErrMess>
+        ) : (
+          products && (
             <OwlCarousel
               key={products.length}
               className="owl-theme"
@@ -125,17 +135,20 @@ export default function Home() {
                   </Col>
                 ))}
             </OwlCarousel>
-          )}
-        </Row>
-      )}
+          )
+        )}
+      </Row>
 
       {/* WOMEN'S ACCESSORIES */}
       <h1 className="pt-5">Women's Accessories</h1>
-      {loading ? (
-        <Loader />
-      ) : (
-        <Row>
-          {products && (
+
+      <Row>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <ErrMess varient="danger">{error}</ErrMess>
+        ) : (
+          products && (
             <OwlCarousel
               key={products.length}
               className="owl-theme"
@@ -149,25 +162,28 @@ export default function Home() {
                   </Col>
                 ))}
             </OwlCarousel>
-          )}
-        </Row>
-      )}
+          )
+        )}
+      </Row>
 
       {/*//////////////////////////       CAROUSAL ENDS      /////////////////////////////////////// */}
 
       {/* ALL PRODUCTS */}
       <h1 className="pt-5">Latest Products</h1>
-      {loading ? (
-        <Loader />
-      ) : (
-        <Row>
-          {products.map((product, index) => (
+
+      <Row>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <ErrMess varient="danger">{error}</ErrMess>
+        ) : (
+          products.map((product, index) => (
             <Col md={4} lg={3} key={index}>
               <Product product={product} />
             </Col>
-          ))}
-        </Row>
-      )}
+          ))
+        )}
+      </Row>
     </>
   );
 }

@@ -10,13 +10,13 @@ export const productList = (
 ) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
-      return { loading: true, products: [], error: [] };
+      return { loading: true, products: [], error: null };
 
     case PRODUCT_LIST_SUCCESS:
       return {
         loading: false,
         products: action.payload,
-        error: [],
+        error: null,
       };
 
     case PRODUCT_LIST_FAILED:
