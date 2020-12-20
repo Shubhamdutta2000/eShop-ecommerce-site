@@ -1,17 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Card,
+  Button,
+  Form,
+} from "react-bootstrap";
+
+//////////////////    SCREEN        //////////////////////////
+
+//////////////////    COMPONENTS     //////////////////////////
 import Rating from "../components/Rating";
-
-import { useDispatch, useSelector } from "react-redux";
-import { listProductDetails } from "../redux/actions/productDetailsAction";
-
 import Loader from "../components/Loader";
 import ErrMessage from "../components/ErrMessage";
 
+/////////////////     REDUX    ///////////////////////////////////
+import { useDispatch, useSelector } from "react-redux";
+import { listProductDetails } from "../redux/actions/productDetailsAction";
+
 import "../styles/Screen/ProductScreen.css";
 
-export default function ProductScreen({ match }) {
+export default function ProductScreen({ history, match }) {
+  const [qty, setQty] = useState(0);
+
   //////////////////     fetching datas of productList from redux state   ////////////////////////
 
   const dispatch = useDispatch();
@@ -22,17 +36,23 @@ export default function ProductScreen({ match }) {
     dispatch(listProductDetails(match.params.category, match.params.id));
   }, [dispatch]);
 
+  //////////////////////    Redirect to Cart page      ///////////////////////
+
+  const addToCartHandler = () => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
+
   return (
     <>
       <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
             <a href="/">Home</a>
           </li>
-          <li class="breadcrumb-item">
+          <li className="breadcrumb-item">
             <a href="/">{product.category}</a>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">
+          <li className="breadcrumb-item active" aria-current="page">
             {product.name}
           </li>
         </ol>
@@ -48,7 +68,7 @@ export default function ProductScreen({ match }) {
         <ErrMessage varient="#FC308B">{error}</ErrMessage>
       ) : (
         <Row>
-          <Col lg={6}>
+          <Col md={6}>
             <Image
               className="shadow"
               src={product.image}
@@ -57,7 +77,7 @@ export default function ProductScreen({ match }) {
             />
           </Col>
 
-          <Col lg={3}>
+          <Col md={3}>
             <ListGroup className="shadow" varient="flush">
               <ListGroup.Item>
                 <h3 className="font-weight-bold text-primary">
@@ -87,7 +107,7 @@ export default function ProductScreen({ match }) {
             </ListGroup>
           </Col>
 
-          <Col lg={3}>
+          <Col md={3}>
             <Card>
               <ListGroup varient="flush">
                 <ListGroup.Item>
@@ -103,16 +123,41 @@ export default function ProductScreen({ match }) {
                     <Col>Status: </Col>
                     <Col>
                       <strong>
-                        ${product.countInStock ? "In Stock" : "Out Of Stck"}
+                        ${product.countInStock ? "In Stock" : "Out Of Stock"}
                       </strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
+                {product.countInStock > 0 && (
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Quantity: </Col>
+                      <Col>
+                        <Form.Control
+                          as="select"
+                          value={qty}
+                          onChange={(e) => setQty(e.target.value)}
+                        >
+                          {[...Array(product.countInStock).keys()].map((q) => (
+                            <option key={q + 1} value={q + 1}>
+                              {q + 1}
+                            </option>
+                          ))}
+                        </Form.Control>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                )}
                 <ListGroup.Item>
                   <Button
-                    className="btn-block p-3"
+                    className={
+                      product.countInStock == 0
+                        ? "btn-block p-3 disabled"
+                        : "btn-block p-3"
+                    }
+                    onClick={addToCartHandler}
                     type="button"
-                    disabled={product.countInStock < 0}
+                    disabled={product.countInStock == 0}
                   >
                     ADD TO CART
                   </Button>

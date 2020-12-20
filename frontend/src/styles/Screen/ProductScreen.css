@@ -5,3 +5,7 @@
 .btn-block:hover {
   background-color: #0995e0;
 }
+
+.disabled {
+  cursor: not-allowed;
+}
