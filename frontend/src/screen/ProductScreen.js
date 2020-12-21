@@ -24,7 +24,7 @@ import { listProductDetails } from "../redux/actions/productDetailsAction";
 import "../styles/Screen/ProductScreen.css";
 
 export default function ProductScreen({ history, match }) {
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
 
   //////////////////     fetching datas of productList from redux state   ////////////////////////
 
@@ -39,7 +39,9 @@ export default function ProductScreen({ history, match }) {
   //////////////////////    Redirect to Cart page      ///////////////////////
 
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`);
+    history.push(
+      `/cart/${match.params.category}/${match.params.id}?qty=${qty}`
+    );
   };
 
   return (

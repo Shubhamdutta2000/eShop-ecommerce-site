@@ -16,7 +16,7 @@ const reducer = combineReducers({
 // GET all cart Items from local Storage
 
 const cartsFromLocalStorage = localStorage.getItem("cartItems")
-  ? JSON.stringify(localStorage.getItem("cartItems"))
+  ? JSON.parse(localStorage.getItem("cartItems"))
   : [];
 
 const initialState = {

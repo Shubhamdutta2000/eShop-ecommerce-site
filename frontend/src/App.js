@@ -15,7 +15,7 @@ function App() {
         <main className="mx-5 px-4 py-4">
           <Route path="/" component={Home} exact />
           <Route path="/products/:category/:id" component={ProductScreen} />
-          <Route path="/cart/:id?" component={CartScreen} />
+          <Route path="/cart/:category?/:id?" component={CartScreen} />
         </main>
         <Footer />
       </div>
