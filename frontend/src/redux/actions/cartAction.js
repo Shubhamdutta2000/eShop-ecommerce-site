@@ -11,6 +11,7 @@ const addCart = (data, qty) => ({
     name: data.name,
     image: data.image,
     price: data.price,
+    category: data.category,
     countInStock: data.countInStock,
     qty,
   },

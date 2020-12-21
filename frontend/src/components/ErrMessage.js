@@ -18,7 +18,7 @@ const ErrMessage = ({ varient, children }) => {
 };
 
 ErrMessage.defaultProps = {
-  varient: "info",
+  varient: "#77F7FF",
 };
 
 export default ErrMessage;
