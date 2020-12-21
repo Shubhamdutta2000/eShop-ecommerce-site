@@ -49,34 +49,35 @@ const CartScreen = ({ match, location, history }) => {
 
   return (
     <>
+      {/* BREADCRUMB OF NAV */}
+
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
             <a href="/">Home</a>
           </li>
-          {category ? (
-            <li className="breadcrumb-item">
-              <a href={`/products/${category}/${productId}`}>{category}</a>
-            </li>
-          ) : null}
+
           <li className="breadcrumb-item active" aria-current="page">
             CART
           </li>
         </ol>
       </nav>
 
-      <Row className="mt-5">
+      {/* CART WHOLE SECTION */}
+
+      <Row className="mt-5 ">
         <Col md={9}>
-          <h1>SHOPPING CART ({cartItems.length})</h1>
+          <h1 style={{ fontWeight: "bold" }}>YOUR CART ({cartItems.length})</h1>
+
           <br />
-          <br />
+
           {cartItems.length == 0 ? (
             <ErrMessage varient="#d1ecf1">
               <span style={{ color: "#3E19FA" }}>Your cart is empty</span>
               <Link to="/">Go back</Link>
             </ErrMessage>
           ) : (
-            <ListGroup varient="flush">
+            <ListGroup varient="flush" className="shadow-lg">
               <ListGroup.Item>
                 <Row>
                   <Col md={3}>
@@ -156,23 +157,44 @@ const CartScreen = ({ match, location, history }) => {
           <Card>
             <ListGroup>
               <ListGroup.Item>
+                <Button
+                  className="btn-block p-2"
+                  style={{ fontSize: "1.1rem" }}
+                  disabled={cartItems.length == 0}
+                  onCLick={checkoutHandler}
+                >
+                  PROCEED TO PAY
+                </Button>
+              </ListGroup.Item>
+              <ListGroup.Item>
                 <h3>
                   <strong>ORDER SUMMARY</strong>
                 </h3>
               </ListGroup.Item>
               <ListGroup.Item>
-                <h4>
-                  SUBTOTAL ({cartItems.reduce((acc, item) => acc + item.qty, 0)}
-                  ) ITEMS
-                </h4>
+                <Row>
+                  <Col>
+                    <h4 style={{ color: "#0995e0", fontWeight: "600" }}>
+                      Subtotal:
+                    </h4>
+                  </Col>
+                  <Col>
+                    <h5 style={{ fontWeight: "bold" }}>
+                      ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                      ITEMS
+                    </h5>
+                  </Col>
+                </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>
-                    <h4>Price:</h4>
+                    <h4 style={{ color: "#0995e0", fontWeight: "800" }}>
+                      Price:
+                    </h4>
                   </Col>
                   <Col>
-                    <h5>
+                    <h5 style={{ fontWeight: "bold" }}>
                       $
                       {cartItems
                         .reduce((acc, item) => acc + item.qty * item.price, 0)
@@ -184,17 +206,23 @@ const CartScreen = ({ match, location, history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>
-                    <h4>Delivery:</h4>
+                    <h4 style={{ color: "#0995e0", fontWeight: "800" }}>
+                      Delivery:
+                    </h4>
                   </Col>
                   <Col>
-                    <h4 style={{ color: "tomato" }}>Free</h4>
+                    <h5 style={{ color: "tomato", fontWeight: "bold" }}>
+                      Free
+                    </h5>
                   </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>
-                    <h4>Total:</h4>
+                    <h4 style={{ color: "#0995e0", fontWeight: "800" }}>
+                      Total:
+                    </h4>
                   </Col>
                   <Col>
                     <h5 style={{ fontSize: "1.6rem", fontWeight: "bold" }}>
@@ -205,15 +233,6 @@ const CartScreen = ({ match, location, history }) => {
                     </h5>
                   </Col>
                 </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Button
-                  className="btn-block p-2"
-                  disabled={cartItems.length == 0}
-                  onCLick={checkoutHandler}
-                >
-                  PROCEED TO PAY
-                </Button>
               </ListGroup.Item>
             </ListGroup>
           </Card>
