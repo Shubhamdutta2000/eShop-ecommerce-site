@@ -16,7 +16,7 @@ import ErrMessage from "../components/ErrMessage";
 
 /////////////////     REDUX    ///////////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../redux/actions/cartAction";
+import { addToCart, removeFromCart } from "../redux/actions/cartAction";
 import { Link } from "react-router-dom";
 
 //////////////////   CSS style   //////////////////////////////
@@ -40,8 +40,9 @@ const CartScreen = ({ match, location, history }) => {
 
   ////////////////////      remove cart Handler    /////////////////////////
 
-  const removecartHandler = (productid) => {
+  const removecartHandler = (productId) => {
     console.log(productId);
+    dispatch(removeFromCart(productId));
   };
 
   ////////////////////      Checkout Process Handler    /////////////////////////

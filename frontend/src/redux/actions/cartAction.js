@@ -17,6 +17,11 @@ const addCart = (data, qty) => ({
   },
 });
 
+const removeCart = (id) => ({
+  type: CART_ITEM_REMOVE,
+  payload: id,
+});
+
 ////////////////////////////       ACTION CREATOR     //////////////////////////
 
 export const addToCart = (id, category, qty) => async (dispatch, getState) => {
@@ -25,5 +30,12 @@ export const addToCart = (id, category, qty) => async (dispatch, getState) => {
   dispatch(addCart(data, qty));
 
   // Adding cartItems to localStorage
+  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+};
+
+export const removeFromCart = (id) => (dispatch, getState) => {
+  dispatch(removeCart(id));
+
+  // Adding to localStorage after removing particular product
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
