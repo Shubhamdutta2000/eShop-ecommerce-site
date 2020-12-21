@@ -41,7 +41,11 @@ const CartScreen = ({ match, location, history }) => {
     console.log(productId);
   };
 
-  // console.log(cartItems);
+  ////////////////////      Checkout Process Handler    /////////////////////////
+
+  const checkoutHandler = () => {
+    console.log("CHECKOUT");
+  };
 
   return (
     <>
@@ -61,7 +65,7 @@ const CartScreen = ({ match, location, history }) => {
         </ol>
       </nav>
 
-      <Row className="my-5">
+      <Row className="mt-5">
         <Col md={9}>
           <h1>SHOPPING CART ({cartItems.length})</h1>
           <br />
@@ -139,10 +143,7 @@ const CartScreen = ({ match, location, history }) => {
                         variant="light"
                         onClick={() => removecartHandler(item.product)}
                       >
-                        <i
-                          style={{ color: "red" }}
-                          className="fas fa-trash"
-                        ></i>
+                        <i className="fas fa-trash"></i>
                       </Button>
                     </Col>
                   </Row>
@@ -150,6 +151,72 @@ const CartScreen = ({ match, location, history }) => {
               ))}
             </ListGroup>
           )}
+        </Col>
+        <Col md={3}>
+          <Card>
+            <ListGroup>
+              <ListGroup.Item>
+                <h3>
+                  <strong>ORDER SUMMARY</strong>
+                </h3>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <h4>
+                  SUBTOTAL ({cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                  ) ITEMS
+                </h4>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>
+                    <h4>Price:</h4>
+                  </Col>
+                  <Col>
+                    <h5>
+                      $
+                      {cartItems
+                        .reduce((acc, item) => acc + item.qty * item.price, 0)
+                        .toFixed(2)}
+                    </h5>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>
+                    <h4>Delivery:</h4>
+                  </Col>
+                  <Col>
+                    <h4 style={{ color: "tomato" }}>Free</h4>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>
+                    <h4>Total:</h4>
+                  </Col>
+                  <Col>
+                    <h5 style={{ fontSize: "1.6rem", fontWeight: "bold" }}>
+                      $
+                      {cartItems
+                        .reduce((acc, item) => acc + item.qty * item.price, 0)
+                        .toFixed(2)}
+                    </h5>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Button
+                  className="btn-block p-2"
+                  disabled={cartItems.length == 0}
+                  onCLick={checkoutHandler}
+                >
+                  PROCEED TO PAY
+                </Button>
+              </ListGroup.Item>
+            </ListGroup>
+          </Card>
         </Col>
       </Row>
     </>
