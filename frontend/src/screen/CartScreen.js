@@ -48,6 +48,7 @@ const CartScreen = ({ match, location, history }) => {
   ////////////////////      Checkout Process Handler    /////////////////////////
 
   const checkoutHandler = () => {
+    history.push("/login?redirect=shipping");
     console.log("CHECKOUT");
   };
 
@@ -171,7 +172,7 @@ const CartScreen = ({ match, location, history }) => {
                 <Button
                   className="btn-block p-2 cart__right__checkout"
                   disabled={cartItems.length == 0}
-                  onCLick={checkoutHandler}
+                  onClick={checkoutHandler}
                 >
                   PROCEED TO PAY
                 </Button>
