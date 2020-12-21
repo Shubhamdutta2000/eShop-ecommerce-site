@@ -68,16 +68,38 @@ const CartScreen = ({ match, location, history }) => {
           <br />
           {cartItems.length == 0 ? (
             <ErrMessage varient="#d1ecf1">
-              <span style={{ color: "#3E19FA" }}>Your cart is empty</span>{" "}
+              <span style={{ color: "#3E19FA" }}>Your cart is empty</span>
               <Link to="/">Go back</Link>
             </ErrMessage>
           ) : (
             <ListGroup varient="flush">
+              <ListGroup.Item>
+                <Row>
+                  <Col md={3}>
+                    <h3>Image</h3>
+                  </Col>
+                  <Col md={3}>
+                    <h3>Name</h3>
+                  </Col>
+                  <Col md={2}>
+                    <h3>Price</h3>
+                  </Col>
+                  <Col md={2}>
+                    <h3>Quantity</h3>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
               {cartItems.map((item) => (
                 <ListGroup.Item key={item.product}>
                   <Row>
                     <Col md={3}>
-                      <Image src={item.image} alt={item.name} fluid rounded />
+                      <Image
+                        width="200"
+                        src={item.image}
+                        alt={item.name}
+                        fluid
+                        rounded
+                      />
                     </Col>
                     <Col md={3}>
                       <Link to={`/products/${item.category}/${item.product}`}>
