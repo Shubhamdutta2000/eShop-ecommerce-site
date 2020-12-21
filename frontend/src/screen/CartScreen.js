@@ -62,7 +62,7 @@ const CartScreen = ({ match, location, history }) => {
       </nav>
 
       <Row className="my-5">
-        <Col md={10}>
+        <Col md={9}>
           <h1>SHOPPING CART ({cartItems.length})</h1>
           <br />
           <br />
@@ -102,11 +102,16 @@ const CartScreen = ({ match, location, history }) => {
                       />
                     </Col>
                     <Col md={3}>
-                      <Link to={`/products/${item.category}/${item.product}`}>
+                      <Link
+                        style={{ fontSize: "1.08rem" }}
+                        to={`/products/${item.category}/${item.product}`}
+                      >
                         {item.name}
                       </Link>
                     </Col>
-                    <Col md={2}>${item.price}</Col>
+                    <Col md={2} style={{ fontSize: "1.2rem" }}>
+                      ${item.price}
+                    </Col>
                     <Col md={2}>
                       <Form.Control
                         as="select"
@@ -128,13 +133,16 @@ const CartScreen = ({ match, location, history }) => {
                         ))}
                       </Form.Control>
                     </Col>
-                    <Col md={2}>
+                    <Col md={2} style={{ marginLeft: ".002rem" }}>
                       <Button
                         type="button"
                         variant="light"
                         onClick={() => removecartHandler(item.product)}
                       >
-                        <i className="fas fa-trash"></i>
+                        <i
+                          style={{ color: "red" }}
+                          className="fas fa-trash"
+                        ></i>
                       </Button>
                     </Col>
                   </Row>
