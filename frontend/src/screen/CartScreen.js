@@ -18,7 +18,10 @@ import ErrMessage from "../components/ErrMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/actions/cartAction";
 import { Link } from "react-router-dom";
-import { black } from "colors";
+
+//////////////////   CSS style   //////////////////////////////
+
+import "../styles/Screen/CartScreen.css";
 
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id;
@@ -49,7 +52,7 @@ const CartScreen = ({ match, location, history }) => {
 
   return (
     <>
-      {/* BREADCRUMB OF NAV */}
+      {/*//////////////////////////   BREADCRUMB OF NAV  //////////////////////////*/}
 
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
@@ -63,21 +66,24 @@ const CartScreen = ({ match, location, history }) => {
         </ol>
       </nav>
 
-      {/* CART WHOLE SECTION */}
+      {/*///////////////////////////  CART WHOLE SECTION  /////////////////////////////*/}
 
       <Row className="mt-5 ">
+        {/*//////////////////////////   1. CART LEFT SECTION   //////////////////////////////*/}
         <Col md={9}>
-          <h1 style={{ fontWeight: "bold" }}>YOUR CART ({cartItems.length})</h1>
+          <h1 className="cart__name">YOUR CART ({cartItems.length})</h1>
 
           <br />
 
+          {/*//////////////    CART == EMPTY -> ErrMess => Else => loop through cartItems   ////////////*/}
+
           {cartItems.length == 0 ? (
             <ErrMessage varient="#d1ecf1">
-              <span style={{ color: "#3E19FA" }}>Your cart is empty</span>
+              <span className="cart__empty">Your cart is empty</span>
               <Link to="/">Go back</Link>
             </ErrMessage>
           ) : (
-            <ListGroup varient="flush" className="shadow-lg">
+            <ListGroup varient="flush" className="shadow-lg cart__left">
               <ListGroup.Item>
                 <Row>
                   <Col md={3}>
@@ -99,6 +105,7 @@ const CartScreen = ({ match, location, history }) => {
                   <Row>
                     <Col md={3}>
                       <Image
+                        className="cart__left__item__image"
                         width="200"
                         src={item.image}
                         alt={item.name}
@@ -108,13 +115,13 @@ const CartScreen = ({ match, location, history }) => {
                     </Col>
                     <Col md={3}>
                       <Link
-                        style={{ fontSize: "1.08rem" }}
+                        className="cart__left__item__name"
                         to={`/products/${item.category}/${item.product}`}
                       >
                         {item.name}
                       </Link>
                     </Col>
-                    <Col md={2} style={{ fontSize: "1.2rem" }}>
+                    <Col md={2} className="cart__left__item__price">
                       ${item.price}
                     </Col>
                     <Col md={2}>
@@ -138,8 +145,9 @@ const CartScreen = ({ match, location, history }) => {
                         ))}
                       </Form.Control>
                     </Col>
-                    <Col md={2} style={{ marginLeft: ".002rem" }}>
+                    <Col md={2}>
                       <Button
+                        className="cart__left__item__remove"
                         type="button"
                         variant="light"
                         onClick={() => removecartHandler(item.product)}
@@ -153,13 +161,14 @@ const CartScreen = ({ match, location, history }) => {
             </ListGroup>
           )}
         </Col>
+
+        {/*//////////////////////////   2. CART RIGHT SECTION    /////////////////////////////*/}
         <Col md={3}>
           <Card>
             <ListGroup>
               <ListGroup.Item>
                 <Button
-                  className="btn-block p-2"
-                  style={{ fontSize: "1.1rem" }}
+                  className="btn-block p-2 cart__right__checkout"
                   disabled={cartItems.length == 0}
                   onCLick={checkoutHandler}
                 >
@@ -174,12 +183,10 @@ const CartScreen = ({ match, location, history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>
-                    <h4 style={{ color: "#0995e0", fontWeight: "600" }}>
-                      Subtotal:
-                    </h4>
+                    <h4 className="cart__right__subtotal">Subtotal:</h4>
                   </Col>
                   <Col>
-                    <h5 style={{ fontWeight: "bold" }}>
+                    <h5 className="cart__right__subtotal--value">
                       ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                       ITEMS
                     </h5>
@@ -189,12 +196,10 @@ const CartScreen = ({ match, location, history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>
-                    <h4 style={{ color: "#0995e0", fontWeight: "800" }}>
-                      Price:
-                    </h4>
+                    <h4 className="cart__right__price">Price:</h4>
                   </Col>
                   <Col>
-                    <h5 style={{ fontWeight: "bold" }}>
+                    <h5 className="cart__right__price--value">
                       $
                       {cartItems
                         .reduce((acc, item) => acc + item.qty * item.price, 0)
@@ -206,26 +211,20 @@ const CartScreen = ({ match, location, history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>
-                    <h4 style={{ color: "#0995e0", fontWeight: "800" }}>
-                      Delivery:
-                    </h4>
+                    <h4 className="cart__right__delivery">Delivery:</h4>
                   </Col>
                   <Col>
-                    <h5 style={{ color: "tomato", fontWeight: "bold" }}>
-                      Free
-                    </h5>
+                    <h5 className="cart__right__delivery--value">Free</h5>
                   </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>
-                    <h4 style={{ color: "#0995e0", fontWeight: "800" }}>
-                      Total:
-                    </h4>
+                    <h4 className="cart__right__total__price">Total:</h4>
                   </Col>
                   <Col>
-                    <h5 style={{ fontSize: "1.6rem", fontWeight: "bold" }}>
+                    <h5 className="cart__right__total__price--value">
                       $
                       {cartItems
                         .reduce((acc, item) => acc + item.qty * item.price, 0)
