@@ -81,7 +81,7 @@ const CartScreen = ({ match, location, history }) => {
 
           {cartItems.length == 0 ? (
             <ErrMessage varient="#d1ecf1">
-              <span className="cart__empty">Your cart is empty</span>
+              <span className="cart__empty">Your cart is empty </span>
               <Link to="/">Go back</Link>
             </ErrMessage>
           ) : (
