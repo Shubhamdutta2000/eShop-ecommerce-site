@@ -44,6 +44,11 @@ export default function ProductScreen({ history, match }) {
     );
   };
 
+  /////////////////////    GO BACK      ////////////////////////
+  const goBack = () => {
+    history.goBack();
+  };
+
   return (
     <>
       <nav aria-label="breadcrumb">
@@ -60,9 +65,9 @@ export default function ProductScreen({ history, match }) {
         </ol>
       </nav>
 
-      <Link to="/" className="btn btn-light my-3">
+      <Button onClick={goBack} className="btn btn-light my-3">
         Go Back
-      </Link>
+      </Button>
 
       {loading ? (
         <Loader />

@@ -52,6 +52,11 @@ const CartScreen = ({ match, location, history }) => {
     console.log("CHECKOUT");
   };
 
+  ////////////////////     GO BACK      //////////////////////////////////
+  const goBack = () => {
+    history.goBack();
+  };
+
   return (
     <>
       {/*//////////////////////////   BREADCRUMB OF NAV  //////////////////////////*/}
@@ -68,12 +73,18 @@ const CartScreen = ({ match, location, history }) => {
         </ol>
       </nav>
 
+      <Button onClick={goBack} className="btn btn-light mt-2">
+        Go Back
+      </Button>
       {/*///////////////////////////  CART WHOLE SECTION  /////////////////////////////*/}
 
-      <Row className="mt-5 ">
+      <Row className="mt-4">
         {/*//////////////////////////   1. CART LEFT SECTION   //////////////////////////////*/}
         <Col md={9}>
-          <h1 className="cart__name">YOUR CART ({cartItems.length})</h1>
+          <h1 className="cart__name ">
+            YOUR CART ({cartItems.length})
+            <span className="cart__name__span"> ITEM</span>
+          </h1>
 
           <br />
 
@@ -82,22 +93,22 @@ const CartScreen = ({ match, location, history }) => {
           {cartItems.length == 0 ? (
             <ErrMessage varient="#d1ecf1">
               <span className="cart__empty">Your cart is empty </span>
-              <Link to="/">Go back</Link>
+              <Link to="/">Keep Shopping</Link>
             </ErrMessage>
           ) : (
-            <ListGroup varient="flush" className="shadow-lg cart__left">
-              <ListGroup.Item>
+            <ListGroup varient="flush" className="shadow-lg">
+              <ListGroup.Item className="cart__left__heading">
                 <Row>
-                  <Col md={3}>
+                  <Col sm={3}>
                     <h3>Image</h3>
                   </Col>
-                  <Col md={3}>
+                  <Col sm={3}>
                     <h3>Name</h3>
                   </Col>
-                  <Col md={2}>
+                  <Col sm={2}>
                     <h3>Price</h3>
                   </Col>
-                  <Col md={2}>
+                  <Col sm={2}>
                     <h3>Quantity</h3>
                   </Col>
                 </Row>
@@ -105,7 +116,7 @@ const CartScreen = ({ match, location, history }) => {
               {cartItems.map((item) => (
                 <ListGroup.Item key={item.product}>
                   <Row>
-                    <Col md={3}>
+                    <Col sm={3}>
                       <Image
                         className="cart__left__item__image"
                         width="200"
@@ -115,7 +126,7 @@ const CartScreen = ({ match, location, history }) => {
                         rounded
                       />
                     </Col>
-                    <Col md={3}>
+                    <Col sm={3}>
                       <Link
                         className="cart__left__item__name"
                         to={`/products/${item.category}/${item.product}`}
@@ -123,10 +134,10 @@ const CartScreen = ({ match, location, history }) => {
                         {item.name}
                       </Link>
                     </Col>
-                    <Col md={2} className="cart__left__item__price">
+                    <Col sm={2} className="cart__left__item__price">
                       ${item.price}
                     </Col>
-                    <Col md={2}>
+                    <Col sm={2}>
                       <Form.Control
                         as="select"
                         value={item.qty}
@@ -147,7 +158,7 @@ const CartScreen = ({ match, location, history }) => {
                         ))}
                       </Form.Control>
                     </Col>
-                    <Col md={2}>
+                    <Col sm={2}>
                       <Button
                         className="cart__left__item__remove"
                         type="button"
@@ -168,7 +179,7 @@ const CartScreen = ({ match, location, history }) => {
         <Col md={3}>
           <Card>
             <ListGroup>
-              <ListGroup.Item>
+              <ListGroup.Item className="pb-4">
                 <Button
                   className="btn-block p-2 cart__right__checkout"
                   disabled={cartItems.length == 0}
@@ -178,9 +189,9 @@ const CartScreen = ({ match, location, history }) => {
                 </Button>
               </ListGroup.Item>
               <ListGroup.Item>
-                <h3>
+                <h4>
                   <strong>ORDER SUMMARY</strong>
-                </h3>
+                </h4>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
@@ -190,7 +201,6 @@ const CartScreen = ({ match, location, history }) => {
                   <Col>
                     <h5 className="cart__right__subtotal--value">
                       ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
-                      ITEMS
                     </h5>
                   </Col>
                 </Row>

@@ -1,6 +1,12 @@
 .cart__name {
   font-weight: bold;
   color: #0076b6;
+  margin: 1rem 0 1rem 0;
+  text-align: center;
+}
+
+.cart__name__span {
+  font-size: 1.1rem;
 }
 
 .cart__empty {
@@ -9,6 +15,9 @@
 
 /*/////////////     CART LEFT SIDE ///////////////////*/
 
+.cart__left__heading {
+  background-color: #dff2f4;
+}
 .cart__left__item__name {
   font-size: 1.08rem;
 }
@@ -18,15 +27,17 @@
 }
 
 .cart__left__item__remove {
-  margin-left: 2rem;
+  margin-left: 1.2rem;
 }
-
-
 
 /*/ ////////////     CART RIGHT SIDE ///////////////////*/
 
 .cart__right__checkout {
   font-size: 1.1rem;
+}
+
+.cart__right__checkout:disabled {
+  cursor: not-allowed;
 }
 
 .cart__right__subtotal {
