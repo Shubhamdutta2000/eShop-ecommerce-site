@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const userSchema = mongoose.Schema({
   name: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
@@ -19,6 +19,12 @@ const userSchema = mongoose.Schema({
     default: true,
   },
 });
+
+////  Check if password entered in Post req is same as that of stored in DB ////
+
+userSchema.methods.checkPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 const User = mongoose.model("User", userSchema);
 export default User;
