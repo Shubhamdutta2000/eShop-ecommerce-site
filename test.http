@@ -1,0 +1,14 @@
+
+///////////////////////    PRODUCTS     ///////////////////////////
+
+
+#########   PRODUCTS BY CATEGORY   ########
+
+GET http://localhost:5000/products/mens_accessories/
+
+
+
+##########    PRODUCTS BY CATEGOEY AND ID    ##########
+
+# GET http://localhost:5000/products/mens_accessories/5fda124ef08b7d0f6c2475c7
+

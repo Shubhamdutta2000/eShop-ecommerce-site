@@ -6,12 +6,15 @@ import dbConnection from "./config/db.js";
 import { NotFound, errorhandler } from "./middleware/errorHandling.js";
 
 import ProductRoutes from "./routes/productRoutes.js";
+import UserRoutes from "./routes/userRouter.js";
 
 ////////////    Configuring all .env files   /////////////
 dotenv.config();
 dbConnection();
 
 const app = express();
+
+app.use(express.json());
 
 ////////////   base route (for testing)     //////////////
 app.get("/", (req, res) => {
@@ -20,6 +23,7 @@ app.get("/", (req, res) => {
 
 ////////////    Routes      //////////////
 app.use("/products", ProductRoutes);
+app.use("/user", UserRoutes);
 
 ///////////    For error handling   //////////////
 app.use(NotFound);
