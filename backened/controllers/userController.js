@@ -3,6 +3,7 @@ import asyncHandler from "express-async-handler";
 
 import generateToken from "../utils/tokenGeneration.js";
 
+import bcrypt from "bcrypt";
 // @purpose:   Register new user and get token
 // @route:  POST /user/register
 // @access  Public
