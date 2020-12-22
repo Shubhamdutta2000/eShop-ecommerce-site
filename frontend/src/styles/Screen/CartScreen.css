@@ -32,6 +32,10 @@
 
 /*/ ////////////     CART RIGHT SIDE ///////////////////*/
 
+.cart__right__order__heading {
+  text-align: center;
+}
+
 .cart__right__checkout {
   font-size: 1.1rem;
 }
@@ -47,7 +51,7 @@
 
 .cart__right__price {
   color: #0995e0;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .cart__right__price--value {
@@ -60,7 +64,7 @@
 
 .cart__right__delivery {
   color: #0995e0;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .cart__right__delivery--value {
@@ -70,10 +74,9 @@
 
 .cart__right__total__price {
   color: #0995e0;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .cart__right__total__price--value {
-  font-size: 1.6rem;
   font-weight: bold;
 }

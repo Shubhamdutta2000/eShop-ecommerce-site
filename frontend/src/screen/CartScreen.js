@@ -80,7 +80,7 @@ const CartScreen = ({ match, location, history }) => {
 
       <Row className="mt-4">
         {/*//////////////////////////   1. CART LEFT SECTION   //////////////////////////////*/}
-        <Col md={9}>
+        <Col md={8}>
           <h1 className="cart__name ">
             YOUR CART ({cartItems.length})
             <span className="cart__name__span"> ITEM</span>
@@ -140,6 +140,7 @@ const CartScreen = ({ match, location, history }) => {
                     <Col sm={2}>
                       <Form.Control
                         as="select"
+                        style={{ border: "none", outline: "none" }}
                         value={item.qty}
                         onChange={(e) =>
                           dispatch(
@@ -176,7 +177,7 @@ const CartScreen = ({ match, location, history }) => {
         </Col>
 
         {/*//////////////////////////   2. CART RIGHT SECTION    /////////////////////////////*/}
-        <Col md={3}>
+        <Col md={4}>
           <Card>
             <ListGroup>
               <ListGroup.Item className="pb-4">
@@ -189,7 +190,7 @@ const CartScreen = ({ match, location, history }) => {
                 </Button>
               </ListGroup.Item>
               <ListGroup.Item>
-                <h4>
+                <h4 className="cart__right__order__heading">
                   <strong>ORDER SUMMARY</strong>
                 </h4>
               </ListGroup.Item>
