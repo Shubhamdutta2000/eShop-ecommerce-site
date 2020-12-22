@@ -4,7 +4,7 @@ import {
   PRODUCT_LIST_FAILED,
 } from "../actionTypes/productListConstants";
 
-export const productList = (
+export const productListsReducer = (
   state = { loading: false, products: [], error: null },
   action
 ) => {
