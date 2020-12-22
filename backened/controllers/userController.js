@@ -3,6 +3,42 @@ import asyncHandler from "express-async-handler";
 
 import generateToken from "../utils/tokenGeneration.js";
 
+// @purpose:   Register new user and get token
+// @route:  POST /user/register
+// @access  Public
+
+const registerUser = asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body;
+
+  const userExists = await UserModel.findOne({ email: email });
+
+  if (userExists) {
+    res.status(400);
+    throw new Error("User already exists");
+  }
+
+  const user = await UserModel.create({
+    name,
+    email,
+    password,
+  });
+
+  if (user) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      isAdmin: user.isAdmin,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(404);
+
+    throw new Error("Invaid User data");
+  }
+});
+
 // @purpose:   Auth user and get token
 // @route:  POST /user/login
 // @access  Public
@@ -38,8 +74,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
   res.json(user);
 });
 
-export { authUser, apiUser, getUserProfile };
-
 // @purpose:   Display all users (only for testing)
 // @route:  GET /user
 // @access  Public
@@ -49,3 +83,5 @@ const apiUser = asyncHandler(async (req, res) => {
 
   res.json(users);
 });
+
+export { authUser, apiUser, getUserProfile, registerUser };
