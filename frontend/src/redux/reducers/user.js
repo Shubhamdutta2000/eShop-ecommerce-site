@@ -6,7 +6,12 @@ import {
 } from "../actionTypes/userConstants";
 
 export const userLoginReducer = (
-  state = { loading: false, isAuthenticated: false, user: {}, error: null },
+  state = {
+    loading: false,
+    isAuthenticated: false,
+    userInfo: null,
+    error: null,
+  },
   action
 ) => {
   switch (action.type) {
@@ -16,15 +21,13 @@ export const userLoginReducer = (
       return {
         loading: false,
         isAuthenticated: true,
-        user: action.payload,
-        error: null,
+        userInfo: action.payload,
       };
 
     case USER_LOGIN_FAILED:
       return {
         loading: false,
         isAuthenticated: false,
-        user: {},
         error: action.payload,
       };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Navbar,
   Nav,
@@ -8,7 +8,6 @@ import {
   Container,
 } from "react-bootstrap";
 
-import { NavLink } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 
 const Header = () => {
