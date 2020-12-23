@@ -1,0 +1,44 @@
+.login__form {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login__form-wraper {
+  width: 100%;
+  position: relative;
+  border-bottom: 2px solid #d9d9d9;
+}
+.login__form-label {
+  font-weight: 550;
+  color: #0a7ab6;
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+.login__form-input {
+  border: 1.8px solid #b2e4ff;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  color: #333333;
+  line-height: 1.2;
+
+  display: block;
+  width: 100%;
+  height: 55px;
+  background: transparent;
+  padding: 0 7px 0 43px;
+}
+
+.login__form-button {
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.2;
+  text-transform: uppercase;
+  border-radius: 25px;
+
+  padding: 0 20px;
+  width: 100%;
+  height: 50px;
+}

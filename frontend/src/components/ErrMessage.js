@@ -5,12 +5,12 @@ const ErrMessage = ({ varient, children }) => {
   return (
     <Alert
       style={{
-        marginTop: "16px",
-        fontSize: "1.4em",
+        marginTop: "10px",
+        fontSize: "1.2em",
+        textAlign: "center",
         width: "100%",
         backgroundColor: `${varient}`,
       }}
-      dismissible
     >
       {children}
     </Alert>
