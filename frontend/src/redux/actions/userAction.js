@@ -51,3 +51,10 @@ export const userLogin = (email, password) => async (dispatch, getState) => {
     );
   }
 };
+
+export const userLogout = () => (dispatch) => {
+  localStorage.removeItem("userInfo");
+  dispatch({
+    type: USER_LOGOUT,
+  });
+};

@@ -27,6 +27,8 @@
   },
   "homepage": "https://github.com/Shubhamdutta2000/ECommerceApp#readme",
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
     "bcrypt": "^5.0.0",
     "colors": "^1.4.0",
     "dotenv": "^8.2.0",
