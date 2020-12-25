@@ -4,20 +4,21 @@ import { Link } from "react-router-dom";
 import { Container, Button, Form, Row, Col } from "react-bootstrap";
 
 import { useSelector, useDispatch } from "react-redux";
-import { loginUser } from "../redux/actions/userAction";
+import { registerUser } from "../redux/actions/userAction";
 
 import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
 
 import "../styles/Screen/LoginScreen.css";
 
-const LoginScreen = ({ history, location }) => {
+const RegisterScreen = ({ history, location }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
   const dispatch = useDispatch();
-  const login = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo, isAuthenticated } = login;
+  const register = useSelector((state) => state.userRegister);
+  const { loading, error, userInfo, isAuthenticated } = register;
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
@@ -30,8 +31,8 @@ const LoginScreen = ({ history, location }) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    //DISPATCH LOGIN
-    dispatch(loginUser(email, password));
+    //DISPATCH REGISTER
+    dispatch(registerUser(name, email, password));
   };
 
   return (
@@ -41,6 +42,17 @@ const LoginScreen = ({ history, location }) => {
           {error && <Message varient="#FC308B">{error}</Message>}
           {loading && <Loader />}
           <Form onSubmit={submitHandler}>
+            <Form.Group controlId="name">
+              <Form.Label className="login__form-label">Full Name</Form.Label>
+              <Form.Control
+                className="login__form-input"
+                type="name"
+                placeholder="Enter Your Full Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
             <Form.Group controlId="email">
               <Form.Label className="login__form-label">
                 Email Address
@@ -70,21 +82,19 @@ const LoginScreen = ({ history, location }) => {
               type="submit"
               varient="primary"
             >
-              Sign In
+              Register
             </Button>
           </Form>
 
           <Row className="py-3">
             <Col>
               <h5>
-                Haven't Registered yet? &nbsp;
+                Already Logged in? &nbsp;
                 <span>
                   <Link
-                    to={
-                      redirect ? `/register?redirect=${redirect}` : "/register"
-                    }
+                    to={redirect ? `/login?redirect=${redirect}` : "/login"}
                   >
-                    Register
+                    Login
                   </Link>
                 </span>
               </h5>
@@ -96,4 +106,4 @@ const LoginScreen = ({ history, location }) => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;

@@ -6,13 +6,14 @@ import thunk from "redux-thunk";
 import { productListsReducer } from "./reducers/productLists";
 import { productDetailsReducer } from "./reducers/productDetails";
 import { cartReducer } from "./reducers/cart";
-import { userLoginReducer } from "./reducers/user";
+import { userLoginReducer, userRegisterReducer } from "./reducers/user";
 
 const reducer = combineReducers({
   productList: productListsReducer,
   productDetails: productDetailsReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
 });
 
 // GET all cart Items from local Storage
