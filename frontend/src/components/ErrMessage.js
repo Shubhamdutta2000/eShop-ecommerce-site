@@ -1,24 +1,12 @@
 import React from "react";
-import { Alert } from "react-bootstrap";
+import { Alert } from "@material-ui/lab";
 
 const ErrMessage = ({ varient, children }) => {
   return (
-    <Alert
-      style={{
-        marginTop: "16px",
-        fontSize: "1.4em",
-        width: "100%",
-        backgroundColor: `${varient}`,
-      }}
-      dismissible
-    >
+    <Alert className="mb-3" severity={varient}>
       {children}
     </Alert>
   );
-};
-
-ErrMessage.defaultProps = {
-  varient: "#77F7FF",
 };
 
 export default ErrMessage;
