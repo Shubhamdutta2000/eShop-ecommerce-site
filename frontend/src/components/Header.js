@@ -1,32 +1,42 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
+///////////////////////    MATERIAL UI Component    //////////////////
+
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
-import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+
+///////////////////////   MATERIAL ICONS     ///////////////////////
+
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
+import SearchIcon from "@material-ui/icons/Search";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import PersonIcon from "@material-ui/icons/Person";
 
 /////////////////////////    REDUX     //////////////////////////////
 
 import { useSelector, useDispatch } from "react-redux";
 import { userLogout } from "../redux/actions/userAction";
-import { Link } from "@material-ui/core";
 
 const drawerWidth = 240;
+
+///////////////////////    Custom Style    //////////////////////////
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,12 +50,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-  },
-
-  nav_lg: {
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
   },
 
   search: {
@@ -103,6 +107,39 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: "flex-end",
   },
+
+  link_brand: {
+    color: "inherit",
+    "&:hover": {
+      textDecoration: "none",
+      color: "inherit",
+    },
+  },
+  link_menu_item: {
+    color: "black",
+    "&:hover": {
+      textDecoration: "none",
+      color: "inherit",
+    },
+  },
+  link: {
+    color: "inherit",
+    "&:hover": {
+      textDecoration: "none",
+      color: "inherit",
+    },
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+
+  link_drawer: {
+    "&:hover": {
+      textDecoration: "none",
+      color: theme.palette.primary,
+    },
+    textDecoration: "none",
+  },
 }));
 
 export default function MenuAppBar() {
@@ -119,6 +156,7 @@ export default function MenuAppBar() {
 
   const logoutHandler = () => {
     dispatch(userLogout());
+    setAnchorEl(null);
   };
 
   //////////////////////////    FOR Dropdown Menu    /////////////////////////////
@@ -145,7 +183,9 @@ export default function MenuAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            eShop
+            <Link className={classes.link_brand} to="/">
+              eShop
+            </Link>
           </Typography>
 
           <div className={classes.search}>
@@ -161,128 +201,111 @@ export default function MenuAppBar() {
               inputProps={{ "aria-label": "search" }}
             />
           </div>
-          <div>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={openEl}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </Menu>
-          </div>
 
-          <Button className={classes.nav_lg} color="inherit">
-            Cart
-          </Button>
+          <Link className={classes.link} to="/cart">
+            <ShoppingCartIcon />
 
-          <Button className={classes.nav_lg} color="inherit">
-            Login
-          </Button>
+            <Button color="inherit">Cart</Button>
+          </Link>
+
+          {userInfo ? (
+            ////////////////////////////     DROPDOWN MENU IF USER EXISTS OR LOGGED IN    /////////////////////////
+            <div>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+                &nbsp;
+                {userInfo.name.split(" ")[0]}
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+                open={openEl}
+                onClose={handleClose}
+              >
+                <Link to="/profile" className={classes.link_menu_item}>
+                  <MenuItem onClick={handleClose}>
+                    <ListItemIcon>
+                      <PersonIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Profile" />
+                  </MenuItem>
+                </Link>
+
+                <MenuItem
+                  onClick={logoutHandler}
+                  className={classes.link_menu_item}
+                >
+                  <ListItemIcon>
+                    <ExitToAppIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            ////////////////////////////    LOGIN BUTTON IF USER DOES NOT EXISTS OR LOGGED OUT   /////////////////////////
+
+            <Link className={classes.link} to="/login">
+              <GroupAddIcon />
+              <Button color="inherit">LOGIN</Button>
+            </Link>
+          )}
         </Toolbar>
       </AppBar>
 
       <Drawer anchor="bottom" open={toggle} onClose={() => setToggle(false)}>
         <List>
-          <ListItem button>
-            <ListItemIcon>
-              <GroupAddIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Login"} />
-          </ListItem>
+          {userInfo ? (
+            ////////////////////////////    LOGOUT BUTTON IF USER EXISTS OR LOGGED IN  /////////////////////////
 
-          <ListItem button>
-            <ListItemIcon>
-              <ShoppingCartIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Cart"} />
-          </ListItem>
+            <ListItem
+              button
+              className={classes.link_drawer}
+              onClick={logoutHandler}
+            >
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Logout"} />
+            </ListItem>
+          ) : (
+            ////////////////////////////    LOGIN BUTTON IF USER DOES NOT EXISTS OR LOGGED OUT   /////////////////////////
+
+            <Link className={classes.link_drawer} to="/login">
+              <ListItem button>
+                <ListItemIcon>
+                  <GroupAddIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Login"} />
+              </ListItem>
+            </Link>
+          )}
+
+          <Link className={classes.link_drawer} to="/cart">
+            <ListItem button>
+              <ListItemIcon>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Cart"} />
+            </ListItem>
+          </Link>
         </List>
       </Drawer>
     </header>
   );
 }
-
-// const Header = () => {
-//   return (
-//     <header>
-//       <Navbar className="navbar py-3" sticky="top" expand="lg" collapseOnSelect>
-//         <Container>
-//           {/* Home Page Link */}
-//           <LinkContainer to="/">
-//             <Navbar.Brand className="text-white" style={{ fontSize: "1.8rem" }}>
-//               eShop
-//             </Navbar.Brand>
-//           </LinkContainer>
-//           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-//           <Navbar.Collapse id="basic-navbar-nav">
-//             <Nav className="ml-auto pr-4 text-white">
-//               {/* Cart Page Link */}
-//               <LinkContainer to="/cart">
-//                 <Nav.Link className="nav_link text-white pr-4">
-//                   <i
-//                     className="fa fa-shopping-cart pr-1"
-//                     aria-hidden="true"
-//                   ></i>
-//                   CART
-//                 </Nav.Link>
-//               </LinkContainer>
-
-//               {userInfo ? (
-//                 <NavDropdown
-//                   className="nav_dropdown"
-//                   title={userInfo.name}
-//                   id="username"
-//                 >
-//                   <LinkContainer to="/profile">
-//                     <NavDropdown.Item>Profile</NavDropdown.Item>
-//                   </LinkContainer>
-//                   <NavDropdown.Item onClick={logoutHandler}>
-//                     Logout
-//                   </NavDropdown.Item>
-//                 </NavDropdown>
-//               ) : (
-//                 <LinkContainer to="/login">
-//                   <Nav.Link className="nav_link text-white">
-//                     <i className="fa fa-user-plus pr-1" aria-hidden="true"></i>
-//                     SIGN IN
-//                   </Nav.Link>
-//                 </LinkContainer>
-//               )}
-//             </Nav>
-//             <Form inline>
-//               <FormControl
-//                 className="search_box"
-//                 type="text"
-//                 placeholder="Search"
-//                 className="mr-sm-2"
-//               />
-//               <Button variant="outline-secondary">Search</Button>
-//             </Form>
-//           </Navbar.Collapse>
-//         </Container>
-//       </Navbar>
-//     </header>
-//   );
-// };
-
-// export default Header;
