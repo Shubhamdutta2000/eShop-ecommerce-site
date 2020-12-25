@@ -8,6 +8,8 @@ import {
   USER_REGISTER_SUCCESS,
 } from "../actionTypes/userConstants";
 
+///////////////////////////     LOGIN REDUCER    ///////////////////////////////
+
 export const userLoginReducer = (
   state = {
     loading: false,
@@ -44,6 +46,8 @@ export const userLoginReducer = (
   }
 };
 
+///////////////////////////     REGISTER REDUCER    ///////////////////////////////
+
 export const userRegisterReducer = (
   state = {
     loading: false,
@@ -68,6 +72,10 @@ export const userRegisterReducer = (
         loading: false,
         isAuthenticated: false,
         error: action.payload,
+      };
+    case USER_LOGOUT:
+      return {
+        isAuthenticated: false,
       };
 
     default:

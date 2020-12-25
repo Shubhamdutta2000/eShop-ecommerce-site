@@ -9,12 +9,14 @@ import { registerUser } from "../redux/actions/userAction";
 import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
 
-import "../styles/Screen/LoginScreen.css";
+import "../styles/Screen/LoginRegisterScreen.css";
 
 const RegisterScreen = ({ history, location }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
   const register = useSelector((state) => state.userRegister);
@@ -32,14 +34,17 @@ const RegisterScreen = ({ history, location }) => {
     event.preventDefault();
 
     //DISPATCH REGISTER
-    dispatch(registerUser(name, email, password));
+    if (password == confirmPassword) {
+      dispatch(registerUser(name, email, password));
+    } else {
+      setMessage("Password does not match");
+    }
   };
 
   return (
     <Container>
       <Row>
         <Col md={6} className="login__form">
-          {error && <Message varient="#FC308B">{error}</Message>}
           {loading && <Loader />}
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="name">
@@ -76,6 +81,24 @@ const RegisterScreen = ({ history, location }) => {
                 onChange={(e) => setPassword(e.target.value)}
               ></Form.Control>
             </Form.Group>
+
+            <Form.Group controlId="confirmPassword">
+              <Form.Label className="login__form-label">
+                Confirm Password
+              </Form.Label>
+              <Form.Control
+                className="login__form-input"
+                type="password"
+                value={confirmPassword}
+                placeholder="Confirm Password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            {/*//////////////////////     VALIDATION ERROR MESSAGE     ////////////////////////*/}
+
+            {error && <Message varient="#FC308B">{error}</Message>}
+            {message && <Message varient="#FC308B">{message}</Message>}
 
             <Button
               className="btn-block login__form-button"

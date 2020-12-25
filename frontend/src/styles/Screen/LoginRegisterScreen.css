@@ -1,12 +1,10 @@
 .login__form {
-  position: absolute;
+  margin-top: 1.2rem;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
 }
 
 .login__form-wraper {
-  width: 100%;
   position: relative;
   border-bottom: 2px solid #d9d9d9;
 }
@@ -14,7 +12,7 @@
   font-weight: 550;
   color: #0a7ab6;
   font-size: 1.4rem;
-  line-height: 1.5;
+  line-height: 1.2;
 }
 
 .login__form-input {
@@ -22,13 +20,14 @@
   border-radius: 25px;
   font-size: 1.1rem;
   color: #333333;
-  line-height: 1.2;
+  line-height: 1;
 
   display: block;
   width: 100%;
-  height: 55px;
+  height: 48px;
   background: transparent;
-  padding: 0 7px 0 43px;
+  padding: 0 7px 0 20px;
+  margin-bottom: 1.2rem;
 }
 
 .login__form-button {

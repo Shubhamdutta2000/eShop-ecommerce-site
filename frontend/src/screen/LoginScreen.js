@@ -9,7 +9,7 @@ import { loginUser } from "../redux/actions/userAction";
 import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
 
-import "../styles/Screen/LoginScreen.css";
+import "../styles/Screen/LoginRegisterScreen.css";
 
 const LoginScreen = ({ history, location }) => {
   const [email, setEmail] = useState("");
@@ -38,8 +38,8 @@ const LoginScreen = ({ history, location }) => {
     <Container>
       <Row>
         <Col md={6} className="login__form">
-          {error && <Message varient="#FC308B">{error}</Message>}
           {loading && <Loader />}
+
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="email">
               <Form.Label className="login__form-label">
@@ -65,6 +65,9 @@ const LoginScreen = ({ history, location }) => {
               ></Form.Control>
             </Form.Group>
 
+            {/*//////////////////////     VALIDATION ERROR MESSAGE     ////////////////////////*/}
+            {error && <Message varient="#FC308B">{error}</Message>}
+
             <Button
               className="btn-block login__form-button"
               type="submit"
@@ -79,13 +82,7 @@ const LoginScreen = ({ history, location }) => {
               <h5>
                 Haven't Registered yet? &nbsp;
                 <span>
-                  <Link
-                    to={
-                      redirect ? `/register?redirect=${redirect}` : "/register"
-                    }
-                  >
-                    Register
-                  </Link>
+                  <Link to={"/register"}>Register</Link>
                 </span>
               </h5>
             </Col>
