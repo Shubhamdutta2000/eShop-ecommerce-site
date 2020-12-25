@@ -66,7 +66,7 @@ const LoginScreen = ({ history, location }) => {
             </Form.Group>
 
             {/*//////////////////////     VALIDATION ERROR MESSAGE     ////////////////////////*/}
-            {error && <Message varient="#FC308B">{error}</Message>}
+            {error && <Message varient="error">{error}</Message>}
 
             <Button
               className="btn-block login__form-button"

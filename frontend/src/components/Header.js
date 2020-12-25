@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 ///////////////////////    MATERIAL UI Component    //////////////////
-
-import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -18,7 +16,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
 ///////////////////////   MATERIAL ICONS     ///////////////////////
-
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -30,117 +27,11 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import PersonIcon from "@material-ui/icons/Person";
 
 /////////////////////////    REDUX     //////////////////////////////
-
 import { useSelector, useDispatch } from "react-redux";
 import { userLogout } from "../redux/actions/userAction";
 
-const drawerWidth = 240;
-
-///////////////////////    Custom Style    //////////////////////////
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up("md")]: {
-      display: "none",
-    },
-  },
-  title: {
-    flexGrow: 1,
-  },
-
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "auto",
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  inputRoot: {
-    color: "inherit",
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
-  },
-
-  link_brand: {
-    color: "inherit",
-    "&:hover": {
-      textDecoration: "none",
-      color: "inherit",
-    },
-  },
-  link_menu_item: {
-    color: "black",
-    "&:hover": {
-      textDecoration: "none",
-      color: "inherit",
-    },
-  },
-  link: {
-    color: "inherit",
-    "&:hover": {
-      textDecoration: "none",
-      color: "inherit",
-    },
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-
-  link_drawer: {
-    "&:hover": {
-      textDecoration: "none",
-      color: theme.palette.primary,
-    },
-    textDecoration: "none",
-  },
-}));
+//////////////////////////   CUSTOM STYLE    /////////////////////////
+import { useStyles } from "./CustomStyles/header";
 
 export default function MenuAppBar() {
   const classes = useStyles();
@@ -149,7 +40,6 @@ export default function MenuAppBar() {
   const [toggle, setToggle] = useState(false);
 
   ////////////////////////    REDUX     ////////////////////////////////
-
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -160,7 +50,6 @@ export default function MenuAppBar() {
   };
 
   //////////////////////////    FOR Dropdown Menu    /////////////////////////////
-
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -187,7 +76,6 @@ export default function MenuAppBar() {
               eShop
             </Link>
           </Typography>
-
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -201,13 +89,14 @@ export default function MenuAppBar() {
               inputProps={{ "aria-label": "search" }}
             />
           </div>
-
+          {/*/////////////////////////////     CART BUTTON     ///////////////////////////////*/}
+          &nbsp; &nbsp; &nbsp; &nbsp;
           <Link className={classes.link} to="/cart">
-            <ShoppingCartIcon />
-
-            <Button color="inherit">Cart</Button>
+            <Button color="inherit">
+              <ShoppingCartIcon />
+              &nbsp; Cart
+            </Button>
           </Link>
-
           {userInfo ? (
             ////////////////////////////     DROPDOWN MENU IF USER EXISTS OR LOGGED IN    /////////////////////////
             <div>
@@ -217,6 +106,7 @@ export default function MenuAppBar() {
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
+                style={{ fontSize: "1.25rem" }}
               >
                 <AccountCircle />
                 &nbsp;
@@ -261,8 +151,10 @@ export default function MenuAppBar() {
             ////////////////////////////    LOGIN BUTTON IF USER DOES NOT EXISTS OR LOGGED OUT   /////////////////////////
 
             <Link className={classes.link} to="/login">
-              <GroupAddIcon />
-              <Button color="inherit">LOGIN</Button>
+              <Button color="inherit">
+                <GroupAddIcon />
+                &nbsp; LOGIN
+              </Button>
             </Link>
           )}
         </Toolbar>

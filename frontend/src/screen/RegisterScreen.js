@@ -97,8 +97,8 @@ const RegisterScreen = ({ history, location }) => {
 
             {/*//////////////////////     VALIDATION ERROR MESSAGE     ////////////////////////*/}
 
-            {error && <Message varient="#FC308B">{error}</Message>}
-            {message && <Message varient="#FC308B">{message}</Message>}
+            {error && <Message varient="error">{error}</Message>}
+            {message && <Message varient="error">{message}</Message>}
 
             <Button
               className="btn-block login__form-button"

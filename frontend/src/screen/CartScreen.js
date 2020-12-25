@@ -91,7 +91,7 @@ const CartScreen = ({ match, location, history }) => {
           {/*//////////////    CART == EMPTY -> ErrMess => Else => loop through cartItems   ////////////*/}
 
           {cartItems.length == 0 ? (
-            <ErrMessage varient="#d1ecf1">
+            <ErrMessage varient="info">
               <span className="cart__empty">Your cart is empty </span>
               <Link to="/">Keep Shopping</Link>
             </ErrMessage>
