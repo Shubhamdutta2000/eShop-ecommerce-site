@@ -64,7 +64,7 @@ const RegisterScreen = ({ history, location }) => {
   };
 
   return (
-    <Paper elevation={12} className={classes.paper}>
+    <Paper elevation={14} className={classes.paper}>
       <Avatar className={classes.avatar}>
         <PeopleIcon />
       </Avatar>

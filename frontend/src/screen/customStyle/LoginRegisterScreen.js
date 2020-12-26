@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyle = makeStyles((theme) => ({
   form: {
-    padding: theme.spacing(3),
+    padding: theme.spacing(2.6),
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -13,7 +13,9 @@ export const useStyle = makeStyles((theme) => ({
   paper: {
     width: "40%",
     margin: "auto",
-    paddingTop: theme.spacing(3),
+    marginTop: "0.4rem",
+
+    paddingTop: theme.spacing(2.4),
     [theme.breakpoints.down("sm")]: {
       width: "70%",
     },
@@ -23,7 +25,7 @@ export const useStyle = makeStyles((theme) => ({
     width: "2.6rem",
     height: "2.6rem",
     marginLeft: "50%",
-    marginButtom: "7rem",
+    marginBottom: "0.5rem",
     transform: "translateX(-50%)",
     backgroundColor: "#2196F0",
   },
@@ -37,6 +39,7 @@ export const useStyle = makeStyles((theme) => ({
   input: {
     "& label": {
       color: theme.palette.info.main,
+      fontWeight: "550",
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
@@ -60,7 +63,7 @@ export const useStyle = makeStyles((theme) => ({
   },
 
   register: {
-    padding: theme.spacing(2),
-    marginLeft: "5rem",
+    paddingTop: theme.spacing(2),
+    marginLeft: "7rem",
   },
 }));
