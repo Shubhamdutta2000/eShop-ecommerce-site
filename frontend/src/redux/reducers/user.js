@@ -89,7 +89,7 @@ export const userRegisterReducer = (
 /////////////////////////////////////////   USER PROFILE DETAILS   /////////////////////////////////
 
 export const userDetailsReducer = (
-  state = { loading: false, user: {}, error: null },
+  state = { loading: false, user: null, error: null },
   action
 ) => {
   switch (action.type) {

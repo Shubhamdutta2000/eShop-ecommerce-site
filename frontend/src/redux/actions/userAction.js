@@ -80,6 +80,8 @@ export const loginUser = (email, password) => async (dispatch) => {
     );
     dispatch(addUser(data));
 
+    console.log(data);
+
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch(
@@ -136,12 +138,18 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch(profileReq());
 
-    const { userInfo } = getState().userLogin;
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
     const config = {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${userInfo.token}`,
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
     };
-    const { data } = axios.get(`/user/${id}`, config);
+    const { data } = await axios.get(`/user/${id}`, config);
+    console.log(data);
 
     dispatch(getProfile(data));
   } catch (error) {

@@ -1,14 +1,32 @@
 
-///////////////////////    PRODUCTS     ///////////////////////////
+# ///////////////////////    PRODUCTS     ///////////////////////////
 
 
-#########   PRODUCTS BY CATEGORY   ########
+# #########   PRODUCTS BY CATEGORY   ########
 
-GET http://localhost:5000/products/mens_accessories/
+# # GET http://localhost:5000/products/mens_accessories/
 
 
 
-##########    PRODUCTS BY CATEGOEY AND ID    ##########
+# ##########    PRODUCTS BY CATEGOEY AND ID    ##########
 
-# GET http://localhost:5000/products/mens_accessories/5fda124ef08b7d0f6c2475c7
+# # GET http://localhost:5000/products/mens_accessories/5fda124ef08b7d0f6c2475c7
 
+
+# /////////////////////////////   USER     /////////////////////////////
+
+
+# #####################     LOGIN   ####################
+
+# POST http://localhost:5000/user/login
+# Content-Type: "application/json"
+
+# {
+#       "email": "shubham@gmail.com",
+#       "password": "user1234"
+# }
+# ######################   PROFILE  #####################
+
+GET http://localhost:5000/user/profile
+Content-Type: "application/json"
+Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwODkyNzQzMiwiZXhwIjoxNjA4OTI5MjMyfQ.ibSzhinFovzVQ9B_pr5C2nsy1Md-dEMWGZGNOQlO_dQ"

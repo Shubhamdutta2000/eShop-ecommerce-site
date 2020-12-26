@@ -114,6 +114,8 @@ export default function MenuAppBar() {
               </IconButton>
               <Menu
                 id="menu-appbar"
+                elevation={0}
+                getContentAnchorEl={null}
                 anchorEl={anchorEl}
                 anchorOrigin={{
                   vertical: "bottom",
