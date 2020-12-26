@@ -7,6 +7,8 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+
+  menu: {},
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up("md")]: {
@@ -82,9 +84,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   link_menu_item: {
     color: "black",
+    textDecoration: "none",
     "&:hover": {
       textDecoration: "none",
-      color: "inherit",
     },
   },
   link: {

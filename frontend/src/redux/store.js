@@ -20,7 +20,7 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
-  updateUserProfile: userUpdateProfileReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 });
 
 // GET all cart Items from local Storage

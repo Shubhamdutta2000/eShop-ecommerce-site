@@ -2,12 +2,7 @@ import React, { useState, useEffect } from "react";
 
 ////////////////////////////////    MATERIAL UI   ////////////////////////////////////
 import TextField from "@material-ui/core/TextField";
-import {
-  makeStyles,
-  withStyles,
-  createMuiTheme,
-  ThemeProvider,
-} from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { Button } from "@material-ui/core";
 
@@ -15,40 +10,11 @@ import { Button } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserDetails, updateUserProfile } from "../redux/actions/userAction";
 
+///////////////////////////////////     CUSTOM STYLE    ///////////////////////////////
+import { useStyles, CssTextField } from "./customStyle/ProfileScreen";
+
 import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
-
-///////////////////////////////////     CUSTOM STYLE    ///////////////////////////////
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1.4),
-      width: "90%",
-    },
-  },
-
-  button: {
-    left: "50%",
-    transform: "translateX(-50%)",
-    background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
-    marginTop: theme.spacing(1.4),
-    width: "90%",
-  },
-}));
-
-/////////////////////////     CUSTOM STYLE TextField     ///////////////////////////
-const CssTextField = withStyles({
-  root: {
-    "& label": {
-      color: "green",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "green",
-      },
-    },
-  },
-})(TextField);
 
 const ProfileScreen = ({ history }) => {
   const classes = useStyles();
@@ -70,7 +36,7 @@ const ProfileScreen = ({ history }) => {
   const { loading, user, error } = userDetails;
 
   ///////////////////   UPDATE USER PROFILE REDUCER    ////////////////
-  const updateProfile = useSelector((state) => state.updateUserProfile);
+  const updateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = updateProfile;
 
   useEffect(() => {
@@ -112,11 +78,11 @@ const ProfileScreen = ({ history }) => {
 
       {/*//////////////////////////////////////     GRID       ////////////////////////////////////// */}
 
-      <Grid container spacing={4}>
+      <Grid container spacing={2}>
         <Grid item sm={4} xs={12}>
           <h2>Profile</h2>
           {loading && <Loader />}
-          <form className={classes.root} autoComplete="off">
+          <form className={classes.root}>
             <CssTextField
               id="outlined-name"
               label="Name"
@@ -143,23 +109,25 @@ const ProfileScreen = ({ history }) => {
               }}
             />
             <CssTextField
-              id="outlined-password"
+              type="password"
+              autoComplete="current-password"
               label="Password"
               value={password}
-              multiline
-              placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
               variant="outlined"
               InputLabelProps={{
                 shrink: true,
               }}
             />
             <CssTextField
-              required
+              type="password"
+              autoComplete="current-password"
               id="outlined-password"
+              type="password"
+              required
               label="Confirm Password"
               value={confirmPassword}
-              multiline
               placeholder="Confirm Password"
               onChange={(e) => setConfirmPassword(e.target.value)}
               variant="outlined"
