@@ -8,6 +8,10 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
 
+  appbar: {
+    padding: "0.4rem",
+  },
+
   menu: {},
   menuButton: {
     marginRight: theme.spacing(2),
@@ -27,7 +31,7 @@ export const useStyles = makeStyles((theme) => ({
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
-    width: "100%",
+    width: "80%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
       width: "auto",

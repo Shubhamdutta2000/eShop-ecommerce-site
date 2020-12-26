@@ -11,13 +11,13 @@ export const useStyle = makeStyles((theme) => ({
     alignItems: "center",
   },
   paper: {
-    width: "40%",
+    width: "46%",
     margin: "auto",
     marginTop: "0.4rem",
 
     paddingTop: theme.spacing(2.4),
     [theme.breakpoints.down("sm")]: {
-      width: "70%",
+      width: "100%",
     },
   },
 
@@ -46,16 +46,21 @@ export const useStyle = makeStyles((theme) => ({
         borderColor: "#21CBF3",
       },
     },
+    paddingBottom: theme.spacing(2.8),
     width: "80%",
+
     [theme.breakpoints.down("sm")]: {
       width: "100%",
     },
-    paddingBottom: theme.spacing(2.8),
   },
 
   button: {
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
     width: "76%",
+
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
 
   lockIcon: {
@@ -63,7 +68,11 @@ export const useStyle = makeStyles((theme) => ({
   },
 
   register: {
-    paddingTop: theme.spacing(2),
-    marginLeft: "7rem",
+    paddingTop: theme.spacing(2.8),
+    marginLeft: "6rem",
+
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "auto",
+    },
   },
 }));

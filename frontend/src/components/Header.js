@@ -61,7 +61,7 @@ export default function MenuAppBar() {
 
   return (
     <header className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="sticky" elevation={10} className={classes.appbar}>
         <Toolbar>
           <IconButton
             edge="start"
