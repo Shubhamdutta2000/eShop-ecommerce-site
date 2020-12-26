@@ -36,6 +36,7 @@
   line-height: 1.2;
   text-transform: uppercase;
   border-radius: 25px;
+  background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
 
   padding: 0 20px;
   width: 100%;

@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
+import {
+  makeStyles,
+  withStyles,
+  createMuiTheme,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { Button } from "@material-ui/core";
 
@@ -11,6 +16,7 @@ import { getUserDetails } from "../redux/actions/userAction";
 import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
 
+///////////////////////////////////     CUSTOM STYLE    ///////////////////////////////
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -18,11 +24,29 @@ const useStyles = makeStyles((theme) => ({
       width: "90%",
     },
   },
+
   button: {
     left: "50%",
     transform: "translateX(-50%)",
+    background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
+    marginTop: theme.spacing(1.4),
+    width: "90%",
   },
 }));
+
+/////////////////////////     CUSTOM STYLE TextField     ///////////////////////////
+const CssTextField = withStyles({
+  root: {
+    "& label": {
+      color: "green",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "green",
+      },
+    },
+  },
+})(TextField);
 
 const ProfileScreen = ({ history }) => {
   const classes = useStyles();
@@ -84,34 +108,55 @@ const ProfileScreen = ({ history }) => {
           <h2>Profile</h2>
           {loading && <Loader />}
           <form className={classes.root} autoComplete="off">
-            <TextField
+            <CssTextField
               id="outlined-name"
               label="Name"
               value={name}
+              multiline
+              placeholder="Name"
               onChange={(e) => setName(e.target.value)}
               variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
 
-            <TextField
+            <CssTextField
               id="outlined-email"
               label="Email"
               value={email}
+              multiline
+              placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
               variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
-            <TextField
+            <CssTextField
               id="outlined-password"
               label="Password"
               value={password}
+              multiline
+              placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
               variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
-            <TextField
+            <CssTextField
+              required
               id="outlined-password"
               label="Confirm Password"
               value={confirmPassword}
+              multiline
+              placeholder="Confirm Password"
               onChange={(e) => setConfirmPassword(e.target.value)}
               variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
 
             {/*//////////////////////     VALIDATION ERROR MESSAGE     ////////////////////////*/}
