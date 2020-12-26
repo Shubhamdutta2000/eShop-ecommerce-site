@@ -10,9 +10,12 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAILED,
+  USER_UPDATE_PROFILE_REQUEST,
+  USER_UPDATE_PROFILE_SUCCESS,
+  USER_UPDATE_PROFILE_FAILED,
 } from "../actionTypes/userConstants";
 
-////////////////////////////////////////     ACTION      //////////////////////////////////////////
+/////////////////////////////////////////////     ACTION      ///////////////////////////////////////////////
 
 ///////////    LOGIN    ////////////////
 
@@ -62,7 +65,23 @@ const profileFailed = (err) => ({
   payload: err,
 });
 
-//////////////////////////////////////////     ACTION CREATOR    ///////////////////////////////////
+///////////   UPDATE USER DETAILS    ////////////////
+
+const updateProfileReq = () => ({
+  type: USER_UPDATE_PROFILE_REQUEST,
+});
+
+const updateProfile = (user) => ({
+  type: USER_UPDATE_PROFILE_SUCCESS,
+  payload: user,
+});
+
+const updateProfileFailed = (err) => ({
+  type: USER_UPDATE_PROFILE_FAILED,
+  payload: err,
+});
+
+/////////////////////////////////////////////     ACTION CREATOR    ////////////////////////////////////////
 
 ///////////    LOGIN    ////////////////
 
@@ -155,6 +174,37 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch(
       profileFailed(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      )
+    );
+  }
+};
+
+////////////////////    UPDATE USER DETAILS (PROFILE)   ///////////////////////
+
+export const updateUserProfile = (user) => async (dispatch, getState) => {
+  try {
+    dispatch(updateProfileReq());
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      "Content-Type": "application/json",
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.put(`/user/profile`, user, config);
+    console.log(data);
+
+    dispatch(updateProfile(data));
+  } catch (error) {
+    dispatch(
+      updateProfileFailed(
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message

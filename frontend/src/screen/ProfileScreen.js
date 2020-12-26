@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+////////////////////////////////    MATERIAL UI   ////////////////////////////////////
 import TextField from "@material-ui/core/TextField";
 import {
   makeStyles,
@@ -10,8 +11,9 @@ import {
 import Grid from "@material-ui/core/Grid";
 import { Button } from "@material-ui/core";
 
+/////////////////////////////////    REDUX     //////////////////////////////////////
 import { useSelector, useDispatch } from "react-redux";
-import { getUserDetails } from "../redux/actions/userAction";
+import { getUserDetails, updateUserProfile } from "../redux/actions/userAction";
 
 import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
@@ -59,11 +61,17 @@ const ProfileScreen = ({ history }) => {
 
   const dispatch = useDispatch();
 
+  //////////////////////   LOGIN REDUCER    ///////////////////
+  const login = useSelector((state) => state.userLogin);
+  const { userInfo } = login;
+
+  //////////////////////    USER PROFILE REDUCER    /////////////////
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, user, error } = userDetails;
 
-  const login = useSelector((state) => state.userLogin);
-  const { userInfo } = login;
+  ///////////////////   UPDATE USER PROFILE REDUCER    ////////////////
+  const updateProfile = useSelector((state) => state.updateUserProfile);
+  const { success } = updateProfile;
 
   useEffect(() => {
     if (!userInfo) {
@@ -84,6 +92,7 @@ const ProfileScreen = ({ history }) => {
       setMessage("Password does not match");
     } else {
       //DISPATCH UPDATE
+      dispatch(updateUserProfile({ id: user._id, name, email, password }));
     }
   };
 
@@ -164,6 +173,9 @@ const ProfileScreen = ({ history }) => {
             {error && <Message varient="error">{error}</Message>}
             {message && <Message varient="error">{message}</Message>}
 
+            {success && (
+              <Message varient="success">Profile Updated Successfully</Message>
+            )}
             <Button
               className={classes.button}
               onClick={submitHandler}
