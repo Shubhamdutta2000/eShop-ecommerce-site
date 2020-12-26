@@ -9,6 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
 import InputBase from "@material-ui/core/InputBase";
+import Fade from "@material-ui/core/Fade";
 
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -60,7 +61,7 @@ export default function MenuAppBar() {
 
   return (
     <header className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="sticky" elevation={10} className={classes.appbar}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -114,6 +115,9 @@ export default function MenuAppBar() {
               </IconButton>
               <Menu
                 id="menu-appbar"
+                className={classes.menu}
+                elevation={4}
+                getContentAnchorEl={null}
                 anchorEl={anchorEl}
                 anchorOrigin={{
                   vertical: "bottom",
@@ -124,6 +128,7 @@ export default function MenuAppBar() {
                   vertical: "top",
                   horizontal: "center",
                 }}
+                TransitionComponent={Fade}
                 open={openEl}
                 onClose={handleClose}
               >
