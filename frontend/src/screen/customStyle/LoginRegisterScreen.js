@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyle = makeStyles((theme) => ({
   form: {
-    padding: theme.spacing(4),
+    padding: theme.spacing(3),
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -12,20 +12,18 @@ export const useStyle = makeStyles((theme) => ({
   },
   paper: {
     width: "40%",
-    position: "absolute",
-    left: "50%",
-    top: "50%",
-    transform: "translate(-50%, -50%)",
+    margin: "auto",
+    paddingTop: theme.spacing(3),
     [theme.breakpoints.down("sm")]: {
       width: "70%",
     },
   },
 
   avatar: {
-    margin: theme.spacing(1),
     width: "2.6rem",
     height: "2.6rem",
-    left: "50%",
+    marginLeft: "50%",
+    marginButtom: "7rem",
     transform: "translateX(-50%)",
     backgroundColor: "#2196F0",
   },
@@ -49,7 +47,7 @@ export const useStyle = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       width: "100%",
     },
-    paddingBottom: theme.spacing(4),
+    paddingBottom: theme.spacing(2.8),
   },
 
   button: {

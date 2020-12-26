@@ -1,21 +1,43 @@
 import React, { useEffect, useState } from "react";
-
 import { Link } from "react-router-dom";
-import { Container, Button, Form, Row, Col } from "react-bootstrap";
 
+/////////////////////////////////////////    MATERIAL UI    ////////////////////////////////
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import InputLabel from "@material-ui/core/InputLabel";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { Avatar, Button } from "@material-ui/core";
+
+///////////////////////////////////////      MATERIAL UI ICONS     ///////////////////////////////
+import IconButton from "@material-ui/core/IconButton";
+import EmailIcon from "@material-ui/icons/Email";
+import PeopleIcon from "@material-ui/icons/People";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import LockIcon from "@material-ui/icons/Lock";
+
+////////////////////////////////////////     REDUX          /////////////////////////////////////
 import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../redux/actions/userAction";
+
+///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
+import { useStyle } from "./customStyle/LoginRegisterScreen";
 
 import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
 
-import "../styles/Screen/LoginRegisterScreen.css";
-
 const RegisterScreen = ({ history, location }) => {
+  const classes = useStyle();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
@@ -42,91 +64,242 @@ const RegisterScreen = ({ history, location }) => {
   };
 
   return (
-    <Container>
-      <Row>
-        <Col md={6} className="login__form">
-          {loading && <Loader />}
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId="name">
-              <Form.Label className="login__form-label">Full Name</Form.Label>
-              <Form.Control
-                className="login__form-input"
-                type="name"
-                placeholder="Enter Your Full Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+    <Paper elevation={12} className={classes.paper}>
+      <Avatar className={classes.avatar}>
+        <PeopleIcon />
+      </Avatar>
+      <Typography className={classes.heading} component="h1" variant="h5">
+        Sign Up
+      </Typography>
 
-            <Form.Group controlId="email">
-              <Form.Label className="login__form-label">
-                Email Address
-              </Form.Label>
-              <Form.Control
-                className="login__form-input"
-                type="email"
-                placeholder="Enter Your Email Address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+      {/*///////////////////////////////    LOADER    /////////////////////////////////////////*/}
+      {loading && <Loader />}
 
-            <Form.Group controlId="password">
-              <Form.Label className="login__form-label">Password</Form.Label>
-              <Form.Control
-                className="login__form-input"
-                type="password"
-                value={password}
-                placeholder="Enter Your Password"
-                onChange={(e) => setPassword(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+      <form className={classes.form}>
+        <FormControl variant="outlined" className={classes.input}>
+          <InputLabel htmlFor="outlined-adornment-name">Name</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-name"
+            placeholder="Your Name"
+            required
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            startAdornment={
+              <InputAdornment position="start">
+                <PeopleIcon className={classes.lockIcon} />
+              </InputAdornment>
+            }
+            labelWidth={45}
+          />
+        </FormControl>
 
-            <Form.Group controlId="confirmPassword">
-              <Form.Label className="login__form-label">
-                Confirm Password
-              </Form.Label>
-              <Form.Control
-                className="login__form-input"
-                type="password"
-                value={confirmPassword}
-                placeholder="Confirm Password"
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+        <FormControl variant="outlined" className={classes.input}>
+          <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-email"
+            placeholder="Email Address"
+            required
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            startAdornment={
+              <InputAdornment position="start">
+                <EmailIcon className={classes.lockIcon} />
+              </InputAdornment>
+            }
+            labelWidth={40}
+          />
+        </FormControl>
 
-            {/*//////////////////////     VALIDATION ERROR MESSAGE     ////////////////////////*/}
+        <FormControl variant="outlined" className={classes.input}>
+          <InputLabel htmlFor="outlined-adornment-password">
+            Password
+          </InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            placeholder="Password"
+            required
+            type={passwordVisibility ? "text" : "password"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            startAdornment={
+              <InputAdornment position="start">
+                <LockIcon className={classes.lockIcon} />
+              </InputAdornment>
+            }
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setPasswordVisibility(!passwordVisibility)}
+                  onMouseDown={(e) => e.preventDefault()}
+                  edge="end"
+                >
+                  {passwordVisibility ? (
+                    <VisibilityIcon />
+                  ) : (
+                    <VisibilityOffIcon />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            }
+            labelWidth={70}
+          />
+        </FormControl>
 
-            {error && <Message varient="error">{error}</Message>}
-            {message && <Message varient="error">{message}</Message>}
+        <FormControl variant="outlined" className={classes.input}>
+          <InputLabel htmlFor="outlined-adornment-confirmPassword">
+            Confirm Password
+          </InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-confirmPassword"
+            placeholder="Confirm Password"
+            required
+            type={passwordVisibility ? "text" : "password"}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            startAdornment={
+              <InputAdornment position="start">
+                <LockIcon className={classes.lockIcon} />
+              </InputAdornment>
+            }
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setPasswordVisibility(!passwordVisibility)}
+                  onMouseDown={(e) => e.preventDefault()}
+                  edge="end"
+                >
+                  {passwordVisibility ? (
+                    <VisibilityIcon />
+                  ) : (
+                    <VisibilityOffIcon />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            }
+            labelWidth={135}
+          />
+        </FormControl>
 
-            <Button
-              className="btn-block login__form-button"
-              type="submit"
-              varient="primary"
-            >
-              Register
-            </Button>
-          </Form>
+        {/*//////////////////////     VALIDATION ERROR MESSAGE     ////////////////////////*/}
 
-          <Row className="py-3">
-            <Col>
-              <h5>
-                Already Logged in? &nbsp;
-                <span>
-                  <Link
-                    to={redirect ? `/login?redirect=${redirect}` : "/login"}
-                  >
-                    Login
-                  </Link>
-                </span>
-              </h5>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-    </Container>
+        {error && <Message varient="error">{error}</Message>}
+        {message && <Message varient="error">{message}</Message>}
+
+        <Button
+          className={classes.button}
+          onClick={submitHandler}
+          size="large"
+          variant="contained"
+          color="primary"
+        >
+          Register
+        </Button>
+
+        <Grid container>
+          <Grid item>
+            <Typography component="h5" className={classes.register}>
+              Already Registered? &nbsp;
+              <Link
+                to={redirect ? `/login?redirect=${redirect}` : "/login"}
+                variant="body2"
+              >
+                Login
+              </Link>
+            </Typography>
+          </Grid>
+        </Grid>
+      </form>
+    </Paper>
   );
 };
 
 export default RegisterScreen;
+
+// <Container>
+//       <Row>
+//         <Col md={6} className="login__form">
+//           {loading && <Loader />}
+//           <Form onSubmit={submitHandler}>
+//             <Form.Group controlId="name">
+//               <Form.Label className="login__form-label">Full Name</Form.Label>
+//               <Form.Control
+//                 className="login__form-input"
+//                 type="name"
+//                 placeholder="Enter Your Full Name"
+//                 value={name}
+//                 onChange={(e) => setName(e.target.value)}
+//               ></Form.Control>
+//             </Form.Group>
+
+//             <Form.Group controlId="email">
+//               <Form.Label className="login__form-label">
+//                 Email Address
+//               </Form.Label>
+//               <Form.Control
+//                 className="login__form-input"
+//                 type="email"
+//                 placeholder="Enter Your Email Address"
+//                 value={email}
+//                 onChange={(e) => setEmail(e.target.value)}
+//               ></Form.Control>
+//             </Form.Group>
+
+//             <Form.Group controlId="password">
+//               <Form.Label className="login__form-label">Password</Form.Label>
+//               <Form.Control
+//                 className="login__form-input"
+//                 type="password"
+//                 value={password}
+//                 placeholder="Enter Your Password"
+//                 onChange={(e) => setPassword(e.target.value)}
+//               ></Form.Control>
+//             </Form.Group>
+
+//             <Form.Group controlId="confirmPassword">
+//               <Form.Label className="login__form-label">
+//                 Confirm Password
+//               </Form.Label>
+//               <Form.Control
+//                 className="login__form-input"
+//                 type="password"
+//                 value={confirmPassword}
+//                 placeholder="Confirm Password"
+//                 onChange={(e) => setConfirmPassword(e.target.value)}
+//               ></Form.Control>
+//             </Form.Group>
+
+//             {/*//////////////////////     VALIDATION ERROR MESSAGE     ////////////////////////*/}
+
+//             {error && <Message varient="error">{error}</Message>}
+//             {message && <Message varient="error">{message}</Message>}
+
+//             <Button
+//               className="btn-block login__form-button"
+//               type="submit"
+//               varient="primary"
+//             >
+//               Register
+//             </Button>
+//           </Form>
+
+//           <Row className="py-3">
+//             <Col>
+//               <h5>
+//                 Already Logged in? &nbsp;
+//                 <span>
+//                   <Link
+//                     to={redirect ? `/login?redirect=${redirect}` : "/login"}
+//                   >
+//                     Login
+//                   </Link>
+//                 </span>
+//               </h5>
+//             </Col>
+//           </Row>
+//         </Col>
+//       </Row>
+//     </Container>
