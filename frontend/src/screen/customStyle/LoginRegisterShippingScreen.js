@@ -63,7 +63,7 @@ export const useStyle = makeStyles((theme) => ({
     },
   },
 
-  lockIcon: {
+  icon: {
     width: "1.2rem",
   },
 
