@@ -38,6 +38,9 @@ const RegisterScreen = ({ history, location }) => {
   const [name, setName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(
+    false
+  );
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
@@ -156,7 +159,7 @@ const RegisterScreen = ({ history, location }) => {
             id="outlined-adornment-confirmPassword"
             placeholder="Confirm Password"
             required
-            type={passwordVisibility ? "text" : "password"}
+            type={confirmPasswordVisibility ? "text" : "password"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             startAdornment={
@@ -168,11 +171,13 @@ const RegisterScreen = ({ history, location }) => {
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={() => setPasswordVisibility(!passwordVisibility)}
+                  onClick={() =>
+                    setConfirmPasswordVisibility(!confirmPasswordVisibility)
+                  }
                   onMouseDown={(e) => e.preventDefault()}
                   edge="end"
                 >
-                  {passwordVisibility ? (
+                  {confirmPasswordVisibility ? (
                     <VisibilityIcon />
                   ) : (
                     <VisibilityOffIcon />
