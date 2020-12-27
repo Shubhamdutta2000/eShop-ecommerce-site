@@ -25,7 +25,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../redux/actions/userAction";
 
 ///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
-import { useStyle } from "./customStyle/LoginRegisterScreen";
+import { useStyle } from "./customStyle/LoginRegisterShippingScreen";
 
 import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
@@ -90,7 +90,7 @@ const RegisterScreen = ({ history, location }) => {
             onChange={(e) => setName(e.target.value)}
             startAdornment={
               <InputAdornment position="start">
-                <PeopleIcon className={classes.lockIcon} />
+                <PeopleIcon className={classes.icon} />
               </InputAdornment>
             }
             labelWidth={45}
@@ -108,7 +108,7 @@ const RegisterScreen = ({ history, location }) => {
             onChange={(e) => setEmail(e.target.value)}
             startAdornment={
               <InputAdornment position="start">
-                <EmailIcon className={classes.lockIcon} />
+                <EmailIcon className={classes.icon} />
               </InputAdornment>
             }
             labelWidth={40}
@@ -128,7 +128,7 @@ const RegisterScreen = ({ history, location }) => {
             onChange={(e) => setPassword(e.target.value)}
             startAdornment={
               <InputAdornment position="start">
-                <LockIcon className={classes.lockIcon} />
+                <LockIcon className={classes.icon} />
               </InputAdornment>
             }
             endAdornment={
@@ -164,7 +164,7 @@ const RegisterScreen = ({ history, location }) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             startAdornment={
               <InputAdornment position="start">
-                <LockIcon className={classes.lockIcon} />
+                <LockIcon className={classes.icon} />
               </InputAdornment>
             }
             endAdornment={

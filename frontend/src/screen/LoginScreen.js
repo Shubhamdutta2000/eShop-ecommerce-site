@@ -25,7 +25,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../redux/actions/userAction";
 
 ///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
-import { useStyle } from "./customStyle/LoginRegisterScreen";
+import { useStyle } from "./customStyle/LoginRegisterShippingScreen";
 
 import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
@@ -81,7 +81,7 @@ const LoginScreen = ({ history, location }) => {
               onChange={(e) => setEmail(e.target.value)}
               startAdornment={
                 <InputAdornment position="start">
-                  <EmailIcon className={classes.lockIcon} />
+                  <EmailIcon className={classes.icon} />
                 </InputAdornment>
               }
               labelWidth={70}
@@ -101,7 +101,7 @@ const LoginScreen = ({ history, location }) => {
               onChange={(e) => setPassword(e.target.value)}
               startAdornment={
                 <InputAdornment position="start">
-                  <LockIcon className={classes.lockIcon} />
+                  <LockIcon className={classes.icon} />
                 </InputAdornment>
               }
               endAdornment={

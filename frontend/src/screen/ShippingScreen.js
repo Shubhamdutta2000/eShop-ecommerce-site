@@ -12,19 +12,18 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import { Avatar, Button } from "@material-ui/core";
 
 ///////////////////////////////////////      MATERIAL UI ICONS     ///////////////////////////////
-import IconButton from "@material-ui/core/IconButton";
-import EmailIcon from "@material-ui/icons/Email";
-import PeopleIcon from "@material-ui/icons/People";
-import LockIcon from "@material-ui/icons/Lock";
+import LocalShippingIcon from "@material-ui/icons/LocalShipping";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import LocationCityIcon from "@material-ui/icons/LocationCity";
+import FiberPinIcon from "@material-ui/icons/FiberPin";
+import LanguageIcon from "@material-ui/icons/Language";
 
 ////////////////////////////////////////     REDUX          /////////////////////////////////////
 import { useSelector, useDispatch } from "react-redux";
 import { addShippingAddress } from "../redux/actions/cartAction";
 
 ///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
-import { useStyle } from "./customStyle/LoginRegisterScreen";
-
-import Loader from "../components/Loader";
+import { useStyle } from "./customStyle/LoginRegisterShippingScreen";
 
 const ShippingScreen = ({ history }) => {
   const classes = useStyle();
@@ -51,7 +50,7 @@ const ShippingScreen = ({ history }) => {
   return (
     <Paper elevation={14} className={classes.paper}>
       <Avatar className={classes.avatar}>
-        <PeopleIcon />
+        <LocalShippingIcon />
       </Avatar>
       <Typography className={classes.heading} component="h1" variant="h5">
         SHIPPING ADDRESS
@@ -69,7 +68,7 @@ const ShippingScreen = ({ history }) => {
             onChange={(e) => setAddress(e.target.value)}
             startAdornment={
               <InputAdornment position="start">
-                <PeopleIcon className={classes.lockIcon} />
+                <LocationOnIcon className={classes.icon} />
               </InputAdornment>
             }
             labelWidth={60}
@@ -87,7 +86,7 @@ const ShippingScreen = ({ history }) => {
             onChange={(e) => setCity(e.target.value)}
             startAdornment={
               <InputAdornment position="start">
-                <EmailIcon className={classes.lockIcon} />
+                <LocationCityIcon className={classes.icon} />
               </InputAdornment>
             }
             labelWidth={30}
@@ -107,7 +106,7 @@ const ShippingScreen = ({ history }) => {
             onChange={(e) => setPostalCode(e.target.value)}
             startAdornment={
               <InputAdornment position="start">
-                <LockIcon className={classes.lockIcon} />
+                <FiberPinIcon className={classes.icon} />
               </InputAdornment>
             }
             labelWidth={90}
@@ -127,7 +126,7 @@ const ShippingScreen = ({ history }) => {
             onChange={(e) => setCountry(e.target.value)}
             startAdornment={
               <InputAdornment position="start">
-                <LockIcon className={classes.lockIcon} />
+                <LanguageIcon className={classes.icon} />
               </InputAdornment>
             }
             labelWidth={58}
