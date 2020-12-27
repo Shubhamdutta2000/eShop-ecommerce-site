@@ -41,6 +41,7 @@ const LoginScreen = ({ history, location }) => {
   const login = useSelector((state) => state.userLogin);
   const { loading, error, userInfo, isAuthenticated } = login;
 
+  ///////////////////////    FOR SHIPPING PAGE REDIRECT   //////////////////
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {

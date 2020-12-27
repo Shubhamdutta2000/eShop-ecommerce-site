@@ -10,7 +10,7 @@ export const useStyles = makeStyles((theme) => ({
 
   appbar: {
     padding: "0.4rem",
-    backgroundColor: "#1882d6",
+    background: "linear-gradient(45deg, #0267B5,  30%, #2196f3 90%)",
   },
 
   menu: {},

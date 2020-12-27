@@ -56,9 +56,7 @@ export default function ProductScreen({ history, match }) {
           <li className="breadcrumb-item">
             <a href="/">Home</a>
           </li>
-          <li className="breadcrumb-item">
-            <a href="/">{product.category}</a>
-          </li>
+          <li className="breadcrumb-item active">{product.category}</li>
           <li className="breadcrumb-item active" aria-current="page">
             {product.name}
           </li>
