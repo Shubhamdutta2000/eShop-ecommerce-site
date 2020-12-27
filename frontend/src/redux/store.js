@@ -29,8 +29,8 @@ const cartsFromLocalStorage = localStorage.getItem("cartItems")
   : [];
 
 // GET shippingAddress from local Storage
-const shippingAddressFromLocalStorage = localStorage.getItem("shippingAdrdess")
-  ? JSON.parse(localStorage.getItem("shippingAdrdess"))
+const shippingAddressFromLocalStorage = localStorage.getItem("shippingAddress")
+  ? JSON.parse(localStorage.getItem("shippingAddress"))
   : {};
 
 // GET user info from local Storage
