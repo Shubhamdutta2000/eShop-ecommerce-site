@@ -24,19 +24,25 @@ const reducer = combineReducers({
 });
 
 // GET all cart Items from local Storage
-
 const cartsFromLocalStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
   : [];
 
-// GET user info from local Storage
+// GET shippingAddress from local Storage
+const shippingAddressFromLocalStorage = localStorage.getItem("shippingAdrdess")
+  ? JSON.parse(localStorage.getItem("shippingAdrdess"))
+  : {};
 
+// GET user info from local Storage
 const userInfoFromLocalStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
 
 const initialState = {
-  cart: { cartItems: cartsFromLocalStorage },
+  cart: {
+    cartItems: cartsFromLocalStorage,
+    shippingAddress: shippingAddressFromLocalStorage,
+  },
   userLogin: { userInfo: userInfoFromLocalStorage },
 };
 
