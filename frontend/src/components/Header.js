@@ -34,7 +34,7 @@ import { userLogout } from "../redux/actions/userAction";
 //////////////////////////   CUSTOM STYLE    /////////////////////////
 import { useStyles } from "./CustomStyles/header";
 
-export default function MenuAppBar() {
+export default function Header() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const openEl = Boolean(anchorEl);

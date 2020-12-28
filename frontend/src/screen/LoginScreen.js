@@ -25,8 +25,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../redux/actions/userAction";
 
 ///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
-import { useStyle } from "./customStyle/LoginRegisterShippingScreen";
+import { useStyle } from "./customStyle/allFormsScreen";
 
+import CheckoutStepper from "../components/CheckoutStepper";
 import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
 
@@ -39,9 +40,9 @@ const LoginScreen = ({ history, location }) => {
 
   const dispatch = useDispatch();
   const login = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo, isAuthenticated } = login;
+  const { loading, error, userInfo } = login;
 
-  ///////////////////////    FOR SHIPPING PAGE REDIRECT   //////////////////
+  ///////////////////////    FOR SHIPPING PAGE REDIRECT OR HOME   //////////////////
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
@@ -58,6 +59,7 @@ const LoginScreen = ({ history, location }) => {
 
   return (
     <>
+      {redirect == "shipping" ? <CheckoutStepper step={0} /> : null}
       <Paper elevation={14} className={classes.paper}>
         <Avatar className={classes.avatar}>
           <PeopleIcon />

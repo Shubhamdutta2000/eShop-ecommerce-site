@@ -11,7 +11,7 @@ export const useStyle = makeStyles((theme) => ({
     alignItems: "center",
   },
   paper: {
-    width: "46%",
+    width: "50%",
     margin: "auto",
     marginTop: "0.4rem",
 
@@ -22,18 +22,25 @@ export const useStyle = makeStyles((theme) => ({
   },
 
   avatar: {
-    width: "2.6rem",
-    height: "2.6rem",
+    width: "3.1rem",
+    height: "3.1rem",
     marginLeft: "50%",
-    marginBottom: "0.5rem",
+    marginBottom: "0.8rem",
     transform: "translateX(-50%)",
-    backgroundColor: "#2196F0",
+    backgroundImage: "linear-gradient(45deg, #2196f3,  70%, #045694 90%)",
   },
 
   heading: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
+    marginBottom: "0.6rem",
+    marginTop: "0.6rem",
+    color: "#1853F3",
+    fontSize: "1.7rem",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "1.4rem",
+    },
   },
 
   input: {
@@ -43,22 +50,23 @@ export const useStyle = makeStyles((theme) => ({
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "#21CBF3",
+        borderColor: "#46BFE0",
       },
     },
     paddingBottom: theme.spacing(2.8),
     width: "80%",
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       width: "100%",
     },
   },
 
   button: {
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
-    width: "76%",
+    width: "80%",
+    marginBottom: "0.8rem",
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       width: "100%",
     },
   },
@@ -71,8 +79,23 @@ export const useStyle = makeStyles((theme) => ({
     paddingTop: theme.spacing(2.8),
     marginLeft: "6rem",
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       marginLeft: "auto",
     },
+  },
+
+  login: {
+    paddingTop: theme.spacing(2.8),
+    marginLeft: "6rem",
+
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: "auto",
+    },
+  },
+
+  selectLabel: {
+    fontSize: "1.4rem",
+    textAlign: "center",
+    color: "#1853F3",
   },
 }));

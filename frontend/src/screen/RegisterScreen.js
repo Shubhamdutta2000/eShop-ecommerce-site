@@ -25,7 +25,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../redux/actions/userAction";
 
 ///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
-import { useStyle } from "./customStyle/LoginRegisterShippingScreen";
+import { useStyle } from "./customStyle/allFormsScreen";
 
 import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
@@ -206,7 +206,7 @@ const RegisterScreen = ({ history, location }) => {
 
         <Grid container>
           <Grid item>
-            <Typography component="h5" className={classes.register}>
+            <Typography component="h5" className={classes.login}>
               Already Registered? &nbsp;
               <Link
                 to={redirect ? `/login?redirect=${redirect}` : "/login"}

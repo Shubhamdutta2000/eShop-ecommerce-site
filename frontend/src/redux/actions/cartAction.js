@@ -4,6 +4,7 @@ import {
   CART_ITEM_ADD,
   CART_ITEM_REMOVE,
   CART_SAVE_SHIPPING_ADDRESS,
+  CART_SAVE_PAYMENT_METHOD,
 } from "../actionTypes/cartConstants";
 
 ///////////////////////////        ACTIONS        /////////////////////////////////
@@ -31,6 +32,11 @@ const shippingAddress = (data) => ({
   payload: data,
 });
 
+const paymentMethod = (data) => ({
+  type: CART_SAVE_PAYMENT_METHOD,
+  payload: data,
+});
+
 ////////////////////////////       ACTION CREATOR     //////////////////////////
 
 //////////   ADD TO CART   ///////////////////
@@ -53,4 +59,11 @@ export const addShippingAddress = (data) => (dispatch) => {
   dispatch(shippingAddress(data));
 
   localStorage.setItem("shippingAddress", JSON.stringify(data));
+};
+
+//////////   SAVE PAYMENT METHOD   ///////////////////
+export const addPaymentMethod = (data) => (dispatch) => {
+  dispatch(paymentMethod(data));
+
+  localStorage.setItem("paymentMethod", JSON.stringify(data));
 };
