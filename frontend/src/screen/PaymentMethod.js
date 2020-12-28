@@ -66,13 +66,18 @@ const PaymentMethodScreen = ({ history }) => {
             >
               <FormControlLabel
                 value="PayPal or Credit Card"
-                control={<Radio />}
+                control={<Radio required />}
                 label="PayPal or Credit Card"
               />
               <FormControlLabel
                 value="Stripe"
-                control={<Radio />}
+                control={<Radio required />}
                 label="Stripe"
+              />
+              <FormControlLabel
+                value="Cash On Delivery"
+                control={<Radio required />}
+                label="Cash On Delivery"
               />
             </RadioGroup>
           </FormControl>
