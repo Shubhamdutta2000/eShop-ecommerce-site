@@ -34,6 +34,13 @@ export const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
+    marginBottom: "0.6rem",
+    marginTop: "0.6rem",
+    color: "#1853F3",
+    fontSize: "1.7rem",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "1.4rem",
+    },
   },
 
   input: {
@@ -49,7 +56,7 @@ export const useStyle = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2.8),
     width: "80%",
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       width: "100%",
     },
   },

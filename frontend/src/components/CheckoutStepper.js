@@ -12,12 +12,21 @@ function getSteps() {
   return ["Sign In", "Shipping", "Payment", "Place Order"];
 }
 
+const useStyles = makeStyles(() => ({
+  root: {
+    display: "flex",
+    justifyContent: "center",
+  },
+}));
+
 export default function CheckoutStepper({ step }) {
+  const classes = useStyles();
   const steps = getSteps();
 
   return (
     <div>
       <Stepper
+        className={classes.root}
         activeStep={step}
         alternativeLabel
         connector={<CheckoutStepConnector />}

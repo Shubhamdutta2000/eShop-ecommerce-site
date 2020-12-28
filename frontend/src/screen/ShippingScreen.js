@@ -56,7 +56,7 @@ const ShippingScreen = ({ history }) => {
           <LocalShippingIcon />
         </Avatar>
         <Typography className={classes.heading} component="h1" variant="h5">
-          SHIPPING ADDRESS
+          Shipping Address
         </Typography>
 
         <form className={classes.form}>

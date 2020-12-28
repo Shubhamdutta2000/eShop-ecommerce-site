@@ -8,17 +8,21 @@ import {
 } from "@material-ui/icons";
 
 /////////////////////////////////////////////   Style Step Icon   //////////////////////////////////////////////
-export const useStepIconStyles = makeStyles({
+export const useStepIconStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#ccc",
     zIndex: 1,
     color: "#fff",
-    width: 50,
-    height: 50,
+    width: "3.2rem",
+    height: "3.2rem",
     display: "flex",
     borderRadius: "50%",
     justifyContent: "center",
     alignItems: "center",
+    [theme.breakpoints.down("xs")]: {
+      width: "2.6rem",
+      height: "2.6rem",
+    },
   },
   active: {
     backgroundImage: "linear-gradient(45deg, #045694,  30%, #2196f3 90%)",
@@ -27,7 +31,7 @@ export const useStepIconStyles = makeStyles({
   completed: {
     backgroundImage: "linear-gradient(45deg, #045694,  30%, #2196f3 90%)",
   },
-});
+}));
 
 ////////////////////////////////////////////   Step Icon   /////////////////////////////////////////////
 export function StepIcon(props) {
