@@ -43,7 +43,7 @@ export const useStyle = makeStyles((theme) => ({
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "#21CBF3",
+        borderColor: "#46BFE0",
       },
     },
     paddingBottom: theme.spacing(2.8),
@@ -57,6 +57,7 @@ export const useStyle = makeStyles((theme) => ({
   button: {
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
     width: "76%",
+    marginBottom: "0.8rem",
 
     [theme.breakpoints.down("sm")]: {
       width: "100%",
