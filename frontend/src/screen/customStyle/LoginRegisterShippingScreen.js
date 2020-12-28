@@ -22,12 +22,12 @@ export const useStyle = makeStyles((theme) => ({
   },
 
   avatar: {
-    width: "2.6rem",
-    height: "2.6rem",
+    width: "3.1rem",
+    height: "3.1rem",
     marginLeft: "50%",
-    marginBottom: "0.5rem",
+    marginBottom: "0.8rem",
     transform: "translateX(-50%)",
-    backgroundColor: "#2196F0",
+    backgroundImage: "linear-gradient(45deg, #2196f3,  70%, #045694 90%)",
   },
 
   heading: {
