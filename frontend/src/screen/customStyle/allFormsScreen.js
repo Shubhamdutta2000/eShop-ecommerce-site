@@ -11,7 +11,7 @@ export const useStyle = makeStyles((theme) => ({
     alignItems: "center",
   },
   paper: {
-    width: "46%",
+    width: "50%",
     margin: "auto",
     marginTop: "0.4rem",
 
@@ -63,10 +63,10 @@ export const useStyle = makeStyles((theme) => ({
 
   button: {
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
-    width: "76%",
+    width: "80%",
     marginBottom: "0.8rem",
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       width: "100%",
     },
   },
@@ -79,8 +79,23 @@ export const useStyle = makeStyles((theme) => ({
     paddingTop: theme.spacing(2.8),
     marginLeft: "6rem",
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       marginLeft: "auto",
     },
+  },
+
+  login: {
+    paddingTop: theme.spacing(2.8),
+    marginLeft: "6rem",
+
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: "auto",
+    },
+  },
+
+  selectLabel: {
+    fontSize: "1.4rem",
+    textAlign: "center",
+    color: "#1853F3",
   },
 }));

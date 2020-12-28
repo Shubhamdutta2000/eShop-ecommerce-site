@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 /////////////////////////////////////////    MATERIAL UI    ////////////////////////////////
 import Paper from "@material-ui/core/Paper";
@@ -24,7 +23,7 @@ import { addShippingAddress } from "../redux/actions/cartAction";
 import CheckoutStepper from "../components/CheckoutStepper";
 
 ///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
-import { useStyle } from "./customStyle/LoginRegisterShippingScreen";
+import { useStyle } from "./customStyle/allFormsScreen";
 
 const ShippingScreen = ({ history }) => {
   const classes = useStyle();

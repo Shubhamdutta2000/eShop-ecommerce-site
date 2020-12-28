@@ -25,7 +25,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../redux/actions/userAction";
 
 ///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
-import { useStyle } from "./customStyle/LoginRegisterShippingScreen";
+import { useStyle } from "./customStyle/allFormsScreen";
 
 import CheckoutStepper from "../components/CheckoutStepper";
 import Message from "../components/ErrMessage";
