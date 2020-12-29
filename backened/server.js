@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 ////////////    Routes      //////////////
 app.use("/products", ProductRoutes);
 app.use("/user", UserRoutes);
-app.use("/order", OrderRoutes);
+app.use("/orders", OrderRoutes);
 
 ///////////    For error handling   //////////////
 app.use(NotFound);

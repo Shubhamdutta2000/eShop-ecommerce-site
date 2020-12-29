@@ -25,7 +25,11 @@ export const useStyles = makeStyles((theme) =>
       padding: "0.4rem 1rem 1rem 0",
     },
     list_item: {
-      marginLeft: "2.4rem",
+      marginLeft: "2rem",
+    },
+    order_summary: {
+      fontSize: "1.6rem",
+      margin: "auto",
     },
   })
 );

@@ -16,12 +16,12 @@ export const addOrderItems = asyncHandler(async (req, res) => {
     totalPrice,
   } = req.body;
 
-  if (!orderItems && orderItems.length == 0) {
+  if (orderItems && orderItems.length == 0) {
     res.status(400);
     throw new Error("No order found");
     return;
   } else {
-    const order = new OrderMpdel({
+    const order = new OrderModel({
       user: req.user._id,
       orderItems,
       shippingAddress,

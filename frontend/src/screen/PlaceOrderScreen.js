@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 ///////////////////////////     MATERIAL UI   ////////////////////////////////
 
@@ -18,6 +18,7 @@ import ErrMess from "../components/ErrMessage";
 ///////////////////////////    REDUX     ///////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../redux/actions/cartAction";
+import { createOrder } from "../redux/actions/orderAction";
 
 import CheckoutStepper from "../components/CheckoutStepper";
 import { Button } from "react-bootstrap";
@@ -26,7 +27,7 @@ import { Container } from "@material-ui/core";
 ///////////////////////////    CUSTOM STYLES     ///////////////////////////////
 import { useStyles } from "./customStyle/PlaceOrderScreen";
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = ({ history }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -56,10 +57,30 @@ const PlaceOrderScreen = () => {
     dispatch(removeFromCart(id));
   };
 
+  const placeOrder = useSelector((state) => state.order);
+  const { order, success, error } = placeOrder;
+
   //////////////////  PLACE ORDER   //////////////////////
   const placeOrderHandler = () => {
+    dispatch(
+      createOrder({
+        orderItems: cartItems,
+        shippingAddress: shippingAddress,
+        paymentMethod: paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
     console.log("order");
   };
+
+  useEffect(() => {
+    if (success) {
+      history.push(`/order/${order._id}`);
+    }
+  }, [history, success]);
 
   return (
     <>
@@ -67,7 +88,7 @@ const PlaceOrderScreen = () => {
 
       <Grid container spacing={4}>
         {/*/////////////////////   LEFT SIDE    ///////////////////////////////////*/}
-        <Grid item lg={8}>
+        <Grid item md={8} xs={12}>
           <Paper className={classes.paper} elevation={6}>
             <List className={classes.list}>
               <ListItem className={classes.list_item}>
@@ -176,11 +197,16 @@ const PlaceOrderScreen = () => {
         </Grid>
 
         {/*/////////////////////   RIGHT SIDE    ///////////////////////////////////*/}
-        <Grid item lg={4} sm={12}>
+        <Grid item md={4} xs={12}>
           <Paper elevation={6}>
             <List>
-              <ListItem className={classes.list_item}>
-                <Typography color="primary" variant="h4" component="h3">
+              <ListItem>
+                <Typography
+                  className={classes.order_summary}
+                  color="primary"
+                  variant="h4"
+                  component="h3"
+                >
                   <strong>ORDER SUMMARY</strong>
                 </Typography>
               </ListItem>
@@ -189,12 +215,12 @@ const PlaceOrderScreen = () => {
 
               <ListItem>
                 <Grid container>
-                  <Grid item lg={6} sm={6}>
+                  <Grid item lg={6} xs={6}>
                     <Typography color="primary" varient="h6" component="h6">
                       <strong>Items</strong>
                     </Typography>
                   </Grid>
-                  <Grid item lg={6} sm={6}>
+                  <Grid item lg={6} xs={6}>
                     <Typography color="textPrimary" varient="p" component="h6">
                       ${cart.itemsPrice}
                     </Typography>
@@ -210,12 +236,12 @@ const PlaceOrderScreen = () => {
 
               <ListItem>
                 <Grid container>
-                  <Grid item lg={6} sm={6}>
+                  <Grid item lg={6} xs={6}>
                     <Typography color="primary" varient="h6" component="h6">
                       <strong>Shipping</strong>
                     </Typography>
                   </Grid>
-                  <Grid item lg={6} sm={6}>
+                  <Grid item lg={6} xs={6}>
                     <Typography color="textPrimary" varient="p" component="h6">
                       ${cart.shippingPrice}
                     </Typography>
@@ -231,12 +257,12 @@ const PlaceOrderScreen = () => {
 
               <ListItem>
                 <Grid container>
-                  <Grid item lg={6} sm={6}>
+                  <Grid item lg={6} xs={6}>
                     <Typography color="primary" varient="h6" component="h6">
                       <strong>Tax</strong>
                     </Typography>
                   </Grid>
-                  <Grid item lg={6} sm={6}>
+                  <Grid item lg={6} xs={6}>
                     <Typography color="textPrimary" varient="p" component="h6">
                       ${cart.taxPrice}
                     </Typography>
@@ -252,12 +278,12 @@ const PlaceOrderScreen = () => {
 
               <ListItem>
                 <Grid container>
-                  <Grid item lg={6} sm={6}>
+                  <Grid item lg={6} xs={6}>
                     <Typography color="primary" varient="h6" component="h6">
                       <strong>Total</strong>
                     </Typography>
                   </Grid>
-                  <Grid item lg={6} sm={6}>
+                  <Grid item lg={6} xs={6}>
                     <Typography color="textPrimary" varient="p" component="h6">
                       ${cart.totalPrice}
                     </Typography>
