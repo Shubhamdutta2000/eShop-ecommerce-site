@@ -1,9 +1,8 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
 ///////////////////////////     MATERIAL UI   ////////////////////////////////
 
-import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -24,43 +23,10 @@ import CheckoutStepper from "../components/CheckoutStepper";
 import { Button } from "react-bootstrap";
 import { Container } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    root: {
-      width: "100%",
-      maxWidth: "36ch",
-      backgroundColor: theme.palette.background.paper,
-    },
-    inline: {
-      display: "inline",
-    },
+///////////////////////////    CUSTOM STYLES     ///////////////////////////////
+import { useStyles } from "./customStyle/PlaceOrderScreen";
 
-    divider: {
-      marginBottom: "0.5rem",
-      marginTop: "0.3rem",
-    },
-    avatar: {
-      width: "5rem",
-      height: "5rem",
-      marginRight: "1.4rem",
-    },
-    paper: {
-      marginBottom: "1.8rem",
-      padding: "0.4rem 1rem 1rem 0",
-    },
-    list_item: {
-      marginLeft: "2.4rem",
-    },
-
-    order_link: {
-      "a:hover": {
-        textDecoration: "none",
-      },
-    },
-  })
-);
-
-const PlaceOrderScreen = ({ history }) => {
+const PlaceOrderScreen = () => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
