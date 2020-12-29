@@ -138,21 +138,6 @@ const PlaceOrderScreen = ({ history }) => {
             </List>
           </Paper>
 
-          {/* <Paper className={classes.paper} elevation={6}>
-            <List className={classes.list}>
-              <ListItem className={classes.list_item}>
-                <Typography color="primary" variant="h4" component="h3">
-                  Payment Method
-                </Typography>
-              </ListItem>
-              <ListItem className={classes.list_item}>
-                <Typography color="textPrimary" varient="p" component="h6">
-                  {paymentMethod}
-                </Typography>
-              </ListItem>
-            </List>
-          </Paper> */}
-
           <Paper className={classes.paper} elevation={6}>
             <List className={classes.list}>
               <ListItem className={classes.list_item}>
@@ -197,7 +182,7 @@ const PlaceOrderScreen = ({ history }) => {
                               component="span"
                             >
                               {item.qty} x {item.price} ={" "}
-                              {item.qty * item.price}
+                              {(item.qty * item.price).toFixed(2)}
                             </Typography>
                           }
                         />
