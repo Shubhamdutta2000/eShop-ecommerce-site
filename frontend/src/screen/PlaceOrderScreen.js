@@ -22,6 +22,7 @@ import { removeFromCart } from "../redux/actions/cartAction";
 
 import CheckoutStepper from "../components/CheckoutStepper";
 import { Button } from "react-bootstrap";
+import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -50,6 +51,12 @@ const useStyles = makeStyles((theme) =>
     list_item: {
       marginLeft: "2.4rem",
     },
+
+    order_link: {
+      "a:hover": {
+        textDecoration: "none",
+      },
+    },
   })
 );
 
@@ -60,17 +67,13 @@ const PlaceOrderScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
   const { cartItems, shippingAddress, paymentMethod } = cart;
 
-  /////////////////////   TO DECIMAL   ///////////////////
-  const toDecimal = (num) => {
-    return Math.round((num * 100) / 100);
-  };
   /////////////////////  Items Price   ////////////////////
   cart.itemsPrice = cartItems
     .reduce((acc, item) => acc + item.qty * item.price, 0)
     .toFixed(2);
 
   ////////////////////   Shipping Price  /////////////////////////////
-  cart.shippingPrice = toDecimal((cart.itemsPrice > 150 ? 100 : 0).toFixed(2));
+  cart.shippingPrice = (cart.itemsPrice > 150 ? 100 : 0).toFixed(2);
 
   //////////////////////  Tax Price  /////////////////////////////
   cart.taxPrice = ((cart.itemsPrice * 25) / 100).toFixed(2);
@@ -160,7 +163,11 @@ const PlaceOrderScreen = ({ history }) => {
             </List>
 
             {!cartItems.length ? (
-              <ErrMess varient="info">Your Cart Is Empty</ErrMess>
+              <Container maxWidth="md">
+                <ErrMess varient="info">
+                  Your Cart Is Empty <Link to="/">Keep Shopping</Link>
+                </ErrMess>
+              </Container>
             ) : (
               <List>
                 {cartItems.map((item, index) => (
@@ -177,7 +184,10 @@ const PlaceOrderScreen = ({ history }) => {
                           src={item.image}
                         />
                       </ListItemAvatar>
-                      <Link to={`/products/${item.category}/${item.product}`}>
+                      <Link
+                        className={classes.order_link}
+                        to={`/products/${item.category}/${item.product}`}
+                      >
                         <ListItemText
                           primary={item.name}
                           secondary={
