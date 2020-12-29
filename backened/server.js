@@ -7,6 +7,7 @@ import { NotFound, errorhandler } from "./middleware/errorHandling.js";
 
 import ProductRoutes from "./routes/productRoutes.js";
 import UserRoutes from "./routes/userRouter.js";
+import OrderRoutes from "./routes/OrderRoutes.js";
 
 ////////////    Configuring all .env files   /////////////
 dotenv.config();
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 ////////////    Routes      //////////////
 app.use("/products", ProductRoutes);
 app.use("/user", UserRoutes);
+app.use("/order", OrderRoutes);
 
 ///////////    For error handling   //////////////
 app.use(NotFound);
