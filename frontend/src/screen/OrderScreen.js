@@ -14,78 +14,52 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 
 import ErrMess from "../components/ErrMessage";
+import Loader from "../components/Loader";
 
 ///////////////////////////    REDUX     ///////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart } from "../redux/actions/cartAction";
-import { createOrder } from "../redux/actions/orderAction";
+import { getOrderDetails } from "../redux/actions/orderAction";
 
-import CheckoutStepper from "../components/CheckoutStepper";
 import { Button } from "react-bootstrap";
 import { Container } from "@material-ui/core";
 
 ///////////////////////////    CUSTOM STYLES     ///////////////////////////////
 import { useStyles } from "./customStyle/PlaceOrderScreen";
 
-const PlaceOrderScreen = ({ history }) => {
+const OrderScreen = ({ match }) => {
   const classes = useStyles();
 
+  const orderId = match.params.id;
+
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
-  const { cartItems, shippingAddress, paymentMethod } = cart;
 
-  /////////////////////  Items Price   ////////////////////
-  cart.itemsPrice = cartItems
-    .reduce((acc, item) => acc + item.qty * item.price, 0)
-    .toFixed(2);
-
-  ////////////////////   Shipping Price  /////////////////////////////
-  cart.shippingPrice = (cart.itemsPrice > 150 ? 100 : 0).toFixed(2);
-
-  //////////////////////  Tax Price  /////////////////////////////
-  cart.taxPrice = ((cart.itemsPrice * 25) / 100).toFixed(2);
-
-  /////////////////////   TOTAL PRICE  /////////////////////////////
-  cart.totalPrice = (
-    Number(cart.itemsPrice) +
-    Number(cart.shippingPrice) +
-    Number(cart.taxPrice)
-  ).toFixed(2);
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { loading, order, error } = orderDetails;
 
   /////////////////  REMOVE ORDER FROM CART   //////////////
   const removeCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
 
-  const placeOrder = useSelector((state) => state.order);
-  const { order, success, error } = placeOrder;
-
-  //////////////////  PLACE ORDER   //////////////////////
-  const placeOrderHandler = () => {
-    dispatch(
-      createOrder({
-        orderItems: cartItems,
-        shippingAddress: shippingAddress,
-        paymentMethod: paymentMethod,
-        itemsPrice: cart.itemsPrice,
-        shippingPrice: cart.shippingPrice,
-        taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice,
-      })
-    );
-    console.log("order");
-  };
-
+  console.log(order);
   useEffect(() => {
-    if (success) {
-      history.push(`/orders/${order._id}`);
-    }
-  }, [history, success]);
+    dispatch(getOrderDetails(orderId));
+  }, [dispatch]);
 
-  return (
+  console.log(order);
+
+  return loading ? (
+    <Loader />
+  ) : error ? (
+    <ErrMess varient="danger">{error}</ErrMess>
+  ) : (
     <>
-      <CheckoutStepper step={3} />
-
+      <br />
+      <Typography variant="h4" component="h2" color="textSecondary">
+        ORDER {order._id}
+      </Typography>
+      <br />
+      <br />
       <Grid container spacing={4}>
         {/*/////////////////////   LEFT SIDE    ///////////////////////////////////*/}
         <Grid item md={8} xs={12}>
@@ -96,20 +70,52 @@ const PlaceOrderScreen = ({ history }) => {
                   <strong>SHIPPING DETAILS</strong>
                 </Typography>
               </ListItem>
+              <Divider variant="fullWidth" className={classes.divider} />
+
               <ListItem className={classes.list_item}>
                 <Typography color="textPrimary" varient="p" component="h6">
-                  {shippingAddress.address},
+                  <strong className={classes.shipping}>Name: </strong>
+                  {order.user.name}
                   <br />
-                  {shippingAddress.city},
                   <br />
-                  {shippingAddress.country},
+                  <strong className={classes.shipping}>Email: </strong>
+                  <a
+                    className={classes.email}
+                    href={order.user.email}
+                    target="_blank"
+                  >
+                    {order.user.email}
+                  </a>
                   <br />
-                  {shippingAddress.postalCode}
+                  <br />
+                  <strong>Address: </strong>
+                  <span className="ml-4">{order.shippingAddress.address}</span>
+                  <br />
+                  <span className="ml-5 pl-5">
+                    {order.shippingAddress.city}
+                  </span>
+
+                  <br />
+                  <span className="ml-5 pl-5">
+                    {order.shippingAddress.country},
+                  </span>
+
+                  <br />
+                  <span className="ml-5 pl-5">
+                    {order.shippingAddress.postalCode}
+                  </span>
                 </Typography>
               </ListItem>
+              <div className={classes.message}>
+                {order.isDelivered ? (
+                  <ErrMess varient="success">
+                    Delivered at {order.deliveredAt}
+                  </ErrMess>
+                ) : (
+                  <ErrMess varient="error">Not Delivered</ErrMess>
+                )}
+              </div>
             </List>
-
-            <Divider variant="fullWidth" className={classes.divider} />
 
             <List className={classes.list}>
               <ListItem className={classes.list_item}>
@@ -117,11 +123,20 @@ const PlaceOrderScreen = ({ history }) => {
                   <strong>PAYMENT METHOD</strong>
                 </Typography>
               </ListItem>
+              <Divider variant="fullWidth" className={classes.divider} />
+
               <ListItem className={classes.list_item}>
                 <Typography color="textPrimary" varient="p" component="h6">
-                  {paymentMethod}
+                  {order.paymentMethod}
                 </Typography>
               </ListItem>
+              <div className={classes.message}>
+                {order.isPaid ? (
+                  <ErrMess varient="success">Paid on {order.paidAt}</ErrMess>
+                ) : (
+                  <ErrMess varient="error">Not Paid</ErrMess>
+                )}
+              </div>
             </List>
           </Paper>
 
@@ -134,15 +149,15 @@ const PlaceOrderScreen = ({ history }) => {
               </ListItem>
             </List>
 
-            {!cartItems.length ? (
+            {!order.orderItems.length ? (
               <Container maxWidth="md">
                 <ErrMess varient="info">
-                  Your Cart Is Empty <Link to="/">Keep Shopping</Link>
+                  No order <Link to="/">Keep Shopping</Link>
                 </ErrMess>
               </Container>
             ) : (
               <List>
-                {cartItems.map((item, index) => (
+                {order.orderItems.map((item, index) => (
                   <div key={index}>
                     <ListItem
                       className={classes.list_item}
@@ -217,12 +232,12 @@ const PlaceOrderScreen = ({ history }) => {
                 <Grid container>
                   <Grid item lg={6} xs={6}>
                     <Typography color="primary" varient="h6" component="h6">
-                      <strong>Items</strong>
+                      <strong>Items Price</strong>
                     </Typography>
                   </Grid>
                   <Grid item lg={6} xs={6}>
                     <Typography color="textPrimary" varient="p" component="h6">
-                      ${cart.itemsPrice}
+                      ${order.itemsPrice}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -238,12 +253,12 @@ const PlaceOrderScreen = ({ history }) => {
                 <Grid container>
                   <Grid item lg={6} xs={6}>
                     <Typography color="primary" varient="h6" component="h6">
-                      <strong>Shipping</strong>
+                      <strong>Delivery Charge</strong>
                     </Typography>
                   </Grid>
                   <Grid item lg={6} xs={6}>
                     <Typography color="textPrimary" varient="p" component="h6">
-                      ${cart.shippingPrice}
+                      ${order.shippingPrice}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -259,12 +274,12 @@ const PlaceOrderScreen = ({ history }) => {
                 <Grid container>
                   <Grid item lg={6} xs={6}>
                     <Typography color="primary" varient="h6" component="h6">
-                      <strong>Tax</strong>
+                      <strong>Tax Price</strong>
                     </Typography>
                   </Grid>
                   <Grid item lg={6} xs={6}>
                     <Typography color="textPrimary" varient="p" component="h6">
-                      ${cart.taxPrice}
+                      ${order.taxPrice}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -280,28 +295,18 @@ const PlaceOrderScreen = ({ history }) => {
                 <Grid container>
                   <Grid item lg={6} xs={6}>
                     <Typography color="primary" varient="h6" component="h6">
-                      <strong>Total</strong>
+                      <strong>Total Price</strong>
                     </Typography>
                   </Grid>
                   <Grid item lg={6} xs={6}>
                     <Typography color="textPrimary" varient="p" component="h6">
-                      ${cart.totalPrice}
+                      ${order.totalPrice}
                     </Typography>
                   </Grid>
                 </Grid>
               </ListItem>
 
               <Divider variant="fullWidth" component="br" />
-
-              <ListItem>
-                <Button
-                  className="btn-block p-2"
-                  disabled={cartItems.length == 0}
-                  onClick={placeOrderHandler}
-                >
-                  PLACE ORDER
-                </Button>
-              </ListItem>
             </List>
           </Paper>
         </Grid>
@@ -310,4 +315,4 @@ const PlaceOrderScreen = ({ history }) => {
   );
 };
 
-export default PlaceOrderScreen;
+export default OrderScreen;
