@@ -18,15 +18,18 @@
 
 # #####################     LOGIN   ####################
 
-# POST http://localhost:5000/user/login
-# Content-Type: "application/json"
+POST http://localhost:5000/user/login
+Content-Type: "application/json"
 
-# {
-#       "email": "shubham@gmail.com",
-#       "password": "user1234"
-# }
+{
+      "email": "eShop@gmail.com",
+      "password": "user1234"
+}
+
 # ######################   PROFILE  #####################
 
-GET http://localhost:5000/user/profile
-Content-Type: "application/json"
-Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwODkyNzQzMiwiZXhwIjoxNjA4OTI5MjMyfQ.ibSzhinFovzVQ9B_pr5C2nsy1Md-dEMWGZGNOQlO_dQ"
+# GET http://localhost:5000/user/profile
+# Content-Type: "application/json"
+# Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwODkyNzQzMiwiZXhwIjoxNjA4OTI5MjMyfQ.ibSzhinFovzVQ9B_pr5C2nsy1Md-dEMWGZGNOQlO_dQ"
+
+# GET http://localhost:5000/orders/5fec2a03b1ea281fbc6d94f5
