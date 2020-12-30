@@ -18,6 +18,7 @@ import Loader from "../components/Loader";
 
 ///////////////////////////    REDUX     ///////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
+import { removeFromCart } from "../redux/actions/cartAction";
 import { getOrderDetails } from "../redux/actions/orderAction";
 
 import { Button } from "react-bootstrap";
@@ -189,14 +190,8 @@ const OrderScreen = ({ match }) => {
                           }
                         />
                       </Link>
-                      <ListItemSecondaryAction>
-                        <Button
-                          type="button"
-                          variant="light"
-                          onClick={() => removeCartHandler(item.product)}
-                        >
-                          <i className="fas fa-trash"></i>
-                        </Button>
+                      <ListItemSecondaryAction className={classes.qty}>
+                        Qty: {item.qty}
                       </ListItemSecondaryAction>
                     </ListItem>
                     <Divider

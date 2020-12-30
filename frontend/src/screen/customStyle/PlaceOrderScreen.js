@@ -50,5 +50,10 @@ export const useStyles = makeStyles((theme) =>
       color: "#000",
       textDecoration: "none",
     },
+
+    qty: {
+      fontSize: "1.3rem",
+      fontWeight: "450",
+    },
   })
 );
