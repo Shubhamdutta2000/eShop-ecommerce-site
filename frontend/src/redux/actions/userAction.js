@@ -99,9 +99,12 @@ export const loginUser = (email, password) => async (dispatch) => {
     );
     dispatch(addUser(data));
 
-    console.log(data);
-
     localStorage.setItem("userInfo", JSON.stringify(data));
+
+    ///////////////////////////////      Remove from localStorage when token expire (time of token expiration)  /////////////////////////
+    setTimeout(() => {
+      localStorage.removeItem("userInfo");
+    }, 3600000);
   } catch (error) {
     dispatch(
       loginFailed(
@@ -140,6 +143,11 @@ export const registerUser = (name, email, password) => async (dispatch) => {
     dispatch(addUser(data));
 
     localStorage.setItem("userInfo", JSON.stringify(data));
+
+    ///////////////////////////////      Remove from localStorage when token expire (time of token expiration)  /////////////////////////
+    setTimeout(() => {
+      localStorage.removeItem("userInfo");
+    }, 3600000);
   } catch (error) {
     dispatch(
       registerFailed(
@@ -168,7 +176,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.get(`/user/${id}`, config);
-    console.log(data);
 
     dispatch(getProfile(data));
   } catch (error) {

@@ -1,35 +1,34 @@
 
-# ///////////////////////    PRODUCTS     ///////////////////////////
 
 
-# #########   PRODUCTS BY CATEGORY   ########
+###########   PRODUCTS BY CATEGORY   ########
 
-# # GET http://localhost:5000/products/mens_accessories/
+GET http://localhost:5000/products/mens_accessories/
 
+############    PRODUCTS BY CATEGOEY AND ID    ##########
 
-
-# ##########    PRODUCTS BY CATEGOEY AND ID    ##########
-
-# # GET http://localhost:5000/products/mens_accessories/5fda124ef08b7d0f6c2475c7
+GET http://localhost:5000/products/mens_accessories/5fda124ef08b7d0f6c2475c7
 
 
-# /////////////////////////////   USER     /////////////////////////////
-
-
-# #####################     LOGIN   ####################
+#######################     LOGIN   ####################
 
 POST http://localhost:5000/user/login
-Content-Type: "application/json"
+Content-Type: application/json
 
 {
       "email": "eShop@gmail.com",
       "password": "user1234"
 }
 
-# ######################   PROFILE  #####################
+########################   PROFILE  #####################
 
-# GET http://localhost:5000/user/profile
-# Content-Type: "application/json"
-# Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwODkyNzQzMiwiZXhwIjoxNjA4OTI5MjMyfQ.ibSzhinFovzVQ9B_pr5C2nsy1Md-dEMWGZGNOQlO_dQ"
+GET http://localhost:5000/user/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwODkyNzQzMiwiZXhwIjoxNjA4OTI5MjMyfQ.ibSzhinFovzVQ9B_pr5C2nsy1Md-dEMWGZGNOQlO_dQ
 
-# GET http://localhost:5000/orders/5fec2a03b1ea281fbc6d94f5
+
+#########################  ORDERS BY ID    ##################
+
+GET http://localhost:5000/orders/5fec7c8636f3aa286cc61304
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVkNTk1MWVlY2E2MWM5NGY4MDM5NCIsImlhdCI6MTYwOTMzMzU0OCwiZXhwIjoxNjA5MzM1MzQ4fQ.QXWVJs4N2miu-XjIl9SJYWNGgXhqwuBK-UHCxHij4Fw
+
