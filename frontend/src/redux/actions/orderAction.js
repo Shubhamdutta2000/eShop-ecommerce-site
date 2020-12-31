@@ -5,6 +5,9 @@ import {
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAILED,
+  ORDER_PAY_REQUEST,
+  ORDER_PAY_SUCCESS,
+  ORDER_PAY_FAILED,
 } from "../actionTypes/orderConstants";
 
 import axios from "axios";
@@ -37,6 +40,21 @@ const addOrderDetails = (order) => ({
 
 const orderDetailsFailed = (error) => ({
   type: ORDER_DETAILS_FAILED,
+  payload: error,
+});
+
+/////////////   PAY Order   ///////////////
+const reqPayOrder = () => ({
+  type: ORDER_PAY_REQUEST,
+});
+
+const addPayOrder = (order) => ({
+  type: ORDER_PAY_SUCCESS,
+  payload: order,
+});
+
+const payOrderFailed = (error) => ({
+  type: ORDER_PAY_FAILED,
   payload: error,
 });
 
@@ -73,12 +91,9 @@ export const createOrder = (order) => async (dispatch, getState) => {
 export const getOrderDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch(reqOrderDetails());
-    console.log("hello");
     const {
       userLogin: { userInfo },
     } = getState();
-
-    console.log(userInfo.token);
 
     const config = {
       headers: {
@@ -86,11 +101,44 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.get(`/orders/${id}`, config);
-    console.log(data);
 
     dispatch(addOrderDetails(data));
   } catch (error) {
     orderDetailsFailed(
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    );
+  }
+};
+
+//////////////    PAY ORDER AND UPDATE ORDER TO PAID    ///////////////
+export const payOrder = (orderId, paymentResult) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch(reqPayOrder());
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      "Content-Type": "application/json",
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.put(
+      `/orders/${orderId}/payment`,
+      paymentResult,
+      config
+    );
+    console.log(data);
+
+    dispatch(addPayOrder(data));
+  } catch (error) {
+    payOrderFailed(
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message
