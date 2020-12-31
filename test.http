@@ -32,3 +32,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZ
 GET http://localhost:5000/orders/5fec94b9e7c28029282d029b
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVkNTk1MWVlY2E2MWM5NGY4MDM5NCIsImlhdCI6MTYwOTM0MTE0OSwiZXhwIjoxNjA5MzQ0NzQ5fQ.9KzmYlEGSnqvDPvoq8BONHpMxPbZjH4EcwRkN0-2aFA
 
+
+#######################   PAYPAL CONFIG  #####################
+
+GET http://localhost:5000/config/paypal
