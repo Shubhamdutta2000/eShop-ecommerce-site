@@ -165,7 +165,7 @@ export const payOrder = (orderId, paymentResult) => async (
 };
 
 //////////////    LIST MY ORDERS (PARTICULAR USER)    ///////////////
-export const payOrder = () => async (dispatch, getState) => {
+export const listMyOrders = () => async (dispatch, getState) => {
   try {
     dispatch(reqMyOrders());
     const {
@@ -173,13 +173,12 @@ export const payOrder = () => async (dispatch, getState) => {
     } = getState();
 
     const config = {
-      "Content-Type": "application/json",
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
 
-    const { data } = axios.get("/orders/myorders", config);
+    const { data } = await axios.get("/orders/myorders", config);
     console.log(data);
 
     dispatch(addMyOrders(data));

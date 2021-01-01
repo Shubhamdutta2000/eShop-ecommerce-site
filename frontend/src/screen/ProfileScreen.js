@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 ////////////////////////////////    MATERIAL UI   ////////////////////////////////////
-import TextField from "@material-ui/core/TextField";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { Button } from "@material-ui/core";
 
 /////////////////////////////////    REDUX     //////////////////////////////////////
 import { useSelector, useDispatch } from "react-redux";
 import { getUserDetails, updateUserProfile } from "../redux/actions/userAction";
+import { listMyOrders } from "../redux/actions/orderAction";
 
 ///////////////////////////////////     CUSTOM STYLE    ///////////////////////////////
 import { useStyles, CssTextField } from "./customStyle/ProfileScreen";
@@ -39,12 +38,17 @@ const ProfileScreen = ({ history }) => {
   const updateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = updateProfile;
 
+  ///////////////////   MY ORDERS REDUCER    ////////////////
+  const myOrders = useSelector((state) => state.myOrders);
+  const { loading: loadingOrders, order, error: errorOrders } = myOrders;
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     } else {
       if (!user) {
         dispatch(getUserDetails("profile"));
+        dispatch(listMyOrders());
       } else {
         setName(user.name);
         setEmail(user.email);

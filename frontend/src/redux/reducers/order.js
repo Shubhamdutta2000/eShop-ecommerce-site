@@ -46,9 +46,10 @@ export const createOrderReducer = (
 };
 export const orderDetailsReducer = (
   state = {
+    loading: false,
+
     order: null,
     error: null,
-    loading: true,
   },
   action
 ) => {
