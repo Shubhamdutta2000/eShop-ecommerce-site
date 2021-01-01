@@ -8,6 +8,9 @@ import {
   ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAILED,
+  LIST_MY_ORDER_REQUEST,
+  LIST_MY_ORDER_SUCCESS,
+  LIST_MY_ORDER_FAILED,
 } from "../actionTypes/orderConstants";
 
 import axios from "axios";
@@ -55,6 +58,21 @@ const addPayOrder = (order) => ({
 
 const payOrderFailed = (error) => ({
   type: ORDER_PAY_FAILED,
+  payload: error,
+});
+
+/////////////   MY ORDERS   ///////////////
+const reqMyOrders = () => ({
+  type: LIST_MY_ORDER_REQUEST,
+});
+
+const addMyOrders = (order) => ({
+  type: LIST_MY_ORDER_SUCCESS,
+  payload: order,
+});
+
+const myOrdersFailed = (error) => ({
+  type: LIST_MY_ORDER_FAILED,
   payload: error,
 });
 
@@ -139,6 +157,34 @@ export const payOrder = (orderId, paymentResult) => async (
     dispatch(addPayOrder(data));
   } catch (error) {
     payOrderFailed(
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    );
+  }
+};
+
+//////////////    LIST MY ORDERS (PARTICULAR USER)    ///////////////
+export const payOrder = () => async (dispatch, getState) => {
+  try {
+    dispatch(reqMyOrders());
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      "Content-Type": "application/json",
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = axios.get("/orders/myorders", config);
+    console.log(data);
+
+    dispatch(addMyOrders(data));
+  } catch (error) {
+    myOrdersFailed(
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message

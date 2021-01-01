@@ -9,6 +9,9 @@ import {
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAILED,
   ORDER_PAY_RESET,
+  LIST_MY_ORDER_REQUEST,
+  LIST_MY_ORDER_SUCCESS,
+  LIST_MY_ORDER_FAILED,
 } from "../actionTypes/orderConstants";
 
 export const createOrderReducer = (
@@ -89,6 +92,31 @@ export const orderPayReducer = (state = {}, action) => {
 
     case ORDER_PAY_RESET:
       return {};
+
+    default:
+      return state;
+  }
+};
+
+export const myOrdersReducer = (
+  state = { loading: false, orders: null, error: null },
+  action
+) => {
+  switch (action.type) {
+    case LIST_MY_ORDER_REQUEST:
+      return { loading: true };
+
+    case LIST_MY_ORDER_SUCCESS:
+      return {
+        loading: false,
+        orders: action.payload,
+      };
+
+    case LIST_MY_ORDER_FAILED:
+      return {
+        loading: false,
+        error: action.payload,
+      };
 
     default:
       return state;
