@@ -36,3 +36,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVkNTk1M
 #######################   PAYPAL CONFIG  #####################
 
 GET http://localhost:5000/config/paypal
+
+######################   LOGGED IN USER ORDERS (paid)   #############
+
+GET http://localhost:5000/orders/myorders
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkXVCJ9.eyJpZCI6IjVmZTVkNTk1MWVlY2E2MWM5NGY4MDM5NCIsImlhdCI6MTYwOTUwMDg3MCwiZXhwIjoxNjA5NTA0NDcwfQ.e_SIUdrgWQIZTs1RwCH4v878HqJKsyt1YGD9UBcleP0

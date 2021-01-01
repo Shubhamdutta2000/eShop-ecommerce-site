@@ -69,8 +69,6 @@ const OrderScreen = ({ match }) => {
     } else if (!order.isPaid) {
       if (!window.paypal) {
         addPayPalScript();
-      } else {
-        setSdkReady(true);
       }
     }
   }, [dispatch, order, successPay, window, orderId, sdkReady]);
@@ -347,14 +345,14 @@ const OrderScreen = ({ match }) => {
                   }}
                 >
                   {loadingPay && <Loader />}
-                  {!sdkReady ? (
+                  {/* {!sdkReady ? (
                     <Loader />
-                  ) : (
-                    <PayPalButton
-                      amount={`${order.totalPrice}`}
-                      onSuccess={successPaymentHandler}
-                    />
-                  )}
+                  ) : ( */}
+                  <PayPalButton
+                    amount={`${order.totalPrice}`}
+                    onSuccess={successPaymentHandler}
+                  />
+                  {/* )} */}
                 </ListItem>
               )}
             </List>
