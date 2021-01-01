@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { PayPalButton } from "react-paypal-button-v2";
+// import PaypalExpressBtn from "react-paypal-express-checkout";
+
 ///////////////////////////     MATERIAL UI   ////////////////////////////////
 
 import Paper from "@material-ui/core/Paper";
@@ -65,17 +67,23 @@ const OrderScreen = ({ match }) => {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
-      if (!window.payload) {
+      if (!window.paypal) {
         addPayPalScript();
       } else {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, successPay, window, orderId]);
+  }, [dispatch, order, successPay, window, orderId, sdkReady]);
+
+  // const client = {
+  //   sandbox: "YOUR-SANDBOX-APP-ID",
+  //   production: "YOUR-PRODUCTION-APP-ID",
+  // };
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
+    alert("Transaction completed by " + details.payer.name.given_name);
   };
 
   return loading ? (
@@ -332,13 +340,18 @@ const OrderScreen = ({ match }) => {
 
               <Divider variant="fullWidth" component="br" />
               {!order.isPaid && (
-                <ListItem>
+                <ListItem
+                  style={{
+                    width: "60%",
+                    margin: "auto",
+                  }}
+                >
                   {loadingPay && <Loader />}
                   {!sdkReady ? (
                     <Loader />
                   ) : (
                     <PayPalButton
-                      amount={order.isPaid}
+                      amount={`${order.totalPrice}`}
                       onSuccess={successPaymentHandler}
                     />
                   )}
