@@ -58,9 +58,9 @@ const ProfileScreen = ({ history }) => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (!user) {
-        dispatch(getUserDetails("profile"));
+      if (!user.name) {
         dispatch(listMyOrders());
+        dispatch(getUserDetails("profile"));
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -190,25 +190,26 @@ const ProfileScreen = ({ history }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {orders.map((order) => (
-                    <StyledTableRow key={order._id}>
-                      <StyledTableCell component="th" scope="row">
-                        {order._id}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {order.createdAt.substring(0, 10)}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {order.totalPrice}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {order.paidAt.substring(0, 10)}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {order.deliveredAt.substring(0, 10)}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))}
+                  {orders &&
+                    orders.map((order) => (
+                      <StyledTableRow key={order._id}>
+                        <StyledTableCell component="th" scope="row">
+                          {order._id}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {order.createdAt.substring(0, 10)}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {order.totalPrice}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {order.paidAt.substring(0, 10)}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {order.deliveredAt.substring(0, 10)}
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))}
                 </TableBody>
               </Table>
             </TableContainer>

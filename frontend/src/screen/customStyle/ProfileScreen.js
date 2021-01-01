@@ -1,4 +1,4 @@
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles, createStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
@@ -36,7 +36,7 @@ export const CssTextField = withStyles({
 export const StyledTableCell = withStyles((theme) =>
   createStyles({
     head: {
-      backgroundColor: theme.palette.common.black,
+      backgroundColor: theme.palette.info.main,
       color: theme.palette.common.white,
     },
     body: {
