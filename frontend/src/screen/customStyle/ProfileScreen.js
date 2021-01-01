@@ -1,5 +1,7 @@
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
 
 export const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,3 +31,27 @@ export const CssTextField = withStyles({
     },
   },
 })(TextField);
+
+/////////////////////////     CUSTOM STYLE TABLE CELL     ///////////////////////////
+export const StyledTableCell = withStyles((theme) =>
+  createStyles({
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+    },
+  })
+)(TableCell);
+
+/////////////////////////     CUSTOM STYLE TABLE ROW     ///////////////////////////
+export const StyledTableRow = withStyles((theme) =>
+  createStyles({
+    root: {
+      "&:nth-of-type(odd)": {
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
+  })
+)(TableRow);

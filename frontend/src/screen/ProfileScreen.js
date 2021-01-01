@@ -3,6 +3,13 @@ import React, { useState, useEffect } from "react";
 ////////////////////////////////    MATERIAL UI   ////////////////////////////////////
 import Grid from "@material-ui/core/Grid";
 import { Button } from "@material-ui/core";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 
 /////////////////////////////////    REDUX     //////////////////////////////////////
 import { useSelector, useDispatch } from "react-redux";
@@ -10,7 +17,12 @@ import { getUserDetails, updateUserProfile } from "../redux/actions/userAction";
 import { listMyOrders } from "../redux/actions/orderAction";
 
 ///////////////////////////////////     CUSTOM STYLE    ///////////////////////////////
-import { useStyles, CssTextField } from "./customStyle/ProfileScreen";
+import {
+  useStyles,
+  CssTextField,
+  StyledTableCell,
+  StyledTableRow,
+} from "./customStyle/ProfileScreen";
 
 import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
@@ -40,7 +52,7 @@ const ProfileScreen = ({ history }) => {
 
   ///////////////////   MY ORDERS REDUCER    ////////////////
   const myOrders = useSelector((state) => state.myOrders);
-  const { loading: loadingOrders, order, error: errorOrders } = myOrders;
+  const { loading: loadingOrders, orders, error: errorOrders } = myOrders;
 
   useEffect(() => {
     if (!userInfo) {
@@ -161,6 +173,46 @@ const ProfileScreen = ({ history }) => {
         </Grid>
         <Grid item sm={8} xs={12}>
           <h2>My Orders</h2>
+          {loadingOrders ? (
+            <Loader />
+          ) : errorOrders ? (
+            <Message varient="danger">{errorOrders}</Message>
+          ) : (
+            <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>ID</StyledTableCell>
+                    <StyledTableCell align="right">DATE</StyledTableCell>
+                    <StyledTableCell align="right">TOTAL</StyledTableCell>
+                    <StyledTableCell align="right">PAID</StyledTableCell>
+                    <StyledTableCell align="right">DELIVERED</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {orders.map((order) => (
+                    <StyledTableRow key={order._id}>
+                      <StyledTableCell component="th" scope="row">
+                        {order._id}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {order.createdAt.substring(0, 10)}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {order.totalPrice}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {order.paidAt.substring(0, 10)}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {order.deliveredAt.substring(0, 10)}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
         </Grid>
       </Grid>
     </>
