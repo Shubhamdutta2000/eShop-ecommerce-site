@@ -31,5 +31,29 @@ export const useStyles = makeStyles((theme) =>
       fontSize: "1.6rem",
       margin: "auto",
     },
+
+    order_link: {
+      textDecoration: "none",
+    },
+
+    message: {
+      paddingLeft: "2rem",
+      marginTop: "0.8rem",
+      width: "100%",
+    },
+
+    shipping: {
+      marginRight: "2.8rem",
+    },
+
+    email: {
+      color: "#000",
+      textDecoration: "none",
+    },
+
+    qty: {
+      fontSize: "1.3rem",
+      fontWeight: "450",
+    },
   })
 );

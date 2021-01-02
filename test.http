@@ -1,35 +1,43 @@
 
-# ///////////////////////    PRODUCTS     ///////////////////////////
 
 
-# #########   PRODUCTS BY CATEGORY   ########
+###########   PRODUCTS BY CATEGORY   ########
 
-# # GET http://localhost:5000/products/mens_accessories/
+GET http://localhost:5000/products/mens_accessories/
 
+############    PRODUCTS BY CATEGOEY AND ID    ##########
 
-
-# ##########    PRODUCTS BY CATEGOEY AND ID    ##########
-
-# # GET http://localhost:5000/products/mens_accessories/5fda124ef08b7d0f6c2475c7
+GET http://localhost:5000/products/mens_accessories/5fda124ef08b7d0f6c2475c7
 
 
-# /////////////////////////////   USER     /////////////////////////////
-
-
-# #####################     LOGIN   ####################
+#######################     LOGIN   ####################
 
 POST http://localhost:5000/user/login
-Content-Type: "application/json"
+Content-Type: application/json
 
 {
-      "email": "eShop@gmail.com",
+      "email": "shubham@gmail.com",
       "password": "user1234"
 }
 
-# ######################   PROFILE  #####################
+########################   PROFILE  #####################
 
-# GET http://localhost:5000/user/profile
-# Content-Type: "application/json"
-# Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwODkyNzQzMiwiZXhwIjoxNjA4OTI5MjMyfQ.ibSzhinFovzVQ9B_pr5C2nsy1Md-dEMWGZGNOQlO_dQ"
+GET http://localhost:5000/user/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwODkyNzQzMiwiZXhwIjoxNjA4OTI5MjMyfQ.ibSzhinFovzVQ9B_pr5C2nsy1Md-dEMWGZGNOQlO_dQ
 
-# GET http://localhost:5000/orders/5fec2a03b1ea281fbc6d94f5
+
+#########################  ORDERS BY ID    ##################
+
+GET http://localhost:5000/orders/5fed5fdb7073bf0b6ce37038
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwOTU2MjQ5MywiZXhwIjoxNjA5NTY2MDkzfQ.4PaEe2E7KRgNab6lrTOpSh_ZR6eK2nH7qWl-XEqnJq8
+
+
+#######################   PAYPAL CONFIG  #####################
+
+GET http://localhost:5000/config/paypal
+
+######################   LOGGED IN USER ORDERS (paid)   #############
+
+GET http://localhost:5000/orders/myorders
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwOTU2MjQ5MywiZXhwIjoxNjA5NTY2MDkzfQ.4PaEe2E7KRgNab6lrTOpSh_ZR6eK2nH7qWl-XEqnJq8

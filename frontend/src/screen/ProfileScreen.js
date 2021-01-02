@@ -1,17 +1,31 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
+import { Button } from "react-bootstrap";
 
 ////////////////////////////////    MATERIAL UI   ////////////////////////////////////
-import TextField from "@material-ui/core/TextField";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { Button } from "@material-ui/core";
+import MaterialButton from "@material-ui/core/Button";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import DoneIcon from "@material-ui/icons/Done";
 
 /////////////////////////////////    REDUX     //////////////////////////////////////
 import { useSelector, useDispatch } from "react-redux";
 import { getUserDetails, updateUserProfile } from "../redux/actions/userAction";
+import { listMyOrders } from "../redux/actions/orderAction";
 
 ///////////////////////////////////     CUSTOM STYLE    ///////////////////////////////
-import { useStyles, CssTextField } from "./customStyle/ProfileScreen";
+import {
+  useStyles,
+  CssTextField,
+  StyledTableCell,
+  StyledTableRow,
+} from "./customStyle/ProfileScreen";
 
 import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
@@ -39,12 +53,17 @@ const ProfileScreen = ({ history }) => {
   const updateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = updateProfile;
 
+  ///////////////////   MY ORDERS REDUCER    ////////////////
+  const myOrdersList = useSelector((state) => state.myOrders);
+  const { loading: loadingOrders, error: errorOrders, orders } = myOrdersList;
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     } else {
       if (!user) {
         dispatch(getUserDetails("profile"));
+        dispatch(listMyOrders());
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -62,6 +81,10 @@ const ProfileScreen = ({ history }) => {
     }
   };
 
+  ////////////////////     GO BACK      //////////////////////////////////
+  const goBack = () => {
+    history.goBack();
+  };
   return (
     <>
       <nav aria-label="breadcrumb">
@@ -76,13 +99,17 @@ const ProfileScreen = ({ history }) => {
         </ol>
       </nav>
 
+      <Button onClick={goBack} className="btn btn-light mt-2 mb-4">
+        Go Back
+      </Button>
+
       {/*//////////////////////////////////////     GRID       ////////////////////////////////////// */}
 
       <Grid container spacing={2}>
         <Grid item sm={4} xs={12}>
-          <h2>Profile</h2>
+          <h2 className={classes.heading}>PROFILE</h2>
           {loading && <Loader />}
-          <form className={classes.root}>
+          <form className={classes.form}>
             <CssTextField
               id="outlined-name"
               label="Name"
@@ -144,7 +171,7 @@ const ProfileScreen = ({ history }) => {
             {success && (
               <Message varient="success">Profile Updated Successfully</Message>
             )}
-            <Button
+            <MaterialButton
               className={classes.button}
               onClick={submitHandler}
               size="large"
@@ -152,11 +179,88 @@ const ProfileScreen = ({ history }) => {
               color="primary"
             >
               Update
-            </Button>
+            </MaterialButton>
           </form>
         </Grid>
+
         <Grid item sm={8} xs={12}>
-          <h2>My Orders</h2>
+          <h2 className={classes.heading}>MY ORDERS</h2>
+          {loadingOrders ? (
+            <Loader />
+          ) : errorOrders ? (
+            <Message varient="danger">{errorOrders}</Message>
+          ) : (
+            <Paper elevation={8} className={classes.table}>
+              <TableContainer className={classes.table}>
+                <Table aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell align="center">ORDER ID</StyledTableCell>
+                      <StyledTableCell align="center">DATE</StyledTableCell>
+                      <StyledTableCell align="center">TOTAL</StyledTableCell>
+                      <StyledTableCell align="center">PAID</StyledTableCell>
+                      <StyledTableCell align="center">
+                        DELIVERED
+                      </StyledTableCell>
+                      <StyledTableCell align="center"></StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {orders &&
+                      orders.map((order) => (
+                        <StyledTableRow key={order._id}>
+                          <StyledTableCell component="th" scope="row">
+                            {order._id}
+                          </StyledTableCell>
+                          <StyledTableCell align="center">
+                            {order.createdAt.substring(0, 10)}
+                          </StyledTableCell>
+                          <StyledTableCell align="center">
+                            {order.totalPrice}
+                          </StyledTableCell>
+                          <StyledTableCell align="center">
+                            {order.isPaid ? (
+                              <div>
+                                <DoneIcon color="primary"></DoneIcon>
+                                &nbsp; &nbsp;
+                                <span>{order.paidAt.substring(0, 10)}</span>
+                              </div>
+                            ) : (
+                              <i
+                                className="fa fa-times"
+                                style={{ color: "#f44336" }}
+                              ></i>
+                            )}
+                          </StyledTableCell>
+                          <StyledTableCell align="center">
+                            {order.isDelivered ? (
+                              order.deliveredAt.substring(0, 10)
+                            ) : (
+                              <i
+                                className="fa fa-times"
+                                style={{ color: "#f44336" }}
+                              ></i>
+                            )}
+                          </StyledTableCell>
+
+                          <StyledTableCell align="center">
+                            <Link to={`/orders/${order._id}`}>
+                              <MaterialButton
+                                className={classes.details}
+                                variant="outlined"
+                                color="primary"
+                              >
+                                DETAILS
+                              </MaterialButton>
+                            </Link>
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Paper>
+          )}
         </Grid>
       </Grid>
     </>

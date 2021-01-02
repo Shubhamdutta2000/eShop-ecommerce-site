@@ -26,6 +26,9 @@ app.get("/", (req, res) => {
 app.use("/products", ProductRoutes);
 app.use("/user", UserRoutes);
 app.use("/orders", OrderRoutes);
+app.get("/config/paypal", (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID);
+});
 
 ///////////    For error handling   //////////////
 app.use(NotFound);

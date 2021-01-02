@@ -13,6 +13,7 @@ import {
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAILED,
   USER_UPDATE_PROFILE_RESET,
+  USER_DETAILS_RESET,
 } from "../actionTypes/userConstants";
 
 ///////////////////////////     LOGIN REDUCER    ///////////////////////////////
@@ -109,6 +110,11 @@ export const userDetailsReducer = (
       return {
         loading: false,
         error: action.payload,
+      };
+
+    case USER_DETAILS_RESET:
+      return {
+        user: null,
       };
     default:
       return state;

@@ -10,10 +10,13 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAILED,
+  USER_DETAILS_RESET,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAILED,
 } from "../actionTypes/userConstants";
+
+import { LIST_MY_ORDER_RESET } from "../actionTypes/orderConstants";
 
 /////////////////////////////////////////////     ACTION      ///////////////////////////////////////////////
 
@@ -99,9 +102,12 @@ export const loginUser = (email, password) => async (dispatch) => {
     );
     dispatch(addUser(data));
 
-    console.log(data);
-
     localStorage.setItem("userInfo", JSON.stringify(data));
+
+    ///////////////////////////////      Remove from localStorage when token expire (time of token expiration)  /////////////////////////
+    setTimeout(() => {
+      localStorage.removeItem("userInfo");
+    }, 3600000);
   } catch (error) {
     dispatch(
       loginFailed(
@@ -120,6 +126,8 @@ export const userLogout = () => (dispatch) => {
   dispatch({
     type: USER_LOGOUT,
   });
+  dispatch({ type: LIST_MY_ORDER_RESET });
+  dispatch({ type: USER_DETAILS_RESET });
 };
 
 ///////////    REGISTER    ////////////////
@@ -140,6 +148,11 @@ export const registerUser = (name, email, password) => async (dispatch) => {
     dispatch(addUser(data));
 
     localStorage.setItem("userInfo", JSON.stringify(data));
+
+    ///////////////////////////////      Remove from localStorage when token expire (time of token expiration)  /////////////////////////
+    setTimeout(() => {
+      localStorage.removeItem("userInfo");
+    }, 3600000);
   } catch (error) {
     dispatch(
       registerFailed(
@@ -168,7 +181,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.get(`/user/${id}`, config);
-    console.log(data);
 
     dispatch(getProfile(data));
   } catch (error) {
