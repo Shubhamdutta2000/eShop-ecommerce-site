@@ -41,7 +41,9 @@ const OrderScreen = ({ match }) => {
   const dispatch = useDispatch();
 
   const orderDetails = useSelector((state) => state.orderDetails);
-  const { loading, order, error } = orderDetails;
+  const { loading, orders, error } = orderDetails;
+
+  console.log(loading);
 
   const orderPay = useSelector((state) => state.orderPay);
   const {
@@ -63,15 +65,15 @@ const OrderScreen = ({ match }) => {
       document.body.appendChild(script);
     };
 
-    if (!order || successPay) {
+    if (!orders || successPay) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
-    } else if (!order.isPaid) {
+    } else if (!orders.isPaid) {
       if (!window.paypal) {
         addPayPalScript();
       }
     }
-  }, [dispatch, order, successPay, window, orderId, sdkReady]);
+  }, [dispatch, orders, successPay, window, orderId]);
 
   // const client = {
   //   sandbox: "YOUR-SANDBOX-APP-ID",
@@ -92,7 +94,7 @@ const OrderScreen = ({ match }) => {
     <>
       <br />
       <Typography variant="h4" component="h2" color="textSecondary">
-        ORDER {order._id}
+        ORDER {orders._id}
       </Typography>
       <br />
       <br />
@@ -111,41 +113,41 @@ const OrderScreen = ({ match }) => {
               <ListItem className={classes.list_item}>
                 <Typography color="textPrimary" varient="p" component="h6">
                   <strong className={classes.shipping}>Name: </strong>
-                  {order.user.name}
+                  {orders.user.name}
                   <br />
                   <br />
                   <strong className={classes.shipping}>Email: </strong>
                   <a
                     className={classes.email}
-                    href={order.user.email}
+                    href={orders.user.email}
                     target="_blank"
                   >
-                    {order.user.email}
+                    {orders.user.email}
                   </a>
                   <br />
                   <br />
                   <strong>Address: </strong>
-                  <span className="ml-4">{order.shippingAddress.address}</span>
+                  <span className="ml-4">{orders.shippingAddress.address}</span>
                   <br />
                   <span className="ml-5 pl-5">
-                    {order.shippingAddress.city}
+                    {orders.shippingAddress.city}
                   </span>
 
                   <br />
                   <span className="ml-5 pl-5">
-                    {order.shippingAddress.country},
+                    {orders.shippingAddress.country},
                   </span>
 
                   <br />
                   <span className="ml-5 pl-5">
-                    {order.shippingAddress.postalCode}
+                    {orders.shippingAddress.postalCode}
                   </span>
                 </Typography>
               </ListItem>
               <div className={classes.message}>
-                {order.isDelivered ? (
+                {orders.isDelivered ? (
                   <ErrMess varient="success">
-                    Delivered at {order.deliveredAt}
+                    Delivered at {orders.deliveredAt}
                   </ErrMess>
                 ) : (
                   <ErrMess varient="error">Not Delivered</ErrMess>
@@ -163,12 +165,12 @@ const OrderScreen = ({ match }) => {
 
               <ListItem className={classes.list_item}>
                 <Typography color="textPrimary" varient="p" component="h6">
-                  {order.paymentMethod}
+                  {orders.paymentMethod}
                 </Typography>
               </ListItem>
               <div className={classes.message}>
-                {order.isPaid ? (
-                  <ErrMess varient="success">Paid on {order.paidAt}</ErrMess>
+                {orders.isPaid ? (
+                  <ErrMess varient="success">Paid on {orders.paidAt}</ErrMess>
                 ) : (
                   <ErrMess varient="error">Not Paid</ErrMess>
                 )}
@@ -185,7 +187,7 @@ const OrderScreen = ({ match }) => {
               </ListItem>
             </List>
 
-            {!order.orderItems.length ? (
+            {!orders.orderItems.length ? (
               <Container maxWidth="md">
                 <ErrMess varient="info">
                   No order <Link to="/">Keep Shopping</Link>
@@ -193,7 +195,7 @@ const OrderScreen = ({ match }) => {
               </Container>
             ) : (
               <List>
-                {order.orderItems.map((item, index) => (
+                {orders.orderItems.map((item, index) => (
                   <div key={index}>
                     <ListItem
                       className={classes.list_item}
@@ -267,7 +269,7 @@ const OrderScreen = ({ match }) => {
                   </Grid>
                   <Grid item lg={6} xs={6}>
                     <Typography color="textPrimary" varient="p" component="h6">
-                      ${order.itemsPrice}
+                      ${orders.itemsPrice}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -288,7 +290,7 @@ const OrderScreen = ({ match }) => {
                   </Grid>
                   <Grid item lg={6} xs={6}>
                     <Typography color="textPrimary" varient="p" component="h6">
-                      ${order.shippingPrice}
+                      ${orders.shippingPrice}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -309,7 +311,7 @@ const OrderScreen = ({ match }) => {
                   </Grid>
                   <Grid item lg={6} xs={6}>
                     <Typography color="textPrimary" varient="p" component="h6">
-                      ${order.taxPrice}
+                      ${orders.taxPrice}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -330,29 +332,28 @@ const OrderScreen = ({ match }) => {
                   </Grid>
                   <Grid item lg={6} xs={6}>
                     <Typography color="textPrimary" varient="p" component="h6">
-                      ${order.totalPrice}
+                      ${orders.totalPrice}
                     </Typography>
                   </Grid>
                 </Grid>
               </ListItem>
 
               <Divider variant="fullWidth" component="br" />
-              {!order.isPaid && (
-                <ListItem
-                  style={{
-                    width: "60%",
-                    margin: "auto",
-                  }}
-                >
+              {!orders.isPaid && (
+                <ListItem>
                   {loadingPay && <Loader />}
-                  {/* {!sdkReady ? (
+                  {!sdkReady ? (
                     <Loader />
-                  ) : ( */}
-                  <PayPalButton
-                    amount={`${order.totalPrice}`}
-                    onSuccess={successPaymentHandler}
-                  />
-                  {/* )} */}
+                  ) : (
+                    <PayPalButton
+                      style={{
+                        maxWidth: "100%",
+                        margin: "auto",
+                      }}
+                      amount={`${orders.totalPrice}`}
+                      onSuccess={successPaymentHandler}
+                    />
+                  )}
                 </ListItem>
               )}
             </List>

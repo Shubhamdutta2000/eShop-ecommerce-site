@@ -109,6 +109,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
 export const getOrderDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch(reqOrderDetails());
+
     const {
       userLogin: { userInfo },
     } = getState();
@@ -118,7 +119,10 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
+
+    console.log(userInfo);
     const { data } = await axios.get(`/orders/${id}`, config);
+    console.log(data);
 
     dispatch(addOrderDetails(data));
   } catch (error) {
