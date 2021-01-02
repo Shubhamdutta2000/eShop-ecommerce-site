@@ -4,17 +4,27 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 
 export const useStyles = makeStyles((theme) => ({
-  root: {
+  form: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1.4),
       width: "76%",
     },
+    marginTop: "1.4rem",
   },
 
+  heading: {
+    // color: theme.palette.info.main,
+    color: "#2071E3",
+  },
   button: {
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
     margin: theme.spacing(1.4),
     width: "76%",
+  },
+
+  table: {
+    borderRadius: ".4rem",
+    marginTop: "1.4rem",
   },
 }));
 
@@ -36,7 +46,7 @@ export const CssTextField = withStyles({
 export const StyledTableCell = withStyles((theme) =>
   createStyles({
     head: {
-      backgroundColor: theme.palette.info.main,
+      background: "#21CBF3",
       color: theme.palette.common.white,
     },
     body: {

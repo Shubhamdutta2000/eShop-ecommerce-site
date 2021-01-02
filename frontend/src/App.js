@@ -19,16 +19,16 @@ function App() {
       <div className="body">
         <Header />
         <main className="mx-5 px-4 py-4">
-          <Route path="/" component={Home} exact />
-          <Route path="/register" component={RegisterScreen} />
-          <Route path="/login" component={LoginScreen} />
-          <Route path="/profile" component={ProfileScreen} />
-          <Route path="/products/:category/:id" component={ProductScreen} />
-          <Route path="/cart/:category?/:id?" component={CartScreen} />
+          <Route path="/orders/:id" component={OrderScreen} />
           <Route path="/shipping" component={ShippingScreen} />
           <Route path="/payment" component={PaymentMethod} />
           <Route path="/placeorder" component={PlaceOrderScreen} />
-          <Route path="/orders/:id" component={OrderScreen} />
+          <Route path="/login" component={LoginScreen} />
+          <Route path="/register" component={RegisterScreen} />
+          <Route path="/profile" component={ProfileScreen} />
+          <Route path="/products/:category/:id" component={ProductScreen} />
+          <Route path="/cart/:category?/:id?" component={CartScreen} />
+          <Route path="/" component={Home} exact />
         </main>
         <Footer />
       </div>

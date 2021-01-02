@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 ////////////////////////////////    MATERIAL UI   ////////////////////////////////////
 import Grid from "@material-ui/core/Grid";
 import { Button } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
@@ -51,16 +51,16 @@ const ProfileScreen = ({ history }) => {
   const { success } = updateProfile;
 
   ///////////////////   MY ORDERS REDUCER    ////////////////
-  const myOrders = useSelector((state) => state.myOrders);
-  const { loading: loadingOrders, orders, error: errorOrders } = myOrders;
+  const myOrdersList = useSelector((state) => state.myOrders);
+  const { loading: loadingOrders, error: errorOrders, orders } = myOrdersList;
 
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (!user.name) {
-        dispatch(listMyOrders());
+      if (!user) {
         dispatch(getUserDetails("profile"));
+        dispatch(listMyOrders());
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -96,9 +96,9 @@ const ProfileScreen = ({ history }) => {
 
       <Grid container spacing={2}>
         <Grid item sm={4} xs={12}>
-          <h2>Profile</h2>
+          <h2 className={classes.heading}>PROFILE</h2>
           {loading && <Loader />}
-          <form className={classes.root}>
+          <form className={classes.form}>
             <CssTextField
               id="outlined-name"
               label="Name"
@@ -171,48 +171,72 @@ const ProfileScreen = ({ history }) => {
             </Button>
           </form>
         </Grid>
+
         <Grid item sm={8} xs={12}>
-          <h2>My Orders</h2>
+          <h2 className={classes.heading}>MY ORDERS</h2>
           {loadingOrders ? (
             <Loader />
           ) : errorOrders ? (
             <Message varient="danger">{errorOrders}</Message>
           ) : (
-            <TableContainer component={Paper}>
-              <Table className={classes.table} aria-label="customized table">
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell>ID</StyledTableCell>
-                    <StyledTableCell align="right">DATE</StyledTableCell>
-                    <StyledTableCell align="right">TOTAL</StyledTableCell>
-                    <StyledTableCell align="right">PAID</StyledTableCell>
-                    <StyledTableCell align="right">DELIVERED</StyledTableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {orders &&
-                    orders.map((order) => (
-                      <StyledTableRow key={order._id}>
-                        <StyledTableCell component="th" scope="row">
-                          {order._id}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {order.createdAt.substring(0, 10)}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {order.totalPrice}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {order.paidAt.substring(0, 10)}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {order.deliveredAt.substring(0, 10)}
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            <Paper elevation={6} className={classes.table}>
+              <TableContainer className={classes.table}>
+                <Table aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell>ORDER ID</StyledTableCell>
+                      <StyledTableCell align="right">DATE</StyledTableCell>
+                      <StyledTableCell align="right">TOTAL</StyledTableCell>
+                      <StyledTableCell align="right">PAID</StyledTableCell>
+                      <StyledTableCell align="right">DELIVERED</StyledTableCell>
+                      <StyledTableCell align="right"></StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {orders &&
+                      orders.map((order) => (
+                        <StyledTableRow key={order._id}>
+                          <StyledTableCell component="th" scope="row">
+                            {order._id}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {order.createdAt.substring(0, 10)}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {order.totalPrice}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {order.isPaid ? (
+                              order.paidAt.substring(0, 10)
+                            ) : (
+                              <i
+                                className="fa fa-times"
+                                style={{ color: "red" }}
+                              ></i>
+                            )}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {order.isDelivered ? (
+                              order.deliveredAt.substring(0, 10)
+                            ) : (
+                              <i
+                                className="fa fa-times"
+                                style={{ color: "red" }}
+                              ></i>
+                            )}
+                          </StyledTableCell>
+
+                          <StyledTableCell align="right">
+                            <Link to={`/orders/${order._id}`}>
+                              <Button variant="contained">DETAILS</Button>
+                            </Link>
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Paper>
           )}
         </Grid>
       </Grid>

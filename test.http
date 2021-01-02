@@ -16,7 +16,7 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-      "email": "eShop@gmail.com",
+      "email": "shubham@gmail.com",
       "password": "user1234"
 }
 
@@ -29,8 +29,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZ
 
 #########################  ORDERS BY ID    ##################
 
-GET http://localhost:5000/orders/5fec94b9e7c28029282d029b
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVkNTk1MWVlY2E2MWM5NGY4MDM5NCIsImlhdCI6MTYwOTM0MTE0OSwiZXhwIjoxNjA5MzQ0NzQ5fQ.9KzmYlEGSnqvDPvoq8BONHpMxPbZjH4EcwRkN0-2aFA
+GET http://localhost:5000/orders/5fed5fdb7073bf0b6ce37038
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwOTU2MjQ5MywiZXhwIjoxNjA5NTY2MDkzfQ.4PaEe2E7KRgNab6lrTOpSh_ZR6eK2nH7qWl-XEqnJq8
 
 
 #######################   PAYPAL CONFIG  #####################
@@ -40,4 +40,4 @@ GET http://localhost:5000/config/paypal
 ######################   LOGGED IN USER ORDERS (paid)   #############
 
 GET http://localhost:5000/orders/myorders
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkXVCJ9.eyJpZCI6IjVmZTVkNTk1MWVlY2E2MWM5NGY4MDM5NCIsImlhdCI6MTYwOTUwMDg3MCwiZXhwIjoxNjA5NTA0NDcwfQ.e_SIUdrgWQIZTs1RwCH4v878HqJKsyt1YGD9UBcleP0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwOTU2MjQ5MywiZXhwIjoxNjA5NTY2MDkzfQ.4PaEe2E7KRgNab6lrTOpSh_ZR6eK2nH7qWl-XEqnJq8
