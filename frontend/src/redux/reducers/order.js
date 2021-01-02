@@ -5,6 +5,7 @@ import {
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAILED,
+  ORDER_DETAILS_RESET,
   ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAILED,
@@ -12,6 +13,7 @@ import {
   LIST_MY_ORDER_REQUEST,
   LIST_MY_ORDER_SUCCESS,
   LIST_MY_ORDER_FAILED,
+  LIST_MY_ORDER_RESET,
 } from "../actionTypes/orderConstants";
 
 export const createOrderReducer = (
@@ -68,6 +70,11 @@ export const orderDetailsReducer = (
         error: action.payload,
       };
 
+    case ORDER_DETAILS_RESET:
+      return {
+        orders: [],
+      };
+
     default:
       return state;
   }
@@ -116,6 +123,11 @@ export const myOrdersReducer = (
       return {
         loading: false,
         error: action.payload,
+      };
+
+    case LIST_MY_ORDER_RESET:
+      return {
+        orders: [],
       };
 
     default:

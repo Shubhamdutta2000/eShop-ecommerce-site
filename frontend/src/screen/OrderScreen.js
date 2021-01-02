@@ -52,19 +52,15 @@ const OrderScreen = ({ match }) => {
     error: errorPay,
   } = orderPay;
 
-  useEffect(() => {
-    const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get("/config/paypal");
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-      script.async = true;
-      script.onload = () => {
-        setSdkReady(true);
-      };
-      document.body.appendChild(script);
-    };
+  const addPayPalScript = async () => {
+    const { data: clientId } = await axios.get("/config/paypal");
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+    document.body.appendChild(script);
+  };
 
+  useEffect(() => {
     if (!orders || successPay) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
@@ -342,18 +338,15 @@ const OrderScreen = ({ match }) => {
               {!orders.isPaid && (
                 <ListItem>
                   {loadingPay && <Loader />}
-                  {!sdkReady ? (
-                    <Loader />
-                  ) : (
-                    <PayPalButton
-                      style={{
-                        maxWidth: "100%",
-                        margin: "auto",
-                      }}
-                      amount={`${orders.totalPrice}`}
-                      onSuccess={successPaymentHandler}
-                    />
-                  )}
+
+                  <PayPalButton
+                    style={{
+                      maxWidth: "100%",
+                      margin: "auto",
+                    }}
+                    amount={`${orders.totalPrice}`}
+                    onSuccess={successPaymentHandler}
+                  />
                 </ListItem>
               )}
             </List>

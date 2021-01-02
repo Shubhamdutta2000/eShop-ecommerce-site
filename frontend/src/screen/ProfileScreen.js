@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import { Button } from "react-bootstrap";
+
 ////////////////////////////////    MATERIAL UI   ////////////////////////////////////
 import Grid from "@material-ui/core/Grid";
-import { Button } from "@material-ui/core";
+import MaterialButton from "@material-ui/core/Button";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import DoneIcon from "@material-ui/icons/Done";
 
 /////////////////////////////////    REDUX     //////////////////////////////////////
 import { useSelector, useDispatch } from "react-redux";
@@ -78,6 +81,10 @@ const ProfileScreen = ({ history }) => {
     }
   };
 
+  ////////////////////     GO BACK      //////////////////////////////////
+  const goBack = () => {
+    history.goBack();
+  };
   return (
     <>
       <nav aria-label="breadcrumb">
@@ -91,6 +98,10 @@ const ProfileScreen = ({ history }) => {
           </li>
         </ol>
       </nav>
+
+      <Button onClick={goBack} className="btn btn-light mt-2 mb-4">
+        Go Back
+      </Button>
 
       {/*//////////////////////////////////////     GRID       ////////////////////////////////////// */}
 
@@ -160,7 +171,7 @@ const ProfileScreen = ({ history }) => {
             {success && (
               <Message varient="success">Profile Updated Successfully</Message>
             )}
-            <Button
+            <MaterialButton
               className={classes.button}
               onClick={submitHandler}
               size="large"
@@ -168,7 +179,7 @@ const ProfileScreen = ({ history }) => {
               color="primary"
             >
               Update
-            </Button>
+            </MaterialButton>
           </form>
         </Grid>
 
@@ -179,17 +190,19 @@ const ProfileScreen = ({ history }) => {
           ) : errorOrders ? (
             <Message varient="danger">{errorOrders}</Message>
           ) : (
-            <Paper elevation={6} className={classes.table}>
+            <Paper elevation={8} className={classes.table}>
               <TableContainer className={classes.table}>
                 <Table aria-label="customized table">
                   <TableHead>
                     <TableRow>
-                      <StyledTableCell>ORDER ID</StyledTableCell>
-                      <StyledTableCell align="right">DATE</StyledTableCell>
-                      <StyledTableCell align="right">TOTAL</StyledTableCell>
-                      <StyledTableCell align="right">PAID</StyledTableCell>
-                      <StyledTableCell align="right">DELIVERED</StyledTableCell>
-                      <StyledTableCell align="right"></StyledTableCell>
+                      <StyledTableCell align="center">ORDER ID</StyledTableCell>
+                      <StyledTableCell align="center">DATE</StyledTableCell>
+                      <StyledTableCell align="center">TOTAL</StyledTableCell>
+                      <StyledTableCell align="center">PAID</StyledTableCell>
+                      <StyledTableCell align="center">
+                        DELIVERED
+                      </StyledTableCell>
+                      <StyledTableCell align="center"></StyledTableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -199,36 +212,46 @@ const ProfileScreen = ({ history }) => {
                           <StyledTableCell component="th" scope="row">
                             {order._id}
                           </StyledTableCell>
-                          <StyledTableCell align="right">
+                          <StyledTableCell align="center">
                             {order.createdAt.substring(0, 10)}
                           </StyledTableCell>
-                          <StyledTableCell align="right">
+                          <StyledTableCell align="center">
                             {order.totalPrice}
                           </StyledTableCell>
-                          <StyledTableCell align="right">
+                          <StyledTableCell align="center">
                             {order.isPaid ? (
-                              order.paidAt.substring(0, 10)
+                              <div>
+                                <DoneIcon color="primary"></DoneIcon>
+                                &nbsp; &nbsp;
+                                <span>{order.paidAt.substring(0, 10)}</span>
+                              </div>
                             ) : (
                               <i
                                 className="fa fa-times"
-                                style={{ color: "red" }}
+                                style={{ color: "#f44336" }}
                               ></i>
                             )}
                           </StyledTableCell>
-                          <StyledTableCell align="right">
+                          <StyledTableCell align="center">
                             {order.isDelivered ? (
                               order.deliveredAt.substring(0, 10)
                             ) : (
                               <i
                                 className="fa fa-times"
-                                style={{ color: "red" }}
+                                style={{ color: "#f44336" }}
                               ></i>
                             )}
                           </StyledTableCell>
 
-                          <StyledTableCell align="right">
+                          <StyledTableCell align="center">
                             <Link to={`/orders/${order._id}`}>
-                              <Button variant="contained">DETAILS</Button>
+                              <MaterialButton
+                                className={classes.details}
+                                variant="outlined"
+                                color="primary"
+                              >
+                                DETAILS
+                              </MaterialButton>
                             </Link>
                           </StyledTableCell>
                         </StyledTableRow>

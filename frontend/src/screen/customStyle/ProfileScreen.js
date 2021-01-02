@@ -15,6 +15,7 @@ export const useStyles = makeStyles((theme) => ({
   heading: {
     // color: theme.palette.info.main,
     color: "#2071E3",
+    fontWeight: "550",
   },
   button: {
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
@@ -25,6 +26,15 @@ export const useStyles = makeStyles((theme) => ({
   table: {
     borderRadius: ".4rem",
     marginTop: "1.4rem",
+  },
+  details: {
+    boxShadow:
+      "rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px",
+    "&:hover": {
+      border: "none",
+      backgroundColor: "#4EABDE",
+      color: theme.palette.common.white,
+    },
   },
 }));
 
@@ -46,7 +56,7 @@ export const CssTextField = withStyles({
 export const StyledTableCell = withStyles((theme) =>
   createStyles({
     head: {
-      background: "#21CBF3",
+      background: "#2196F3",
       color: theme.palette.common.white,
     },
     body: {
@@ -60,7 +70,10 @@ export const StyledTableRow = withStyles((theme) =>
   createStyles({
     root: {
       "&:nth-of-type(odd)": {
-        backgroundColor: theme.palette.action.hover,
+        backgroundColor: theme.palette.action.selected,
+        "&:hover": {
+          backgroundColor: theme.palette.action.hover,
+        },
       },
     },
   })
