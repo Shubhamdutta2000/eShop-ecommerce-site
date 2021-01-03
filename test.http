@@ -41,3 +41,8 @@ GET http://localhost:5000/config/paypal
 
 GET http://localhost:5000/orders/myorders
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwOTU2MjQ5MywiZXhwIjoxNjA5NTY2MDkzfQ.4PaEe2E7KRgNab6lrTOpSh_ZR6eK2nH7qWl-XEqnJq8
+
+
+#################  STRIPE CHECKOUT   ##########################
+
+POST http://localhost:5000/create-checkout-session

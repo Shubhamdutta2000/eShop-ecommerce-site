@@ -55,5 +55,9 @@ export const useStyles = makeStyles((theme) =>
       fontSize: "1.3rem",
       fontWeight: "450",
     },
+
+    button: {
+      width: "100%",
+    },
   })
 );

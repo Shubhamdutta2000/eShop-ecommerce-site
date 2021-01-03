@@ -8,6 +8,7 @@ import { NotFound, errorhandler } from "./middleware/errorHandling.js";
 import ProductRoutes from "./routes/productRoutes.js";
 import UserRoutes from "./routes/userRouter.js";
 import OrderRoutes from "./routes/OrderRoutes.js";
+import PaymentRoutes from "./routes/PaymentRoutes.js";
 
 ////////////    Configuring all .env files   /////////////
 dotenv.config();
@@ -29,7 +30,7 @@ app.use("/orders", OrderRoutes);
 app.get("/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
-
+app.use("/create-checkout-session", PaymentRoutes);
 ///////////    For error handling   //////////////
 app.use(NotFound);
 app.use(errorhandler);

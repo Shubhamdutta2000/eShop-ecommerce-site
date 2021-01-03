@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { PayPalButton } from "react-paypal-button-v2";
-// import PaypalExpressBtn from "react-paypal-express-checkout";
 
 ///////////////////////////     MATERIAL UI   ////////////////////////////////
 
@@ -15,6 +13,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 import ErrMess from "../components/ErrMessage";
 import Loader from "../components/Loader";
@@ -26,15 +25,21 @@ import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
 
 import axios from "axios";
 
-import { Button } from "react-bootstrap";
 import { Container } from "@material-ui/core";
+
+/////////////////////////////   STRIPE       ////////////////////////////////////
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(
+  "pk_test_51I5RESIXupbB6992cECX1BzSr2LVrsGHxTLTdc6UVFNgFO0lIhYjL7ioWNAGC0GVmXPzOvD0UCORT1Rkh5UX0KQW00LMpqyNlP"
+);
 
 ///////////////////////////    CUSTOM STYLES     ///////////////////////////////
 import { useStyles } from "./customStyle/PlaceOrderScreen";
 
 const OrderScreen = ({ match }) => {
   const classes = useStyles();
-  const [sdkReady, setSdkReady] = useState(false);
+  const [message, setMessage] = useState("");
+  const [paymentResult, setPaymentResult] = useState({});
 
   const orderId = match.params.id;
 
@@ -52,35 +57,56 @@ const OrderScreen = ({ match }) => {
     error: errorPay,
   } = orderPay;
 
-  const addPayPalScript = async () => {
-    const { data: clientId } = await axios.get("/config/paypal");
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-    document.body.appendChild(script);
-  };
-
   useEffect(() => {
-    if (!orders || successPay) {
-      dispatch({ type: ORDER_PAY_RESET });
-      dispatch(getOrderDetails(orderId));
-    } else if (!orders.isPaid) {
-      if (!window.paypal) {
-        addPayPalScript();
-      }
+    // Check to see if this is a redirect back from Checkout
+    const query = new URLSearchParams(window.location.search);
+
+    if (query.get("success")) {
+      setMessage("Order placed! -- Thanks for shopping");
+      dispatch(payOrder(orderId));
     }
-  }, [dispatch, orders, successPay, window, orderId]);
 
-  // const client = {
-  //   sandbox: "YOUR-SANDBOX-APP-ID",
-  //   production: "YOUR-PRODUCTION-APP-ID",
-  // };
+    if (query.get("canceled")) {
+      setMessage(
+        "Order canceled -- continue to shop around and checkout when you're ready."
+      );
+    }
 
-  const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
-    dispatch(payOrder(orderId, paymentResult));
-    alert("Transaction completed by " + details.payer.name.given_name);
+    dispatch(getOrderDetails(orderId));
+  }, [dispatch]);
+
+  ////////////////////////    STRIPE PAY NOW   /////////////////////////////
+  const stripeCheckoutHandler = async (event) => {
+    const stripe = await stripePromise;
+
+    const { data } = await axios.post("/create-checkout-session", {
+      totalPrice: orders.totalPrice.toFixed(),
+      user: orders.user._id,
+      name: orders.user.name,
+      email: orders.user.email,
+      line1: orders.shippingAddress.address.substring(0, 9),
+      line2: orders.shippingAddress.address.substring(10, 18),
+      city: orders.shippingAddress.city,
+      country: orders.shippingAddress.country,
+      postal_code: orders.shippingAddress.postalCode,
+      orderId: orders._id,
+    });
+
+    // When the customer clicks on the button, redirect them to Checkout.
+    const result = await stripe.redirectToCheckout({
+      sessionId: data.id,
+    });
+
+    setPaymentResult(result);
+
+    if (result.error) {
+      // If `redirectToCheckout` fails due to a browser or network
+      // error, display the localized error message to your customer
+      // using `result.error.message`.
+    }
   };
+
+  console.log(paymentResult);
 
   return loading ? (
     <Loader />
@@ -335,20 +361,27 @@ const OrderScreen = ({ match }) => {
               </ListItem>
 
               <Divider variant="fullWidth" component="br" />
-              {!orders.isPaid && (
-                <ListItem>
-                  {loadingPay && <Loader />}
 
-                  <PayPalButton
-                    style={{
-                      maxWidth: "100%",
-                      margin: "auto",
-                    }}
-                    amount={`${orders.totalPrice}`}
-                    onSuccess={successPaymentHandler}
-                  />
-                </ListItem>
-              )}
+              {/*////////////////////    STRIPE BUTTON    ///////////////////////// */}
+
+              <ListItem>
+                {message.substring(6, 14) == "canceled" ? (
+                  <ErrMess varient="error">{message}</ErrMess>
+                ) : message ? (
+                  <ErrMess varient="success">{message}</ErrMess>
+                ) : (
+                  <Button
+                    variant="contained"
+                    className={classes.button}
+                    color="primary"
+                    id="checkout-button"
+                    role="link"
+                    onClick={stripeCheckoutHandler}
+                  >
+                    Pay Now
+                  </Button>
+                )}
+              </ListItem>
             </List>
           </Paper>
         </Grid>
