@@ -46,3 +46,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZ
 #################  STRIPE CHECKOUT   ##########################
 
 POST http://localhost:5000/create-checkout-session
+
+
+#################   UPDATE ORDERS TO PAID  ####################
+
+PUT http://localhost:5000/orders/5fed81bf57fab70e74c28d19/payment
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwOTY5OTk2MCwiZXhwIjoxNjA5NzAzNTYwfQ.saWZ4evDlQ0FowAG9NotefhI_uQJb3qOw8q6rQ5f6kE

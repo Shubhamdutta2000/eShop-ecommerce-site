@@ -40,6 +40,7 @@ const OrderScreen = ({ match }) => {
   const classes = useStyles();
   const [message, setMessage] = useState("");
   const [paymentResult, setPaymentResult] = useState({});
+  const [status, setStatus] = useState("unpaid");
 
   const orderId = match.params.id;
 
@@ -62,8 +63,8 @@ const OrderScreen = ({ match }) => {
     const query = new URLSearchParams(window.location.search);
 
     if (query.get("success")) {
+      setStatus("paid");
       setMessage("Order placed! -- Thanks for shopping");
-      dispatch(payOrder(orderId));
     }
 
     if (query.get("canceled")) {
@@ -72,8 +73,14 @@ const OrderScreen = ({ match }) => {
       );
     }
 
-    dispatch(getOrderDetails(orderId));
-  }, [dispatch]);
+    if (status == "paid") {
+      console.log(status);
+      dispatch(payOrder(orderId));
+    }
+    if (!orders) {
+      dispatch(getOrderDetails(orderId));
+    }
+  }, [dispatch, orders, status]);
 
   ////////////////////////    STRIPE PAY NOW   /////////////////////////////
   const stripeCheckoutHandler = async (event) => {
@@ -97,16 +104,12 @@ const OrderScreen = ({ match }) => {
       sessionId: data.id,
     });
 
-    setPaymentResult(result);
-
     if (result.error) {
       // If `redirectToCheckout` fails due to a browser or network
       // error, display the localized error message to your customer
       // using `result.error.message`.
     }
   };
-
-  console.log(paymentResult);
 
   return loading ? (
     <Loader />
@@ -370,16 +373,18 @@ const OrderScreen = ({ match }) => {
                 ) : message ? (
                   <ErrMess varient="success">{message}</ErrMess>
                 ) : (
-                  <Button
-                    variant="contained"
-                    className={classes.button}
-                    color="primary"
-                    id="checkout-button"
-                    role="link"
-                    onClick={stripeCheckoutHandler}
-                  >
-                    Pay Now
-                  </Button>
+                  !orders.isPaid && (
+                    <Button
+                      variant="contained"
+                      className={classes.button}
+                      color="primary"
+                      id="checkout-button"
+                      role="link"
+                      onClick={stripeCheckoutHandler}
+                    >
+                      Pay Now
+                    </Button>
+                  )
                 )}
               </ListItem>
             </List>

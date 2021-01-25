@@ -60,18 +60,22 @@ export const getOrderById = asyncHandler(async (req, res) => {
 //  @route:   UPDATE /order/:id/payment
 
 export const updateOrderToPaid = asyncHandler(async (req, res) => {
+  console.log(req.params.id);
+
   const order = await OrderModel.findById(req.params.id);
 
+  console.log(req.params.id);
   if (order) {
     order.isPaid = true;
     order.paidAt = Date.now();
-    order.paymentResult = {
-      id: req.body.id,
-      status: req.body.status,
-      updateTime: req.body.update_time,
-      emailAddress: req.body.payer.email_address,
-    };
+    // order.paymentResult = {
+    //   id: req.body.id,
+    //   status: req.body.status,
+    //   updateTime: req.body.update_time,
+    //   emailAddress: req.body.payer.email_address,
+    // };
     const updatedOrder = await order.save();
+    console.log(updatedOrder);
     res.json(updatedOrder);
   } else {
     res.status(404);

@@ -54,7 +54,6 @@ const reqPayOrder = () => ({
 
 const addPayOrder = (order) => ({
   type: ORDER_PAY_SUCCESS,
-  payload: order,
 });
 
 const payOrderFailed = (error) => ({
@@ -136,30 +135,26 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
 };
 
 //////////////    PAY ORDER AND UPDATE ORDER TO PAID    ///////////////
-export const payOrder = (orderId, paymentResult) => async (
-  dispatch,
-  getState
-) => {
+export const payOrder = (orderId) => async (dispatch, getState) => {
   try {
     dispatch(reqPayOrder());
     const {
       userLogin: { userInfo },
     } = getState();
 
+    console.log("loaded");
     const config = {
       "Content-Type": "application/json",
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.put(
-      `/orders/${orderId}/payment`,
-      paymentResult,
-      config
-    );
+    console.log(orderId);
+
+    const { data } = await axios.put(`/orders/${orderId}/payment`, config);
     console.log(data);
 
-    dispatch(addPayOrder(data));
+    dispatch(addPayOrder());
   } catch (error) {
     payOrderFailed(
       error.response && error.response.data.message

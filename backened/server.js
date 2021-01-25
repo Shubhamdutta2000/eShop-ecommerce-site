@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import colors from "colors";
 import express from "express";
 import dbConnection from "./config/db.js";
+import cors from "cors";
 
 import { NotFound, errorhandler } from "./middleware/errorHandling.js";
 
@@ -17,6 +18,8 @@ dbConnection();
 const app = express();
 
 app.use(express.json());
+
+app.use(cors());
 
 ////////////   base route (for testing)     //////////////
 app.get("/", (req, res) => {
@@ -35,7 +38,7 @@ app.use("/create-checkout-session", PaymentRoutes);
 app.use(NotFound);
 app.use(errorhandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(
