@@ -79,7 +79,7 @@ const OrderScreen = ({ match }) => {
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
-    alert("Transaction completed by " + details.payer.name.given_name);
+    alert("Transaction completed by " + paymentResult.payer.name.given_name);
   };
 
   return loading ? (

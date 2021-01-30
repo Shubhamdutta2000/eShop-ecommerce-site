@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import colors from "colors";
 import express from "express";
+import morgan from "morgan";
 import dbConnection from "./config/db.js";
 
 import { NotFound, errorhandler } from "./middleware/errorHandling.js";
@@ -15,6 +16,9 @@ dbConnection();
 
 const app = express();
 
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 app.use(express.json());
 
 ////////////   base route (for testing)     //////////////
@@ -31,6 +35,7 @@ app.get("/config/paypal", (req, res) => {
 });
 
 ///////////    For error handling   //////////////
+
 app.use(NotFound);
 app.use(errorhandler);
 
