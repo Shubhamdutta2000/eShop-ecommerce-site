@@ -8,9 +8,12 @@ import "../styles/components/Products.css";
 export default function Products({ product, path }) {
   return (
     <>
-      <Card className="card my-3 rounded">
+      <Card className="card my-3  rounded">
         <Link to={`products/${product.category}/${product._id}`}>
-          <Card.Img src={product.image} />
+          {/* <Card.Img className="card_image " src={product.image} /> */}
+          <div className="card_image_div">
+            <img className="card_image" src={product.image} />
+          </div>
         </Link>
         <Card.Body>
           <Link to={`products/${product.category}/${product._id}`}>
