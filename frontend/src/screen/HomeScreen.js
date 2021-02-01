@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/Products";
 
@@ -69,6 +69,33 @@ export default function Home() {
     console.log(carousalData);
   }, [dispatch]);
 
+  // Scroll on Click to products category in carousel
+  const electronicsRef = useRef(null); // To Electronics
+  const homeRef = useRef(null); // To Home Appliances
+  const mensRef = useRef(null); // To Mens Accessories
+  const womensRef = useRef(null); // To Womens Accessories
+
+  // funxction to scroll to desired position smoothly
+  const executeScroll = (id) => {
+    if (id === "#electronics") {
+      electronicsRef.current.scrollIntoView({
+        behavior: "smooth",
+      });
+    } else if (id === "#home_appliances") {
+      homeRef.current.scrollIntoView({
+        behavior: "smooth",
+      });
+    } else if (id === "#mens_accessories") {
+      mensRef.current.scrollIntoView({
+        behavior: "smooth",
+      });
+    } else if (id === "#womens_accessories") {
+      womensRef.current.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <>
       {/*//////////////////////////       CAROUSAL      /////////////////////////////////////// */}
@@ -92,15 +119,13 @@ export default function Home() {
               >
                 <h1 className="carousal_heading">{data.heading}</h1>
                 <h2 className="carousal_para">{data.para}</h2>
-                <a href={data.id} className="carousal_button">
+                <button
+                  onClick={() => executeScroll(data.id)}
+                  className="carousal_button"
+                >
                   SHOP NOW
-                </a>
+                </button>
               </div>
-              {/* <img
-                className="carousal_img"
-                src={data.image}
-                alt="electronics"
-              /> */}
             </Col>
           ))}
         </OwlCarousel>
@@ -110,9 +135,8 @@ export default function Home() {
 
       <div className=" mx-5 px-4">
         {/* ELECTRONICS */}
-        <h1 className="electronics category_heading pt-5 mt-5">
-          {" "}
-          Electronics Accessories{" "}
+        <h1 ref={electronicsRef} className=" category_heading pt-5 mt-5">
+          Electronics Accessories
         </h1>
 
         <Row>
@@ -140,7 +164,7 @@ export default function Home() {
         </Row>
 
         {/* HOME APPLIANCES */}
-        <h1 id="home_appliances" className="category_heading pt-5 mt-5">
+        <h1 ref={homeRef} className="category_heading pt-5 mt-5">
           Home Appliances
         </h1>
 
@@ -169,7 +193,7 @@ export default function Home() {
         </Row>
 
         {/* MENS'S ACCESSORIES */}
-        <h1 id="mens_accessories" className="category_heading pt-5 mt-5">
+        <h1 ref={mensRef} className="category_heading pt-5 mt-5">
           Men's Accessories
         </h1>
 
@@ -198,7 +222,7 @@ export default function Home() {
         </Row>
 
         {/* WOMEN'S ACCESSORIES */}
-        <h1 id="womens_accessories" className="category_heading pt-5 mt-5">
+        <h1 ref={womensRef} className="category_heading pt-5 mt-5">
           Women's Accessories
         </h1>
 
