@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/Products";
 
@@ -20,7 +20,6 @@ import { carousalData } from "../utils/carousalData";
 
 // Styling
 import "../styles/Screen/HomeScreen.css";
-import { Link } from "react-router-dom";
 
 export default function Home() {
   // option for card carousal
@@ -59,7 +58,6 @@ export default function Home() {
   };
 
   //////////////////     fetching datas of productList from redux state   ////////////////////////
-
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, products, error } = productList;
@@ -100,7 +98,7 @@ export default function Home() {
     <>
       {/*//////////////////////////       CAROUSAL      /////////////////////////////////////// */}
 
-      <Row style={{ overflow: "hidden" }}>
+      <Row>
         <OwlCarousel
           key={products.length}
           className="owl-carousel owl-theme"
@@ -152,7 +150,7 @@ export default function Home() {
                 {...options}
               >
                 {products
-                  .filter((p) => p.category == "electronics")
+                  .filter((p) => p.category === "electronics")
                   .map((electronic, index) => (
                     <Col key={index}>
                       <Product product={electronic} />
@@ -181,7 +179,7 @@ export default function Home() {
                 {...options}
               >
                 {products
-                  .filter((p) => p.category == "home_appliances")
+                  .filter((p) => p.category === "home_appliances")
                   .map((home_appliance, index) => (
                     <Col key={index}>
                       <Product product={home_appliance} />
@@ -210,7 +208,7 @@ export default function Home() {
                 {...options}
               >
                 {products
-                  .filter((p) => p.category == "mens_accessories")
+                  .filter((p) => p.category === "mens_accessories")
                   .map((mens_accessory, index) => (
                     <Col key={index}>
                       <Product product={mens_accessory} />
@@ -239,7 +237,7 @@ export default function Home() {
                 {...options}
               >
                 {products
-                  .filter((p) => p.category == "womens_accessories")
+                  .filter((p) => p.category === "womens_accessories")
                   .map((womens_accessory, index) => (
                     <Col key={index}>
                       <Product product={womens_accessory} />

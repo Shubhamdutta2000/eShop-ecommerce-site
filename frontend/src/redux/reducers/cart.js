@@ -15,13 +15,13 @@ export const cartReducer = (
       const { payload } = action;
       // check if cartItems exist or not
       const existItem = state.cartItems.find(
-        (p) => p.product == payload.product
+        (p) => p.product === payload.product
       );
       if (existItem) {
         return {
           ...state,
           cartItems: state.cartItems.map((p) =>
-            p.product == existItem.product ? payload : p
+            p.product === existItem.product ? payload : p
           ),
         };
       } else {
