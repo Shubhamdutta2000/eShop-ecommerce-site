@@ -108,9 +108,12 @@ export default function Home() {
       {/* /////////////////    BUG: Render carusal before children ////////// */}
       {/*//////////////////    SOLUTION: ADD key to OwlCarousal  */}
 
-      <div id="electronics" className="mx-5 px-4">
+      <div className=" mx-5 px-4">
         {/* ELECTRONICS */}
-        <h1 className="pt-5"> Electronics Accessories </h1>
+        <h1 className="electronics category_heading pt-5 mt-5">
+          {" "}
+          Electronics Accessories{" "}
+        </h1>
 
         <Row>
           {loading ? (
@@ -137,7 +140,7 @@ export default function Home() {
         </Row>
 
         {/* HOME APPLIANCES */}
-        <h1 id="home_appliances" className="pt-5">
+        <h1 id="home_appliances" className="category_heading pt-5 mt-5">
           Home Appliances
         </h1>
 
@@ -166,7 +169,7 @@ export default function Home() {
         </Row>
 
         {/* MENS'S ACCESSORIES */}
-        <h1 id="mens_accessories" className="pt-5">
+        <h1 id="mens_accessories" className="category_heading pt-5 mt-5">
           Men's Accessories
         </h1>
 
@@ -195,7 +198,7 @@ export default function Home() {
         </Row>
 
         {/* WOMEN'S ACCESSORIES */}
-        <h1 id="womens_accessories" className="pt-5">
+        <h1 id="womens_accessories" className="category_heading pt-5 mt-5">
           Women's Accessories
         </h1>
 
@@ -226,7 +229,7 @@ export default function Home() {
         {/*//////////////////////////       CAROUSAL ENDS      /////////////////////////////////////// */}
 
         {/* ALL PRODUCTS */}
-        <h1 className="pt-5">Latest Products</h1>
+        <h1 className="category_heading pt-5 mt-4">Latest Products</h1>
 
         <Row>
           {loading ? (

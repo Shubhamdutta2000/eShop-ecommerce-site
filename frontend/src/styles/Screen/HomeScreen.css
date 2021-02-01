@@ -1,6 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@1,500&family=Merriweather:ital@1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@1,500&family=Merriweather:ital@1&family=Montserrat:ital,wght@1,500&display=swap");
 
+.category_heading {
+  font-family: "Montserrat", sans-serif;
+  color: rgb(0, 98, 173);
+}
+
 /* OWL CAROUSAL FOR PRODUCT CARD */
 .owl-carousel .fa {
   position: absolute;
