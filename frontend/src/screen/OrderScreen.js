@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { PayPalButton } from "react-paypal-button-v2";
 // import PaypalExpressBtn from "react-paypal-express-checkout";
@@ -26,7 +26,6 @@ import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
 
 import axios from "axios";
 
-import { Button } from "react-bootstrap";
 import { Container } from "@material-ui/core";
 
 ///////////////////////////    CUSTOM STYLES     ///////////////////////////////
@@ -34,7 +33,7 @@ import { useStyles } from "./customStyle/PlaceOrderScreen";
 
 const OrderScreen = ({ match }) => {
   const classes = useStyles();
-  const [sdkReady, setSdkReady] = useState(false);
+  // const [sdkReady, setSdkReady] = useState(false);
 
   const orderId = match.params.id;
 
@@ -49,7 +48,7 @@ const OrderScreen = ({ match }) => {
   const {
     loading: loadingPay,
     success: successPay,
-    error: errorPay,
+    // error: errorPay,
   } = orderPay;
 
   const addPayPalScript = async () => {
@@ -69,7 +68,7 @@ const OrderScreen = ({ match }) => {
         addPayPalScript();
       }
     }
-  }, [dispatch, orders, successPay, window, orderId]);
+  }, [dispatch, orders, successPay, orderId]);
 
   // const client = {
   //   sandbox: "YOUR-SANDBOX-APP-ID",
@@ -114,6 +113,7 @@ const OrderScreen = ({ match }) => {
                   <br />
                   <strong className={classes.shipping}>Email: </strong>
                   <a
+                    rel="noreferrer"
                     className={classes.email}
                     href={orders.user.email}
                     target="_blank"

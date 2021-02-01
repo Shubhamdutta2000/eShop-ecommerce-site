@@ -58,7 +58,7 @@ const PlaceOrderScreen = ({ history }) => {
   };
 
   const placeOrder = useSelector((state) => state.order);
-  const { order, success, error } = placeOrder;
+  const { order, success } = placeOrder;
 
   //////////////////  PLACE ORDER   //////////////////////
   const placeOrderHandler = () => {
@@ -80,7 +80,7 @@ const PlaceOrderScreen = ({ history }) => {
     if (success) {
       history.push(`/orders/${order._id}`);
     }
-  }, [history, success]);
+  }, [history, success, order]);
 
   return (
     <>
@@ -296,7 +296,7 @@ const PlaceOrderScreen = ({ history }) => {
               <ListItem>
                 <Button
                   className="btn-block p-2"
-                  disabled={cartItems.length == 0}
+                  disabled={cartItems.length === 0}
                   onClick={placeOrderHandler}
                 >
                   PLACE ORDER

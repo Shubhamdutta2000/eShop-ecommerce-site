@@ -12,7 +12,11 @@ export default function Products({ product, path }) {
         <Link to={`products/${product.category}/${product._id}`}>
           {/* <Card.Img className="card_image " src={product.image} /> */}
           <div className="card_image_div">
-            <img className="card_image" src={product.image} />
+            <img
+              className="card_image"
+              src={product.image}
+              alt={product.image}
+            />
           </div>
         </Link>
         <Card.Body>
