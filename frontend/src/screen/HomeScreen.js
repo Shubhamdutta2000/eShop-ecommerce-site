@@ -51,10 +51,10 @@ export default function Home() {
     loop: true,
     margin: 100,
     nav: true,
-    // autoplay: true,
-    autoplayTimeout: 2400,
+    autoplay: true,
+    autoplayTimeout: 4000,
     lazyLoad: true,
-    smartSpeed: 800,
+    smartSpeed: 1000,
     items: 1,
   };
 
