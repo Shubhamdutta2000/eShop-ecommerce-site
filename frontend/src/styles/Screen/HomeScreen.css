@@ -1,3 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@1,500&family=Merriweather:ital@1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@1,500&family=Merriweather:ital@1&family=Montserrat:ital,wght@1,500&display=swap");
+
+.category_heading {
+  font-family: "Montserrat", sans-serif;
+  color: rgb(0, 98, 173);
+}
+
+/* OWL CAROUSAL FOR PRODUCT CARD */
 .owl-carousel .fa {
   position: absolute;
   cursor: pointer;
@@ -27,3 +36,137 @@
 .owl-carousel .fa-angle-right:hover {
   color: #70e0e6;
 }
+
+/* ENDS OWL CAROUSAL FOR PRODUCT CARD */
+
+/* OWL CAROUSAL FOR HERO SECTION */
+
+.carousal {
+  margin-left: 100px;
+  width: 100%;
+  height: 40rem;
+  overflow-x: hidden;
+}
+
+.carousal_heading {
+  position: absolute;
+  top: 9.4rem;
+  font-family: "Merriweather Sans", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 3.6rem;
+  line-height: 7rem;
+  letter-spacing: -0.018em;
+  background: linear-gradient(90deg, #014581 0%, #5eb9ffec 86.54%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.carousal_para {
+  width: 46rem;
+  position: absolute;
+  top: 16.6rem;
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  letter-spacing: 0.005em;
+
+  color: rgba(65, 168, 248, 0.82);
+}
+
+.carousal_button {
+  position: absolute;
+  top: 26rem;
+  width: 14rem;
+  height: 4rem;
+  border: none;
+  outline: none;
+  background: linear-gradient(
+    90deg,
+    #0663af 0%,
+    rgba(0, 149, 255, 0.582) 106.57%
+  );
+  border-radius: 2.6rem;
+
+  display: flex;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.45rem;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.005em;
+  color: #ffffff;
+  filter: drop-shadow(12px 12px 10px rgba(0, 0, 0, 0.42));
+}
+
+.carousal_button:hover {
+  text-decoration: none;
+  color: #ffffff;
+  background: rgba(8, 147, 253, 0.979);
+  border: 3px solid rgba(65, 168, 248, 0.82);
+}
+
+/* NAV FOR OWL CAROUSAL FOR HERO SECTION */
+.owl-carousel .owl-nav {
+  overflow: hidden;
+  height: 0px;
+}
+
+.owl-theme .owl-dots {
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+}
+
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+  background: #0663af;
+}
+
+.owl-carousel .nav-button {
+  height: 50px;
+  width: 25px;
+  cursor: pointer;
+  position: absolute;
+  top: 110px !important;
+}
+
+.owl-carousel .owl-prev.disabled,
+.owl-carousel .owl-next.disabled {
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.owl-carousel .owl-prev {
+  left: 5%;
+}
+
+.owl-carousel .owl-next {
+  right: 5%;
+}
+
+.owl-theme .owl-nav [class*="owl-"] {
+  color: #ffffff;
+  font-size: 39px;
+  background: #000000;
+  border-radius: 3px;
+}
+
+.owl-carousel .prev-carousel:hover {
+  background-position: 0px -53px;
+}
+
+.owl-carousel .next-carousel:hover {
+  background-position: -24px -53px;
+}
+
+/* ENDS NAV OF OWL CAROUSAL FOR HERO SECTION */
+
+/* ENDS OWL CAROUSAL FOR HERO SECTION */
