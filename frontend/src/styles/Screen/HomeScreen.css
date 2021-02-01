@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@1,500&family=Merriweather:ital@1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@1,500&family=Merriweather:ital@1&family=Montserrat:ital,wght@1,500&display=swap");
 
+/* OWL CAROUSAL FOR PRODUCT CARD */
 .owl-carousel .fa {
   position: absolute;
   cursor: pointer;
@@ -31,17 +32,20 @@
   color: #70e0e6;
 }
 
+/* ENDS OWL CAROUSAL FOR PRODUCT CARD */
+
+/* OWL CAROUSAL FOR HERO SECTION */
+
 .carousal {
   margin-left: 100px;
   width: 100%;
-  height: 43rem;
+  height: 40rem;
+  overflow-x: hidden;
 }
 
 .carousal_heading {
   position: absolute;
   top: 9.4rem;
-  /* font-family: 'Merriweather', serif; */
-
   font-family: "Merriweather Sans", sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -93,8 +97,71 @@
   align-items: center;
   text-align: center;
   letter-spacing: 0.005em;
-
   color: #ffffff;
-
   filter: drop-shadow(12px 12px 10px rgba(0, 0, 0, 0.42));
 }
+
+.carousal_button:hover {
+  text-decoration: none;
+  color: #ffffff;
+  background: rgba(8, 147, 253, 0.979);
+  border: 3px solid rgba(65, 168, 248, 0.82);
+}
+
+/* NAV FOR OWL CAROUSAL FOR HERO SECTION */
+.owl-carousel .owl-nav {
+  overflow: hidden;
+  height: 0px;
+}
+
+.owl-theme .owl-dots {
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+}
+
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+  background: #0663af;
+}
+
+.owl-carousel .nav-button {
+  height: 50px;
+  width: 25px;
+  cursor: pointer;
+  position: absolute;
+  top: 110px !important;
+}
+
+.owl-carousel .owl-prev.disabled,
+.owl-carousel .owl-next.disabled {
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.owl-carousel .owl-prev {
+  left: 5%;
+}
+
+.owl-carousel .owl-next {
+  right: 5%;
+}
+
+.owl-theme .owl-nav [class*="owl-"] {
+  color: #ffffff;
+  font-size: 39px;
+  background: #000000;
+  border-radius: 3px;
+}
+
+.owl-carousel .prev-carousel:hover {
+  background-position: 0px -53px;
+}
+
+.owl-carousel .next-carousel:hover {
+  background-position: -24px -53px;
+}
+
+/* ENDS NAV OF OWL CAROUSAL FOR HERO SECTION */
+
+/* ENDS OWL CAROUSAL FOR HERO SECTION */

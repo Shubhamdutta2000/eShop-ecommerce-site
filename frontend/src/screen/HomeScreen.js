@@ -20,12 +20,13 @@ import { carousalData } from "../utils/carousalData";
 
 // Styling
 import "../styles/Screen/HomeScreen.css";
+import { Link } from "react-router-dom";
 
 export default function Home() {
-  ///////////////////////      options for CAROUSAL     ///////////////////////
-
+  // option for card carousal
   const options = {
     loop: false,
+    dots: false,
     margin: 10,
     nav: true,
     navText: [
@@ -33,9 +34,6 @@ export default function Home() {
       "<i class='fa fa-2x fa-angle-right'></i>",
     ],
     responsive: {
-      0: {
-        items: 0,
-      },
       320: {
         items: 1,
       },
@@ -48,10 +46,15 @@ export default function Home() {
     },
   };
 
+  // option for hero section carousal
   const options2 = {
-    loop: false,
+    loop: true,
     margin: 100,
     nav: true,
+    // autoplay: true,
+    autoplayTimeout: 2400,
+    lazyLoad: true,
+    smartSpeed: 800,
     items: 1,
   };
 
@@ -70,22 +73,28 @@ export default function Home() {
     <>
       {/*//////////////////////////       CAROUSAL      /////////////////////////////////////// */}
 
-      <Row>
-        <OwlCarousel key={products.length} className="owl-theme" {...options2}>
+      <Row style={{ overflow: "hidden" }}>
+        <OwlCarousel
+          key={products.length}
+          className="owl-carousel owl-theme"
+          {...options2}
+        >
           {carousalData.map((data, index) => (
             <Col key={index}>
               <div
                 className="carousal"
                 style={{
                   background: `url(${data.image})`,
-                  backgroundPosition: "0rem",
+                  backgroundPosition: "center",
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat",
                 }}
               >
                 <h1 className="carousal_heading">{data.heading}</h1>
                 <h2 className="carousal_para">{data.para}</h2>
-                <button className="carousal_button">SHOP NOW</button>
+                <a href={data.id} className="carousal_button">
+                  SHOP NOW
+                </a>
               </div>
               {/* <img
                 className="carousal_img"
@@ -99,7 +108,7 @@ export default function Home() {
       {/* /////////////////    BUG: Render carusal before children ////////// */}
       {/*//////////////////    SOLUTION: ADD key to OwlCarousal  */}
 
-      <div className="mx-5 px-4">
+      <div id="electronics" className="mx-5 px-4">
         {/* ELECTRONICS */}
         <h1 className="pt-5"> Electronics Accessories </h1>
 
@@ -128,7 +137,9 @@ export default function Home() {
         </Row>
 
         {/* HOME APPLIANCES */}
-        <h1 className="pt-5">Home Appliances</h1>
+        <h1 id="home_appliances" className="pt-5">
+          Home Appliances
+        </h1>
 
         <Row>
           {loading ? (
@@ -155,7 +166,9 @@ export default function Home() {
         </Row>
 
         {/* MENS'S ACCESSORIES */}
-        <h1 className="pt-5">Men's Accessories</h1>
+        <h1 id="mens_accessories" className="pt-5">
+          Men's Accessories
+        </h1>
 
         <Row>
           {loading ? (
@@ -182,7 +195,9 @@ export default function Home() {
         </Row>
 
         {/* WOMEN'S ACCESSORIES */}
-        <h1 className="pt-5">Women's Accessories</h1>
+        <h1 id="womens_accessories" className="pt-5">
+          Women's Accessories
+        </h1>
 
         <Row>
           {loading ? (
