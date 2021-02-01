@@ -7,7 +7,6 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
-import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { Avatar, Button } from "@material-ui/core";
@@ -59,7 +58,7 @@ const LoginScreen = ({ history, location }) => {
 
   return (
     <>
-      {redirect == "shipping" ? <CheckoutStepper step={0} /> : null}
+      {redirect === "shipping" ? <CheckoutStepper step={0} /> : null}
       <Paper elevation={14} className={classes.paper}>
         <Avatar className={classes.avatar}>
           <PeopleIcon />

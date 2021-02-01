@@ -7,7 +7,6 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
-import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { Avatar, Button } from "@material-ui/core";
@@ -45,7 +44,7 @@ const RegisterScreen = ({ history, location }) => {
 
   const dispatch = useDispatch();
   const register = useSelector((state) => state.userRegister);
-  const { loading, error, userInfo, isAuthenticated } = register;
+  const { loading, error, userInfo } = register;
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
@@ -59,7 +58,7 @@ const RegisterScreen = ({ history, location }) => {
     event.preventDefault();
 
     //DISPATCH REGISTER
-    if (password == confirmPassword) {
+    if (password === confirmPassword) {
       dispatch(registerUser(name, email, password));
     } else {
       setMessage("Password does not match");

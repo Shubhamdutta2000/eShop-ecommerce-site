@@ -69,7 +69,7 @@ const ProfileScreen = ({ history }) => {
         setEmail(user.email);
       }
     }
-  }, [dispatch, userInfo, user]);
+  }, [dispatch, userInfo, user, history]);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -151,7 +151,6 @@ const ProfileScreen = ({ history }) => {
               type="password"
               autoComplete="current-password"
               id="outlined-password"
-              type="password"
               required
               label="Confirm Password"
               value={confirmPassword}

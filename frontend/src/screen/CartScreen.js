@@ -10,8 +10,6 @@ import {
 } from "react-bootstrap";
 
 //////////////////    COMPONENTS     //////////////////////////
-import Rating from "../components/Rating";
-import Loader from "../components/Loader";
 import ErrMessage from "../components/ErrMessage";
 
 /////////////////     REDUX    ///////////////////////////////////
@@ -36,7 +34,7 @@ const CartScreen = ({ match, location, history }) => {
     if (productId) {
       dispatch(addToCart(productId, category, qty));
     }
-  }, [dispatch, productId, qty]);
+  }, [dispatch, productId, qty, category]);
 
   ////////////////////      remove cart Handler    /////////////////////////
 
@@ -90,7 +88,7 @@ const CartScreen = ({ match, location, history }) => {
 
           {/*//////////////    CART == EMPTY -> ErrMess => Else => loop through cartItems   ////////////*/}
 
-          {cartItems.length == 0 ? (
+          {cartItems.length === 0 ? (
             <ErrMessage varient="info">
               <span className="cart__empty">Your cart is empty </span>
               <Link to="/">Keep Shopping</Link>
@@ -183,7 +181,7 @@ const CartScreen = ({ match, location, history }) => {
               <ListGroup.Item className="pb-4">
                 <Button
                   className="btn-block p-2 cart__right__checkout"
-                  disabled={cartItems.length == 0}
+                  disabled={cartItems.length === 0}
                   onClick={checkoutHandler}
                 >
                   PROCEED TO PAY

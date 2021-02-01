@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import {
   Row,
   Col,
@@ -34,7 +33,7 @@ export default function ProductScreen({ history, match }) {
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.category, match.params.id));
-  }, [dispatch]);
+  }, [dispatch, match]);
 
   //////////////////////    Redirect to Cart page      ///////////////////////
 
@@ -156,13 +155,13 @@ export default function ProductScreen({ history, match }) {
                 <ListGroup.Item>
                   <Button
                     className={
-                      product.countInStock == 0
+                      product.countInStock === 0
                         ? "btn-block p-3 disabled"
                         : "btn-block p-3"
                     }
                     onClick={addToCartHandler}
                     type="button"
-                    disabled={product.countInStock == 0}
+                    disabled={product.countInStock === 0}
                   >
                     ADD TO CART
                   </Button>
