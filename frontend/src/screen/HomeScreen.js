@@ -154,9 +154,16 @@ export default function Home() {
       {/* /////////////////    BUG: Render carusal before children ////////// */}
       {/*//////////////////    SOLUTION: ADD key to OwlCarousal  */}
 
-      <div className=" mx-5 px-4">
+      <div className={isMobile ? "products_section_phone" : "products_section"}>
         {/* ELECTRONICS */}
-        <h1 ref={electronicsRef} className=" category_heading pt-5 mt-5">
+        <h1
+          ref={electronicsRef}
+          className={
+            isMobile
+              ? "category_heading_phone  pt-5 mt-4"
+              : " category_heading pt-5 mt-5"
+          }
+        >
           Electronics Accessories
         </h1>
 
@@ -185,7 +192,14 @@ export default function Home() {
         </Row>
 
         {/* HOME APPLIANCES */}
-        <h1 ref={homeRef} className="category_heading pt-5 mt-5">
+        <h1
+          ref={homeRef}
+          className={
+            isMobile
+              ? "category_heading_phone  pt-5 mt-4"
+              : "category_heading pt-5 mt-5"
+          }
+        >
           Home Appliances
         </h1>
 
@@ -214,7 +228,14 @@ export default function Home() {
         </Row>
 
         {/* MENS'S ACCESSORIES */}
-        <h1 ref={mensRef} className="category_heading pt-5 mt-5">
+        <h1
+          ref={mensRef}
+          className={
+            isMobile
+              ? "category_heading_phone  pt-5 mt-4"
+              : "category_heading pt-5 mt-5"
+          }
+        >
           Men's Accessories
         </h1>
 
@@ -243,7 +264,14 @@ export default function Home() {
         </Row>
 
         {/* WOMEN'S ACCESSORIES */}
-        <h1 ref={womensRef} className="category_heading pt-5 mt-5">
+        <h1
+          ref={womensRef}
+          className={
+            isMobile
+              ? "category_heading_phone  pt-5 mt-4"
+              : "category_heading pt-5 mt-5"
+          }
+        >
           Women's Accessories
         </h1>
 
@@ -274,7 +302,15 @@ export default function Home() {
         {/*//////////////////////////       CAROUSAL ENDS      /////////////////////////////////////// */}
 
         {/* ALL PRODUCTS */}
-        <h1 className="category_heading pt-5 mt-4">Latest Products</h1>
+        <h1
+          className={
+            isMobile
+              ? "category_heading_phone  pt-5 mt-4"
+              : "category_heading pt-5 mt-4"
+          }
+        >
+          Latest Products
+        </h1>
 
         <Row>
           {loading ? (
