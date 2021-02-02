@@ -57,6 +57,9 @@ export default function Home() {
     items: 1,
   };
 
+  // MOBILE BREAKPOINT
+  const isMobile = window.innerWidth <= 768;
+
   //////////////////     fetching datas of productList from redux state   ////////////////////////
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
@@ -96,38 +99,58 @@ export default function Home() {
 
   return (
     <>
-      {/*//////////////////////////       CAROUSAL      /////////////////////////////////////// */}
+      {/*//   CAROUSAL   /// */}
 
-      <Row>
-        <OwlCarousel
-          key={products.length}
-          className="owl-carousel owl-theme"
-          {...options2}
-        >
-          {carousalData.map((data, index) => (
-            <Col key={index}>
-              <div
-                className="carousal"
-                style={{
-                  background: `url(${data.image})`,
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
-                }}
+      <OwlCarousel
+        key={products.length}
+        className="owl-carousel owl-theme"
+        {...options2}
+      >
+        {carousalData.map((data, index) => (
+          <Col key={index}>
+            <div
+              className={isMobile ? "carousal_phone" : "carousal"}
+              style={
+                isMobile
+                  ? {
+                      background: `url(${data.image_mobile})`,
+                      backgroundPosition: "-30px",
+                      backgroundSize: "cover",
+                      backgroundRepeat: "no-repeat",
+                    }
+                  : {
+                      background: `url(${data.image_desktop})`,
+                      backgroundPosition: "center",
+                      backgroundSize: "cover",
+                      backgroundRepeat: "no-repeat",
+                    }
+              }
+            >
+              <h1
+                className={
+                  isMobile ? "carousal_heading_phone" : "carousal_heading"
+                }
               >
-                <h1 className="carousal_heading">{data.heading}</h1>
-                <h2 className="carousal_para">{data.para}</h2>
-                <button
-                  onClick={() => executeScroll(data.id)}
-                  className="carousal_button"
-                >
-                  SHOP NOW
-                </button>
-              </div>
-            </Col>
-          ))}
-        </OwlCarousel>
-      </Row>
+                {data.heading}
+              </h1>
+              <h2
+                className={isMobile ? "carousal_para_phone" : "carousal_para"}
+              >
+                {data.para}
+              </h2>
+              <button
+                onClick={() => executeScroll(data.id)}
+                className={
+                  isMobile ? "carousal_button_phone" : "carousal_button"
+                }
+              >
+                SHOP NOW
+              </button>
+            </div>
+          </Col>
+        ))}
+      </OwlCarousel>
+
       {/* /////////////////    BUG: Render carusal before children ////////// */}
       {/*//////////////////    SOLUTION: ADD key to OwlCarousal  */}
 

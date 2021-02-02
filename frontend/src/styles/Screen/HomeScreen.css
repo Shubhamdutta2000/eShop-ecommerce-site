@@ -91,6 +91,7 @@
   );
   border-radius: 2.6rem;
 
+  /* TEXT 'SHOP NOW' STYLING */
   display: flex;
   justify-content: center;
   font-family: "Montserrat", sans-serif;
@@ -170,3 +171,79 @@
 /* ENDS NAV OF OWL CAROUSAL FOR HERO SECTION */
 
 /* ENDS OWL CAROUSAL FOR HERO SECTION */
+
+/* CAROUSAL MOBILE VIEW */
+
+.carousal_phone {
+  margin-left: 30px;
+  width: 100vw;
+  height: 40rem;
+  overflow-x: hidden;
+}
+
+.carousal_heading_phone {
+  position: absolute;
+  top: 22rem;
+  font-family: "Merriweather Sans", sans-serif;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 2.2rem;
+  line-height: 3rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #044176 0%, #5eb8ff 86.54%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.carousal_para_phone {
+  position: absolute;
+  top: 26rem;
+
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  letter-spacing: 0.004em;
+
+  color: rgba(65, 168, 248, 0.82);
+}
+
+.carousal_button_phone {
+  position: absolute;
+  top: 32rem;
+  width: 148px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background: linear-gradient(
+    90deg,
+    #0663af 0%,
+    rgba(0, 149, 255, 0.582) 106.57%
+  );
+  border-radius: 43px;
+  filter: drop-shadow(12px 12px 10px rgba(0, 0, 0, 0.42));
+
+  /* TEXT 'SHOP NOW' STYLE */
+  display: flex;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.005em;
+  color: #ffffff;
+}
+
+.carousal_button_phone:hover {
+  text-decoration: none;
+  color: #ffffff;
+  background: rgba(8, 147, 253, 0.979);
+  border: 3px solid rgba(65, 168, 248, 0.82);
+}
