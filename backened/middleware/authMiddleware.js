@@ -21,13 +21,13 @@ const authMiddleware = async (req, res, next) => {
       next();
     } catch (error) {
       console.log(error);
-      res.status(404);
+      res.status(404).json({ message: "No Token Not Authorised" });
 
       throw new Error("Not Authorized, token failed");
     }
 
     if (!token) {
-      res.status(401);
+      res.status(401).json({ message: "Not uthorised as no token provied" });
       throw new Error("Not Authorized and no token is present");
     }
   }
