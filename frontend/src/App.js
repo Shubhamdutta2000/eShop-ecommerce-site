@@ -21,6 +21,7 @@ function App() {
       <div className="body">
         <Header />
         <main>
+          <Route path="/search" component={Home} />
           <Route path="/" component={Home} exact />
           <div className="mx-5 px-4 py-4">
             <Route path="/orders/:id" component={OrderScreen} />
