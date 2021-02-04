@@ -8,7 +8,17 @@ import asyncHandler from "express-async-handler";
 //  @route:   GET /products
 
 const getAllProducts = asyncHandler(async (req, res) => {
-  const products = await Products.find({});
+  console.log(req.query.keyword);
+
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+  const products = await Products.find(keyword);
   res.json(products);
 });
 

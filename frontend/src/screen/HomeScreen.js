@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/Products";
 
@@ -21,7 +21,7 @@ import { carousalData } from "../utils/carousalData";
 // Styling
 import "../styles/Screen/HomeScreen.css";
 
-export default function Home() {
+export default function Home({ location }) {
   // option for card carousal
   const options = {
     loop: false,
@@ -65,10 +65,21 @@ export default function Home() {
   const productList = useSelector((state) => state.productList);
   const { loading, products, error } = productList;
 
+  // for search query
+  const [isQuerying, setIsQuerying] = useState(false);
+  const keyword = location.search.split("=")[1];
+
+  console.log(typeof keyword);
+
   useEffect(() => {
-    dispatch(listProducts());
+    if (keyword) {
+      setIsQuerying(true);
+    } else {
+      setIsQuerying(false);
+    }
+    dispatch(listProducts(keyword));
     console.log(carousalData);
-  }, [dispatch]);
+  }, [dispatch, keyword]);
 
   // Scroll on Click to products category in carousel
   const electronicsRef = useRef(null); // To Electronics
@@ -155,151 +166,156 @@ export default function Home() {
       {/*//////////////////    SOLUTION: ADD key to OwlCarousal  */}
 
       <div className={isMobile ? "products_section_phone" : "products_section"}>
-        {/* ELECTRONICS */}
-        <h1
-          ref={electronicsRef}
-          className={
-            isMobile
-              ? "category_heading_phone  pt-5 mt-4"
-              : " category_heading pt-5 mt-5"
-          }
-        >
-          Electronics Accessories
-        </h1>
+        {/*// if nothing there to search then show all category division of products otherwise not //*/}
+        {!isQuerying ? (
+          <>
+            {/* ELECTRONICS */}
+            <h1
+              ref={electronicsRef}
+              className={
+                isMobile
+                  ? "category_heading_phone  pt-5 mt-4"
+                  : " category_heading pt-5 mt-5"
+              }
+            >
+              Electronics Accessories
+            </h1>
 
-        <Row>
-          {loading ? (
-            <Loader />
-          ) : error ? (
-            <ErrMess varient="#FC308B">{error}</ErrMess>
-          ) : (
-            products && (
-              <OwlCarousel
-                key={products.length}
-                className="owl-theme"
-                {...options}
-              >
-                {products
-                  .filter((p) => p.category === "electronics")
-                  .map((electronic, index) => (
-                    <Col key={index}>
-                      <Product product={electronic} />
-                    </Col>
-                  ))}
-              </OwlCarousel>
-            )
-          )}
-        </Row>
+            <Row>
+              {loading ? (
+                <Loader />
+              ) : error ? (
+                <ErrMess varient="#FC308B">{error}</ErrMess>
+              ) : (
+                products && (
+                  <OwlCarousel
+                    key={products.length}
+                    className="owl-theme"
+                    {...options}
+                  >
+                    {products
+                      .filter((p) => p.category === "electronics")
+                      .map((electronic, index) => (
+                        <Col key={index}>
+                          <Product product={electronic} />
+                        </Col>
+                      ))}
+                  </OwlCarousel>
+                )
+              )}
+            </Row>
 
-        {/* HOME APPLIANCES */}
-        <h1
-          ref={homeRef}
-          className={
-            isMobile
-              ? "category_heading_phone  pt-5 mt-4"
-              : "category_heading pt-5 mt-5"
-          }
-        >
-          Home Appliances
-        </h1>
+            {/* HOME APPLIANCES */}
+            <h1
+              ref={homeRef}
+              className={
+                isMobile
+                  ? "category_heading_phone  pt-5 mt-4"
+                  : "category_heading pt-5 mt-5"
+              }
+            >
+              Home Appliances
+            </h1>
 
-        <Row>
-          {loading ? (
-            <Loader />
-          ) : error ? (
-            <ErrMess varient="#FC308B">{error}</ErrMess>
-          ) : (
-            products && (
-              <OwlCarousel
-                key={products.length}
-                className="owl-theme"
-                {...options}
-              >
-                {products
-                  .filter((p) => p.category === "home_appliances")
-                  .map((home_appliance, index) => (
-                    <Col key={index}>
-                      <Product product={home_appliance} />
-                    </Col>
-                  ))}
-              </OwlCarousel>
-            )
-          )}
-        </Row>
+            <Row>
+              {loading ? (
+                <Loader />
+              ) : error ? (
+                <ErrMess varient="#FC308B">{error}</ErrMess>
+              ) : (
+                products && (
+                  <OwlCarousel
+                    key={products.length}
+                    className="owl-theme"
+                    {...options}
+                  >
+                    {products
+                      .filter((p) => p.category === "home_appliances")
+                      .map((home_appliance, index) => (
+                        <Col key={index}>
+                          <Product product={home_appliance} />
+                        </Col>
+                      ))}
+                  </OwlCarousel>
+                )
+              )}
+            </Row>
 
-        {/* MENS'S ACCESSORIES */}
-        <h1
-          ref={mensRef}
-          className={
-            isMobile
-              ? "category_heading_phone  pt-5 mt-4"
-              : "category_heading pt-5 mt-5"
-          }
-        >
-          Men's Accessories
-        </h1>
+            {/* MENS'S ACCESSORIES */}
+            <h1
+              ref={mensRef}
+              className={
+                isMobile
+                  ? "category_heading_phone  pt-5 mt-4"
+                  : "category_heading pt-5 mt-5"
+              }
+            >
+              Men's Accessories
+            </h1>
 
-        <Row>
-          {loading ? (
-            <Loader />
-          ) : error ? (
-            <ErrMess varient="#FC308B">{error}</ErrMess>
-          ) : (
-            products && (
-              <OwlCarousel
-                key={products.length}
-                className="owl-theme"
-                {...options}
-              >
-                {products
-                  .filter((p) => p.category === "mens_accessories")
-                  .map((mens_accessory, index) => (
-                    <Col key={index}>
-                      <Product product={mens_accessory} />
-                    </Col>
-                  ))}
-              </OwlCarousel>
-            )
-          )}
-        </Row>
+            <Row>
+              {loading ? (
+                <Loader />
+              ) : error ? (
+                <ErrMess varient="#FC308B">{error}</ErrMess>
+              ) : (
+                products && (
+                  <OwlCarousel
+                    key={products.length}
+                    className="owl-theme"
+                    {...options}
+                  >
+                    {products
+                      .filter((p) => p.category === "mens_accessories")
+                      .map((mens_accessory, index) => (
+                        <Col key={index}>
+                          <Product product={mens_accessory} />
+                        </Col>
+                      ))}
+                  </OwlCarousel>
+                )
+              )}
+            </Row>
 
-        {/* WOMEN'S ACCESSORIES */}
-        <h1
-          ref={womensRef}
-          className={
-            isMobile
-              ? "category_heading_phone  pt-5 mt-4"
-              : "category_heading pt-5 mt-5"
-          }
-        >
-          Women's Accessories
-        </h1>
+            {/* WOMEN'S ACCESSORIES */}
+            <h1
+              ref={womensRef}
+              className={
+                isMobile
+                  ? "category_heading_phone  pt-5 mt-4"
+                  : "category_heading pt-5 mt-5"
+              }
+            >
+              Women's Accessories
+            </h1>
 
-        <Row>
-          {loading ? (
-            <Loader />
-          ) : error ? (
-            <ErrMess varient="#FC308B">{error}</ErrMess>
-          ) : (
-            products && (
-              <OwlCarousel
-                key={products.length}
-                className="owl-theme"
-                {...options}
-              >
-                {products
-                  .filter((p) => p.category === "womens_accessories")
-                  .map((womens_accessory, index) => (
-                    <Col key={index}>
-                      <Product product={womens_accessory} />
-                    </Col>
-                  ))}
-              </OwlCarousel>
-            )
-          )}
-        </Row>
+            <Row>
+              {loading ? (
+                <Loader />
+              ) : error ? (
+                <ErrMess varient="#FC308B">{error}</ErrMess>
+              ) : (
+                products && (
+                  <OwlCarousel
+                    key={products.length}
+                    className="owl-theme"
+                    {...options}
+                  >
+                    {products
+                      .filter((p) => p.category === "womens_accessories")
+                      .map((womens_accessory, index) => (
+                        <Col key={index}>
+                          <Product product={womens_accessory} />
+                        </Col>
+                      ))}
+                  </OwlCarousel>
+                )
+              )}
+            </Row>
+          </>
+        ) : null}
 
-        {/*//////////////////////////       CAROUSAL ENDS      /////////////////////////////////////// */}
+        {/*// CAROUSAL ENDS //*/}
 
         {/* ALL PRODUCTS */}
         <h1
