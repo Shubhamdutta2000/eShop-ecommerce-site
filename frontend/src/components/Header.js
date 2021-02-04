@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 ///////////////////////    MATERIAL UI Component    //////////////////
 import AppBar from "@material-ui/core/AppBar";
@@ -8,7 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
-import InputBase from "@material-ui/core/InputBase";
 import Fade from "@material-ui/core/Fade";
 
 import Drawer from "@material-ui/core/Drawer";
@@ -23,9 +22,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
-import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import PersonIcon from "@material-ui/icons/Person";
+
+///////////////////////// Search Box component   ///////////////////
+import SearchBox from "./SearchProductBox";
 
 /////////////////////////    REDUX     //////////////////////////////
 import { useSelector, useDispatch } from "react-redux";
@@ -77,7 +78,8 @@ export default function Header() {
               eShop
             </Link>
           </Typography>
-          <div className={classes.search}>
+          <Route render={({ history }) => <SearchBox history={history} />} />
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -89,7 +91,7 @@ export default function Header() {
               }}
               inputProps={{ "aria-label": "search" }}
             />
-          </div>
+          </div> */}
           {/*/////////////////////////////     CART BUTTON     ///////////////////////////////*/}
           &nbsp; &nbsp; &nbsp; &nbsp;
           <Link className={classes.link} to="/cart">
