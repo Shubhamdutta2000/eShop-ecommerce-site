@@ -3,11 +3,11 @@
 
 ###########   PRODUCTS BY CATEGORY   ########
 
-GET http://localhost:5000/products/electronics/
+GET http://localhost:5000/products/
 
 ############    PRODUCTS BY CATEGOEY AND ID    ##########
 
-GET http://localhost:5000/products/mens_accessories/5fda124ef08b7d0f6c2475c7/
+GET http://localhost:5000/products/electronics/5fda124ef08b7d0f6c2475ba/
 
 #######################     LOGIN   ####################
 
