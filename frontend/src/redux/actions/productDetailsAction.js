@@ -79,10 +79,17 @@ export const createProductReview = (category, id, review) => async (
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
+    console.log("logged in");
+    console.log(review);
 
-    await axios.post(`/products/${category}/${id}/reviews`, review, config);
+    const newReview = await axios.post(
+      `/products/${category}/${id}/reviews`,
+      review,
+      config
+    );
 
     dispatch(addProductReview());
+    console.log(review);
   } catch (error) {
     dispatch(
       productReviewFailed(

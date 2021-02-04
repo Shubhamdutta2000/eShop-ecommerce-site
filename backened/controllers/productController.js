@@ -53,6 +53,7 @@ const getProductsByCategoryAndId = asyncHandler(async (req, res) => {
 const createProductReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
 
+  console.log(rating);
   const product = await Products.findById(req.params.id);
 
   if (product) {
@@ -65,6 +66,7 @@ const createProductReview = asyncHandler(async (req, res) => {
       throw new Error("Product already reviewed");
     }
 
+    console.log(req.user.name);
     const review = {
       name: req.user.name,
       rating: Number(rating),

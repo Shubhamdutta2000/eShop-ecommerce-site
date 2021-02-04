@@ -15,7 +15,7 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-      "email": "shubham@gmail.com",
+      "email": "saaho@gmail.com",
       "password": "user1234"
 }
 
@@ -44,6 +44,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZ
 ####################   create Product review    #######################
 
 POST http://localhost:5000/products/electronics/5fda124ef08b7d0f6c2475ba/reviews
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVhMjM2NzI2ZDRkMGM4NGYyZjY1OSIsImlhdCI6MTYxMjQxMzYwMiwiZXhwIjoxNjEyNDE3MjAyfQ.dBhPekGk_lFbuG572PencuUrWlakw8V4kULpPV7HZDc
 
 {
       "rating": "10",
