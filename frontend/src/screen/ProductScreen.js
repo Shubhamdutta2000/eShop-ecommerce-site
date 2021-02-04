@@ -217,7 +217,12 @@ export default function ProductScreen({ history, match }) {
           {/*// list down product reviews and create review //*/}
           <Row>
             <Col md={6}>
-              <h2>Product Reviews</h2>
+              <h2
+                className="mt-5 font-weight-bolder  text-primary display-5"
+                style={{ fontSize: "2.24rem" }}
+              >
+                Product Reviews
+              </h2>
               <Rating value={product.rating} />
               {product.reviews && product.reviews.length === 0 && (
                 <ErrMessage>No Reviews</ErrMessage>
@@ -233,8 +238,13 @@ export default function ProductScreen({ history, match }) {
                       <p>{review.comment}</p>
                     </ListGroup.Item>;
                   })}
-                <ListGroup.Item className="pt-5">
-                  <h2>Write Your Review</h2>
+                <ListGroup.Item className="pt-4">
+                  <h2
+                    className="font-weight-bold display-5 mb-3 text-primary"
+                    style={{ fontSize: "1.74rem" }}
+                  >
+                    Write Your Review
+                  </h2>
                   {errorProductReview && (
                     <ErrMessage varient="error">
                       {errorProductReview}
@@ -243,7 +253,12 @@ export default function ProductScreen({ history, match }) {
                   {userInfo ? (
                     <Form>
                       <Form.Group controlId="rating">
-                        <Form.Label>Rating</Form.Label>
+                        <Form.Label
+                          style={{ fontSize: "1.34rem" }}
+                          className="  text-primary"
+                        >
+                          Rating
+                        </Form.Label>
                         <Form.Control
                           as="select"
                           value={rating}
@@ -258,7 +273,12 @@ export default function ProductScreen({ history, match }) {
                         </Form.Control>
                       </Form.Group>
                       <Form.Group controlId="comment">
-                        <Form.Label>Your Comment</Form.Label>
+                        <Form.Label
+                          className="  text-primary"
+                          style={{ fontSize: "1.34rem" }}
+                        >
+                          Your Comment
+                        </Form.Label>
                         <Form.Control
                           as="textarea"
                           row="3"
@@ -267,6 +287,7 @@ export default function ProductScreen({ history, match }) {
                         ></Form.Control>
                       </Form.Group>
                       <Button
+                        className="review_submit"
                         onClick={submitReviewHandler}
                         type="submit"
                         variant="primary"
