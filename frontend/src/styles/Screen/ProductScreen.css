@@ -6,3 +6,9 @@
 .disabled {
   cursor: not-allowed;
 }
+
+.review_submit {
+  font-size: 1rem;
+  padding: 0.4rem 1.8rem;
+  background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
+}

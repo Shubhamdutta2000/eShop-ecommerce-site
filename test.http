@@ -3,12 +3,11 @@
 
 ###########   PRODUCTS BY CATEGORY   ########
 
-GET http://localhost:5000/products/mens_accessories/
+GET http://localhost:5000/products/electronics/
 
 ############    PRODUCTS BY CATEGOEY AND ID    ##########
 
-GET http://localhost:5000/products/mens_accessories/5fda124ef08b7d0f6c2475c7
-
+GET http://localhost:5000/products/mens_accessories/5fda124ef08b7d0f6c2475c7/
 
 #######################     LOGIN   ####################
 
@@ -16,7 +15,7 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-      "email": "shubham@gmail.com",
+      "email": "saaho@gmail.com",
       "password": "user1234"
 }
 
@@ -41,3 +40,14 @@ GET http://localhost:5000/config/paypal
 
 GET http://localhost:5000/orders/myorders
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwOTU2MjQ5MywiZXhwIjoxNjA5NTY2MDkzfQ.4PaEe2E7KRgNab6lrTOpSh_ZR6eK2nH7qWl-XEqnJq8
+
+####################   create Product review    #######################
+
+POST http://localhost:5000/products/electronics/5fda124ef08b7d0f6c2475ba/reviews
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVhMjM2NzI2ZDRkMGM4NGYyZjY1OSIsImlhdCI6MTYxMjQxMzYwMiwiZXhwIjoxNjEyNDE3MjAyfQ.dBhPekGk_lFbuG572PencuUrWlakw8V4kULpPV7HZDc
+
+{
+      "rating": "10",
+      "comment": "Omaagoo turu love"
+}
