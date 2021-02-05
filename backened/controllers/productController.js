@@ -6,12 +6,7 @@ import asyncHandler from "express-async-handler";
 //  @purpose: Fetch all products
 //  @access:  Public
 //  @route:   GET /products
-
 const getAllProducts = asyncHandler(async (req, res) => {
-  // For pagination
-  const pageSize = 10; // total no. of products in 1 page
-  const pageNumber = Number(req.query.pageNumber) || 1; // page number to search
-
   // For Search
   const keyword = req.query.keyword
     ? {
@@ -22,22 +17,28 @@ const getAllProducts = asyncHandler(async (req, res) => {
       }
     : {};
 
-  const totalProducts = await Products.countDocuments({ ...keyword });
-  const products = await Products.find({ ...keyword })
-    .limit(pageSize)
-    .skip(pageSize * (pageNumber - 1));
+  const products = await Products.find({ ...keyword });
+  res.json(products);
 
-  res.json({
-    products: products,
-    page: pageNumber,
-    pages: Math.ceil(totalProducts / pageSize),
-  });
+  // For pagination
+  // const pageSize = 10; // total no. of products in 1 page
+  // const pageNumber = Number(req.query.pageNumber) || 1; // page number to search
+
+  // const totalProducts = await Products.countDocuments({ ...keyword });
+  // const products = await Products.find({ ...keyword })
+  //   .limit(pageSize)
+  //   .skip(pageSize * (pageNumber - 1));
+
+  // res.json({
+  //   products: products,
+  //   page: pageNumber,
+  //   pages: Math.ceil(totalProducts / pageSize),
+  // });
 });
 
 //  @purpose: Fetch all products by category wise
 //  @access:  Public
 //  @route:   GET /products/:category
-
 const getProductsByCategory = asyncHandler(async (req, res) => {
   const products = await Products.find({ category: req.params.category });
   if (products) {

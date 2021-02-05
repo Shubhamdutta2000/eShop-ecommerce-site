@@ -1,9 +1,14 @@
 
 
+###########   PRODUCTS BY SEARCH   ########
+
+GET http://localhost:5000/products?keyword=iph
+
+
 
 ###########   PRODUCTS BY CATEGORY   ########
 
-GET http://localhost:5000/products?pageNumber=1
+GET http://localhost:5000/products/electronics
 
 ############    PRODUCTS BY CATEGOEY AND ID    ##########
 

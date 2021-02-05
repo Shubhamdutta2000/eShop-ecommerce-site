@@ -31,10 +31,7 @@ export const listProducts = (keyword = "", pageNumber = "") => async (
     dispatch(reqProducts());
 
     console.log(keyword);
-    console.log(pageNumber);
-    const { data } = await axios.get(
-      `/products?keyword=${keyword}&pageNumber=${pageNumber}`
-    );
+    const { data } = await axios.get(`/products?keyword=${keyword}`);
 
     dispatch(addProducts(data));
     console.log(data);
