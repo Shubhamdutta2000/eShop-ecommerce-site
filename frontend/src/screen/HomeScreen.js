@@ -71,25 +71,45 @@ export default function Home({ location }) {
   // for search query
   const [isQuerying, setIsQuerying] = useState(false);
 
-  const keyword = location.search
-    ? location.search.indexOf("&") !== -1
-      ? location.search.split("&")[0].split("=")[1]
-      : location.search.split("=")[0] === "?name"
-      ? location.search.split("=")[1]
-      : ""
-    : "";
+  // FOR QUERY (search by keyword and pageNumber)
+  let keyword, pageNumber;
 
-  // for pagination query
-  const pageNumber = location.search
-    ? location.search.indexOf("&") !== -1
-      ? location.search.split("&")[1].split("=")[1]
-      : location.search.split("=")[0] === "?pageNumber"
-      ? location.search.split("=")[1]
-      : ""
-    : "";
+  if (location.search.indexOf("&") !== -1) {
+    location.search.split("&").map((query, index) => {
+      // ?keyword=i , pageNumber=1
+      if (query.indexOf("keyword") !== -1) {
+        keyword = query.split("=")[1];
+      } else if (query.indexOf("pageNumber") !== -1) {
+        pageNumber = query.split("=")[1];
+      }
+    });
+  } else {
+    if (location.search.indexOf("keyword") !== -1) {
+      keyword = location.search.split("=")[1];
+    } else if (location.search.indexOf("pageNumber") !== -1) {
+      pageNumber = location.search.split("=")[1];
+    }
+  }
+
+  // const keyword = location.search
+  //   ? location.search.indexOf("&") !== -1
+  //     ? location.search.split("&")[0].split("=")[1]
+  //     : location.search.split("=")[0] === "?name"
+  //     ? location.search.split("=")[1]
+  //     : ""
+  //   : "";
+
+  // // for pagination query
+  // const pageNumber = location.search
+  //   ? location.search.indexOf("&") !== -1
+  //     ? location.search.split("&")[1].split("=")[1]
+  //     : location.search.split("=")[0] === "?pageNumber"
+  //     ? location.search.split("=")[1]
+  //     : ""
+  //   : "";
 
   useEffect(() => {
-    if (keyword) {
+    if (keyword || pageNumber) {
       setIsQuerying(true);
     } else {
       setIsQuerying(false);
