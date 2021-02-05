@@ -24,12 +24,17 @@ const productsFailed = (errMess) => ({
 
 ////////////////////     ACTION CREATOR     ////////////////////////
 
-export const listProducts = (keyword = "") => async (dispatch) => {
+export const listProducts = (keyword = "", pageNumber = "") => async (
+  dispatch
+) => {
   try {
     dispatch(reqProducts());
 
     console.log(keyword);
-    const { data } = await axios.get(`/products?keyword=${keyword}`);
+    console.log(pageNumber);
+    const { data } = await axios.get(
+      `/products?keyword=${keyword}&pageNumber=${pageNumber}`
+    );
 
     dispatch(addProducts(data));
     console.log(data);

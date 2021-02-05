@@ -71,13 +71,16 @@ export default function Home({ location }) {
 
   console.log(typeof keyword);
 
+  // for pagination query
+  const pageNumber = location.search.split("=")[1];
+
   useEffect(() => {
     if (keyword) {
       setIsQuerying(true);
     } else {
       setIsQuerying(false);
     }
-    dispatch(listProducts(keyword));
+    dispatch(listProducts(keyword, pageNumber));
     console.log(carousalData);
   }, [dispatch, keyword]);
 
