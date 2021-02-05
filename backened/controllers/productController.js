@@ -8,8 +8,11 @@ import asyncHandler from "express-async-handler";
 //  @route:   GET /products
 
 const getAllProducts = asyncHandler(async (req, res) => {
-  console.log(req.query.keyword);
+  // For pagination
+  const pageSize = 10; // total no. of products in 1 page
+  const pageNumber = req.query.pageNumber || 1; // page number to search
 
+  // For Search
   const keyword = req.query.keyword
     ? {
         name: {
@@ -18,8 +21,17 @@ const getAllProducts = asyncHandler(async (req, res) => {
         },
       }
     : {};
-  const products = await Products.find(keyword);
-  res.json(products);
+
+  const totalProducts = await Products.countDocuments({ ...keyword });
+  const products = await Products.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (pageNumber - 1));
+
+  res.json({
+    products: products,
+    page: pageNumber,
+    pages: Math.ceil(totalProducts / pageSize),
+  });
 });
 
 //  @purpose: Fetch all products by category wise
