@@ -70,7 +70,7 @@ export default function Home({ location }) {
   const [paginate, setPaginate] = useState({
     allProducts: [],
     currentPage: 1,
-    allProductsPerPage: 8,
+    allProductsPerPage: !isMobile ? 6 : 1,
   });
 
   useEffect(() => {
@@ -377,6 +377,7 @@ export default function Home({ location }) {
             totalPage={totalPage}
             currentPage={currentPage}
             setPaginate={setPaginate}
+            isMobile={isMobile}
           />
         </Row>
       </div>

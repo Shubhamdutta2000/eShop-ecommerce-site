@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BasicPagination({ totalPage, setPaginate }) {
+export default function BasicPagination({ totalPage, setPaginate, isMobile }) {
   const classes = useStyles();
 
   const handleChange = (event, page) => {
