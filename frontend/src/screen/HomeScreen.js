@@ -14,6 +14,7 @@ import { listProducts } from "../redux/actions/productListAction";
 // Components
 import Loader from "../components/Loader";
 import ErrMess from "../components/ErrMessage";
+import Paginate from "../components/Paginate";
 
 // Carousal Data
 import { carousalData } from "../utils/carousalData";
@@ -60,16 +61,49 @@ export default function Home({ location }) {
   // MOBILE BREAKPOINT
   const isMobile = window.innerWidth <= 768;
 
-  //////////////////     fetching datas of productList from redux state   ////////////////////////
+  //   fetching datas of productList from redux state
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, products, error } = productList;
 
-  // for search query
-  const [isQuerying, setIsQuerying] = useState(false);
-  const keyword = location.search.split("=")[1];
+  // PAGINATION CALCULATIONS
+  const [paginate, setPaginate] = useState({
+    allProducts: [],
+    currentPage: 1,
+    allProductsPerPage: !isMobile ? 6 : 1,
+  });
 
-  console.log(typeof keyword);
+  useEffect(() => {
+    setPaginate((prev) => ({
+      ...prev,
+      allProducts: products,
+    }));
+
+    window.scrollTo(0, 0);
+  }, [loading]);
+
+  const { allProducts, currentPage, allProductsPerPage } = paginate;
+
+  // Logic for displaying current allProducts
+  const indexOfLastProduct = currentPage * allProductsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - allProductsPerPage;
+  const currentProducts = allProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const totalPage = Math.ceil(allProducts.length / allProductsPerPage);
+  console.log(currentProducts);
+  // ENDS PAGINATION CALCULATIONS
+
+  // SEARCH by query in route
+  const [isQuerying, setIsQuerying] = useState(false);
+
+  const query = new URLSearchParams(location.search);
+  const keyword = query.get("name") || "";
+  // const pageNumber = parseInt(query.get("pageNumber")) || "";
+
+  console.log(keyword);
+  // console.log(pageNumber);
 
   useEffect(() => {
     if (keyword) {
@@ -78,7 +112,6 @@ export default function Home({ location }) {
       setIsQuerying(false);
     }
     dispatch(listProducts(keyword));
-    console.log(carousalData);
   }, [dispatch, keyword]);
 
   // Scroll on Click to products category in carousel
@@ -87,7 +120,7 @@ export default function Home({ location }) {
   const mensRef = useRef(null); // To Mens Accessories
   const womensRef = useRef(null); // To Womens Accessories
 
-  // funxction to scroll to desired position smoothly
+  // function to scroll to desired position smoothly
   const executeScroll = (id) => {
     if (id === "#electronics") {
       electronicsRef.current.scrollIntoView({
@@ -334,12 +367,20 @@ export default function Home({ location }) {
           ) : error ? (
             <ErrMess varient="#FC308B">{error}</ErrMess>
           ) : (
-            products.map((product, index) => (
+            currentProducts.map((product, index) => (
               <Col md={4} lg={3} key={index}>
                 <Product product={product} />
               </Col>
             ))
           )}
+
+          {/*// PAGINATION COMPONENT //*/}
+          <Paginate
+            totalPage={totalPage}
+            currentPage={currentPage}
+            setPaginate={setPaginate}
+            isMobile={isMobile}
+          />
         </Row>
       </div>
     </>

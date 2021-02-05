@@ -24,7 +24,9 @@ const productsFailed = (errMess) => ({
 
 ////////////////////     ACTION CREATOR     ////////////////////////
 
-export const listProducts = (keyword = "") => async (dispatch) => {
+export const listProducts = (keyword = "", pageNumber = "") => async (
+  dispatch
+) => {
   try {
     dispatch(reqProducts());
 
