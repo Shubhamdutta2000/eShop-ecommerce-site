@@ -65,14 +65,28 @@ export default function Home({ location }) {
   const productList = useSelector((state) => state.productList);
   const { loading, products, error } = productList;
 
+  // search by query in route
+
+  // ?keyword=i&pageNumber=1
   // for search query
   const [isQuerying, setIsQuerying] = useState(false);
-  const keyword = location.search.split("=")[1];
 
-  console.log(typeof keyword);
+  const keyword = location.search
+    ? location.search.indexOf("&") !== -1
+      ? location.search.split("&")[0].split("=")[1]
+      : location.search.split("=")[0] === "?name"
+      ? location.search.split("=")[1]
+      : ""
+    : "";
 
   // for pagination query
-  const pageNumber = location.search.split("=")[1];
+  const pageNumber = location.search
+    ? location.search.indexOf("&") !== -1
+      ? location.search.split("&")[1].split("=")[1]
+      : location.search.split("=")[0] === "?pageNumber"
+      ? location.search.split("=")[1]
+      : ""
+    : "";
 
   useEffect(() => {
     if (keyword) {

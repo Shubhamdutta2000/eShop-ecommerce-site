@@ -10,7 +10,7 @@ import asyncHandler from "express-async-handler";
 const getAllProducts = asyncHandler(async (req, res) => {
   // For pagination
   const pageSize = 10; // total no. of products in 1 page
-  const pageNumber = req.query.pageNumber || 1; // page number to search
+  const pageNumber = Number(req.query.pageNumber) || 1; // page number to search
 
   // For Search
   const keyword = req.query.keyword

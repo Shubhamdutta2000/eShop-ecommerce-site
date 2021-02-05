@@ -3,7 +3,7 @@
 
 ###########   PRODUCTS BY CATEGORY   ########
 
-GET http://localhost:5000/products?keyword=i&pageNumber=3
+GET http://localhost:5000/products?pageNumber=1
 
 ############    PRODUCTS BY CATEGOEY AND ID    ##########
 
