@@ -78,6 +78,8 @@ export default function Home({ location }) {
       ...prev,
       allProducts: products,
     }));
+
+    window.scrollTo(0, 0);
   }, [loading]);
 
   const { allProducts, currentPage, allProductsPerPage } = paginate;
