@@ -34,7 +34,7 @@ const reducer = combineReducers({
   userUpdateProfile: userUpdateProfileReducer,
   order: createOrderReducer,
   orderDetails: orderDetailsReducer,
-  // orderPay: orderPayReducer,
+  orderPay: orderPayReducer,
   myOrders: myOrdersReducer,
   productCreateReview: productCreateReviewReducer,
 });

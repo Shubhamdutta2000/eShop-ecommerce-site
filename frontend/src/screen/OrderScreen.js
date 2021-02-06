@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import { PayPalButton } from "react-paypal-button-v2";
+import { PayPalButton } from "react-paypal-button-v2";
 // import PaypalExpressBtn from "react-paypal-express-checkout";
 
 ///////////////////////////     MATERIAL UI   ////////////////////////////////
@@ -22,7 +22,7 @@ import Loader from "../components/Loader";
 ///////////////////////////    REDUX     ///////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, payOrder } from "../redux/actions/orderAction";
-// import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
+import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
 
 import axios from "axios";
 
@@ -33,7 +33,7 @@ import { useStyles } from "./customStyle/PlaceOrderScreen";
 
 const OrderScreen = ({ match }) => {
   const classes = useStyles();
-  // const [sdkReady, setSdkReady] = useState(false);
+  const [sdkReady, setSdkReady] = useState(false);
 
   const orderId = match.params.id;
 
@@ -44,47 +44,47 @@ const OrderScreen = ({ match }) => {
 
   console.log(loading);
 
+  // PAYPAL PAYMENT INTEGRATION
+  const orderPay = useSelector((state) => state.orderPay);
+  const {
+    loading: loadingPay,
+    success: successPay,
+    // error: errorPay,
+  } = orderPay;
+
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId]);
+  }, [dispatch, orderId, successPay]);
 
-  // PAYPAL PAYMENT INTEGRATION
-  // const orderPay = useSelector((state) => state.orderPay);
-  // const {
-  //   loading: loadingPay,
-  //   success: successPay,
-  //   // error: errorPay,
-  // } = orderPay;
+  const addPayPalScript = async () => {
+    const { data: clientId } = await axios.get("/config/paypal");
+    console.log(clientId);
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    console.log("yo");
+    script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+    document.body.appendChild(script);
+  };
 
-  // const addPayPalScript = async () => {
-  //   const { data: clientId } = await axios.get("/config/paypal");
-  //   const script = document.createElement("script");
-  //   script.type = "text/javascript";
-  //   script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-  //   document.body.appendChild(script);
-  // };
-
-  // useEffect(() => {
-  //   if (!orders || successPay) {
-  //     dispatch({ type: ORDER_PAY_RESET });
-  //     dispatch(getOrderDetails(orderId));
-  //   } else if (!orders.isPaid) {
-  //     if (!window.paypal) {
-  //       addPayPalScript();
-  //     }
-  //   }
-  // }, [dispatch, orders, successPay, orderId]);
+  useEffect(() => {
+    if (successPay) {
+      dispatch({ type: ORDER_PAY_RESET });
+    } else if (orders && !orders.isPaid) {
+      console.log("yo");
+      addPayPalScript();
+    }
+  }, [dispatch, successPay]);
 
   // const client = {
   //   sandbox: "YOUR-SANDBOX-APP-ID",
   //   production: "YOUR-PRODUCTION-APP-ID",
   // };
 
-  // const successPaymentHandler = (paymentResult) => {
-  //   console.log(paymentResult);
-  //   dispatch(payOrder(orderId, paymentResult));
-  //   alert("Transaction completed by " + paymentResult.payer.name.given_name);
-  // };
+  const successPaymentHandler = (paymentResult) => {
+    console.log(paymentResult);
+    dispatch(payOrder(orderId, paymentResult));
+    alert("Transaction completed by " + paymentResult.payer.name.given_name);
+  };
 
   return loading ? (
     <Loader />
@@ -339,7 +339,7 @@ const OrderScreen = ({ match }) => {
                 </Grid>
               </ListItem>
 
-              {/* <Divider variant="fullWidth" component="br" />
+              <Divider variant="fullWidth" component="br" />
               {!orders.isPaid && (
                 <ListItem>
                   {loadingPay && <Loader />}
@@ -353,7 +353,7 @@ const OrderScreen = ({ match }) => {
                     onSuccess={successPaymentHandler}
                   />
                 </ListItem>
-              )} */}
+              )}
             </List>
           </Paper>
         </Grid>
