@@ -18,6 +18,7 @@ import Typography from "@material-ui/core/Typography";
 
 import ErrMess from "../components/ErrMessage";
 import Loader from "../components/Loader";
+import { StripeCheckout } from "../components/StripeCheckout";
 
 ///////////////////////////    REDUX     ///////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
@@ -354,18 +355,24 @@ const OrderScreen = ({ match }) => {
               </ListItem>
 
               <Divider variant="fullWidth" component="br" />
+
+              {/*/// PAYPAL BUTTON showed if order is not paid  ///*/}
               {!orders.isPaid && (
                 <ListItem>
                   {loadingPay ? (
                     <Loader />
                   ) : (
                     <Grid item lg={12}>
-                      <PayPalButton
-                        amount={`${orders.totalPrice}`}
-                        onSuccess={successPaymentHandler}
-                        onError={errorPaymentHandler}
-                        onCancel={cancelPaymentHandler}
-                      />
+                      {orders.paymentMethod === "PayPal or Credit Card" ? (
+                        <PayPalButton
+                          amount={`${orders.totalPrice}`}
+                          onSuccess={successPaymentHandler}
+                          onError={errorPaymentHandler}
+                          onCancel={cancelPaymentHandler}
+                        />
+                      ) : orders.paymentMethod === "Stripe" ? (
+                        <StripeCheckout />
+                      ) : null}
                     </Grid>
                   )}
                 </ListItem>
