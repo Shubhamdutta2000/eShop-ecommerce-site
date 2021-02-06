@@ -50,8 +50,6 @@ export default function ProductScreen({ history, match }) {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  console.log(errorProductReview);
-  console.log(successProductReview);
   useEffect(() => {
     if (successProductReview) {
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });

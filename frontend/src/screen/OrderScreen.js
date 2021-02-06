@@ -61,7 +61,6 @@ const OrderScreen = ({ match }) => {
     console.log(clientId);
     const script = document.createElement("script");
     script.type = "text/javascript";
-    console.log("yo");
     script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
     document.body.appendChild(script);
   };
@@ -70,8 +69,9 @@ const OrderScreen = ({ match }) => {
     if (successPay) {
       dispatch({ type: ORDER_PAY_RESET });
     } else if (orders && !orders.isPaid) {
-      console.log("yo");
-      addPayPalScript();
+      if (!window.paypal) {
+        addPayPalScript();
+      }
     }
   }, [dispatch, successPay]);
 
@@ -80,10 +80,24 @@ const OrderScreen = ({ match }) => {
   //   production: "YOUR-PRODUCTION-APP-ID",
   // };
 
+  // On payment successfully completed
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
-    alert("Transaction completed by " + paymentResult.payer.name.given_name);
+    // alert("Transaction completed by " + paymentResult.payer.name.given_name);
+    alert("Transaction completed by " + orders.user.name);
+  };
+
+  // Error handling in payment
+  const errorPaymentHandler = (err) => {
+    console.log(err);
+    alert(err);
+  };
+
+  // On cancel of payment
+  const cancelPaymentHandler = (msg) => {
+    alert("Order " + msg.orderID + " Cancelled");
+    console.log(msg);
   };
 
   return loading ? (
@@ -351,6 +365,8 @@ const OrderScreen = ({ match }) => {
                     }}
                     amount={`${orders.totalPrice}`}
                     onSuccess={successPaymentHandler}
+                    onError={errorPaymentHandler}
+                    onCancel={cancelPaymentHandler}
                   />
                 </ListItem>
               )}
