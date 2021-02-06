@@ -356,15 +356,18 @@ const OrderScreen = ({ match }) => {
               <Divider variant="fullWidth" component="br" />
               {!orders.isPaid && (
                 <ListItem>
-                  {loadingPay && <Loader />}
-                  <Grid item lg={12}>
-                    <PayPalButton
-                      amount={`${orders.totalPrice}`}
-                      onSuccess={successPaymentHandler}
-                      onError={errorPaymentHandler}
-                      onCancel={cancelPaymentHandler}
-                    />
-                  </Grid>
+                  {loadingPay ? (
+                    <Loader />
+                  ) : (
+                    <Grid item lg={12}>
+                      <PayPalButton
+                        amount={`${orders.totalPrice}`}
+                        onSuccess={successPaymentHandler}
+                        onError={errorPaymentHandler}
+                        onCancel={cancelPaymentHandler}
+                      />
+                    </Grid>
+                  )}
                 </ListItem>
               )}
             </List>
