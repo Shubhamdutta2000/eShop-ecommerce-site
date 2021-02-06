@@ -45,10 +45,8 @@ const OrderScreen = ({ match }) => {
   console.log(loading);
 
   useEffect(() => {
-    if (!orders) {
-      dispatch(getOrderDetails(orderId));
-    }
-  }, [dispatch, orderId, orders]);
+    dispatch(getOrderDetails(orderId));
+  }, [dispatch, orderId]);
 
   // PAYPAL PAYMENT INTEGRATION
   // const orderPay = useSelector((state) => state.orderPay);
