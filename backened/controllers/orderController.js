@@ -55,7 +55,7 @@ export const getOrderById = asyncHandler(async (req, res) => {
   }
 });
 
-//  @purpose: UPDATE order model to paid
+//  @purpose: UPDATE order model to paid with payapl
 //  @access:  Private
 //  @route:   UPDATE /order/:id/payment
 

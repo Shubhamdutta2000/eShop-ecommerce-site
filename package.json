@@ -34,7 +34,9 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.8"
+    "mongoose": "^5.11.8",
+    "stripe": "^8.134.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
