@@ -78,30 +78,21 @@ export default function Header() {
               eShop
             </Link>
           </Typography>
+          {/*// Search Box Component */}
           <Route render={({ history }) => <SearchBox history={history} />} />
-          {/* <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div> */}
-          {/*/////////////////////////////     CART BUTTON     ///////////////////////////////*/}
           &nbsp; &nbsp; &nbsp; &nbsp;
-          <Link className={classes.link} to="/cart">
+          {/*//  CART BUTTON (if logged in goes to /cart otherwise redirect to /login )  //*/}
+          <Link
+            className={classes.link}
+            to={userInfo ? "/cart" : "/login?redirect=cart"}
+          >
             <Button color="inherit">
               <ShoppingCartIcon />
               &nbsp; Cart
             </Button>
           </Link>
           {userInfo ? (
-            ////////////////////////////     DROPDOWN MENU IF USER EXISTS OR LOGGED IN    /////////////////////////
+            ///     DROPDOWN MENU IF USER EXISTS OR LOGGED IN   ///
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -134,6 +125,7 @@ export default function Header() {
                 open={openEl}
                 onClose={handleClose}
               >
+                {/*//      PROFILE BUTTON if user is logged in      */}
                 <Link to="/profile" className={classes.link_menu_item}>
                   <MenuItem onClick={handleClose}>
                     <ListItemIcon>
@@ -143,6 +135,7 @@ export default function Header() {
                   </MenuItem>
                 </Link>
 
+                {/*//    LOGOUT BUTTON (if user is logged in)    //*/}
                 <MenuItem
                   onClick={logoutHandler}
                   className={classes.link_menu_item}
@@ -155,7 +148,7 @@ export default function Header() {
               </Menu>
             </div>
           ) : (
-            ////////////////////////////    LOGIN BUTTON IF USER DOES NOT EXISTS OR LOGGED OUT   /////////////////////////
+            ///    LOGIN BUTTON IF USER DOES NOT EXISTS OR LOGGED OUT  ///
 
             <Link className={classes.link} to="/login">
               <Button color="inherit">
@@ -167,10 +160,11 @@ export default function Header() {
         </Toolbar>
       </AppBar>
 
+      {/*///      FOR MOBILE VIEW    ///*/}
       <Drawer anchor="bottom" open={toggle} onClose={() => setToggle(false)}>
         <List>
           {userInfo ? (
-            ////////////////////////////    LOGOUT BUTTON IF USER EXISTS OR LOGGED IN  /////////////////////////
+            ///    LOGOUT BUTTON IF USER EXISTS OR LOGGED IN   ///
 
             <ListItem
               button
@@ -183,7 +177,7 @@ export default function Header() {
               <ListItemText primary={"Logout"} />
             </ListItem>
           ) : (
-            ////////////////////////////    LOGIN BUTTON IF USER DOES NOT EXISTS OR LOGGED OUT   /////////////////////////
+            ///    LOGIN BUTTON IF USER DOES NOT EXISTS OR LOGGED OUT    ///
 
             <Link className={classes.link_drawer} to="/login">
               <ListItem button>
@@ -195,7 +189,10 @@ export default function Header() {
             </Link>
           )}
 
-          <Link className={classes.link_drawer} to="/cart">
+          <Link
+            className={classes.link_drawer}
+            to={userInfo ? "/cart" : "/login?redirect=cart"}
+          >
             <ListItem button>
               <ListItemIcon>
                 <ShoppingCartIcon />

@@ -41,10 +41,11 @@ const LoginScreen = ({ history, location }) => {
   const login = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = login;
 
-  ///////////////////////    FOR SHIPPING PAGE REDIRECT OR HOME   //////////////////
+  //    FOR SHIPPING PAGE REDIRECT OR HOME   //
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
+    // if user logged in redirect to particular query ('register', 'cart', 'shipping')
     if (userInfo) {
       history.push(redirect);
     }
