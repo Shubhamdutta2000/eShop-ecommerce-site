@@ -46,20 +46,20 @@ const orderDetailsFailed = (error) => ({
   payload: error,
 });
 
-/////////////   PAY Order   ///////////////
-const reqPayOrder = () => ({
-  type: ORDER_PAY_REQUEST,
-});
+// /////////////   PAY Order   ///////////////
+// const reqPayOrder = () => ({
+//   type: ORDER_PAY_REQUEST,
+// });
 
-const addPayOrder = (order) => ({
-  type: ORDER_PAY_SUCCESS,
-  payload: order,
-});
+// const addPayOrder = (order) => ({
+//   type: ORDER_PAY_SUCCESS,
+//   payload: order,
+// });
 
-const payOrderFailed = (error) => ({
-  type: ORDER_PAY_FAILED,
-  payload: error,
-});
+// const payOrderFailed = (error) => ({
+//   type: ORDER_PAY_FAILED,
+//   payload: error,
+// });
 
 /////////////   MY ORDERS   ///////////////
 const reqMyOrders = () => ({
@@ -134,39 +134,39 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
   }
 };
 
-//////////////    PAY ORDER AND UPDATE ORDER TO PAID    ///////////////
-export const payOrder = (orderId, paymentResult) => async (
-  dispatch,
-  getState
-) => {
-  try {
-    dispatch(reqPayOrder());
-    const {
-      userLogin: { userInfo },
-    } = getState();
+// //////////////    PAY ORDER AND UPDATE ORDER TO PAID    ///////////////
+// export const payOrder = (orderId, paymentResult) => async (
+//   dispatch,
+//   getState
+// ) => {
+//   try {
+//     dispatch(reqPayOrder());
+//     const {
+//       userLogin: { userInfo },
+//     } = getState();
 
-    const config = {
-      "Content-Type": "application/json",
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-    const { data } = await axios.put(
-      `/orders/${orderId}/payment`,
-      paymentResult,
-      config
-    );
-    console.log(data);
+//     const config = {
+//       "Content-Type": "application/json",
+//       headers: {
+//         Authorization: `Bearer ${userInfo.token}`,
+//       },
+//     };
+//     const { data } = await axios.put(
+//       `/orders/${orderId}/payment`,
+//       paymentResult,
+//       config
+//     );
+//     console.log(data);
 
-    dispatch(addPayOrder(data));
-  } catch (error) {
-    payOrderFailed(
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message
-    );
-  }
-};
+//     dispatch(addPayOrder(data));
+//   } catch (error) {
+//     payOrderFailed(
+//       error.response && error.response.data.message
+//         ? error.response.data.message
+//         : error.message
+//     );
+//   }
+// };
 
 //////////////    LIST MY ORDERS (PARTICULAR USER)    ///////////////
 export const listMyOrders = () => async (dispatch, getState) => {

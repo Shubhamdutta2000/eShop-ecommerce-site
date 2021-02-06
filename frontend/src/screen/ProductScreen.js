@@ -62,7 +62,7 @@ export default function ProductScreen({ history, match }) {
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
     dispatch(listProductDetails(match.params.category, match.params.id));
-  }, [dispatch, match, successProductReview]);
+  }, [dispatch, match, successProductReview, errorProductReview]);
 
   console.log(product.reviews);
   //////////////////////    Redirect to Cart page      ///////////////////////

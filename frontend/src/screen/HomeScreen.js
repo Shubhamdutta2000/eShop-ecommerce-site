@@ -80,7 +80,7 @@ export default function Home({ location }) {
     }));
 
     window.scrollTo(0, 0);
-  }, [loading]);
+  }, [loading, products]);
 
   const { allProducts, currentPage, allProductsPerPage } = paginate;
 
