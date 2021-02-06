@@ -61,9 +61,9 @@ const ProfileScreen = ({ history }) => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      dispatch(listMyOrders());
       if (!user) {
         dispatch(getUserDetails("profile"));
+        dispatch(listMyOrders());
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -90,7 +90,7 @@ const ProfileScreen = ({ history }) => {
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <Link to="/">Home</Link>
+            <a href="/">Home</a>
           </li>
 
           <li className="breadcrumb-item active" aria-current="page">

@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 //////////////////    SCREEN        //////////////////////////
+import { Divider } from "@material-ui/core";
 
 //////////////////    COMPONENTS     //////////////////////////
 import Rating from "../components/Rating";
@@ -56,11 +57,9 @@ export default function ProductScreen({ history, match }) {
       alert("Review Submitted Successfully");
       setRating(0);
       setComment("");
-    } else if (errorProductReview) {
-      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
     dispatch(listProductDetails(match.params.category, match.params.id));
-  }, [dispatch, match, successProductReview, errorProductReview]);
+  }, [dispatch, match, successProductReview]);
 
   console.log(product.reviews);
   //////////////////////    Redirect to Cart page      ///////////////////////
@@ -217,7 +216,7 @@ export default function ProductScreen({ history, match }) {
             <Col md={6}>
               <h2
                 className="mt-5 font-weight-bolder  text-primary display-5"
-                style={{ fontSize: "2.24rem" }}
+                style={{ fontSize: "2.6rem" }}
               >
                 Product Reviews
               </h2>
@@ -226,21 +225,30 @@ export default function ProductScreen({ history, match }) {
                 <ErrMessage>No Reviews</ErrMessage>
               )}
 
-              <ListGroup variant="flush">
+              <ListGroup className="pt-3" variant="flush">
                 {product.reviews &&
                   product.reviews.map((review) => {
-                    <ListGroup.Item key={review._id}>
-                      <strong>{review.name}</strong>
-                      <Rating value={review.rating} />
-                      <p>{review.createdAt.substring(0, 10)}</p>
-                      <p>{review.comment}</p>
-                    </ListGroup.Item>;
+                    return (
+                      <ListGroup.Item key={review._id}>
+                        <div>
+                          <h5>
+                            <strong>{review.name}</strong>
+                          </h5>{" "}
+                          <Rating value={review.rating} />
+                        </div>
+
+                        <div>
+                          <strong>{review.createdAt.substring(0, 10)} </strong>
+                          <span className="pl-3"> {review.comment}</span>
+                        </div>
+                      </ListGroup.Item>
+                    );
                   })}
+              </ListGroup>
+
+              <ListGroup varient="flush">
                 <ListGroup.Item className="pt-4">
-                  <h2
-                    className="font-weight-bold display-5 mb-3 text-primary"
-                    style={{ fontSize: "1.74rem" }}
-                  >
+                  <h2 className="font-weight-bold display-5 pb-2 text-primary write_review">
                     Write Your Review
                   </h2>
                   {errorProductReview && (
@@ -251,10 +259,7 @@ export default function ProductScreen({ history, match }) {
                   {userInfo ? (
                     <Form>
                       <Form.Group controlId="rating">
-                        <Form.Label
-                          style={{ fontSize: "1.34rem" }}
-                          className="  text-primary"
-                        >
+                        <Form.Label className="review_form_label  text-primary">
                           Rating
                         </Form.Label>
                         <Form.Control
@@ -271,10 +276,7 @@ export default function ProductScreen({ history, match }) {
                         </Form.Control>
                       </Form.Group>
                       <Form.Group controlId="comment">
-                        <Form.Label
-                          className="  text-primary"
-                          style={{ fontSize: "1.34rem" }}
-                        >
+                        <Form.Label className="review_form_label  text-primary">
                           Your Comment
                         </Form.Label>
                         <Form.Control
@@ -302,29 +304,6 @@ export default function ProductScreen({ history, match }) {
               </ListGroup>
             </Col>
           </Row>
-          {/* 
-          <Row>
-            <Col md={6}>
-              <h2> Product Review</h2>
-              <Rating value={product.rating} />
-              {product.reviews.length === 0 && (
-                <ErrMessage>No Reviews</ErrMessage>
-              )}
- 
-              <ListGroup varient='flush>
-                {product.reviews.map((review) => (
-                  <ListGroup.Item key={review._id}>
-                    <h3>
-                      <strong>{review.name}</strong>
-                    </h3>
-                    <Rating value={review.rating} />
-                    <p>Reviewed on {review.createdAt.substring(0, 10)}</p>
-                    <p>{review.comment}</p>
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
-            </Col>
-          </Row> */}
         </>
       )}
     </>

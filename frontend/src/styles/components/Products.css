@@ -26,3 +26,11 @@
   -webkit-transform: scale(1.14); /* Safari 3-8 */
   transform: scale(1.14);
 }
+
+.write_review {
+  font-size: 2.2rem;
+}
+
+.review_form_label {
+  font-size: 1.6rem;
+}

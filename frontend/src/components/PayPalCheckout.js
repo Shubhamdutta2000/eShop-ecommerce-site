@@ -28,16 +28,16 @@ export const PayPalCheckout = ({ orderId }) => {
   };
 
   useEffect(() => {
+    if (successPay) {
+      dispatch({ type: ORDER_PAY_RESET });
+    }
+
     if (orders && !orders.isPaid) {
       if (!window.paypal) {
         addPayPalScript();
       }
     }
-  }, []);
-
-  if (successPay) {
-    dispatch({ type: ORDER_PAY_RESET });
-  }
+  }, [dispatch, orders, successPay]);
 
   // On payment successfully completed
   const successPaymentHandler = (paymentResult) => {

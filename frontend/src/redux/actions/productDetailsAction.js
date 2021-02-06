@@ -89,7 +89,7 @@ export const createProductReview = (category, id, review) => async (
     );
 
     dispatch(addProductReview());
-    console.log(review);
+    console.log(newReview);
   } catch (error) {
     dispatch(
       productReviewFailed(
