@@ -2,6 +2,7 @@ import {
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_FAILED,
+  CREATE_ORDER_RESET,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAILED,
@@ -41,6 +42,8 @@ export const createOrderReducer = (
         loading: false,
         error: action.payload,
       };
+    case CREATE_ORDER_RESET:
+      return {};
 
     default:
       return state;

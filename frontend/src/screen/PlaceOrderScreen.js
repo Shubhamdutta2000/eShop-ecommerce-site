@@ -19,6 +19,7 @@ import ErrMess from "../components/ErrMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../redux/actions/cartAction";
 import { createOrder } from "../redux/actions/orderAction";
+import { CREATE_ORDER_RESET } from "../redux/actionTypes/orderConstants";
 
 import CheckoutStepper from "../components/CheckoutStepper";
 import { Button } from "react-bootstrap";
@@ -73,11 +74,15 @@ const PlaceOrderScreen = ({ history }) => {
         totalPrice: cart.totalPrice,
       })
     );
+    console.log(order);
+  };
+
+  useEffect(() => {
     if (success) {
       history.push(`/orders/${order._id}`);
+      dispatch({ type: CREATE_ORDER_RESET });
     }
-    console.log("order");
-  };
+  }, [success]);
 
   return (
     <>
