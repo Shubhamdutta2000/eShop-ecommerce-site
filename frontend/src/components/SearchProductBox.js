@@ -8,14 +8,21 @@ export default function SearchBox({ history }) {
   const classes = useStyles();
 
   const [keyword, setKeyword] = useState("");
-
   useEffect(() => {
-    if (keyword.trim()) {
-      history.push(`/search?name=${keyword}`);
+    // console.log(window.location.pathname);
+    if (
+      window.location.pathname === "/" ||
+      window.location.pathname.includes("/search")
+    ) {
+      if (keyword.trim()) {
+        history.push(`/search?name=${keyword}`);
+      } else {
+        history.push("/");
+      }
     } else {
-      history.push("/");
+      setKeyword("");
     }
-  }, [keyword, history]);
+  }, [keyword, history, window]);
 
   const handleSearchChange = (e) => {
     setKeyword(e.target.value);
