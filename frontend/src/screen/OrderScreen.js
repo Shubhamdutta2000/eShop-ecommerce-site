@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { PayPalButton } from "react-paypal-button-v2";
-// import PaypalExpressBtn from "react-paypal-express-checkout";
 
 ///////////////////////////     MATERIAL UI   ////////////////////////////////
 
@@ -15,91 +13,37 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import { Container } from "@material-ui/core";
 
+//////////////////////////////    / Components   ////////////////////////
 import ErrMess from "../components/ErrMessage";
 import Loader from "../components/Loader";
 import { StripeCheckout } from "../components/StripeCheckout";
+import { PayPalCheckout } from "../components/PayPalCheckout";
 
 ///////////////////////////    REDUX     ///////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderDetails, payOrder } from "../redux/actions/orderAction";
-import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
-
-import axios from "axios";
-
-import { Container } from "@material-ui/core";
+import { getOrderDetails } from "../redux/actions/orderAction";
 
 ///////////////////////////    CUSTOM STYLES     ///////////////////////////////
 import { useStyles } from "./customStyle/PlaceOrderScreen";
 
 const OrderScreen = ({ match }) => {
   const classes = useStyles();
-  const [sdkReady, setSdkReady] = useState(false);
 
   const orderId = match.params.id;
 
   const dispatch = useDispatch();
-
   const orderDetails = useSelector((state) => state.orderDetails);
   const { loading, orders, error } = orderDetails;
 
-  console.log(loading);
-
   // PAYPAL PAYMENT INTEGRATION
   const orderPay = useSelector((state) => state.orderPay);
-  const {
-    loading: loadingPay,
-    success: successPay,
-    // error: errorPay,
-  } = orderPay;
+  const { success: successPay } = orderPay;
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
   }, [dispatch, orderId, successPay]);
-
-  const addPayPalScript = async () => {
-    const { data: clientId } = await axios.get("/config/paypal");
-    console.log(clientId);
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-    document.body.appendChild(script);
-  };
-
-  useEffect(() => {
-    if (successPay) {
-      dispatch({ type: ORDER_PAY_RESET });
-    } else if (orders && !orders.isPaid) {
-      if (!window.paypal) {
-        addPayPalScript();
-      }
-    }
-  }, [dispatch, successPay]);
-
-  // const client = {
-  //   sandbox: "YOUR-SANDBOX-APP-ID",
-  //   production: "YOUR-PRODUCTION-APP-ID",
-  // };
-
-  // On payment successfully completed
-  const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
-    dispatch(payOrder(orderId, paymentResult));
-    // alert("Transaction completed by " + paymentResult.payer.name.given_name);
-    alert("Transaction completed by " + orders.user.name);
-  };
-
-  // Error handling in payment
-  const errorPaymentHandler = (err) => {
-    console.log(err);
-    alert(err);
-  };
-
-  // On cancel of payment
-  const cancelPaymentHandler = (msg) => {
-    alert("Order " + msg.orderID + " Cancelled");
-    console.log(msg);
-  };
 
   return loading ? (
     <Loader />
@@ -356,25 +300,16 @@ const OrderScreen = ({ match }) => {
 
               <Divider variant="fullWidth" component="br" />
 
-              {/*/// PAYPAL BUTTON showed if order is not paid  ///*/}
+              {/*/// PAYPAL BUTTON or STRIPE BUTTON showed if order is not paid  ///*/}
               {!orders.isPaid && (
                 <ListItem>
-                  {loadingPay ? (
-                    <Loader />
-                  ) : (
-                    <Grid item lg={12}>
-                      {orders.paymentMethod === "PayPal or Credit Card" ? (
-                        <PayPalButton
-                          amount={`${orders.totalPrice}`}
-                          onSuccess={successPaymentHandler}
-                          onError={errorPaymentHandler}
-                          onCancel={cancelPaymentHandler}
-                        />
-                      ) : orders.paymentMethod === "Stripe" ? (
-                        <StripeCheckout />
-                      ) : null}
-                    </Grid>
-                  )}
+                  <Grid item lg={12}>
+                    {orders.paymentMethod === "PayPal" ? (
+                      <PayPalCheckout orderId={orderId} />
+                    ) : orders.paymentMethod === "Stripe" ? (
+                      <StripeCheckout />
+                    ) : null}
+                  </Grid>
                 </ListItem>
               )}
             </List>
