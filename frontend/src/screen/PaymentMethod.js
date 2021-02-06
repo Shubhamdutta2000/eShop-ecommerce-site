@@ -30,7 +30,7 @@ const PaymentMethodScreen = ({ history }) => {
     history.push("/shipping");
   }
 
-  const [paymentMethod, setPaymentMethod] = useState("PayPal");
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   const dispatch = useDispatch();
 
@@ -64,19 +64,14 @@ const PaymentMethodScreen = ({ history }) => {
               onChange={(e) => setPaymentMethod(e.target.value)}
             >
               <FormControlLabel
-                value="PayPal or Credit Card"
+                value="PayPal"
                 control={<Radio required />}
-                label="PayPal or Credit Card"
+                label="PayPal"
               />
               <FormControlLabel
                 value="Stripe"
                 control={<Radio required />}
                 label="Stripe"
-              />
-              <FormControlLabel
-                value="Cash On Delivery"
-                control={<Radio required />}
-                label="Cash On Delivery"
               />
             </RadioGroup>
           </FormControl>

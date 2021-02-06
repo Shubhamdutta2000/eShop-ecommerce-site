@@ -73,14 +73,11 @@ const PlaceOrderScreen = ({ history }) => {
         totalPrice: cart.totalPrice,
       })
     );
-    console.log("order");
-  };
-
-  useEffect(() => {
     if (success) {
       history.push(`/orders/${order._id}`);
     }
-  }, [history, success, order]);
+    console.log("order");
+  };
 
   return (
     <>
