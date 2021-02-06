@@ -357,17 +357,14 @@ const OrderScreen = ({ match }) => {
               {!orders.isPaid && (
                 <ListItem>
                   {loadingPay && <Loader />}
-
-                  <PayPalButton
-                    style={{
-                      maxWidth: "100%",
-                      margin: "auto",
-                    }}
-                    amount={`${orders.totalPrice}`}
-                    onSuccess={successPaymentHandler}
-                    onError={errorPaymentHandler}
-                    onCancel={cancelPaymentHandler}
-                  />
+                  <Grid item lg={12}>
+                    <PayPalButton
+                      amount={`${orders.totalPrice}`}
+                      onSuccess={successPaymentHandler}
+                      onError={errorPaymentHandler}
+                      onCancel={cancelPaymentHandler}
+                    />
+                  </Grid>
                 </ListItem>
               )}
             </List>
