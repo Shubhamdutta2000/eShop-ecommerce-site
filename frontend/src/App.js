@@ -14,8 +14,6 @@ import PlaceOrderScreen from "./screen/PlaceOrderScreen";
 import OrderScreen from "./screen/OrderScreen";
 
 function App() {
-  console.log(process.env.REACT_APP_BASE_URL);
-
   return (
     <Router>
       <div className="body">
@@ -24,10 +22,10 @@ function App() {
           <Route path="/search" component={Home} />
           <Route path="/" component={Home} exact />
           <div className="mx-5 px-4 py-4">
+            <Route path="/placeorder" component={PlaceOrderScreen} />
             <Route path="/orders/:id" component={OrderScreen} />
             <Route path="/shipping" component={ShippingScreen} />
             <Route path="/payment" component={PaymentMethod} />
-            <Route path="/placeorder" component={PlaceOrderScreen} />
             <Route path="/login" component={LoginScreen} />
             <Route path="/register" component={RegisterScreen} />
             <Route path="/profile" component={ProfileScreen} />

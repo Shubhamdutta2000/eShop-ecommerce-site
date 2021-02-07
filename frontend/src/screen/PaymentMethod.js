@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 /////////////////////////////////////////    MATERIAL UI    ////////////////////////////////
 import Paper from "@material-ui/core/Paper";
@@ -30,9 +30,20 @@ const PaymentMethodScreen = ({ history }) => {
     history.push("/shipping");
   }
 
-  const [paymentMethod, setPaymentMethod] = useState("PayPal");
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   const dispatch = useDispatch();
+
+  // User Login Credentials
+  const login = useSelector((state) => state.userLogin);
+  const { userInfo } = login;
+
+  // Redirect to loginScreen on logout
+  useEffect(() => {
+    if (!userInfo) {
+      history.push("/login");
+    }
+  }, [history, userInfo]);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -64,19 +75,14 @@ const PaymentMethodScreen = ({ history }) => {
               onChange={(e) => setPaymentMethod(e.target.value)}
             >
               <FormControlLabel
-                value="PayPal or Credit Card"
+                value="PayPal"
                 control={<Radio required />}
-                label="PayPal or Credit Card"
+                label="PayPal"
               />
               <FormControlLabel
                 value="Stripe"
                 control={<Radio required />}
                 label="Stripe"
-              />
-              <FormControlLabel
-                value="Cash On Delivery"
-                control={<Radio required />}
-                label="Cash On Delivery"
               />
             </RadioGroup>
           </FormControl>

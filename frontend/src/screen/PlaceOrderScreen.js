@@ -13,12 +13,13 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 
-import ErrMess from "../components/ErrMessage";
+import ErrMess from "../components/Message";
 
 ///////////////////////////    REDUX     ///////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../redux/actions/cartAction";
 import { createOrder } from "../redux/actions/orderAction";
+import { CREATE_ORDER_RESET } from "../redux/actionTypes/orderConstants";
 
 import CheckoutStepper from "../components/CheckoutStepper";
 import { Button } from "react-bootstrap";
@@ -31,6 +32,12 @@ const PlaceOrderScreen = ({ history }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
+
+  // User Login Credentials
+  const login = useSelector((state) => state.userLogin);
+  const { userInfo } = login;
+
+  // cart details
   const cart = useSelector((state) => state.cart);
   const { cartItems, shippingAddress, paymentMethod } = cart;
 
@@ -73,14 +80,18 @@ const PlaceOrderScreen = ({ history }) => {
         totalPrice: cart.totalPrice,
       })
     );
-    console.log("order");
+    console.log(order);
   };
 
   useEffect(() => {
+    if (!userInfo) {
+      history.push("/login");
+    }
     if (success) {
       history.push(`/orders/${order._id}`);
+      dispatch({ type: CREATE_ORDER_RESET });
     }
-  }, [history, success, order]);
+  }, [dispatch, history, order, success, userInfo]);
 
   return (
     <>

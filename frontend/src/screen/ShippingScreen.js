@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 /////////////////////////////////////////    MATERIAL UI    ////////////////////////////////
 import Paper from "@material-ui/core/Paper";
@@ -39,6 +39,17 @@ const ShippingScreen = ({ history }) => {
   const [country, setCountry] = useState(shippingAddress.country);
 
   const dispatch = useDispatch();
+
+  // User Login Credentials
+  const login = useSelector((state) => state.userLogin);
+  const { userInfo } = login;
+
+  // Redirect to loginScreen on logout
+  useEffect(() => {
+    if (!userInfo) {
+      history.push("/login");
+    }
+  }, [history, userInfo]);
 
   const submitHandler = (event) => {
     event.preventDefault();

@@ -27,7 +27,7 @@ import {
   StyledTableRow,
 } from "./customStyle/ProfileScreen";
 
-import Message from "../components/ErrMessage";
+import Message from "../components/Message";
 import Loader from "../components/Loader";
 
 const ProfileScreen = ({ history }) => {
@@ -57,19 +57,21 @@ const ProfileScreen = ({ history }) => {
   const myOrdersList = useSelector((state) => state.myOrders);
   const { loading: loadingOrders, error: errorOrders, orders } = myOrdersList;
 
+  // redirect to login page if not logged in and set name & email field in form
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
-    } else {
-      dispatch(listMyOrders());
-      if (!user) {
-        dispatch(getUserDetails("profile"));
-      } else {
-        setName(user.name);
-        setEmail(user.email);
-      }
+    } else if (user) {
+      setName(user.name);
+      setEmail(user.email);
     }
-  }, [dispatch, userInfo, user, history]);
+  }, [userInfo, user, history]);
+
+  // fetch user details (even after update) and fetch all orders
+  useEffect(() => {
+    dispatch(getUserDetails("profile"));
+    dispatch(listMyOrders());
+  }, [dispatch]);
 
   const submitHandler = (event) => {
     event.preventDefault();

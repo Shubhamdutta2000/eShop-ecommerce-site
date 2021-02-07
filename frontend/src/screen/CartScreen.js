@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 
 //////////////////    COMPONENTS     //////////////////////////
-import ErrMessage from "../components/ErrMessage";
+import Message from "../components/Message";
 
 /////////////////     REDUX    ///////////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
@@ -27,14 +27,21 @@ const CartScreen = ({ match, location, history }) => {
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
 
   const dispatch = useDispatch();
+
+  // User Login Credentials
+  const login = useSelector((state) => state.userLogin);
+  const { userInfo } = login;
+
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
   useEffect(() => {
-    if (productId) {
+    if (!userInfo) {
+      history.push("/login");
+    } else if (productId) {
       dispatch(addToCart(productId, category, qty));
     }
-  }, [dispatch, productId, qty, category]);
+  }, [dispatch, productId, qty, category, userInfo, history]);
 
   ////////////////////      remove cart Handler    /////////////////////////
 
@@ -89,10 +96,10 @@ const CartScreen = ({ match, location, history }) => {
           {/*//////////////    CART == EMPTY -> ErrMess => Else => loop through cartItems   ////////////*/}
 
           {cartItems.length === 0 ? (
-            <ErrMessage varient="info">
+            <Message varient="info">
               <span className="cart__empty">Your cart is empty </span>
               <Link to="/">Keep Shopping</Link>
-            </ErrMessage>
+            </Message>
           ) : (
             <ListGroup varient="flush" className="shadow-lg">
               <ListGroup.Item className="cart__left__heading">

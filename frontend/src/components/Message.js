@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert } from "@material-ui/lab";
 
-const ErrMessage = ({ varient, children }) => {
+const Message = ({ varient, children }) => {
   return (
     <Alert className="mb-3" severity={varient}>
       {children}
@@ -9,4 +9,4 @@ const ErrMessage = ({ varient, children }) => {
   );
 };
 
-export default ErrMessage;
+export default Message;

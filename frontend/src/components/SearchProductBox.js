@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { useStyles } from "./CustomStyles/header";
-import { Button } from "@material-ui/core";
 
 export default function SearchBox({ history }) {
   const classes = useStyles();
@@ -22,7 +21,7 @@ export default function SearchBox({ history }) {
     } else {
       setKeyword("");
     }
-  }, [keyword, history, window]);
+  }, [keyword, history]);
 
   const handleSearchChange = (e) => {
     setKeyword(e.target.value);

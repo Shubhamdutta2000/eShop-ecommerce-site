@@ -13,7 +13,7 @@ import { listProducts } from "../redux/actions/productListAction";
 
 // Components
 import Loader from "../components/Loader";
-import ErrMess from "../components/ErrMessage";
+import ErrMess from "../components/Message";
 import Paginate from "../components/Paginate";
 
 // Carousal Data

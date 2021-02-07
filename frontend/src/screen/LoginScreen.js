@@ -27,7 +27,7 @@ import { loginUser } from "../redux/actions/userAction";
 import { useStyle } from "./customStyle/allFormsScreen";
 
 import CheckoutStepper from "../components/CheckoutStepper";
-import Message from "../components/ErrMessage";
+import Message from "../components/Message";
 import Loader from "../components/Loader";
 
 const LoginScreen = ({ history, location }) => {

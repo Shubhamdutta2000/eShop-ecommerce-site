@@ -6,6 +6,7 @@ import {
   getOrderById,
   updateOrderToPaid,
 } from "../controllers/orderController.js";
+import { makePaymentWithStripe } from "../controllers/stripePaymentController.js";
 
 const router = express.Router();
 
