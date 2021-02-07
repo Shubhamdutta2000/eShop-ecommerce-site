@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 
 //////////////////    COMPONENTS     //////////////////////////
-import ErrMessage from "../components/ErrMessage";
+import ErrMessage from "../components/Message";
 
 /////////////////     REDUX    ///////////////////////////////////
 import { useDispatch, useSelector } from "react-redux";

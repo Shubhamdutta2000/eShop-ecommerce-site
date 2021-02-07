@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 //////////////////    COMPONENTS     //////////////////////////
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
-import ErrMessage from "../components/ErrMessage";
+import ErrMessage from "../components/Message";
 
 /////////////////     REDUX    ///////////////////////////////////
 import { useDispatch, useSelector } from "react-redux";

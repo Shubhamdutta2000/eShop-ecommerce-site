@@ -16,7 +16,7 @@ import Typography from "@material-ui/core/Typography";
 import { Container } from "@material-ui/core";
 
 //////////////////////////////    / Components   ////////////////////////
-import Message from "../components/ErrMessage";
+import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { StripeCheckout } from "../components/StripeCheckout";
 import { PayPalCheckout } from "../components/PayPalCheckout";

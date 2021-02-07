@@ -27,7 +27,7 @@ import {
   StyledTableRow,
 } from "./customStyle/ProfileScreen";
 
-import Message from "../components/ErrMessage";
+import Message from "../components/Message";
 import Loader from "../components/Loader";
 
 const ProfileScreen = ({ history }) => {

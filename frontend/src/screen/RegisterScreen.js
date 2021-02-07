@@ -26,7 +26,7 @@ import { registerUser } from "../redux/actions/userAction";
 ///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
 import { useStyle } from "./customStyle/allFormsScreen";
 
-import Message from "../components/ErrMessage";
+import Message from "../components/Message";
 import Loader from "../components/Loader";
 
 const RegisterScreen = ({ history, location }) => {
