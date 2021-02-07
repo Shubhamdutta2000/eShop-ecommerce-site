@@ -1,11 +1,16 @@
 import { Button } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import StripeCheckoutButton from "react-stripe-checkout";
 
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
+import { payOrder } from "../redux/actions/orderAction";
+import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
+import Loader from "./Loader";
 
 export const StripeCheckout = ({ orderId }) => {
+  const dispatch = useDispatch();
+
   // Order details
   const orderDetails = useSelector((state) => state.orderDetails);
   const { orders } = orderDetails;
@@ -14,8 +19,22 @@ export const StripeCheckout = ({ orderId }) => {
   const login = useSelector((state) => state.userLogin);
   const { userInfo } = login;
 
+  // Updated Order after paid
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, success: successPay } = orderPay;
+
+  const [paid, setPaid] = useState(null);
+
+  // if paid successfully reset 
+  useEffect(() => {
+    if (successPay) {
+      dispatch({ type: ORDER_PAY_RESET });
+    }
+  }, [dispatch, successPay]);
+
   // make payment through stripe by post request data to backend
   const makePayment = (token) => {
+    console.log(token);
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${userInfo.token}`,
@@ -26,31 +45,40 @@ export const StripeCheckout = ({ orderId }) => {
       body: JSON.stringify({ token, orderId }),
     })
       .then((response) => {
-        console.log(response);
-        // call further methods
+        console.log(response.json());
+        // update order to paid
+        dispatch(payOrder(orderId, paid));
+        alert(
+          "Transaction completed by " + orders.user.name + " through stripe"
+        );
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <>
-      <StripeCheckoutButton
-        stripeKey="pk_test_51I5RESIXupbB6992wlpKBGWX0sOqC5TAq1LOGvxMJgeGFyaSkaGuSSSZpsTsUgFQXa7biHpODdBn2oeKWrqDb5dU00cXtFqWnc"
-        token={makePayment}
-        amount={orders.totalPrice * 100}
-        name="Pay with Stripe"
-        shippingAddress
-        billingAddress
-      >
-        <Button
-          style={{ width: "100%" }}
-          variant="contained"
-          size="large"
-          color="primary"
+      {loadingPay ? (
+        <Loader />
+      ) : (
+        <StripeCheckoutButton
+          stripeKey="pk_test_51I5RESIXupbB6992wlpKBGWX0sOqC5TAq1LOGvxMJgeGFyaSkaGuSSSZpsTsUgFQXa7biHpODdBn2oeKWrqDb5dU00cXtFqWnc"
+          token={makePayment}
+          amount={orders.totalPrice * 100}
+          currency="USD"
+          name="Pay with Stripe"
+          shippingAddress
+          billingAddress
         >
-          Pay With Stripe
-        </Button>
-      </StripeCheckoutButton>
+          <Button
+            style={{ width: "100%" }}
+            variant="contained"
+            size="large"
+            color="primary"
+          >
+            Pay With Stripe
+          </Button>
+        </StripeCheckoutButton>
+      )}
     </>
   );
 };

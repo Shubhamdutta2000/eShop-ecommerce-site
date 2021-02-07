@@ -50,7 +50,7 @@ export const PayPalCheckout = ({ orderId }) => {
     console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
     // alert("Transaction completed by " + paymentResult.payer.name.given_name);
-    alert("Transaction completed by " + orders.user.name);
+    alert("Transaction completed by " + orders.user.name + " through paypal");
   };
 
   // Error handling in payment

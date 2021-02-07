@@ -65,12 +65,24 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
   if (order) {
     order.isPaid = true;
     order.paidAt = Date.now();
-    order.paymentResult = {
-      id: req.body.id,
-      status: req.body.status,
-      updateTime: req.body.update_time,
-      emailAddress: req.body.payer.email_address,
-    };
+    // paymentResult according to type of payment method
+    order.paymentResult =
+      order.paymentMethod === "PayPal"
+        ? {
+            id: req.body.id,
+            status: req.body.status,
+            updateTime: req.body.update_time,
+            emailAddress: req.body.payer.email_address,
+          }
+        : order.paymentMethod === "Stripe"
+        ? {
+            id: req.body.id,
+            status: "paid",
+            updateTime: req.body.created,
+            emailAddress: req.body.email,
+          }
+        : null;
+
     const updatedOrder = await order.save();
     res.json(updatedOrder);
   } else {
