@@ -25,7 +25,7 @@ export const StripeCheckout = ({ orderId }) => {
 
   const [paid, setPaid] = useState(null);
 
-  // if paid successfully reset 
+  // if paid successfully reset
   useEffect(() => {
     if (successPay) {
       dispatch({ type: ORDER_PAY_RESET });
@@ -61,7 +61,7 @@ export const StripeCheckout = ({ orderId }) => {
         <Loader />
       ) : (
         <StripeCheckoutButton
-          stripeKey="pk_test_51I5RESIXupbB6992wlpKBGWX0sOqC5TAq1LOGvxMJgeGFyaSkaGuSSSZpsTsUgFQXa7biHpODdBn2oeKWrqDb5dU00cXtFqWnc"
+          stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
           token={makePayment}
           amount={orders.totalPrice * 100}
           currency="USD"

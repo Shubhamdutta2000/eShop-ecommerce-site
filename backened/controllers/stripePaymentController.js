@@ -4,9 +4,7 @@ import asyncHandler from "express-async-handler";
 import stripe from "stripe";
 import { v4 as uuidv4 } from "uuid";
 
-const newStripe = new stripe(
-  "sk_test_51I5RESIXupbB6992rRjrXb1GEziRpg2OcbXkJUxPEYtfshTGXd1bGEwt4ocGhnkjkpSkXSmINP58nNiyR4AnVTM900s8ttcrnw"
-);
+const newStripe = new stripe(process.env.STRIPE_SECRET_KEY);
 
 //  @purpose: POST customer and charges with stripe
 //  @access:  Private

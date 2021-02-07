@@ -14,8 +14,6 @@ import PlaceOrderScreen from "./screen/PlaceOrderScreen";
 import OrderScreen from "./screen/OrderScreen";
 
 function App() {
-  console.log(process.env.REACT_APP_BASE_URL);
-
   return (
     <Router>
       <div className="body">
