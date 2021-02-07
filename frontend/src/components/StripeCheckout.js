@@ -23,8 +23,6 @@ export const StripeCheckout = ({ orderId }) => {
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
 
-  const [paid, setPaid] = useState(null);
-
   // if paid successfully reset
   useEffect(() => {
     if (successPay) {
@@ -47,7 +45,7 @@ export const StripeCheckout = ({ orderId }) => {
       .then((response) => {
         console.log(response.json());
         // update order to paid
-        dispatch(payOrder(orderId, paid));
+        dispatch(payOrder(orderId, token));
         alert(
           "Transaction completed by " + orders.user.name + " through stripe"
         );

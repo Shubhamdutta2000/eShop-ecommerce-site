@@ -37,7 +37,7 @@ app.use("/orders", OrderRoutes);
 app.get("/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
-app.use("/payment", stripePaymentRoute);
+app.use("/payment/stripe", stripePaymentRoute);
 
 ///////////    For error handling   //////////////
 

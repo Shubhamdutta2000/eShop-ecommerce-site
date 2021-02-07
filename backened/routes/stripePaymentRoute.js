@@ -4,6 +4,6 @@ import Protect from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.route("/stripe").post(Protect, makePaymentWithStripe);
+router.route("/").post(Protect, makePaymentWithStripe);
 
 export default router;

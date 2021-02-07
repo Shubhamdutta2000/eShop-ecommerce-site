@@ -20,6 +20,7 @@ export const PayPalCheckout = ({ orderId }) => {
 
   const [sdkReady, setSdkReady] = useState(false);
 
+  //paypal script
   const addPayPalScript = async () => {
     const { data: clientId } = await axios.get("/config/paypal");
     console.log(clientId);
@@ -33,6 +34,7 @@ export const PayPalCheckout = ({ orderId }) => {
     document.body.appendChild(script);
   };
 
+  // if paid successfully reset order_pay and add paypal script if order not paid and paypal is configured previously
   useEffect(() => {
     if (successPay) {
       dispatch({ type: ORDER_PAY_RESET });
