@@ -317,7 +317,7 @@ const OrderScreen = ({ match, history }) => {
                     {orders.paymentMethod === "PayPal" ? (
                       <PayPalCheckout orderId={orderId} />
                     ) : orders.paymentMethod === "Stripe" ? (
-                      <StripeCheckout />
+                      <StripeCheckout orderId={orderId} />
                     ) : null}
                   </Grid>
                 </ListItem>

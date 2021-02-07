@@ -24,6 +24,8 @@ import {
   myOrdersReducer,
 } from "./reducers/order";
 
+import { stripeCheckoutReducer } from "./reducers/stripeCheckout";
+
 const reducer = combineReducers({
   productList: productListsReducer,
   productDetails: productDetailsReducer,
@@ -37,6 +39,7 @@ const reducer = combineReducers({
   orderPay: orderPayReducer,
   myOrders: myOrdersReducer,
   productCreateReview: productCreateReviewReducer,
+  checkout: stripeCheckoutReducer,
 });
 
 // GET all cart Items from local Storage

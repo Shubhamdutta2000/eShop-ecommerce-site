@@ -1,36 +1,43 @@
 import { Button } from "@material-ui/core";
 import React from "react";
 import StripeCheckoutButton from "react-stripe-checkout";
-import axios from "axios";
 
 // REDUX
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-export const StripeCheckout = () => {
+export const StripeCheckout = ({ orderId }) => {
+  // Order details
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { orders } = orderDetails;
+
   // User Login Credentials
   const login = useSelector((state) => state.userLogin);
   const { userInfo } = login;
 
   // make payment through stripe by post request data to backend
-  const makePayment = async (token) => {
-    try {
-      const { data } = await axios.post("/payment/stripe", token, {
-        "Content-Type": "application/json",
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+  const makePayment = (token) => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${userInfo.token}`,
+    };
+    return fetch("http://localhost:5000/payment/stripe", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({ token, orderId }),
+    })
+      .then((response) => {
+        console.log(response);
+        // call further methods
+      })
+      .catch((err) => console.log(err));
   };
+
   return (
     <>
       <StripeCheckoutButton
-        stripeKey=""
+        stripeKey="pk_test_51I5RESIXupbB6992wlpKBGWX0sOqC5TAq1LOGvxMJgeGFyaSkaGuSSSZpsTsUgFQXa7biHpODdBn2oeKWrqDb5dU00cXtFqWnc"
         token={makePayment}
-        amount={50 * 100}
+        amount={orders.totalPrice * 100}
         name="Pay with Stripe"
         shippingAddress
         billingAddress
