@@ -14,6 +14,5 @@ router.route("/").post(Protect, addOrderItems);
 router.route("/myorders").get(Protect, getMyOrders);
 router.route("/:id").get(Protect, getOrderById);
 router.route("/:id/payment").put(Protect, updateOrderToPaid);
-router.route("/stripePayment").post(Protect, makePaymentWithStripe);
 
 export default router;
