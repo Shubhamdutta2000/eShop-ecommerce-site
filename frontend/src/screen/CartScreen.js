@@ -27,14 +27,21 @@ const CartScreen = ({ match, location, history }) => {
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
 
   const dispatch = useDispatch();
+
+  // User Login Credentials
+  const login = useSelector((state) => state.userLogin);
+  const { userInfo } = login;
+
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
   useEffect(() => {
-    if (productId) {
+    if (!userInfo) {
+      history.push("/login");
+    } else if (productId) {
       dispatch(addToCart(productId, category, qty));
     }
-  }, [dispatch, productId, qty, category]);
+  }, [dispatch, productId, qty, category, userInfo, history]);
 
   ////////////////////      remove cart Handler    /////////////////////////
 
