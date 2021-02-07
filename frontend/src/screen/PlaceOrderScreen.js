@@ -32,6 +32,12 @@ const PlaceOrderScreen = ({ history }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
+
+  // User Login Credentials
+  const login = useSelector((state) => state.userLogin);
+  const { userInfo } = login;
+
+  // cart details
   const cart = useSelector((state) => state.cart);
   const { cartItems, shippingAddress, paymentMethod } = cart;
 
@@ -78,11 +84,14 @@ const PlaceOrderScreen = ({ history }) => {
   };
 
   useEffect(() => {
+    if (!userInfo) {
+      history.push("/login");
+    }
     if (success) {
       history.push(`/orders/${order._id}`);
       dispatch({ type: CREATE_ORDER_RESET });
     }
-  }, [dispatch, history, order, success]);
+  }, [dispatch, history, order, success, userInfo]);
 
   return (
     <>

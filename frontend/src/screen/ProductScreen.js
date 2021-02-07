@@ -9,8 +9,6 @@ import {
   Form,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-//////////////////    SCREEN        //////////////////////////
-import { Divider } from "@material-ui/core";
 
 //////////////////    COMPONENTS     //////////////////////////
 import Rating from "../components/Rating";

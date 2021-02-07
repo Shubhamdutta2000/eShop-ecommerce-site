@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { PayPalButton } from "react-paypal-button-v2";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -18,23 +18,29 @@ export const PayPalCheckout = ({ orderId }) => {
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
 
+  const [sdkReady, setSdkReady] = useState(false);
+
   const addPayPalScript = async () => {
     const { data: clientId } = await axios.get("/config/paypal");
     console.log(clientId);
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+    script.async = true;
+    script.onload = () => {
+      setSdkReady(true);
+    };
     document.body.appendChild(script);
   };
 
   useEffect(() => {
     if (successPay) {
       dispatch({ type: ORDER_PAY_RESET });
-    }
-
-    if (orders && !orders.isPaid) {
+    } else if (orders && !orders.isPaid) {
       if (!window.paypal) {
         addPayPalScript();
+      } else {
+        setSdkReady(true);
       }
     }
   }, [dispatch, orders, successPay]);
@@ -61,13 +67,18 @@ export const PayPalCheckout = ({ orderId }) => {
 
   return (
     <>
-      {loadingPay && <Loader />}
-      <PayPalButton
-        amount={`${orders.totalPrice}`}
-        onSuccess={successPaymentHandler}
-        onError={errorPaymentHandler}
-        onCancel={cancelPaymentHandler}
-      />
+      {loadingPay ? (
+        <Loader />
+      ) : !sdkReady ? (
+        <Loader />
+      ) : (
+        <PayPalButton
+          amount={`${orders.totalPrice}`}
+          onSuccess={successPaymentHandler}
+          onError={errorPaymentHandler}
+          onCancel={cancelPaymentHandler}
+        />
+      )}
     </>
   );
 };
