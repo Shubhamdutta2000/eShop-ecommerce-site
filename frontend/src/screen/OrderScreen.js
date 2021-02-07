@@ -16,7 +16,7 @@ import Typography from "@material-ui/core/Typography";
 import { Container } from "@material-ui/core";
 
 //////////////////////////////    / Components   ////////////////////////
-import ErrMess from "../components/ErrMessage";
+import Message from "../components/ErrMessage";
 import Loader from "../components/Loader";
 import { StripeCheckout } from "../components/StripeCheckout";
 import { PayPalCheckout } from "../components/PayPalCheckout";
@@ -28,12 +28,18 @@ import { getOrderDetails } from "../redux/actions/orderAction";
 ///////////////////////////    CUSTOM STYLES     ///////////////////////////////
 import { useStyles } from "./customStyle/PlaceOrderScreen";
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
   const classes = useStyles();
 
   const orderId = match.params.id;
 
   const dispatch = useDispatch();
+
+  // User Login Credentials
+  const login = useSelector((state) => state.userLogin);
+  const { userInfo } = login;
+
+  // Order details
   const orderDetails = useSelector((state) => state.orderDetails);
   const { loading, orders, error } = orderDetails;
 
@@ -42,13 +48,17 @@ const OrderScreen = ({ match }) => {
   const { success: successPay } = orderPay;
 
   useEffect(() => {
-    dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId, successPay]);
+    if (!userInfo) {
+      history.push("/login");
+    } else {
+      dispatch(getOrderDetails(orderId));
+    }
+  }, [dispatch, orderId, successPay, userInfo, history]);
 
   return loading ? (
     <Loader />
   ) : error ? (
-    <ErrMess varient="danger">{error}</ErrMess>
+    <Message varient="danger">{error}</Message>
   ) : (
     <>
       <br />
@@ -106,11 +116,11 @@ const OrderScreen = ({ match }) => {
               </ListItem>
               <div className={classes.message}>
                 {orders.isDelivered ? (
-                  <ErrMess varient="success">
+                  <Message varient="success">
                     Delivered at {orders.deliveredAt}
-                  </ErrMess>
+                  </Message>
                 ) : (
-                  <ErrMess varient="error">Not Delivered</ErrMess>
+                  <Message varient="error">Not Delivered</Message>
                 )}
               </div>
             </List>
@@ -130,9 +140,9 @@ const OrderScreen = ({ match }) => {
               </ListItem>
               <div className={classes.message}>
                 {orders.isPaid ? (
-                  <ErrMess varient="success">Paid on {orders.paidAt}</ErrMess>
+                  <Message varient="success">Paid on {orders.paidAt}</Message>
                 ) : (
-                  <ErrMess varient="error">Not Paid</ErrMess>
+                  <Message varient="error">Not Paid</Message>
                 )}
               </div>
             </List>
@@ -149,9 +159,9 @@ const OrderScreen = ({ match }) => {
 
             {!orders.orderItems.length ? (
               <Container maxWidth="md">
-                <ErrMess varient="info">
+                <Message varient="info">
                   No order <Link to="/">Keep Shopping</Link>
-                </ErrMess>
+                </Message>
               </Container>
             ) : (
               <List>
@@ -301,7 +311,7 @@ const OrderScreen = ({ match }) => {
               <Divider variant="fullWidth" component="br" />
 
               {/*/// PAYPAL BUTTON or STRIPE BUTTON showed if order is not paid  ///*/}
-              {!orders.isPaid && (
+              {!orders.isPaid ? (
                 <ListItem>
                   <Grid item lg={12}>
                     {orders.paymentMethod === "PayPal" ? (
@@ -311,6 +321,8 @@ const OrderScreen = ({ match }) => {
                     ) : null}
                   </Grid>
                 </ListItem>
+              ) : (
+                <Message>Payment Done Successfully</Message>
               )}
             </List>
           </Paper>

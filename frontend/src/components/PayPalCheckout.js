@@ -61,16 +61,13 @@ export const PayPalCheckout = ({ orderId }) => {
 
   return (
     <>
-      {loadingPay ? (
-        <Loader />
-      ) : (
-        <PayPalButton
-          amount={`${orders.totalPrice}`}
-          onSuccess={successPaymentHandler}
-          onError={errorPaymentHandler}
-          onCancel={cancelPaymentHandler}
-        />
-      )}
+      {loadingPay && <Loader />}
+      <PayPalButton
+        amount={`${orders.totalPrice}`}
+        onSuccess={successPaymentHandler}
+        onError={errorPaymentHandler}
+        onCancel={cancelPaymentHandler}
+      />
     </>
   );
 };
