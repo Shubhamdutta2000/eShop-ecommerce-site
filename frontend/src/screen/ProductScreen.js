@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 //////////////////    COMPONENTS     //////////////////////////
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
-import ErrMessage from "../components/Message";
+import Message from "../components/Message";
 
 /////////////////     REDUX    ///////////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
@@ -105,7 +105,7 @@ export default function ProductScreen({ history, match }) {
       {loading ? (
         <Loader />
       ) : error ? (
-        <ErrMessage varient="#FC308B">{error}</ErrMessage>
+        <Message varient="#FC308B">{error}</Message>
       ) : (
         <>
           <Row>
@@ -220,7 +220,7 @@ export default function ProductScreen({ history, match }) {
               </h2>
               <Rating value={product.rating} />
               {product.reviews && product.reviews.length === 0 && (
-                <ErrMessage>No Reviews</ErrMessage>
+                <Message>No Reviews</Message>
               )}
 
               <ListGroup className="pt-3" variant="flush">
@@ -250,9 +250,7 @@ export default function ProductScreen({ history, match }) {
                     Write Your Review
                   </h2>
                   {errorProductReview && (
-                    <ErrMessage varient="error">
-                      {errorProductReview}
-                    </ErrMessage>
+                    <Message varient="error">{errorProductReview}</Message>
                   )}
                   {userInfo ? (
                     <Form>
@@ -294,9 +292,9 @@ export default function ProductScreen({ history, match }) {
                       </Button>
                     </Form>
                   ) : (
-                    <ErrMessage>
+                    <Message>
                       Please <Link to="/login">sign in</Link> to write a review
-                    </ErrMessage>
+                    </Message>
                   )}
                 </ListGroup.Item>
               </ListGroup>

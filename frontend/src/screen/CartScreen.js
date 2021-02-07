@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 
 //////////////////    COMPONENTS     //////////////////////////
-import ErrMessage from "../components/Message";
+import Message from "../components/Message";
 
 /////////////////     REDUX    ///////////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
@@ -96,10 +96,10 @@ const CartScreen = ({ match, location, history }) => {
           {/*//////////////    CART == EMPTY -> ErrMess => Else => loop through cartItems   ////////////*/}
 
           {cartItems.length === 0 ? (
-            <ErrMessage varient="info">
+            <Message varient="info">
               <span className="cart__empty">Your cart is empty </span>
               <Link to="/">Keep Shopping</Link>
-            </ErrMessage>
+            </Message>
           ) : (
             <ListGroup varient="flush" className="shadow-lg">
               <ListGroup.Item className="cart__left__heading">
