@@ -3,6 +3,7 @@ import { PayPalButton } from "react-paypal-button-v2";
 
 import { useDispatch, useSelector } from "react-redux";
 import { payOrder } from "../redux/actions/orderAction";
+import { emptyCart } from "../redux/actions/cartAction";
 import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
 
 import axios from "axios";
@@ -38,6 +39,8 @@ export const PayPalCheckout = ({ orderId }) => {
   useEffect(() => {
     if (successPay) {
       dispatch({ type: ORDER_PAY_RESET });
+      //empty cart
+      dispatch(emptyCart());
     } else if (orders && !orders.isPaid) {
       if (!window.paypal) {
         addPayPalScript();

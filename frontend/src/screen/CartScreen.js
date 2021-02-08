@@ -87,7 +87,7 @@ const CartScreen = ({ match, location, history }) => {
         {/*//////////////////////////   1. CART LEFT SECTION   //////////////////////////////*/}
         <Col md={8}>
           <h1 className="cart__name ">
-            YOUR CART ({cartItems.length})
+            YOUR CART ({cartItems && cartItems.length})
             <span className="cart__name__span"> ITEM</span>
           </h1>
 

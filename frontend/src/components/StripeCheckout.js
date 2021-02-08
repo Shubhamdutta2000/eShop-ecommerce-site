@@ -5,7 +5,9 @@ import StripeCheckoutButton from "react-stripe-checkout";
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { payOrder } from "../redux/actions/orderAction";
+import { emptyCart } from "../redux/actions/cartAction";
 import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
+
 import Loader from "./Loader";
 
 export const StripeCheckout = ({ orderId }) => {
@@ -27,6 +29,8 @@ export const StripeCheckout = ({ orderId }) => {
   useEffect(() => {
     if (successPay) {
       dispatch({ type: ORDER_PAY_RESET });
+      // empty cart items
+      dispatch(emptyCart());
     }
   }, [dispatch, successPay]);
 
