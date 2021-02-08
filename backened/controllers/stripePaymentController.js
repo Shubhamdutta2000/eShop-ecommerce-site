@@ -1,16 +1,17 @@
 import OrderModel from "../models/orderModel.js";
 import asyncHandler from "express-async-handler";
-
 import stripe from "stripe";
 import { v4 as uuidv4 } from "uuid";
-
-const newStripe = new stripe(process.env.STRIPE_SECRET_KEY);
 
 //  @purpose: POST customer and charges with stripe
 //  @access:  Private
 //  @route:   POST /order/stripePayment
 export const makePaymentWithStripe = asyncHandler(async (req, res) => {
   const { token, orderId } = req.body;
+  const newStripe = new stripe(process.env.STRIPE_SECRET_KEY);
+
+  console.log(process.env.STRIPE_SECRET_KEY);
+
   console.log(token);
   try {
     // generate unique id for not charging the user again

@@ -9,6 +9,7 @@ import { emptyCart } from "../redux/actions/cartAction";
 import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
 
 import Loader from "./Loader";
+import axios from "axios";
 
 export const StripeCheckout = ({ orderId }) => {
   const dispatch = useDispatch();
@@ -35,26 +36,29 @@ export const StripeCheckout = ({ orderId }) => {
   }, [dispatch, successPay]);
 
   // make payment through stripe by post request data to backend
-  const makePayment = (token) => {
+  const makePayment = async (token) => {
     console.log(token);
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${userInfo.token}`,
-    };
-    return fetch("http://localhost:5000/payment/stripe", {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify({ token, orderId }),
-    })
-      .then((response) => {
-        console.log(response.json());
-        // update order to paid
+    try {
+      const { data } = await axios.post(
+        "/payment/stripe",
+        { token, orderId },
+        {
+          "Content-Type": "application/json",
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
+      console.log(data);
+      if (data) {
         dispatch(payOrder(orderId, token));
         alert(
           "Transaction completed by " + orders.user.name + " through stripe"
         );
-      })
-      .catch((err) => console.log(err));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

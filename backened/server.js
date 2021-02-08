@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+dotenv.config();
 import colors from "colors";
 import express from "express";
 import morgan from "morgan";
@@ -13,7 +14,6 @@ import OrderRoutes from "./routes/OrderRoutes.js";
 import stripePaymentRoute from "./routes/stripePaymentRoute.js";
 
 ////////////    Configuring all .env files   /////////////
-dotenv.config();
 dbConnection();
 
 const app = express();
@@ -21,9 +21,10 @@ const app = express();
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-app.use(express.json());
 
 app.use(cors());
+
+app.use(express.json());
 
 ////////////   base route (for testing)     //////////////
 app.get("/", (req, res) => {
