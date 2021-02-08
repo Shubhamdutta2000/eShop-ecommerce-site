@@ -54,13 +54,18 @@ const PaymentMethodScreen = ({ history }) => {
     history.push("/placeorder");
   };
 
+  /////////////////////    GO BACK      ////////////////////////
+  const goBack = () => {
+    history.goBack();
+  };
+
   return (
     <>
       <CheckoutStepper step={2} />
       <Paper elevation={14} className={classes.paper}>
-        <Link to="/shipping">
+        <div onClick={goBack}>
           <ArrowBackIosIcon className={classes.back} />
-        </Link>
+        </div>
 
         <Avatar className={classes.avatar}>
           <AccountBalanceIcon />

@@ -60,13 +60,18 @@ const ShippingScreen = ({ history }) => {
     history.push("/paymentMethod");
   };
 
+  /////////////////////    GO BACK      ////////////////////////
+  const goBack = () => {
+    history.goBack();
+  };
+
   return (
     <>
       <CheckoutStepper step={1} />
       <Paper elevation={14} className={classes.paper}>
-        <Link to="/login">
+        <div onClick={goBack}>
           <ArrowBackIosIcon className={classes.back} />
-        </Link>
+        </div>
         <Avatar className={classes.avatar}>
           <LocalShippingIcon />
         </Avatar>
