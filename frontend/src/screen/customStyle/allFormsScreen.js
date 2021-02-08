@@ -98,4 +98,16 @@ export const useStyle = makeStyles((theme) => ({
     textAlign: "center",
     color: "#1853F3",
   },
+
+  back: {
+    marginLeft: "0.6rem",
+    width: "2rem",
+    height: "2rem",
+    marginBottom: "-1rem",
+    backgroundImage: "linear-gradient(45deg, #2196f3,  70%, #045694 90%)",
+
+    borderRadius: "2rem",
+    padding: "0.3rem 0 0.3rem 0.5rem",
+    color: "white",
+  },
 }));

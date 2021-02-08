@@ -15,6 +15,7 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import LocationCityIcon from "@material-ui/icons/LocationCity";
 import FiberPinIcon from "@material-ui/icons/FiberPin";
 import LanguageIcon from "@material-ui/icons/Language";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 ////////////////////////////////////////     REDUX          /////////////////////////////////////
 import { useSelector, useDispatch } from "react-redux";
@@ -24,6 +25,7 @@ import CheckoutStepper from "../components/CheckoutStepper";
 
 ///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
 import { useStyle } from "./customStyle/allFormsScreen";
+import { Link } from "react-router-dom";
 
 const ShippingScreen = ({ history }) => {
   const classes = useStyle();
@@ -55,13 +57,16 @@ const ShippingScreen = ({ history }) => {
     event.preventDefault();
     //DISPATCH SHIPPING ADDRESS
     dispatch(addShippingAddress({ address, city, postalCode, country }));
-    history.push("/payment");
+    history.push("/paymentMethod");
   };
 
   return (
     <>
       <CheckoutStepper step={1} />
       <Paper elevation={14} className={classes.paper}>
+        <Link to="/login">
+          <ArrowBackIosIcon className={classes.back} />
+        </Link>
         <Avatar className={classes.avatar}>
           <LocalShippingIcon />
         </Avatar>

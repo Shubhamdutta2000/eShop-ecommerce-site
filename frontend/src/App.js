@@ -25,7 +25,7 @@ function App() {
             <Route path="/placeorder" component={PlaceOrderScreen} />
             <Route path="/orders/:id" component={OrderScreen} />
             <Route path="/shipping" component={ShippingScreen} />
-            <Route path="/payment" component={PaymentMethod} />
+            <Route path="/paymentMethod" component={PaymentMethod} />
             <Route path="/login" component={LoginScreen} />
             <Route path="/register" component={RegisterScreen} />
             <Route path="/profile" component={ProfileScreen} />

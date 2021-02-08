@@ -9,6 +9,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { Avatar, Button } from "@material-ui/core";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 import CheckoutStepper from "../components/CheckoutStepper";
 
@@ -18,6 +19,7 @@ import { addPaymentMethod } from "../redux/actions/cartAction";
 
 ///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
 import { useStyle } from "./customStyle/allFormsScreen";
+import { Link } from "react-router-dom";
 
 const PaymentMethodScreen = ({ history }) => {
   const classes = useStyle();
@@ -56,6 +58,10 @@ const PaymentMethodScreen = ({ history }) => {
     <>
       <CheckoutStepper step={2} />
       <Paper elevation={14} className={classes.paper}>
+        <Link to="/shipping">
+          <ArrowBackIosIcon className={classes.back} />
+        </Link>
+
         <Avatar className={classes.avatar}>
           <AccountBalanceIcon />
         </Avatar>
