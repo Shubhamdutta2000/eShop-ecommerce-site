@@ -39,8 +39,10 @@ const orderSchema = mongoose.Schema(
     paymentResult: {
       id: { type: String },
       status: { type: String },
-      updateTime: { type: String },
-      emailAddress: { type: String },
+      updateTime: { type: String }, // only for paypal
+      emailAddress: { type: String }, // only for paypal
+      receipt_email: { type: String }, // only for stripe
+      receipt_url: { type: String }, // only for stripe
     },
 
     itemsPrice: {

@@ -76,10 +76,10 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
           }
         : order.paymentMethod === "Stripe"
         ? {
-            id: req.body.id,
-            status: "paid",
-            updateTime: req.body.created,
-            emailAddress: req.body.email,
+            id: req.body.charge.id,
+            status: req.body.charge.status,
+            receipt_email: req.body.charge.receipt_email,
+            receipt_url: req.body.charge.receipt_url,
           }
         : null;
 

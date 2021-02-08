@@ -51,7 +51,7 @@ export const StripeCheckout = ({ orderId }) => {
       );
       console.log(data);
       if (data) {
-        dispatch(payOrder(orderId, token));
+        dispatch(payOrder(orderId, data));
         alert(
           "Transaction completed by " + orders.user.name + " through stripe"
         );
