@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Skeleton from "./skeletons/ProductScreenSkeleton";
 
 /////////////////     REDUX    ///////////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
@@ -48,6 +49,10 @@ export default function ProductScreen({ history, match }) {
   // user login credentials
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [loading]);
 
   useEffect(() => {
     if (successProductReview) {
@@ -103,7 +108,7 @@ export default function ProductScreen({ history, match }) {
       </Button>
 
       {loading ? (
-        <Loader />
+        <Skeleton />
       ) : error ? (
         <Message varient="#FC308B">{error}</Message>
       ) : (
