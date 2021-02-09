@@ -27,6 +27,7 @@ import { getOrderDetails } from "../redux/actions/orderAction";
 
 ///////////////////////////    CUSTOM STYLES     ///////////////////////////////
 import { useStyles } from "./customStyle/PlaceOrderScreen";
+import OrderScreenSkeleton from "./skeletons/OrderScreenSkeleton";
 
 const OrderScreen = ({ match, history }) => {
   const classes = useStyles();
@@ -56,7 +57,7 @@ const OrderScreen = ({ match, history }) => {
   }, [dispatch, orderId, successPay, userInfo, history]);
 
   return loading ? (
-    <Loader />
+    <OrderScreenSkeleton />
   ) : error ? (
     <Message varient="danger">{error}</Message>
   ) : (
