@@ -20,8 +20,8 @@ export const useStepIconStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     [theme.breakpoints.down("xs")]: {
-      width: "2.6rem",
-      height: "2.6rem",
+      width: "2.4rem",
+      height: "2.4rem",
     },
   },
   active: {
@@ -39,10 +39,10 @@ export function StepIcon(props) {
   const { active, completed } = props;
 
   const icons = {
-    1: <PeopleAlt />,
-    2: <LocalShipping />,
-    3: <AccountBalance />,
-    4: <ShoppingBasket />,
+    1: <PeopleAlt fontSize="small" />,
+    2: <LocalShipping fontSize="small" />,
+    3: <AccountBalance fontSize="small" />,
+    4: <ShoppingBasket fontSize="small" />,
   };
 
   return (

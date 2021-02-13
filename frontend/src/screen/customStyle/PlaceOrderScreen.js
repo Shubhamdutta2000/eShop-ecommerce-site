@@ -16,16 +16,16 @@ export const useStyles = makeStyles((theme) =>
       marginTop: "0.3rem",
     },
     avatar: {
-      width: "6rem",
-      height: "6rem",
-      marginRight: "1.4rem",
+      width: "6.5rem",
+      height: "6.5rem",
+      marginRight: "1rem",
     },
     paper: {
       marginBottom: "1.8rem",
       padding: "0.4rem 1rem 1rem 0",
     },
     list_item: {
-      marginLeft: "2rem",
+      marginLeft: "1.2rem",
     },
     order_summary: {
       fontSize: "1.6rem",

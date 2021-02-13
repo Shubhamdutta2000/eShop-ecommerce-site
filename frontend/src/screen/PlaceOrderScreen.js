@@ -31,6 +31,9 @@ import { useStyles } from "./customStyle/PlaceOrderScreen";
 const PlaceOrderScreen = ({ history }) => {
   const classes = useStyles();
 
+  // MOBILE BREAKPOINT
+  const isMobile = window.innerWidth <= 768;
+
   const dispatch = useDispatch();
 
   // User Login Credentials
@@ -185,7 +188,13 @@ const PlaceOrderScreen = ({ history }) => {
                           }
                         />
                       </Link>
-                      <ListItemSecondaryAction>
+                      <ListItemSecondaryAction
+                        style={
+                          isMobile
+                            ? { marginTop: "-2rem", marginRight: "-1.8rem" }
+                            : {}
+                        }
+                      >
                         <Button
                           type="button"
                           variant="light"

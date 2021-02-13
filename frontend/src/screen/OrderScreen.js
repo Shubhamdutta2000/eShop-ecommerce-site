@@ -66,11 +66,12 @@ const OrderScreen = ({ match, history }) => {
     <>
       <br />
       <Typography
-        variant={isMobile ? "h6" : "h4"}
+        variant={isMobile ? "h5" : "h4"}
         component="h4"
         color="textSecondary"
       >
-        ORDER {orders._id}
+        <span style={{ display: "flex", justifyContent: "center" }}>ORDER</span>{" "}
+        {orders._id}
       </Typography>
       <br />
       <br />
