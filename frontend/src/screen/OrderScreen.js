@@ -31,8 +31,10 @@ import OrderScreenSkeleton from "./skeletons/OrderScreenSkeleton";
 
 const OrderScreen = ({ match, history }) => {
   const classes = useStyles();
-
   const orderId = match.params.id;
+
+  // MOBILE BREAKPOINT
+  const isMobile = window.innerWidth <= 768;
 
   const dispatch = useDispatch();
 
@@ -63,7 +65,11 @@ const OrderScreen = ({ match, history }) => {
   ) : (
     <>
       <br />
-      <Typography variant="h4" component="h2" color="textSecondary">
+      <Typography
+        variant={isMobile ? "h6" : "h4"}
+        component="h4"
+        color="textSecondary"
+      >
         ORDER {orders._id}
       </Typography>
       <br />
@@ -198,9 +204,11 @@ const OrderScreen = ({ match, history }) => {
                           }
                         />
                       </Link>
-                      <ListItemSecondaryAction className={classes.qty}>
-                        Qty: {item.qty}
-                      </ListItemSecondaryAction>
+                      {!isMobile ? (
+                        <ListItemSecondaryAction className={classes.qty}>
+                          Qty: {item.qty}
+                        </ListItemSecondaryAction>
+                      ) : null}
                     </ListItem>
                     <Divider
                       variant="fullWidth"
@@ -314,7 +322,7 @@ const OrderScreen = ({ match, history }) => {
               {/*/// PAYPAL BUTTON or STRIPE BUTTON showed if order is not paid  ///*/}
               {!orders.isPaid ? (
                 <ListItem>
-                  <Grid item lg={12}>
+                  <Grid item xs={12}>
                     {orders.paymentMethod === "PayPal" ? (
                       <PayPalCheckout orderId={orderId} />
                     ) : orders.paymentMethod === "Stripe" ? (

@@ -24,7 +24,7 @@ function App() {
         <main>
           <Route path="/search" component={Home} />
           <Route path="/" component={Home} exact />
-          <div className={!isMobile ? "mx-5 px-4 py-4" : "mx-3 px-3 py-4"}>
+          <div className={!isMobile ? "mx-5 px-4 py-4" : "mx-2 px-2 py-4"}>
             <Route path="/placeorder" component={PlaceOrderScreen} />
             <Route path="/orders/:id" component={OrderScreen} />
             <Route path="/shipping" component={ShippingScreen} />
