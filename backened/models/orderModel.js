@@ -16,6 +16,8 @@ const orderSchema = mongoose.Schema(
         qty: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: String, required: true },
+        category: { type: String },
+        countInStock: { type: String },
         product: {
           type: mongoose.Types.ObjectId,
           required: true,
