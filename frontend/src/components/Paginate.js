@@ -6,10 +6,16 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       marginTop: theme.spacing(2),
-      width: "80rem",
+      width: "70rem",
       display: "flex",
       justifyContent: "center",
     },
+  },
+  mobile: {
+    marginTop: theme.spacing(2),
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
   },
 }));
 
@@ -21,18 +27,22 @@ export default function BasicPagination({ totalPage, setPaginate, isMobile }) {
       ...prev,
       currentPage: page,
     }));
-    window.scrollTo(0, 3000);
+    if (isMobile) {
+      window.scrollTo(0, 2820);
+    } else {
+      window.scrollTo(0, 3000);
+    }
   };
 
   return (
-    <div className={classes.root}>
+    <div className={isMobile ? classes.mobile : classes.root}>
       <Pagination
         className={classes.paginate}
         count={totalPage}
         onChange={handleChange}
         shape="rounded"
         color="primary"
-        size="large"
+        size={isMobile ? "small" : "large"}
       />
     </div>
   );

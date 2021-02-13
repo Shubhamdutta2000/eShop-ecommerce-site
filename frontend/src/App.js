@@ -14,6 +14,9 @@ import PlaceOrderScreen from "./screen/PlaceOrderScreen";
 import OrderScreen from "./screen/OrderScreen";
 
 function App() {
+  // MOBILE BREAKPOINT
+  const isMobile = window.innerWidth <= 768;
+
   return (
     <Router>
       <div className="body">
@@ -21,7 +24,7 @@ function App() {
         <main>
           <Route path="/search" component={Home} />
           <Route path="/" component={Home} exact />
-          <div className="mx-5 px-4 py-4">
+          <div className={!isMobile ? "mx-5 px-4 py-4" : "mx-3 px-2 py-4"}>
             <Route path="/placeorder" component={PlaceOrderScreen} />
             <Route path="/orders/:id" component={OrderScreen} />
             <Route path="/shipping" component={ShippingScreen} />

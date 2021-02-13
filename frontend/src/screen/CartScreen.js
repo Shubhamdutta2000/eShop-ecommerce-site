@@ -28,6 +28,9 @@ const CartScreen = ({ match, location, history }) => {
 
   const dispatch = useDispatch();
 
+  // MOBILE BREAKPOINT
+  const isMobile = window.innerWidth <= 768;
+
   // User Login Credentials
   const login = useSelector((state) => state.userLogin);
   const { userInfo } = login;
@@ -102,36 +105,38 @@ const CartScreen = ({ match, location, history }) => {
             </Message>
           ) : (
             <ListGroup varient="flush" className="shadow-lg">
-              <ListGroup.Item className="cart__left__heading">
-                <Row>
-                  <Col sm={3}>
-                    <h3>Image</h3>
-                  </Col>
-                  <Col sm={3}>
-                    <h3>Name</h3>
-                  </Col>
-                  <Col sm={2}>
-                    <h3>Price</h3>
-                  </Col>
-                  <Col sm={2}>
-                    <h3>Quantity</h3>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
+              {!isMobile ? (
+                <ListGroup.Item className="cart__left__heading">
+                  <Row>
+                    <Col sm={3}>
+                      <h3>Image</h3>
+                    </Col>
+                    <Col sm={3}>
+                      <h3>Name</h3>
+                    </Col>
+                    <Col sm={2}>
+                      <h3>Price</h3>
+                    </Col>
+                    <Col sm={2}>
+                      <h3>Quantity</h3>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+              ) : null}
               {cartItems.map((item) => (
                 <ListGroup.Item key={item.product}>
                   <Row>
                     <Col sm={3}>
                       <Image
                         className="cart__left__item__image"
-                        width="200"
+                        width={isMobile ? "360" : "200"}
                         src={item.image}
                         alt={item.name}
                         fluid
                         rounded
                       />
                     </Col>
-                    <Col sm={3}>
+                    <Col className="mt-4" sm={3}>
                       <Link
                         className="cart__left__item__name"
                         to={`/products/${item.category}/${item.product}`}
@@ -142,7 +147,7 @@ const CartScreen = ({ match, location, history }) => {
                     <Col sm={2} className="cart__left__item__price">
                       ${item.price}
                     </Col>
-                    <Col sm={2}>
+                    <Col className={isMobile ? "mt-3" : ""} sm={2}>
                       <Form.Control
                         as="select"
                         style={{ border: "none", outline: "none" }}
@@ -164,7 +169,7 @@ const CartScreen = ({ match, location, history }) => {
                         ))}
                       </Form.Control>
                     </Col>
-                    <Col sm={2}>
+                    <Col className={isMobile ? "mt-3 mb-2" : ""} sm={2}>
                       <Button
                         className="cart__left__item__remove"
                         type="button"
@@ -185,7 +190,7 @@ const CartScreen = ({ match, location, history }) => {
         <Col md={4}>
           <Card>
             <ListGroup>
-              <ListGroup.Item className="pb-4">
+              <ListGroup.Item className={isMobile ? "pt-4" : "pb-4"}>
                 <Button
                   className="btn-block p-2 cart__right__checkout"
                   disabled={cartItems.length === 0}
