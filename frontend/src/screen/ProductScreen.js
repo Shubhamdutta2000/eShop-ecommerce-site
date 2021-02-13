@@ -31,6 +31,9 @@ export default function ProductScreen({ history, match }) {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
+  // MOBILE BREAKPOINT
+  const isMobile = window.innerWidth <= 768;
+
   //////////////////     fetching datas of productList from redux state   ////////////////////////
 
   const dispatch = useDispatch();
@@ -97,9 +100,11 @@ export default function ProductScreen({ history, match }) {
             <Link to="/">Home</Link>
           </li>
           <li className="breadcrumb-item active">{product.category}</li>
-          <li className="breadcrumb-item active" aria-current="page">
-            {product.name}
-          </li>
+          {!isMobile ? (
+            <li className="breadcrumb-item active" aria-current="page">
+              {product.name}
+            </li>
+          ) : null}
         </ol>
       </nav>
 
@@ -216,10 +221,10 @@ export default function ProductScreen({ history, match }) {
           </Row>
           {/*// list down product reviews and create review //*/}
           <Row>
-            <Col md={6}>
+            <Col sm={12} md={9}>
               <h2
                 className="mt-5 font-weight-bolder  text-primary display-5"
-                style={{ fontSize: "2.6rem" }}
+                style={isMobile ? { fontSize: "2.5rem" } : { fontSize: "3rem" }}
               >
                 Product Reviews
               </h2>
@@ -234,9 +239,9 @@ export default function ProductScreen({ history, match }) {
                     return (
                       <ListGroup.Item key={review._id}>
                         <div>
-                          <h5>
+                          <h4>
                             <strong>{review.name}</strong>
-                          </h5>{" "}
+                          </h4>{" "}
                           <Rating value={review.rating} />
                         </div>
 
@@ -250,8 +255,13 @@ export default function ProductScreen({ history, match }) {
               </ListGroup>
 
               <ListGroup varient="flush">
-                <ListGroup.Item className="pt-4">
-                  <h2 className="font-weight-bold display-5 pb-2 text-primary write_review">
+                <ListGroup.Item className="pt-2 mt-4">
+                  <h2
+                    className="font-weight-bold pb-2 text-primary"
+                    style={
+                      isMobile ? { fontSize: "2rem" } : { fontSize: "2.3rem" }
+                    }
+                  >
                     Write Your Review
                   </h2>
                   {errorProductReview && (
@@ -282,7 +292,7 @@ export default function ProductScreen({ history, match }) {
                         </Form.Label>
                         <Form.Control
                           as="textarea"
-                          row="3"
+                          row="8"
                           value={comment}
                           onChange={(e) => setComment(e.target.value)}
                         ></Form.Control>
