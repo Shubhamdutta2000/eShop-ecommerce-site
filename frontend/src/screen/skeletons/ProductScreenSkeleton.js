@@ -8,7 +8,7 @@ const ProductScreenSkeleton = () => {
     <>
       <Row>
         <Col md={6}>
-          <Skeleton variant="rect" height={440} />
+          <Skeleton animation="wave" variant="rect" height={440} />
         </Col>
         <Col md={3}>
           <Skeleton variant="rect" height={320} />
