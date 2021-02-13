@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 
 //////////////////    COMPONENTS     //////////////////////////
 import Rating from "../components/Rating";
-import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Skeleton from "./skeletons/ProductScreenSkeleton";
 

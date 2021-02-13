@@ -17,7 +17,6 @@ import { Container } from "@material-ui/core";
 
 //////////////////////////////    / Components   ////////////////////////
 import Message from "../components/Message";
-import Loader from "../components/Loader";
 import { StripeCheckout } from "../components/StripeCheckout";
 import { PayPalCheckout } from "../components/PayPalCheckout";
 
@@ -70,7 +69,11 @@ const OrderScreen = ({ match, history }) => {
         component="h4"
         color="textSecondary"
       >
-        <span style={{ display: "flex", justifyContent: "center" }}>ORDER</span>{" "}
+        <span
+          style={isMobile ? { display: "flex", justifyContent: "center" } : {}}
+        >
+          ORDER
+        </span>{" "}
         {orders._id}
       </Typography>
       <br />

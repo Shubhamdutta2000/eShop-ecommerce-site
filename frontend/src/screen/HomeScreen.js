@@ -92,7 +92,6 @@ export default function Home({ location }) {
     indexOfLastProduct
   );
   const totalPage = Math.ceil(allProducts.length / allProductsPerPage);
-  console.log(currentProducts);
   // ENDS PAGINATION CALCULATIONS
 
   // SEARCH by query in route
@@ -101,9 +100,6 @@ export default function Home({ location }) {
   const query = new URLSearchParams(location.search);
   const keyword = query.get("name") || "";
   // const pageNumber = parseInt(query.get("pageNumber")) || "";
-
-  console.log(keyword);
-  // console.log(pageNumber);
 
   useEffect(() => {
     if (keyword) {

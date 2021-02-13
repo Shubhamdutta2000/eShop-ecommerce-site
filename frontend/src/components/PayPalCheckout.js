@@ -67,7 +67,6 @@ export const PayPalCheckout = ({ orderId }) => {
   // On cancel of payment
   const cancelPaymentHandler = (msg) => {
     alert("Order " + msg.orderID + " Cancelled");
-    console.log(msg);
   };
 
   return (

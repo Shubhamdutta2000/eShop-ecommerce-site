@@ -19,7 +19,6 @@ import { addPaymentMethod } from "../redux/actions/cartAction";
 
 ///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
 import { useStyle } from "./customStyle/allFormsScreen";
-import { Link } from "react-router-dom";
 
 const PaymentMethodScreen = ({ history }) => {
   const classes = useStyle();

@@ -30,10 +30,10 @@ export const listProducts = (keyword = "", pageNumber = "") => async (
   try {
     dispatch(reqProducts());
 
-    console.log(keyword);
     const { data } = await axios.get(`/products?keyword=${keyword}`);
 
     dispatch(addProducts(data));
+
     console.log(data);
   } catch (error) {
     dispatch(

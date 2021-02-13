@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import StripeCheckoutButton from "react-stripe-checkout";
 
 // REDUX

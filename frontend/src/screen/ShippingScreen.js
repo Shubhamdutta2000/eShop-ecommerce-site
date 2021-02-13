@@ -25,7 +25,6 @@ import CheckoutStepper from "../components/CheckoutStepper";
 
 ///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
 import { useStyle } from "./customStyle/allFormsScreen";
-import { Link } from "react-router-dom";
 
 const ShippingScreen = ({ history }) => {
   const classes = useStyle();

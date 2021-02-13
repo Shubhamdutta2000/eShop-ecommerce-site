@@ -120,9 +120,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    console.log(userInfo);
     const { data } = await axios.get(`/orders/${id}`, config);
-    console.log(data);
 
     dispatch(addOrderDetails(data));
   } catch (error) {
@@ -156,7 +154,6 @@ export const payOrder = (orderId, paymentResult) => async (
       paymentResult,
       config
     );
-    console.log(data);
 
     dispatch(addPayOrder(data));
   } catch (error) {
@@ -183,7 +180,6 @@ export const listMyOrders = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get("/orders/myorders", config);
-    console.log(data);
 
     dispatch(addMyOrders(data));
   } catch (error) {
