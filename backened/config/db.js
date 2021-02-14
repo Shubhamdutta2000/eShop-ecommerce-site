@@ -1,6 +1,10 @@
+import dotenv from "dotenv";
 import colors from "colors";
 import mongoose from "mongoose";
 
+dotenv.config();
+
+console.log(process.env.MONGO_URI);
 const dbConnect = async () => {
   console.log(process.env.MONGO_URI);
 
