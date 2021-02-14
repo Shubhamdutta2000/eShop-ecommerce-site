@@ -28,11 +28,8 @@ import { Container } from "@material-ui/core";
 ///////////////////////////    CUSTOM STYLES     ///////////////////////////////
 import { useStyles } from "./customStyle/PlaceOrderScreen";
 
-const PlaceOrderScreen = ({ history }) => {
+const PlaceOrderScreen = ({ history, API, isMobile }) => {
   const classes = useStyles();
-
-  // MOBILE BREAKPOINT
-  const isMobile = window.innerWidth <= 768;
 
   const dispatch = useDispatch();
 
@@ -73,7 +70,7 @@ const PlaceOrderScreen = ({ history }) => {
   //////////////////  PLACE ORDER   //////////////////////
   const placeOrderHandler = () => {
     dispatch(
-      createOrder({
+      createOrder(API, {
         orderItems: cartItems,
         shippingAddress: shippingAddress,
         paymentMethod: paymentMethod,

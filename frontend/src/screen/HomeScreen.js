@@ -22,7 +22,7 @@ import { carousalData } from "../utils/carousalData";
 // Styling
 import "../styles/Screen/HomeScreen.css";
 
-export default function Home({ location }) {
+export default function Home({ location, API, isMobile }) {
   // option for card carousal
   const options = {
     loop: false,
@@ -57,9 +57,6 @@ export default function Home({ location }) {
     smartSpeed: 1000,
     items: 1,
   };
-
-  // MOBILE BREAKPOINT
-  const isMobile = window.innerWidth <= 768;
 
   //   fetching datas of productList from redux state
   const dispatch = useDispatch();
@@ -107,7 +104,7 @@ export default function Home({ location }) {
     } else {
       setIsQuerying(false);
     }
-    dispatch(listProducts(keyword));
+    dispatch(listProducts(keyword, API));
   }, [dispatch, keyword]);
 
   // Scroll on Click to products category in carousel

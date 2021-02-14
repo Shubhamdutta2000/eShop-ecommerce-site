@@ -29,7 +29,7 @@ import { useStyle } from "./customStyle/allFormsScreen";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
-const RegisterScreen = ({ history, location }) => {
+const RegisterScreen = ({ history, location, API }) => {
   const classes = useStyle();
 
   const [email, setEmail] = useState("");
@@ -59,7 +59,7 @@ const RegisterScreen = ({ history, location }) => {
 
     //DISPATCH REGISTER
     if (password === confirmPassword) {
-      dispatch(registerUser(name, email, password));
+      dispatch(registerUser(API, name, email, password));
     } else {
       setMessage("Password does not match");
     }

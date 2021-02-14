@@ -88,7 +88,7 @@ const updateProfileFailed = (err) => ({
 
 ///////////    LOGIN    ////////////////
 
-export const loginUser = (email, password) => async (dispatch) => {
+export const loginUser = (API, email, password) => async (dispatch) => {
   try {
     dispatch(loginReq());
 
@@ -96,7 +96,7 @@ export const loginUser = (email, password) => async (dispatch) => {
       "Content-Type": "application/json",
     };
     const { data } = await axios.post(
-      "/user/login",
+      `${API}/user/login`,
       { email, password },
       config
     );
@@ -132,7 +132,9 @@ export const userLogout = () => (dispatch) => {
 
 ///////////    REGISTER    ////////////////
 
-export const registerUser = (name, email, password) => async (dispatch) => {
+export const registerUser = (API, name, email, password) => async (
+  dispatch
+) => {
   try {
     dispatch(registerReq());
 
@@ -140,7 +142,7 @@ export const registerUser = (name, email, password) => async (dispatch) => {
       "Content-Type": "application/json",
     };
     const { data } = await axios.post(
-      "/user/register",
+      `${API}/user/register`,
       { name, email, password },
       config
     );
@@ -166,7 +168,7 @@ export const registerUser = (name, email, password) => async (dispatch) => {
 
 ////////////////////    USER DETAILS (PROFILE)   ///////////////////////
 
-export const getUserDetails = (id) => async (dispatch, getState) => {
+export const getUserDetails = (API, id) => async (dispatch, getState) => {
   try {
     dispatch(profileReq());
 
@@ -180,7 +182,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.get(`/user/${id}`, config);
+    const { data } = await axios.get(`${API}/user/${id}`, config);
 
     dispatch(getProfile(data));
   } catch (error) {
@@ -196,7 +198,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 
 ////////////////////    UPDATE USER DETAILS (PROFILE)   ///////////////////////
 
-export const updateUserProfile = (user) => async (dispatch, getState) => {
+export const updateUserProfile = (API, user) => async (dispatch, getState) => {
   try {
     dispatch(updateProfileReq());
 
@@ -210,7 +212,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.put(`/user/profile`, user, config);
+    const { data } = await axios.put(`${API}/user/profile`, user, config);
 
     dispatch(updateProfile(data));
   } catch (error) {

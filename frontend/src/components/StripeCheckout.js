@@ -11,7 +11,7 @@ import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
 import Loader from "./Loader";
 import axios from "axios";
 
-export const StripeCheckout = ({ orderId }) => {
+export const StripeCheckout = ({ orderId, API }) => {
   const dispatch = useDispatch();
 
   // Order details
@@ -40,7 +40,7 @@ export const StripeCheckout = ({ orderId }) => {
     console.log(token);
     try {
       const { data } = await axios.post(
-        "/payment/stripe",
+        `${API}/payment/stripe`,
         { token, orderId },
         {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export const StripeCheckout = ({ orderId }) => {
       );
       console.log(data);
       if (data) {
-        dispatch(payOrder(orderId, data));
+        dispatch(payOrder(API, orderId, data));
         alert(
           "Transaction completed by " + orders.user.name + " through stripe"
         );

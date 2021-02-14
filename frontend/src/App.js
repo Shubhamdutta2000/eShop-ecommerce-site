@@ -16,23 +16,83 @@ import OrderScreen from "./screen/OrderScreen";
 function App() {
   // MOBILE BREAKPOINT
   const isMobile = window.innerWidth <= 768;
+  const API = process.env.REACT_APP_API;
 
   return (
     <Router>
       <div className="body">
         <Header />
         <main>
-          <Route path="/search" component={Home} />
-          <Route path="/" component={Home} exact />
+          <Route
+            path="/search"
+            render={({ location }) => (
+              <Home location={location} API={API} isMobile={isMobile} />
+            )}
+          />
+          <Route
+            path="/"
+            render={({ location }) => (
+              <Home location={location} API={API} isMobile={isMobile} />
+            )}
+            exact
+          />
           <div className={!isMobile ? "mx-5 px-4 py-4" : "mx-3 px-3 py-4"}>
-            <Route path="/placeorder" component={PlaceOrderScreen} />
-            <Route path="/orders/:id" component={OrderScreen} />
+            <Route
+              path="/placeorder"
+              render={({ history }) => (
+                <PlaceOrderScreen
+                  history={history}
+                  API={API}
+                  isMobile={isMobile}
+                />
+              )}
+            />
+            <Route
+              path="/orders/:id"
+              render={({ history, match }) => (
+                <OrderScreen
+                  match={match}
+                  history={history}
+                  API={API}
+                  isMobile={isMobile}
+                />
+              )}
+            />
             <Route path="/shipping" component={ShippingScreen} />
             <Route path="/paymentMethod" component={PaymentMethod} />
-            <Route path="/login" component={LoginScreen} />
-            <Route path="/register" component={RegisterScreen} />
-            <Route path="/profile" component={ProfileScreen} />
-            <Route path="/products/:category/:id" component={ProductScreen} />
+            <Route
+              path="/login"
+              render={({ location, history }) => (
+                <LoginScreen location={location} history={history} API={API} />
+              )}
+            />
+            <Route
+              path="/register"
+              render={({ location, history }) => (
+                <RegisterScreen
+                  location={location}
+                  history={history}
+                  API={API}
+                />
+              )}
+            />
+            <Route
+              path="/profile"
+              render={({ history }) => (
+                <ProfileScreen history={history} API={API} />
+              )}
+            />
+            <Route
+              path="/products/:category/:id"
+              render={({ history, match }) => (
+                <ProductScreen
+                  history={history}
+                  API={API}
+                  match={match}
+                  isMobile={isMobile}
+                />
+              )}
+            />
             <Route path="/cart/:category?/:id?" component={CartScreen} />
           </div>
         </main>

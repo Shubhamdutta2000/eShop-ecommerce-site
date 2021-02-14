@@ -30,7 +30,7 @@ import {
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
-const ProfileScreen = ({ history }) => {
+const ProfileScreen = ({ history, API }) => {
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
@@ -69,8 +69,8 @@ const ProfileScreen = ({ history }) => {
 
   // fetch user details (even after update) and fetch all orders
   useEffect(() => {
-    dispatch(getUserDetails("profile"));
-    dispatch(listMyOrders());
+    dispatch(getUserDetails(API, "profile"));
+    dispatch(listMyOrders(API));
   }, [dispatch]);
 
   const submitHandler = (event) => {
@@ -79,7 +79,7 @@ const ProfileScreen = ({ history }) => {
       setMessage("Password does not match");
     } else {
       //DISPATCH UPDATE
-      dispatch(updateUserProfile({ id: user._id, name, email, password }));
+      dispatch(updateUserProfile(API, { id: user._id, name, email, password }));
     }
   };
 

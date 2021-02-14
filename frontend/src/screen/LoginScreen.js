@@ -30,7 +30,7 @@ import CheckoutStepper from "../components/CheckoutStepper";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
-const LoginScreen = ({ history, location }) => {
+const LoginScreen = ({ history, location, API }) => {
   const classes = useStyle();
 
   const [email, setEmail] = useState("");
@@ -54,7 +54,7 @@ const LoginScreen = ({ history, location }) => {
   const submitHandler = (event) => {
     event.preventDefault();
     //DISPATCH LOGIN
-    dispatch(loginUser(email, password));
+    dispatch(loginUser(API, email, password));
   };
 
   return (

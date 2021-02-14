@@ -9,7 +9,7 @@ import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
 import axios from "axios";
 import Loader from "./Loader";
 
-export const PayPalCheckout = ({ orderId }) => {
+export const PayPalCheckout = ({ orderId, API }) => {
   const dispatch = useDispatch();
 
   const orderDetails = useSelector((state) => state.orderDetails);
@@ -23,7 +23,7 @@ export const PayPalCheckout = ({ orderId }) => {
 
   //paypal script
   const addPayPalScript = async () => {
-    const { data: clientId } = await axios.get("/config/paypal");
+    const { data: clientId } = await axios.get(`${API}/config/paypal`);
     console.log(clientId);
     const script = document.createElement("script");
     script.type = "text/javascript";
@@ -53,7 +53,7 @@ export const PayPalCheckout = ({ orderId }) => {
   // On payment successfully completed
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
-    dispatch(payOrder(orderId, paymentResult));
+    dispatch(payOrder(API, orderId, paymentResult));
     // alert("Transaction completed by " + paymentResult.payer.name.given_name);
     alert("Transaction completed by " + orders.user.name + " through paypal");
   };

@@ -6,6 +6,7 @@ import {
   PRODUCT_LIST_FAILED,
 } from "../actionTypes/productListConstants";
 
+
 /////////////////////    ACTIONS    ///////////////////////////////
 
 const reqProducts = () => ({
@@ -24,13 +25,11 @@ const productsFailed = (errMess) => ({
 
 ////////////////////     ACTION CREATOR     ////////////////////////
 
-export const listProducts = (keyword = "", pageNumber = "") => async (
-  dispatch
-) => {
+export const listProducts = (keyword = "", API) => async (dispatch) => {
   try {
     dispatch(reqProducts());
 
-    const { data } = await axios.get(`/products?keyword=${keyword}`);
+    const { data } = await axios.get(`${API}/products?keyword=${keyword}`);
 
     dispatch(addProducts(data));
 

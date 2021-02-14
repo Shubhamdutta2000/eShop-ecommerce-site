@@ -79,7 +79,7 @@ const myOrdersFailed = (error) => ({
 /////////////////////////////    ACTION CREATOR    ///////////////////////////
 
 //////////////    ORDER CREATE    ///////////////
-export const createOrder = (order) => async (dispatch, getState) => {
+export const createOrder = (API, order) => async (dispatch, getState) => {
   try {
     dispatch(reqOrder());
 
@@ -93,7 +93,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.post("/orders", order, config);
+    const { data } = await axios.post(`${API}/orders`, order, config);
 
     dispatch(addOrder(data));
   } catch (error) {
@@ -106,7 +106,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
 };
 
 //////////////    ORDER DETAILS    ///////////////
-export const getOrderDetails = (id) => async (dispatch, getState) => {
+export const getOrderDetails = (API, id) => async (dispatch, getState) => {
   try {
     dispatch(reqOrderDetails());
 
@@ -120,7 +120,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/orders/${id}`, config);
+    const { data } = await axios.get(`${API}/orders/${id}`, config);
 
     dispatch(addOrderDetails(data));
   } catch (error) {
@@ -133,7 +133,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
 };
 
 // //////////////    PAY ORDER AND UPDATE ORDER TO PAID    ///////////////
-export const payOrder = (orderId, paymentResult) => async (
+export const payOrder = (API, orderId, paymentResult) => async (
   dispatch,
   getState
 ) => {
@@ -150,7 +150,7 @@ export const payOrder = (orderId, paymentResult) => async (
       },
     };
     const { data } = await axios.put(
-      `/orders/${orderId}/payment`,
+      `${API}/orders/${orderId}/payment`,
       paymentResult,
       config
     );
@@ -166,7 +166,7 @@ export const payOrder = (orderId, paymentResult) => async (
 };
 
 //////////////    LIST MY ORDERS (PARTICULAR USER)    ///////////////
-export const listMyOrders = () => async (dispatch, getState) => {
+export const listMyOrders = (API) => async (dispatch, getState) => {
   try {
     dispatch(reqMyOrders());
     const {
@@ -179,7 +179,7 @@ export const listMyOrders = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get("/orders/myorders", config);
+    const { data } = await axios.get(`${API}/orders/myorders`, config);
 
     dispatch(addMyOrders(data));
   } catch (error) {

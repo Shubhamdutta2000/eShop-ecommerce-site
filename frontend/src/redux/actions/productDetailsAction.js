@@ -8,6 +8,7 @@ import {
 } from "../actionTypes/productDetailsConstants";
 
 import axios from "axios";
+const API = process.env.API;
 
 //////////////////////      ACTIONS    /////////////////////////////
 
@@ -43,11 +44,11 @@ const productReviewFailed = (errMess) => ({
 ///////////////////////   ACTION CREATOR    ///////////////////////////
 
 // list all product details
-export const listProductDetails = (category, id) => async (dispatch) => {
+export const listProductDetails = (API, category, id) => async (dispatch) => {
   try {
     dispatch(reqProduct());
 
-    const { data } = await axios.get(`/products/${category}/${id}`);
+    const { data } = await axios.get(`${API}/products/${category}/${id}`);
 
     dispatch(addProduct(data));
   } catch (error) {
@@ -62,7 +63,7 @@ export const listProductDetails = (category, id) => async (dispatch) => {
 };
 
 // Create product Review
-export const createProductReview = (category, id, review) => async (
+export const createProductReview = (API, category, id, review) => async (
   dispatch,
   getState
 ) => {
@@ -81,7 +82,7 @@ export const createProductReview = (category, id, review) => async (
     };
 
     const newReview = await axios.post(
-      `/products/${category}/${id}/reviews`,
+      `${API}/products/${category}/${id}/reviews`,
       review,
       config
     );

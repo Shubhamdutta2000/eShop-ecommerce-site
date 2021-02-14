@@ -28,12 +28,9 @@ import { getOrderDetails } from "../redux/actions/orderAction";
 import { useStyles } from "./customStyle/PlaceOrderScreen";
 import OrderScreenSkeleton from "./skeletons/OrderScreenSkeleton";
 
-const OrderScreen = ({ match, history }) => {
+const OrderScreen = ({ match, history, API, isMobile }) => {
   const classes = useStyles();
   const orderId = match.params.id;
-
-  // MOBILE BREAKPOINT
-  const isMobile = window.innerWidth <= 768;
 
   const dispatch = useDispatch();
 
@@ -53,7 +50,7 @@ const OrderScreen = ({ match, history }) => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      dispatch(getOrderDetails(orderId));
+      dispatch(getOrderDetails(API, orderId));
     }
   }, [dispatch, orderId, successPay, userInfo, history]);
 
@@ -328,9 +325,9 @@ const OrderScreen = ({ match, history }) => {
                 <ListItem>
                   <Grid item xs={12}>
                     {orders.paymentMethod === "PayPal" ? (
-                      <PayPalCheckout orderId={orderId} />
+                      <PayPalCheckout orderId={orderId} API={API} />
                     ) : orders.paymentMethod === "Stripe" ? (
-                      <StripeCheckout orderId={orderId} />
+                      <StripeCheckout orderId={orderId} API={API} />
                     ) : null}
                   </Grid>
                 </ListItem>

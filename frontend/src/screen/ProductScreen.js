@@ -25,13 +25,10 @@ import { PRODUCT_CREATE_REVIEW_RESET } from "../redux/actionTypes/productDetails
 
 import "../styles/Screen/ProductScreen.css";
 
-export default function ProductScreen({ history, match }) {
+export default function ProductScreen({ history, match, API, isMobile }) {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-
-  // MOBILE BREAKPOINT
-  const isMobile = window.innerWidth <= 768;
 
   //////////////////     fetching datas of productList from redux state   ////////////////////////
 
@@ -63,7 +60,7 @@ export default function ProductScreen({ history, match }) {
       setRating(0);
       setComment("");
     }
-    dispatch(listProductDetails(match.params.category, match.params.id));
+    dispatch(listProductDetails(API, match.params.category, match.params.id));
   }, [dispatch, match, successProductReview]);
 
   console.log(product.reviews);
@@ -79,7 +76,7 @@ export default function ProductScreen({ history, match }) {
   const submitReviewHandler = (e) => {
     e.preventDefault();
     dispatch(
-      createProductReview(match.params.category, match.params.id, {
+      createProductReview(API, match.params.category, match.params.id, {
         rating: rating,
         comment: comment,
       })
