@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import colors from "colors";
 import express from "express";
-import morgan from "morgan";
+// import morgan from "morgan";
 import dbConnection from "./config/db.js";
 import cors from "cors";
 
@@ -18,9 +18,9 @@ dbConnection();
 
 const app = express();
 
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
+// if (process.env.NODE_ENV === "development") {
+//   app.use(morgan("dev"));
+// }
 
 app.use(cors());
 
