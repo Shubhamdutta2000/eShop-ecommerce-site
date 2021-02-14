@@ -13,8 +13,8 @@ node_modules/
 /build
 
 # misc
-.DS_Store
 .env
+.DS_Store
 .env.local
 .env.development.local
 .env.test.local
