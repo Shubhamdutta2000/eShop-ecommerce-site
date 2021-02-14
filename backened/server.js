@@ -46,8 +46,9 @@ app.use(NotFound);
 app.use(errorhandler);
 
 const PORT = process.env.PORT || 5000;
+const HOST = "0.0.0.0";
 
-app.listen(PORT, () => {
+app.listen(PORT, HOST, () => {
   console.log(
     `Server is running in ${process.env.NODE_ENV} mode at port ${PORT}`.magenta
       .bold
