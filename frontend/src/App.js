@@ -93,7 +93,18 @@ function App() {
                 />
               )}
             />
-            <Route path="/cart/:category?/:id?" component={CartScreen} />
+            <Route
+              path="/cart/:category?/:id?"
+              component={({ history, match, location }) => (
+                <CartScreen
+                  history={history}
+                  match={match}
+                  isMobile={isMobile}
+                  API={API}
+                  location={location}
+                />
+              )}
+            />
           </div>
         </main>
         <Footer />

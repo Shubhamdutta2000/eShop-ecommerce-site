@@ -21,15 +21,12 @@ import { Link } from "react-router-dom";
 
 import "../styles/Screen/CartScreen.css";
 
-const CartScreen = ({ match, location, history }) => {
+const CartScreen = ({ match, location, history, isMobile, API }) => {
   const productId = match.params.id;
   const category = match.params.category;
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
 
   const dispatch = useDispatch();
-
-  // MOBILE BREAKPOINT
-  const isMobile = window.innerWidth <= 768;
 
   // User Login Credentials
   const login = useSelector((state) => state.userLogin);
@@ -42,7 +39,7 @@ const CartScreen = ({ match, location, history }) => {
     if (!userInfo) {
       history.push("/login");
     } else if (productId) {
-      dispatch(addToCart(productId, category, qty));
+      dispatch(addToCart(API, productId, category, qty));
     }
   }, [dispatch, productId, qty, category, userInfo, history]);
 

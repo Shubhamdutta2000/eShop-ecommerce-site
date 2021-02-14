@@ -41,8 +41,11 @@ const paymentMethod = (data) => ({
 ////////////////////////////       ACTION CREATOR     //////////////////////////
 
 //////////   ADD TO CART   ///////////////////
-export const addToCart = (id, category, qty) => async (dispatch, getState) => {
-  const { data } = await axios.get(`/products/${category}/${id}`);
+export const addToCart = (API, id, category, qty) => async (
+  dispatch,
+  getState
+) => {
+  const { data } = await axios.get(`${API}/products/${category}/${id}`);
   dispatch(addCart(data, qty));
   // Adding cartItems to localStorage
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));

@@ -8,7 +8,6 @@ import {
 } from "../actionTypes/productDetailsConstants";
 
 import axios from "axios";
-const API = process.env.API;
 
 //////////////////////      ACTIONS    /////////////////////////////
 
