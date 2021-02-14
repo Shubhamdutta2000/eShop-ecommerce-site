@@ -105,7 +105,7 @@ export default function Home({ location, API, isMobile }) {
       setIsQuerying(false);
     }
     dispatch(listProducts(keyword, API));
-  }, [dispatch, keyword]);
+  }, [dispatch, keyword, API]);
 
   // Scroll on Click to products category in carousel
   const electronicsRef = useRef(null); // To Electronics

@@ -61,7 +61,7 @@ export default function ProductScreen({ history, match, API, isMobile }) {
       setComment("");
     }
     dispatch(listProductDetails(API, match.params.category, match.params.id));
-  }, [dispatch, match, successProductReview]);
+  }, [dispatch, match, successProductReview, API]);
 
   console.log(product.reviews);
   //////////////////////    Redirect to Cart page      ///////////////////////

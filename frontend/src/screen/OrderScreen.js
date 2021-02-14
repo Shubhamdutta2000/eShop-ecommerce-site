@@ -52,7 +52,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
     } else {
       dispatch(getOrderDetails(API, orderId));
     }
-  }, [dispatch, orderId, successPay, userInfo, history]);
+  }, [dispatch, orderId, successPay, userInfo, history, API]);
 
   return loading ? (
     <OrderScreenSkeleton />

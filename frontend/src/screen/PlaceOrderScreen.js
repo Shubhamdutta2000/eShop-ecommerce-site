@@ -90,7 +90,7 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
       history.push(`/orders/${order._id}`);
       dispatch({ type: CREATE_ORDER_RESET });
     }
-  }, [dispatch, history, order, success, userInfo]);
+  }, [dispatch, history, order, success, userInfo, API]);
 
   return (
     <>

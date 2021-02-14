@@ -41,7 +41,7 @@ const CartScreen = ({ match, location, history, isMobile, API }) => {
     } else if (productId) {
       dispatch(addToCart(API, productId, category, qty));
     }
-  }, [dispatch, productId, qty, category, userInfo, history]);
+  }, [dispatch, productId, qty, category, userInfo, history, API]);
 
   ////////////////////      remove cart Handler    /////////////////////////
 

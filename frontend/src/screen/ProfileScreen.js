@@ -71,7 +71,7 @@ const ProfileScreen = ({ history, API }) => {
   useEffect(() => {
     dispatch(getUserDetails(API, "profile"));
     dispatch(listMyOrders(API));
-  }, [dispatch]);
+  }, [dispatch, API]);
 
   const submitHandler = (event) => {
     event.preventDefault();

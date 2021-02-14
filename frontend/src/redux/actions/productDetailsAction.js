@@ -80,7 +80,7 @@ export const createProductReview = (API, category, id, review) => async (
       },
     };
 
-    const newReview = await axios.post(
+    await axios.post(
       `${API}/products/${category}/${id}/reviews`,
       review,
       config
