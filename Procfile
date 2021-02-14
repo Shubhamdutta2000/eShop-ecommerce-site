@@ -1,1 +1,1 @@
-web: node backened/server.js
+web: node server.js

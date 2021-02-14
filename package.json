@@ -9,9 +9,9 @@
     "npm": "6.14.10"
   },
   "scripts": {
-    "start": "node backened/server",
+    "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon backened/server",
+    "server": "nodemon server",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backened/seeders",

@@ -3,15 +3,15 @@ dotenv.config();
 import colors from "colors";
 import express from "express";
 // import morgan from "morgan";
-import dbConnection from "./config/db.js";
+import dbConnection from "./backened/config/db.js";
 import cors from "cors";
 
-import { NotFound, errorhandler } from "./middleware/errorHandling.js";
+import { NotFound, errorhandler } from "./backened/middleware/errorHandling.js";
 
-import ProductRoutes from "./routes/productRoutes.js";
-import UserRoutes from "./routes/userRouter.js";
-import OrderRoutes from "./routes/OrderRoutes.js";
-import stripePaymentRoute from "./routes/stripePaymentRoute.js";
+import ProductRoutes from "./backened/routes/productRoutes.js";
+import UserRoutes from "./backened/routes/userRouter.js";
+import OrderRoutes from "./backened/routes/OrderRoutes.js";
+import stripePaymentRoute from "./backened/routes/stripePaymentRoute.js";
 
 ////////////    Configuring all .env files   /////////////
 dbConnection();

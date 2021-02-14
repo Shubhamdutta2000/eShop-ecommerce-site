@@ -1,8 +1,9 @@
-import dotenv from "dotenv";
 import colors from "colors";
 import mongoose from "mongoose";
 
 const dbConnect = async () => {
+  console.log(process.env.MONGO_URI);
+
   try {
     const connect = await mongoose.connect(process.env.MONGO_URI, {
       useUnifiedTopology: true,
