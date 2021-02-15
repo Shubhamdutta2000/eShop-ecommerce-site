@@ -21,7 +21,7 @@ function App() {
   return (
     <Router>
       <div className="body">
-        <Header />
+        <Header isMobile={isMobile} />
         <main>
           <Route
             path="/search"

@@ -1,9 +1,8 @@
 # eShop
 
-A eCommerce website where you can buy various products at very less price.
+eShop official website where you can buy various products at very less price.
 
 > eCommerce website made with MERN stack with redux as state management system
-
 
 ![screenshot](https://github.com/Shubhamdutta2000/eShop/blob/main/frontend/public/assets/images/screenshots/carousal.PNG)
 

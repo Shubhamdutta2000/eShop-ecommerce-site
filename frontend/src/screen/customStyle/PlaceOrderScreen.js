@@ -16,8 +16,8 @@ export const useStyles = makeStyles((theme) =>
       marginTop: "0.3rem",
     },
     avatar: {
-      width: "6.5rem",
-      height: "6.5rem",
+      width: "6rem",
+      height: "6rem",
       marginRight: "1rem",
     },
     paper: {
@@ -43,7 +43,7 @@ export const useStyles = makeStyles((theme) =>
     },
 
     shipping: {
-      marginRight: "2.8rem",
+      marginRight: "2rem",
     },
 
     email: {

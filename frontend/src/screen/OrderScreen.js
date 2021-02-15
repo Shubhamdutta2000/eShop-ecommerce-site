@@ -62,7 +62,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
     <>
       <br />
       <Typography
-        variant={isMobile ? "h5" : "h4"}
+        variant={isMobile ? "h6" : "h4"}
         component="h4"
         color="textSecondary"
       >
@@ -81,7 +81,11 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
           <Paper className={classes.paper} elevation={6}>
             <List className={classes.list}>
               <ListItem className={classes.list_item}>
-                <Typography color="primary" variant="h5" component="h3">
+                <Typography
+                  color="primary"
+                  variant={isMobile ? "h6" : "h5"}
+                  component="h3"
+                >
                   <strong>SHIPPING DETAILS</strong>
                 </Typography>
               </ListItem>
@@ -105,19 +109,19 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
                   <br />
                   <br />
                   <strong>Address: </strong>
-                  <span className="ml-4">{orders.shippingAddress.address}</span>
+                  <span className="ml-2">{orders.shippingAddress.address}</span>
                   <br />
-                  <span className="ml-5 pl-5">
+                  <span className="ml-4 pl-5">
                     {orders.shippingAddress.city}
                   </span>
 
                   <br />
-                  <span className="ml-5 pl-5">
+                  <span className="ml-4 pl-5">
                     {orders.shippingAddress.country},
                   </span>
 
                   <br />
-                  <span className="ml-5 pl-5">
+                  <span className="ml-4 pl-5">
                     {orders.shippingAddress.postalCode}
                   </span>
                 </Typography>
@@ -135,7 +139,11 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
 
             <List className={classes.list}>
               <ListItem className={classes.list_item}>
-                <Typography color="primary" variant="h5" component="h3">
+                <Typography
+                  color="primary"
+                  variant={isMobile ? "h6" : "h5"}
+                  component="h3"
+                >
                   <strong>PAYMENT METHOD</strong>
                 </Typography>
               </ListItem>
@@ -148,7 +156,9 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
               </ListItem>
               <div className={classes.message}>
                 {orders.isPaid ? (
-                  <Message varient="success">Paid on {orders.paidAt}</Message>
+                  <Message varient="success">
+                    Paid on {orders.paidAt.substring(0, 10)}
+                  </Message>
                 ) : (
                   <Message varient="error">Not Paid</Message>
                 )}
@@ -168,7 +178,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
             {!orders.orderItems.length ? (
               <Container maxWidth="md">
                 <Message varient="info">
-                  No order <Link to="/">Keep Shopping</Link>
+                  No order <Link to="/"> Keep Shopping</Link>
                 </Message>
               </Container>
             ) : (

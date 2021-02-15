@@ -97,7 +97,7 @@
 }
 
 .category_heading_phone {
-  font-size: 1.5rem;
+  font-size: 1.14rem;
   font-family: "Montserrat", sans-serif;
   color: rgb(0, 98, 173);
 }
@@ -105,7 +105,7 @@
 /* CAROUSAL MOBILE VIEW */
 
 .carousal_phone {
-  margin-left: 1.8rem;
+  margin-left: 1.4rem;
   width: 100vw;
   height: 39rem;
   overflow-x: hidden;
@@ -118,7 +118,7 @@
 
   font-style: normal;
   font-weight: normal;
-  font-size: 2.1rem;
+  font-size: 1.6rem;
   line-height: 3rem;
   letter-spacing: -0.02em;
   background: linear-gradient(90deg, #044176 0%, #5eb8ff 86.54%);

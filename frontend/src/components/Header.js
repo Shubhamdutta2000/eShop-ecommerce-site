@@ -35,7 +35,7 @@ import { userLogout } from "../redux/actions/userAction";
 //////////////////////////   CUSTOM STYLE    /////////////////////////
 import { useStyles } from "./CustomStyles/header";
 
-export default function Header() {
+export default function Header({ isMobile }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const openEl = Boolean(anchorEl);
@@ -104,7 +104,7 @@ export default function Header() {
               >
                 <AccountCircle />
                 &nbsp;
-                {userInfo.name.split(" ")[0]}
+                {!isMobile ? userInfo.name.split(" ")[0] : null}
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -125,6 +125,15 @@ export default function Header() {
                 open={openEl}
                 onClose={handleClose}
               >
+                {/*//    USER NAME ON MOBILE VIEW    //*/}
+                {isMobile ? (
+                  <MenuItem onClick={handleClose}>
+                    <IconButton>
+                      <AccountCircle />
+                    </IconButton>
+                    <ListItemText primary={userInfo.name.split(" ")[0]} />
+                  </MenuItem>
+                ) : null}
                 {/*//      PROFILE BUTTON if user is logged in      */}
                 <Link to="/profile" className={classes.link_menu_item}>
                   <MenuItem onClick={handleClose}>

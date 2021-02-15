@@ -220,7 +220,7 @@ export default function ProductScreen({ history, match, API, isMobile }) {
             <Col sm={12} md={9}>
               <h2
                 className="mt-5 font-weight-bolder  text-primary display-5"
-                style={isMobile ? { fontSize: "2.5rem" } : { fontSize: "3rem" }}
+                style={isMobile ? { fontSize: "2rem" } : { fontSize: "3rem" }}
               >
                 Product Reviews
               </h2>
@@ -255,7 +255,7 @@ export default function ProductScreen({ history, match, API, isMobile }) {
                   <h2
                     className="font-weight-bold pb-2 text-primary"
                     style={
-                      isMobile ? { fontSize: "2rem" } : { fontSize: "2.3rem" }
+                      isMobile ? { fontSize: "1.5rem" } : { fontSize: "2.3rem" }
                     }
                   >
                     Write Your Review
@@ -266,7 +266,10 @@ export default function ProductScreen({ history, match, API, isMobile }) {
                   {userInfo ? (
                     <Form>
                       <Form.Group controlId="rating">
-                        <Form.Label className="review_form_label  text-primary">
+                        <Form.Label
+                          style={isMobile ? { fontSize: "1.3rem" } : {}}
+                          className="review_form_label  text-primary"
+                        >
                           Rating
                         </Form.Label>
                         <Form.Control
@@ -283,7 +286,10 @@ export default function ProductScreen({ history, match, API, isMobile }) {
                         </Form.Control>
                       </Form.Group>
                       <Form.Group controlId="comment">
-                        <Form.Label className="review_form_label  text-primary">
+                        <Form.Label
+                          style={isMobile ? { fontSize: "1.3rem" } : {}}
+                          className="review_form_label  text-primary"
+                        >
                           Your Comment
                         </Form.Label>
                         <Form.Control
