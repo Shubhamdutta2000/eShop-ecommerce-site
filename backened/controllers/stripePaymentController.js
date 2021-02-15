@@ -25,7 +25,7 @@ export const makePaymentWithStripe = asyncHandler(async (req, res) => {
     });
     const charge = await newStripe.charges.create(
       {
-        amount: order.totalPrice * 100,
+        amount: parseInt(order.totalPrice) * 100,
         currency: "usd",
         customer: customer.id,
         receipt_email: token.email,
