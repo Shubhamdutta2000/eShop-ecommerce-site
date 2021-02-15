@@ -83,7 +83,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
               <ListItem className={classes.list_item}>
                 <Typography
                   color="primary"
-                  variant={isMobile ? "h6" : "h5"}
+                  variant={isMobile ? "h6" : "h4"}
                   component="h3"
                 >
                   <strong>SHIPPING DETAILS</strong>
@@ -109,19 +109,19 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
                   <br />
                   <br />
                   <strong>Address: </strong>
-                  <span className="ml-2">{orders.shippingAddress.address}</span>
+                  <span className="ml-4">{orders.shippingAddress.address}</span>
                   <br />
-                  <span className="ml-4 pl-5">
+                  <span className="ml-5 pl-5">
                     {orders.shippingAddress.city}
                   </span>
 
                   <br />
-                  <span className="ml-4 pl-5">
+                  <span className="ml-5 pl-5">
                     {orders.shippingAddress.country},
                   </span>
 
                   <br />
-                  <span className="ml-4 pl-5">
+                  <span className="ml-5 pl-5">
                     {orders.shippingAddress.postalCode}
                   </span>
                 </Typography>
@@ -141,7 +141,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
               <ListItem className={classes.list_item}>
                 <Typography
                   color="primary"
-                  variant={isMobile ? "h6" : "h5"}
+                  variant={isMobile ? "h6" : "h4"}
                   component="h3"
                 >
                   <strong>PAYMENT METHOD</strong>
@@ -169,7 +169,11 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
           <Paper className={classes.paper} elevation={6}>
             <List className={classes.list}>
               <ListItem className={classes.list_item}>
-                <Typography color="primary" variant="h5" component="h3">
+                <Typography
+                  color="primary"
+                  variant={isMobile ? "h5" : "h4"}
+                  component="h3"
+                >
                   <strong>ORDER DETAILS</strong>
                 </Typography>
               </ListItem>

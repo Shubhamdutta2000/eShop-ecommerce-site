@@ -27,7 +27,7 @@ export const useStyles = makeStyles((theme) =>
       padding: "0.4rem 1rem 1rem 0",
     },
     list_item: {
-      paddingLeft: "1.2rem",
+      paddingLeft: isMobile ? "1.2rem" : "3.4rem",
       paddingRight: "1rem",
       paddingBottom: "1.4rem",
     },
@@ -47,12 +47,11 @@ export const useStyles = makeStyles((theme) =>
     },
 
     shipping: {
-      marginRight: "2rem",
+      marginRight: isMobile ? "1.8rem" : "2.8rem",
     },
 
     email: {
       color: "#000",
-      textDecoration: "none",
     },
 
     qty: {
