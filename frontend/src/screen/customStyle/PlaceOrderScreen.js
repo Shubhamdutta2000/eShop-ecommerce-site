@@ -1,5 +1,7 @@
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 
+// MOBILE BREAKPOINT
+const isMobile = window.innerWidth <= 768;
 export const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
@@ -16,8 +18,8 @@ export const useStyles = makeStyles((theme) =>
       marginTop: "0.3rem",
     },
     avatar: {
-      width: "6rem",
-      height: "6rem",
+      width: isMobile ? "3.9rem" : "6.5rem",
+      height: isMobile ? "3.9rem" : "6.5rem",
       marginRight: "1rem",
     },
     paper: {
@@ -25,7 +27,9 @@ export const useStyles = makeStyles((theme) =>
       padding: "0.4rem 1rem 1rem 0",
     },
     list_item: {
-      marginLeft: "1.2rem",
+      paddingLeft: "1.2rem",
+      paddingRight: "1rem",
+      paddingBottom: "1.4rem",
     },
     order_summary: {
       fontSize: "1.6rem",

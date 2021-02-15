@@ -206,7 +206,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
                           secondary={
                             <Typography
                               color="primary"
-                              variant="body2"
+                              variant={isMobile ? "span" : "body2"}
                               component="span"
                             >
                               {item.qty} x {item.price} ={" "}

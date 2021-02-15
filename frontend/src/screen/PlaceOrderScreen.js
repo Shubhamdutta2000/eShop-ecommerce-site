@@ -102,7 +102,11 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
           <Paper className={classes.paper} elevation={6}>
             <List className={classes.list}>
               <ListItem className={classes.list_item}>
-                <Typography color="primary" variant="h5" component="h3">
+                <Typography
+                  color="primary"
+                  variant={isMobile ? "h6" : "h5"}
+                  component="h3"
+                >
                   <strong>SHIPPING DETAILS</strong>
                 </Typography>
               </ListItem>
@@ -123,7 +127,11 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
 
             <List className={classes.list}>
               <ListItem className={classes.list_item}>
-                <Typography color="primary" variant="h5" component="h3">
+                <Typography
+                  color="primary"
+                  variant={isMobile ? "h6" : "h5"}
+                  component="h3"
+                >
                   <strong>PAYMENT METHOD</strong>
                 </Typography>
               </ListItem>
@@ -175,7 +183,7 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
                           secondary={
                             <Typography
                               color="primary"
-                              variant="body2"
+                              variant={isMobile ? "span" : "body2"}
                               component="span"
                             >
                               {item.qty} x {item.price} ={" "}
@@ -187,7 +195,7 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
                       <ListItemSecondaryAction
                         style={
                           isMobile
-                            ? { marginTop: "-2rem", marginRight: "-1.8rem" }
+                            ? { marginTop: "2.2rem", marginRight: "-1.8rem" }
                             : {}
                         }
                       >
