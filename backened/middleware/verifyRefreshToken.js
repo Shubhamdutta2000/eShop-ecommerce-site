@@ -12,7 +12,7 @@ const verifyRefreshToken = (refresh_token) => {
         if (err) {
           reject(err);
         }
-        resolve(token);
+        resolve(token.id);
       }
     );
   });

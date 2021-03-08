@@ -11,7 +11,7 @@ const authMiddleware = async (req, res, next) => {
   ) {
     try {
       token = req.headers.authorization.split(" ")[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      const decoded = jwt.verify(token, process.env.JWT_ACCESS_TOKEN_KEY);
       console.log(decoded);
 
       // store UserModel (- password) to req.user
@@ -35,7 +35,5 @@ const authMiddleware = async (req, res, next) => {
     next(error);
   }
 };
-
-
 
 export default authMiddleware;

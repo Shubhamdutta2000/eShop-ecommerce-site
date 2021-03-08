@@ -49,13 +49,13 @@ Content-Type: application/json
 
 GET http://localhost:5000/user/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVhMjM2NzI2ZDRkMGM4NGYyZjY1OSIsImlhdCI6MTYxNTIxMTMwMSwiZXhwIjoxNjE1MjE0OTAxfQ.gTTicFfLdipDV2SbEGSBmVfTK2tEgv5yr3nu1w4vnss
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIyODY4MCwiZXhwIjoxNjE1MjI4NzEwfQ.jOTlWRx6JKJQ12gvqN42ub96E0hwWQeqkdJyPP9vIf8
 
 
 #########################  ORDERS BY ID    ##################
 
 GET http://localhost:5000/orders/5fed5fdb7073bf0b6ce37038
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVhMjM2NzI2ZDRkMGM4NGYyZjY1OSIsImlhdCI6MTYxNTIxMTMwMSwiZXhwIjoxNjE1MjE0OTAxfQ.gTTicFfLdipDV2SbEGSBmVfTK2tEgv5yr3nu1w4vnss
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIyNTYzMCwiZXhwIjoxNjQ2NzgzMjMwfSwiaWF0IjoxNjE1MjI4NDkzLCJleHAiOjE2MTUyMjg1MjN9.rIXB9uySIufe4yNI7Xp9M9eG_tr8K0IoWYnYFoXvCfc
 
 
 #######################   PAYPAL CONFIG  #####################
