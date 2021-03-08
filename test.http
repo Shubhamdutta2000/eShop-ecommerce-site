@@ -20,7 +20,18 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-      "email": "saaho@gmail.com",
+      "email": "fun@gmail.com",
+      "password": "user1234"
+}
+
+#####################   REGSITER    #####################
+
+POST http://localhost:5000/user/register
+Content-Type: application/json
+
+{
+      "name": "Fun",
+      "email": "fun@gmail.com",
       "password": "user1234"
 }
 
@@ -28,13 +39,13 @@ Content-Type: application/json
 
 GET http://localhost:5000/user/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwODkyNzQzMiwiZXhwIjoxNjA4OTI5MjMyfQ.ibSzhinFovzVQ9B_pr5C2nsy1Md-dEMWGZGNOQlO_dQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVhMjM2NzI2ZDRkMGM4NGYyZjY1OSIsImlhdCI6MTYxNTIxMTMwMSwiZXhwIjoxNjE1MjE0OTAxfQ.gTTicFfLdipDV2SbEGSBmVfTK2tEgv5yr3nu1w4vnss
 
 
 #########################  ORDERS BY ID    ##################
 
 GET http://localhost:5000/orders/5fed5fdb7073bf0b6ce37038
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwOTU2MjQ5MywiZXhwIjoxNjA5NTY2MDkzfQ.4PaEe2E7KRgNab6lrTOpSh_ZR6eK2nH7qWl-XEqnJq8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVhMjM2NzI2ZDRkMGM4NGYyZjY1OSIsImlhdCI6MTYxNTIxMTMwMSwiZXhwIjoxNjE1MjE0OTAxfQ.gTTicFfLdipDV2SbEGSBmVfTK2tEgv5yr3nu1w4vnss
 
 
 #######################   PAYPAL CONFIG  #####################
@@ -44,13 +55,13 @@ GET http://localhost:5000/config/paypal
 ######################   LOGGED IN USER ORDERS (paid)   #############
 
 GET http://localhost:5000/orders/myorders
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZGExMjRlZjA4YjdkMGY2YzI0NzViNyIsImlhdCI6MTYwOTU2MjQ5MywiZXhwIjoxNjA5NTY2MDkzfQ.4PaEe2E7KRgNab6lrTOpSh_ZR6eK2nH7qWl-XEqnJq8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVhMjM2NzI2ZDRkMGM4NGYyZjY1OSIsImlhdCI6MTYxNTIxMTMwMSwiZXhwIjoxNjE1MjE0OTAxfQ.gTTicFfLdipDV2SbEGSBmVfTK2tEgv5yr3nu1w4vnss
 
 ####################   create Product review    #######################
 
 POST http://localhost:5000/products/electronics/5fda124ef08b7d0f6c2475ba/reviews
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVhMjM2NzI2ZDRkMGM4NGYyZjY1OSIsImlhdCI6MTYxMjQxMzYwMiwiZXhwIjoxNjEyNDE3MjAyfQ.dBhPekGk_lFbuG572PencuUrWlakw8V4kULpPV7HZDc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIxMzk5NiwiZXhwIjoxNjE1MjE3NTk2fQ.6mGqIXBK815NXgHPj9rm_e3TiCFawbSSI5gk5o7O0rE
 
 {
       "rating": "10",

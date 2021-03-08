@@ -1,8 +1,6 @@
 import jwt from "jsonwebtoken";
-
 import UserModel from "../models/userModel.js";
 
-//////////////////    VERIFY USER LOGGED IN BY CHECKING token is there or not in header     /////////////////
 const authMiddleware = async (req, res, next) => {
   let token;
 
@@ -20,14 +18,20 @@ const authMiddleware = async (req, res, next) => {
 
       next();
     } catch (error) {
-      console.log(error);
-      res.status(404).json({ message: "No Token Not Authorised" });
-
-      throw new Error("Not Authorized, token failed");
+      if (error.name === "JsonWebTokenError") {
+        res.status(404);
+        const err = new Error("Unauthorised");
+        next(err);
+      } else {
+        // token expired
+        res.status(404);
+        next(error);
+      }
     }
   } else {
-    res.status(401).json({ message: "Not Authorised. No token provided" });
-    throw new Error("Not Authorized, No token is present");
+    res.status(401);
+    const error = new Error("Not Authorized, No token is present");
+    next(error);
   }
 };
 

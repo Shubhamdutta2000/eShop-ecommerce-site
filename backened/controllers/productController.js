@@ -6,7 +6,7 @@ import asyncHandler from "express-async-handler";
 //  @purpose: Fetch all products
 //  @access:  Public
 //  @route:   GET /products
-const getAllProducts = asyncHandler(async (req, res) => {
+const getAllProducts = asyncHandler(async (req, res, next) => {
   // For Search
   const keyword = req.query.keyword
     ? {
@@ -17,8 +17,13 @@ const getAllProducts = asyncHandler(async (req, res) => {
       }
     : {};
 
-  const products = await Products.find({ ...keyword });
-  res.json(products);
+  try {
+    const products = await Products.find({ ...keyword });
+    res.json(products);
+  } catch (error) {
+    res.status(404);
+    next(error);
+  }
 
   // For pagination
   // const pageSize = 10; // total no. of products in 1 page
@@ -39,14 +44,19 @@ const getAllProducts = asyncHandler(async (req, res) => {
 //  @purpose: Fetch all products by category wise
 //  @access:  Public
 //  @route:   GET /products/:category
-const getProductsByCategory = asyncHandler(async (req, res) => {
-  const products = await Products.find({ category: req.params.category });
-  if (products) {
-    res.json(products);
-  } else {
+const getProductsByCategory = asyncHandler(async (req, res, next) => {
+  try {
+    const products = await Products.find({ category: req.params.category });
+    if (products) {
+      res.json(products);
+    } else {
+      res.status(404);
+      const err = new Error("Category of Product Not Found");
+      next(err);
+    }
+  } catch (error) {
     res.status(404);
-
-    throw new Error("Category of Product Not Found");
+    next(error);
   }
 });
 
@@ -54,18 +64,22 @@ const getProductsByCategory = asyncHandler(async (req, res) => {
 //  @access:  Public
 //  @route:   GET /products/:category/:id
 
-const getProductsByCategoryAndId = asyncHandler(async (req, res) => {
-  const product = await Products.findOne({
-    category: req.params.category,
-    _id: req.params.id,
-  });
-
-  if (product) {
-    res.json(product);
-  } else {
+const getProductsByCategoryAndId = asyncHandler(async (req, res, next) => {
+  try {
+    const product = await Products.findOne({
+      category: req.params.category,
+      _id: req.params.id,
+    });
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404);
+      const err = new Error("Product Not Found");
+      next(err);
+    }
+  } catch (error) {
     res.status(404);
-
-    throw new Error("Product Not Found");
+    next(error);
   }
 });
 
@@ -73,41 +87,42 @@ const getProductsByCategoryAndId = asyncHandler(async (req, res) => {
 //  @access:  Private
 //  @route:   POST /products/:category/:id/reviews
 
-const createProductReview = asyncHandler(async (req, res) => {
+const createProductReview = asyncHandler(async (req, res, next) => {
   const { rating, comment } = req.body;
+  try {
+    const product = await Products.findById(req.params.id);
+    if (product) {
+      const alreadyReviewed = product.reviews.find(
+        (p) => p.user.toString() === req.user._id.toString()
+      );
+      if (alreadyReviewed) {
+        res.status(400);
+        const err = new Error("Product already reviewed");
+        next(err);
+      }
+      console.log(req.user.name);
+      const review = {
+        name: req.user.name,
+        rating: Number(rating),
+        comment,
+        user: req.user._id,
+      };
+      product.reviews.push(review);
+      product.numReviews = product.reviews.length;
+      product.rating =
+        product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+        product.reviews.length;
 
-  console.log(rating);
-  const product = await Products.findById(req.params.id);
-
-  if (product) {
-    const alreadyReviewed = product.reviews.find(
-      (p) => p.user.toString() === req.user._id.toString()
-    );
-
-    if (alreadyReviewed) {
-      res.status(400);
-      throw new Error("Product already reviewed");
+      await product.save();
+      res.status(201).json({ message: "Reviews added succesfully" });
+    } else {
+      res.status(404);
+      const err = new Error("Product not found");
+      next(err);
     }
-
-    console.log(req.user.name);
-    const review = {
-      name: req.user.name,
-      rating: Number(rating),
-      comment,
-      user: req.user._id,
-    };
-
-    product.reviews.push(review);
-    product.numReviews = product.reviews.length;
-    product.rating =
-      product.reviews.reduce((acc, item) => item.rating + acc, 0) /
-      product.reviews.length;
-
-    await product.save();
-    res.status(201).json({ message: "Reviews added succesfully" });
-  } else {
+  } catch (error) {
     res.status(404);
-    throw new Error("Product not found");
+    next(error);
   }
 });
 

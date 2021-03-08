@@ -47,6 +47,7 @@ export const makePaymentWithStripe = asyncHandler(async (req, res) => {
       .status(200)
       .json({ message: "Success", charge: charge, customer: customer });
   } catch (error) {
-    res.status(404).send(error);
+    res.status(404);
+    next(error);
   }
 });
