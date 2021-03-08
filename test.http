@@ -35,6 +35,16 @@ Content-Type: application/json
       "password": "user1234"
 }
 
+
+#################  refresh token   ##### #################
+
+POST http://localhost:5000/user/refresh-token
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIyNTYzMCwiZXhwIjoxNjQ2NzgzMjMwfQ.ST_ZP76YSA5sxFk3Fc5BkH-HjkreqxkHvWotASihFL4"
+}
+
 ########################   PROFILE  #####################
 
 GET http://localhost:5000/user/profile

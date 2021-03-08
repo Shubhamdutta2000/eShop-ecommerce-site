@@ -1,9 +1,12 @@
 import UserModel from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
 
-import generateAccessToken from "../utils/tokenGeneration.js";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../utils/tokenGeneration.js";
 
-import bcrypt from "bcrypt";
+import verifyRefreshToken from "../middleware/verifyRefreshToken.js";
 // @purpose:   Register new user and get access_token and refresh token
 // @route:  POST /user/register
 // @access  Public
@@ -29,6 +32,7 @@ const registerUser = asyncHandler(async (req, res, next) => {
         email: user.email,
         isAdmin: user.isAdmin,
         access_token: generateAccessToken(user._id),
+        refresh_token: generateRefreshToken(user._id),
       });
     } else {
       res.status(404);
@@ -56,6 +60,7 @@ const authUser = asyncHandler(async (req, res, next) => {
         email: user.email,
         isAdmin: user.isAdmin,
         access_token: generateAccessToken(user._id),
+        refresh_token: generateRefreshToken(user._id),
       });
     } else {
       res.status(401);
@@ -117,7 +122,28 @@ const updateUserProfile = asyncHandler(async (req, res, next) => {
 // @purpose:   Display all users (only for testing)
 // @route:  GET /user
 // @access  Public
+const refreshToken = async (req, res, next) => {
+  const { refreshToken } = req.body;
+  if (!refreshToken) {
+    res.status(404);
+    const err = new Error("No refresh token is provided");
+    next(err);
+  } else {
+    try {
+      const userId = await verifyRefreshToken(refreshToken);
+      const accessToken = generateAccessToken(userId);
+      const newRefreshToken = generateRefreshToken(userId);
+      res.json({ access_token: accessToken, refresh_token: newRefreshToken });
+    } catch (error) {
+      res.status(404);
+      next(error);
+    }
+  }
+};
 
+// @purpose:   Display all users (only for testing)
+// @route:  GET /user
+// @access  Public
 const apiUser = asyncHandler(async (req, res, next) => {
   try {
     const users = await UserModel.find();
@@ -128,4 +154,11 @@ const apiUser = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { authUser, apiUser, getUserProfile, registerUser, updateUserProfile };
+export {
+  authUser,
+  apiUser,
+  getUserProfile,
+  registerUser,
+  updateUserProfile,
+  refreshToken,
+};
