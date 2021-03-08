@@ -1,10 +1,10 @@
 import UserModel from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
 
-import generateToken from "../utils/tokenGeneration.js";
+import generateAccessToken from "../utils/tokenGeneration.js";
 
 import bcrypt from "bcrypt";
-// @purpose:   Register new user and get token
+// @purpose:   Register new user and get access_token and refresh token
 // @route:  POST /user/register
 // @access  Public
 
@@ -28,7 +28,7 @@ const registerUser = asyncHandler(async (req, res, next) => {
         name: user.name,
         email: user.email,
         isAdmin: user.isAdmin,
-        token: generateToken(user._id),
+        access_token: generateAccessToken(user._id),
       });
     } else {
       res.status(404);
@@ -41,7 +41,7 @@ const registerUser = asyncHandler(async (req, res, next) => {
   }
 });
 
-// @purpose:   Auth user and get token
+// @purpose:   Auth user and get access_token and refresh token
 // @route:  POST /user/login
 // @access  Public
 
@@ -55,7 +55,7 @@ const authUser = asyncHandler(async (req, res, next) => {
         name: user.name,
         email: user.email,
         isAdmin: user.isAdmin,
-        token: generateToken(user._id),
+        access_token: generateAccessToken(user._id),
       });
     } else {
       res.status(401);
@@ -101,7 +101,7 @@ const updateUserProfile = asyncHandler(async (req, res, next) => {
         name: updatedUser.name,
         email: updatedUser.email,
         isAdmin: updatedUser.isAdmin,
-        token: generateToken(updatedUser._id),
+        access_token: generateAccessToken(updatedUser._id),
       });
     } else {
       res.status(404);

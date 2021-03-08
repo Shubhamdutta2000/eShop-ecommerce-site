@@ -7,7 +7,6 @@ import dbConnection from "./backened/config/db.js";
 import cors from "cors";
 
 import { NotFound, errorhandler } from "./backened/middleware/errorHandling.js";
-import client from "./backened/utils/init_redis.js";
 
 import ProductRoutes from "./backened/routes/productRoutes.js";
 import UserRoutes from "./backened/routes/userRouter.js";

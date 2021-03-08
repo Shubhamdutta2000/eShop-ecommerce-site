@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import UserModel from "../models/userModel.js";
 
+// verify with access token
 const authMiddleware = async (req, res, next) => {
   let token;
 
