@@ -12,6 +12,13 @@ import ProductRoutes from "./backened/routes/productRoutes.js";
 import UserRoutes from "./backened/routes/userRouter.js";
 import OrderRoutes from "./backened/routes/OrderRoutes.js";
 import stripePaymentRoute from "./backened/routes/stripePaymentRoute.js";
+import client from "./backened/utils/init_redis.js";
+
+client.set("key", "value");
+client.get("key", (err, reply) => {
+  if (err) console.log(err);
+  console.log(reply);
+});
 
 ////////////    Configuring all .env files   /////////////
 
