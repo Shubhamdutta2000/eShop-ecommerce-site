@@ -14,6 +14,9 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAILED,
+  USER_CHECK_TOKEN_REQUEST,
+  USER_CHECK_TOKEN_SUCCESS,
+  USER_CHECK_TOKEN_FAILED,
 } from "../actionTypes/userConstants";
 
 import { LIST_MY_ORDER_RESET } from "../actionTypes/orderConstants";
@@ -219,6 +222,44 @@ export const updateUserProfile = (API, user) => async (dispatch, getState) => {
           ? error.response.data.message
           : error.message
       )
+    );
+  }
+};
+
+/// USER AUTH TOKEN CHECK  ///
+export const checkUserAuthToken = (API) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_CHECK_TOKEN_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const token = userInfo && userInfo.token;
+
+    const config = {
+      "Content-Type": "application/json",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios.get(`${API}/user/auth`, config);
+
+    dispatch({
+      type: USER_CHECK_TOKEN_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch(
+      dispatch({
+        type: USER_CHECK_TOKEN_FAILED,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
     );
   }
 };

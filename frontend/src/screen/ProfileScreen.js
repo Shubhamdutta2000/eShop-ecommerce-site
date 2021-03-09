@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Button } from "react-bootstrap";
 
-////////////////////////////////    MATERIAL UI   ////////////////////////////////////
+///    MATERIAL UI   ///
 import Grid from "@material-ui/core/Grid";
 import MaterialButton from "@material-ui/core/Button";
 import Table from "@material-ui/core/Table";
@@ -14,8 +14,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import DoneIcon from "@material-ui/icons/Done";
 
-import { verifyAuthToken } from "../api/authToken";
-/////////////////////////////////    REDUX     //////////////////////////////////////
+///    REDUX     ///
 import { useSelector, useDispatch } from "react-redux";
 import {
   getUserDetails,
@@ -24,7 +23,7 @@ import {
 } from "../redux/actions/userAction";
 import { listMyOrders } from "../redux/actions/orderAction";
 
-///////////////////////////////////     CUSTOM STYLE    ///////////////////////////////
+///     CUSTOM STYLE    ///
 import {
   useStyles,
   CssTextField,
@@ -46,19 +45,19 @@ const ProfileScreen = ({ history, API }) => {
 
   const dispatch = useDispatch();
 
-  //////////////////////   LOGIN REDUCER    ///////////////////
+  ///   LOGIN REDUCER    ///
   const login = useSelector((state) => state.userLogin);
   const { userInfo } = login;
 
-  //////////////////////    USER PROFILE REDUCER    /////////////////
+  ///    USER PROFILE REDUCER    ///
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, user, error } = userDetails;
 
-  ///////////////////   UPDATE USER PROFILE REDUCER    ////////////////
+  ///   UPDATE USER PROFILE REDUCER    ///
   const updateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = updateProfile;
 
-  ///////////////////   MY ORDERS REDUCER    ////////////////
+  ///   MY ORDERS REDUCER    ///
   const myOrdersList = useSelector((state) => state.myOrders);
   const { loading: loadingOrders, error: errorOrders, orders } = myOrdersList;
 
@@ -70,18 +69,18 @@ const ProfileScreen = ({ history, API }) => {
       setName(user.name);
       setEmail(user.email);
     }
-  }, [userInfo, user, history]);
+    // logout if jwt expire
+    else if (error === "jwt expired") {
+      alert("Logged Out!! Again log in to view profile");
+      dispatch(userLogout());
+    }
+  }, [userInfo, user, history, error]);
 
   // fetch user details (even after update) and fetch all orders
   useEffect(() => {
     dispatch(getUserDetails(API, "profile"));
     dispatch(listMyOrders(API));
   }, [dispatch, API]);
-
-  // verify if auth token expired or not (if not logout)
-  useEffect(() => {
-    verifyAuthToken(userInfo && userInfo.token, dispatch, userLogout, API);
-  }, [API, dispatch, userInfo]);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -93,7 +92,7 @@ const ProfileScreen = ({ history, API }) => {
     }
   };
 
-  ////////////////////     GO BACK      //////////////////////////////////
+  ///     GO BACK      ///
   const goBack = () => {
     history.goBack();
   };

@@ -9,15 +9,12 @@ import {
   Form,
 } from "react-bootstrap";
 
-
-import { verifyAuthToken } from "../api/authToken";
 //////////////////    COMPONENTS     //////////////////////////
 import Message from "../components/Message";
 
 /////////////////     REDUX    ///////////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../redux/actions/cartAction";
-import { userLogout } from "../redux/actions/userAction";
 import { Link } from "react-router-dom";
 
 //////////////////   CSS style   //////////////////////////////
@@ -31,10 +28,11 @@ const CartScreen = ({ match, location, history, isMobile, API }) => {
 
   const dispatch = useDispatch();
 
-  // User Login Credentials
+  /// User Login Credentials  ///
   const login = useSelector((state) => state.userLogin);
   const { userInfo } = login;
 
+  ///  cart reducer  ///
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -46,33 +44,26 @@ const CartScreen = ({ match, location, history, isMobile, API }) => {
     }
   }, [dispatch, productId, qty, category, userInfo, history, API]);
 
-  // verify if auth token expired or not (if not logout)
-  useEffect(() => {
-    verifyAuthToken(userInfo && userInfo.token, dispatch, userLogout, API);
-  }, [API, dispatch, userInfo]);
-
-  ////////////////////      remove cart Handler    /////////////////////////
-
+  ///    remove cart Handler  ///
   const removecartHandler = (productId) => {
     console.log(productId);
     dispatch(removeFromCart(productId));
   };
 
-  ////////////////////      Checkout Process Handler    /////////////////////////
-
+  ///   Checkout Process Handler  ///
   const checkoutHandler = () => {
     history.push("/login?redirect=shipping");
     console.log("CHECKOUT");
   };
 
-  ////////////////////     GO BACK      //////////////////////////////////
+  ///  GO BACK   ///
   const goBack = () => {
     history.goBack();
   };
 
   return (
     <>
-      {/*//////////////////////////   BREADCRUMB OF NAV  //////////////////////////*/}
+      {/*///  BREADCRUMB OF NAV  /*/}
 
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">

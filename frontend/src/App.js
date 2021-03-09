@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -12,12 +13,11 @@ import ShippingScreen from "./screen/ShippingScreen";
 import PaymentMethod from "./screen/PaymentMethod";
 import PlaceOrderScreen from "./screen/PlaceOrderScreen";
 import OrderScreen from "./screen/OrderScreen";
-import { useEffect } from "react";
 
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
-import { userLogout } from "./redux/actions/userAction";
-import { verifyAuthToken } from "./api/authToken";
+import { userLogout, checkUserAuthToken } from "./redux/actions/userAction";
+import { USER_CHECK_TOKEN_RESET } from "./redux/actionTypes/userConstants";
 
 function App() {
   // MOBILE BREAKPOINT
@@ -26,11 +26,21 @@ function App() {
 
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userLogin);
+  const { error } = useSelector((state) => state.userAuthToken);
 
-  // verify if auth token expired or not (if not logout)
+  // verify if auth token expired or not
   useEffect(() => {
-    verifyAuthToken(userInfo && userInfo.token, dispatch, userLogout, API);
+    dispatch(checkUserAuthToken(API));
   }, [API, dispatch, userInfo]);
+
+  // if jwt token expired then logged out
+  useEffect(() => {
+    if (userInfo && error === "jwt expired") {
+      alert("Logged out!! Again login to do shopping!!");
+      dispatch(userLogout());
+      dispatch({ type: USER_CHECK_TOKEN_RESET });
+    }
+  }, [dispatch, userInfo, error]);
 
   return (
     <Router>
