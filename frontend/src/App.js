@@ -12,11 +12,25 @@ import ShippingScreen from "./screen/ShippingScreen";
 import PaymentMethod from "./screen/PaymentMethod";
 import PlaceOrderScreen from "./screen/PlaceOrderScreen";
 import OrderScreen from "./screen/OrderScreen";
+import { useEffect } from "react";
+
+//REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { userLogout } from "./redux/actions/userAction";
+import { verifyAuthToken } from "./api/authToken";
 
 function App() {
   // MOBILE BREAKPOINT
   const isMobile = window.innerWidth <= 768;
   const API = process.env.REACT_APP_API;
+
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userLogin);
+
+  // verify if auth token expired or not (if not logout)
+  useEffect(() => {
+    verifyAuthToken(userInfo && userInfo.token, dispatch, userLogout, API);
+  }, [API, dispatch, userInfo]);
 
   return (
     <Router>

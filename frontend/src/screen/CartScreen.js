@@ -9,12 +9,15 @@ import {
   Form,
 } from "react-bootstrap";
 
+
+import { verifyAuthToken } from "../api/authToken";
 //////////////////    COMPONENTS     //////////////////////////
 import Message from "../components/Message";
 
 /////////////////     REDUX    ///////////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../redux/actions/cartAction";
+import { userLogout } from "../redux/actions/userAction";
 import { Link } from "react-router-dom";
 
 //////////////////   CSS style   //////////////////////////////
@@ -42,6 +45,11 @@ const CartScreen = ({ match, location, history, isMobile, API }) => {
       dispatch(addToCart(API, productId, category, qty));
     }
   }, [dispatch, productId, qty, category, userInfo, history, API]);
+
+  // verify if auth token expired or not (if not logout)
+  useEffect(() => {
+    verifyAuthToken(userInfo && userInfo.token, dispatch, userLogout, API);
+  }, [API, dispatch, userInfo]);
 
   ////////////////////      remove cart Handler    /////////////////////////
 

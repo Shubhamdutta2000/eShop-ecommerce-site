@@ -14,9 +14,14 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import DoneIcon from "@material-ui/icons/Done";
 
+import { verifyAuthToken } from "../api/authToken";
 /////////////////////////////////    REDUX     //////////////////////////////////////
 import { useSelector, useDispatch } from "react-redux";
-import { getUserDetails, updateUserProfile } from "../redux/actions/userAction";
+import {
+  getUserDetails,
+  updateUserProfile,
+  userLogout,
+} from "../redux/actions/userAction";
 import { listMyOrders } from "../redux/actions/orderAction";
 
 ///////////////////////////////////     CUSTOM STYLE    ///////////////////////////////
@@ -72,6 +77,11 @@ const ProfileScreen = ({ history, API }) => {
     dispatch(getUserDetails(API, "profile"));
     dispatch(listMyOrders(API));
   }, [dispatch, API]);
+
+  // verify if auth token expired or not (if not logout)
+  useEffect(() => {
+    verifyAuthToken(userInfo && userInfo.token, dispatch, userLogout, API);
+  }, [API, dispatch, userInfo]);
 
   const submitHandler = (event) => {
     event.preventDefault();

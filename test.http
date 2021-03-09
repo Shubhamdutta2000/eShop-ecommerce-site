@@ -14,6 +14,13 @@ GET http://localhost:5000/products/electronics
 
 GET http://localhost:5000/products/electronics/5fda124ef08b7d0f6c2475ba/
 
+
+################  Auth Check  ########################
+
+GET http://localhost:5000/user/auth
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTI5NTIyNywiZXhwIjoxNjE1Mjk1MjU3fQ.hLmOipLRaDRf6deJWjZd7WcdQUmAwR0BPwDzjuA5x4w
+
+
 #######################     LOGIN   ####################
 
 POST http://localhost:5000/user/login
@@ -30,8 +37,8 @@ POST http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-      "name": "Fun",
-      "email": "fun@gmail.com",
+      "name": "LOL",
+      "email": "lol@gmail.com",
       "password": "user1234"
 }
 
@@ -42,7 +49,7 @@ POST http://localhost:5000/user/refresh-token
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIyNTYzMCwiZXhwIjoxNjQ2NzgzMjMwfQ.ST_ZP76YSA5sxFk3Fc5BkH-HjkreqxkHvWotASihFL4"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIzMjE1MSwiZXhwIjoxNjQ2Nzg5NzUxfQ.0JNPGZiqDyxU8orrj0mj4Kl6Wj0U8tW-Ds9_zAxc40E"
 }
 
 ########################   PROFILE  #####################

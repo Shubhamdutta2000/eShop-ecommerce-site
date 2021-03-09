@@ -105,9 +105,6 @@ export const loginUser = (API, email, password) => async (dispatch) => {
     localStorage.setItem("userInfo", JSON.stringify(data));
 
     ///////////////////////////////      Remove from localStorage when token expire (time of token expiration)  /////////////////////////
-    setTimeout(() => {
-      localStorage.removeItem("userInfo");
-    }, 3600000);
   } catch (error) {
     dispatch(
       loginFailed(

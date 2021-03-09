@@ -15,7 +15,7 @@ import {
   USER_DETAILS_RESET,
 } from "../actionTypes/userConstants";
 
-///////////////////////////     LOGIN REDUCER    ///////////////////////////////
+///    LOGIN REDUCER    ///
 
 export const userLoginReducer = (
   state = {
@@ -53,7 +53,7 @@ export const userLoginReducer = (
   }
 };
 
-///////////////////////////     REGISTER REDUCER    ///////////////////////////////
+///     REGISTER REDUCER    ///
 
 export const userRegisterReducer = (
   state = {
@@ -90,7 +90,7 @@ export const userRegisterReducer = (
   }
 };
 
-/////////////////////////////////////////   USER PROFILE DETAILS   /////////////////////////////////
+///   USER PROFILE DETAILS   ///
 
 export const userDetailsReducer = (
   state = { loading: false, user: null, error: null },
@@ -120,7 +120,7 @@ export const userDetailsReducer = (
   }
 };
 
-/////////////////////////////////////////   UPDATE USER PROFILE DETAILS   /////////////////////////////////
+///   UPDATE USER PROFILE DETAILS   ///
 
 export const userUpdateProfileReducer = (
   state = { loading: false, userInfo: null, error: null, success: false },
