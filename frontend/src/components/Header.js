@@ -9,6 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -35,7 +36,7 @@ import { userLogout } from "../redux/actions/userAction";
 //////////////////////////   CUSTOM STYLE    /////////////////////////
 import { useStyles } from "./CustomStyles/header";
 
-export default function Header({ isMobile }) {
+export default function Header(props, { isMobile }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const openEl = Boolean(anchorEl);
@@ -62,7 +63,7 @@ export default function Header({ isMobile }) {
 
   return (
     <header className={classes.root}>
-      <AppBar position="sticky" elevation={10} className={classes.appbar}>
+      <AppBar position="fixed" elevation={10} className={classes.appbar}>
         <Toolbar>
           <IconButton
             edge="start"

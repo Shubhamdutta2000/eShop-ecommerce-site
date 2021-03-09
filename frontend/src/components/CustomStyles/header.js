@@ -6,11 +6,13 @@ const drawerWidth = 240;
 export const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    marginTop: "4.8rem",
   },
 
   appbar: {
     padding: "0.4rem",
     background: "linear-gradient(45deg, #0267B5,  30%, #2196f3 90%)",
+    position: "fixed",
   },
 
   menu: {},
