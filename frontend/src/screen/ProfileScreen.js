@@ -277,18 +277,20 @@ const ProfileScreen = ({ history, API }) => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={orders && orders.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={(event, newPage) => setPage(newPage)}
-                onChangeRowsPerPage={(event) => {
-                  setRowsPerPage(parseInt(event.target.value, 10));
-                  setPage(0);
-                }}
-              />
+              {orders && (
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25]}
+                  component="div"
+                  count={orders.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onChangePage={(event, newPage) => setPage(newPage)}
+                  onChangeRowsPerPage={(event) => {
+                    setRowsPerPage(parseInt(event.target.value, 10));
+                    setPage(0);
+                  }}
+                />
+              )}
             </Paper>
           )}
         </Grid>
