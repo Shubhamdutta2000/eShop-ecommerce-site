@@ -24,6 +24,12 @@ export const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  tableHead: {
+    fontSize: "1.2rem",
+  },
+  tableCol: {
+    fontSize: "1rem",
+  },
   heading: {
     color: "#2196f3",
     fontFamily: "Merriweather Sans, sans-serif",

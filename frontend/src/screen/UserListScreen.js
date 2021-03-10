@@ -66,11 +66,31 @@ const UserListScreen = ({ history, API }) => {
               <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell align="left">ID</StyledTableCell>
-                    <StyledTableCell align="right">Name</StyledTableCell>
-                    <StyledTableCell align="right">Email</StyledTableCell>
-                    <StyledTableCell align="right">Admin</StyledTableCell>
-                    <StyledTableCell align="right"></StyledTableCell>
+                    <StyledTableCell className={classes.tableHead} align="left">
+                      ID
+                    </StyledTableCell>
+                    <StyledTableCell
+                      className={classes.tableHead}
+                      align="right"
+                    >
+                      Name
+                    </StyledTableCell>
+                    <StyledTableCell
+                      className={classes.tableHead}
+                      align="right"
+                    >
+                      Email
+                    </StyledTableCell>
+                    <StyledTableCell
+                      className={classes.tableHead}
+                      align="right"
+                    >
+                      Admin
+                    </StyledTableCell>
+                    <StyledTableCell
+                      style={{ fontSize: "1rem" }}
+                      align="right"
+                    ></StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -82,16 +102,29 @@ const UserListScreen = ({ history, API }) => {
                       )
                       .map((user) => (
                         <StyledTableRow key={user._id}>
-                          <StyledTableCell component="th" scope="row">
+                          <StyledTableCell
+                            className={classes.tableCol}
+                            component="th"
+                            scope="row"
+                          >
                             {user._id}
                           </StyledTableCell>
-                          <StyledTableCell align="right">
+                          <StyledTableCell
+                            className={classes.tableCol}
+                            align="right"
+                          >
                             {user.name}
                           </StyledTableCell>
-                          <StyledTableCell align="right">
+                          <StyledTableCell
+                            className={classes.tableCol}
+                            align="right"
+                          >
                             {user.email}
                           </StyledTableCell>
-                          <StyledTableCell align="right">
+                          <StyledTableCell
+                            className={classes.tableCol}
+                            align="right"
+                          >
                             {user.isAdmin ? (
                               <CheckIcon className={classes.check} />
                             ) : (
@@ -105,7 +138,7 @@ const UserListScreen = ({ history, API }) => {
                             {/* Edit user detail */}
                             <Tooltip title="Edit">
                               <IconButton aria-label="edit">
-                                <EditIcon color="action" />
+                                <EditIcon color="inherit" />
                               </IconButton>
                             </Tooltip>
 
