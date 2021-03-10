@@ -12,21 +12,22 @@ import Checkbox from "@material-ui/core/Checkbox";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { Avatar, Button } from "@material-ui/core";
 import Switch from "@material-ui/core/Switch";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 ///      MATERIAL UI ICONS     ///
-import IconButton from "@material-ui/core/IconButton";
 import EmailIcon from "@material-ui/icons/Email";
 import PeopleIcon from "@material-ui/icons/People";
 
 ///     REDUX     ///
 import { useSelector, useDispatch } from "react-redux";
-import { getUserDetails } from "../redux/actions/userAction";
+import { getUserDetails, updateUser } from "../redux/actions/userAction";
 
 ///     CUSTOM STYLE    ///
 import { useStyle } from "./customStyle/allFormsScreen";
 
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import { USER_UPDATE_RESET } from "../redux/actionTypes/userConstants";
 
 const UserEditScreen = ({ history, match, API }) => {
   const classes = useStyle();
@@ -34,17 +35,28 @@ const UserEditScreen = ({ history, match, API }) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
-  const [message, setMessage] = useState(null);
 
   const userId = match.params.id;
 
   const dispatch = useDispatch();
+
+  ///  USER LOGIN REDUCER  ///
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  ///  USER DETAILS REDUCER (by id) ///
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
 
+  ///  USER UPDATE REDUCER (by id) ///
+  const userUpdate = useSelector((state) => state.userUpdate);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = userUpdate;
+
+  ///  get user details  ///
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
@@ -54,25 +66,34 @@ const UserEditScreen = ({ history, match, API }) => {
   }, [dispatch, API, userId, userInfo, history]);
 
   useEffect(() => {
-    if (userInfo && user) {
+    if (successUpdate) {
+      dispatch({ type: USER_UPDATE_RESET });
+      history.push("/admin/userlist");
+    } else if (user) {
       setName(user.name);
       setEmail(user.email);
       setIsAdmin(user.isAdmin);
     }
-  }, [userInfo, user]);
+  }, [userInfo, user, history, successUpdate]);
 
+  ///   GO BACK    ///
+  const goBack = () => {
+    history.goBack();
+  };
+
+  ///  update user details  ///
   const submitHandler = (event) => {
-    //     event.preventDefault();
-    //     // DISPATCH REGISTER
-    //     if (password === confirmPassword) {
-    //       dispatch(getUser(API, name, email, password));
-    //     } else {
-    //       setMessage("Password does not match");
-    //     }
+    event.preventDefault();
+    dispatch(
+      updateUser(API, userId, { name: name, email: email, isAdmin: isAdmin })
+    );
   };
 
   return (
     <Paper elevation={14} className={classes.paper}>
+      <div onClick={goBack}>
+        <ArrowBackIosIcon className={classes.back} />
+      </div>
       <Avatar className={classes.avatar}>
         <PeopleIcon />
       </Avatar>
@@ -82,6 +103,7 @@ const UserEditScreen = ({ history, match, API }) => {
 
       {/* ///    LOADER    /// */}
       {loading && <Loader />}
+      {loadingUpdate && <Loader />}
 
       <form className={classes.form}>
         <FormControl variant="outlined" className={classes.input}>
@@ -133,10 +155,13 @@ const UserEditScreen = ({ history, match, API }) => {
         />
 
         {/* ///     VALIDATION ERROR MESSAGE     /// */}
-
         {error && <Message varient="error">{error}</Message>}
-        {message && <Message varient="error">{message}</Message>}
+        {errorUpdate && <Message varient="error">{errorUpdate}</Message>}
 
+        {/* ///     SUCCESS MESSAGE     /// */}
+        {successUpdate && (
+          <Message varient="success">User Details Editted Successfully</Message>
+        )}
         <Button
           className={classes.button}
           onClick={submitHandler}

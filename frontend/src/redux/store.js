@@ -18,6 +18,7 @@ import {
   userUpdateProfileReducer,
   userListReducer,
   userDeleteReducer,
+  userUpdateReducer,
 } from "./reducers/user";
 
 import {
@@ -38,6 +39,7 @@ const reducer = combineReducers({
   userAuthToken: userAuthToken,
   userList: userListReducer, // for admin user only
   userDelete: userDeleteReducer, // for admin user only
+  userUpdate: userUpdateReducer, // for admin user only
   order: createOrderReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
