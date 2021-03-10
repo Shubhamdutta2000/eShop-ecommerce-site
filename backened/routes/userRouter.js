@@ -7,6 +7,9 @@ import {
   updateUserProfile,
   checkAuth,
   getUsers,
+  getUserById,
+  updateUser,
+  deleteUser,
 } from "../controllers/userController.js";
 
 import { authProtect, adminCheck } from "../middleware/authMiddleware.js";
@@ -22,6 +25,11 @@ router
 router.route("/auth").get(authProtect, checkAuth);
 
 ///   FOR ADMIN USER   ///
-router.get("/", authProtect, adminCheck, getUsers);
+router.route("/").get(authProtect, adminCheck, getUsers);
+router
+  .route("/:id")
+  .get(authProtect, adminCheck, getUserById)
+  .put(authProtect, adminCheck, updateUser)
+  .delete(authProtect, adminCheck, deleteUser);
 
 export default router;

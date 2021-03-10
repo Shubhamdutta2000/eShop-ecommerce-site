@@ -7,72 +7,16 @@ GET http://localhost:5000/products?keyword=iph
 
 
 ###########   PRODUCTS BY CATEGORY   ########
-
 GET http://localhost:5000/products/electronics
 
-############    PRODUCTS BY CATEGOEY AND ID    ##########
 
+
+############    PRODUCTS BY CATEGOEY AND ID    ##########
 GET http://localhost:5000/products/electronics/5fda124ef08b7d0f6c2475ba/
 
 
-################  Auth Check  ########################
-
-GET http://localhost:5000/user/auth
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTI5NTIyNywiZXhwIjoxNjE1Mjk1MjU3fQ.hLmOipLRaDRf6deJWjZd7WcdQUmAwR0BPwDzjuA5x4w
-
-
-#######################     LOGIN   ####################
-
-POST http://localhost:5000/user/login
-Content-Type: application/json
-
-{
-      "email": "fun@gmail.com",
-      "password": "user1234"
-}
-
-#####################   REGSITER    #####################
-
-POST http://localhost:5000/user/register
-Content-Type: application/json
-
-{
-      "name": "LOL",
-      "email": "lol@gmail.com",
-      "password": "user1234"
-}
-
-
-########################   PROFILE  #####################
-
-GET http://localhost:5000/user/profile
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIyODY4MCwiZXhwIjoxNjE1MjI4NzEwfQ.jOTlWRx6JKJQ12gvqN42ub96E0hwWQeqkdJyPP9vIf8
-
-
-########################   GET user (for admin)   ##########
-
-GET http://localhost:5000/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTM2MDE1MywiZXhwIjoxNjE2MjI0MTUzfQ.xO7MT4QB8UUNAPfDvrwVp0rQtlwMpZW1E5ICygcf9jw
-
-
-#########################  ORDERS BY ID    ##################
-
-GET http://localhost:5000/orders/5fed5fdb7073bf0b6ce37038
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIyNTYzMCwiZXhwIjoxNjQ2NzgzMjMwfSwiaWF0IjoxNjE1MjI4NDkzLCJleHAiOjE2MTUyMjg1MjN9.rIXB9uySIufe4yNI7Xp9M9eG_tr8K0IoWYnYFoXvCfc
-
-
-#######################   PAYPAL CONFIG  #####################
-
-GET http://localhost:5000/config/paypal
-
-######################   LOGGED IN USER ORDERS (paid)   #############
-
-GET http://localhost:5000/orders/myorders
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVhMjM2NzI2ZDRkMGM4NGYyZjY1OSIsImlhdCI6MTYxNTIxMTMwMSwiZXhwIjoxNjE1MjE0OTAxfQ.gTTicFfLdipDV2SbEGSBmVfTK2tEgv5yr3nu1w4vnss
 
 ####################   create Product review    #######################
-
 POST http://localhost:5000/products/electronics/5fda124ef08b7d0f6c2475ba/reviews
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIxMzk5NiwiZXhwIjoxNjE1MjE3NTk2fQ.6mGqIXBK815NXgHPj9rm_e3TiCFawbSSI5gk5o7O0rE
@@ -81,3 +25,99 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZ
       "rating": "10",
       "comment": "Omaagoo turu love"
 }
+
+
+
+
+
+
+
+
+
+
+################  Auth Check  ########################
+
+GET http://localhost:5000/user/auth
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTI5NTIyNywiZXhwIjoxNjE1Mjk1MjU3fQ.hLmOipLRaDRf6deJWjZd7WcdQUmAwR0BPwDzjuA5x4w
+
+
+
+#######################     LOGIN   ####################
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+      "email": "mita@gmail.com",
+      "password": "user1234"
+}
+
+
+
+#####################   REGSITER    #####################
+POST http://localhost:5000/user/register
+Content-Type: application/json
+
+{
+      "name": "test",
+      "email": "test@gmail.com",
+      "password": "user1234"
+}
+
+
+
+########################   PROFILE  #####################
+GET http://localhost:5000/user/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIyODY4MCwiZXhwIjoxNjE1MjI4NzEwfQ.jOTlWRx6JKJQ12gvqN42ub96E0hwWQeqkdJyPP9vIf8
+
+
+
+########################   GET all users (for admin)   ##########
+GET http://localhost:5000/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTI1MDZmNWE5MDI0MDU3OGYwY2MxMCIsImlhdCI6MTYxNTM5Mjc4MiwiZXhwIjoxNjE2MjU2NzgyfQ.ggtdTg_JHyFmDYd-IqM6Py31IACLG0C13FRij64Tz_4
+
+
+
+########################   GET user by id (for admin)   ##########
+GET http://localhost:5000/user/601b6f8f490cf240a814590a
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTI1MDZmNWE5MDI0MDU3OGYwY2MxMCIsImlhdCI6MTYxNTM5Mjc4MiwiZXhwIjoxNjE2MjU2NzgyfQ.ggtdTg_JHyFmDYd-IqM6Py31IACLG0C13FRij64Tz_4
+
+
+
+########################   DELETE user by id (for admin)   ##########
+DELETE http://localhost:5000/user/602f3baee941690004f131a1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTI1MDZmNWE5MDI0MDU3OGYwY2MxMCIsImlhdCI6MTYxNTM5Mjc4MiwiZXhwIjoxNjE2MjU2NzgyfQ.ggtdTg_JHyFmDYd-IqM6Py31IACLG0C13FRij64Tz_4
+
+
+######################   UPDATE user by id (for admin)  #############
+PUT http://localhost:5000/user/6048f18caa96ca40441615cb
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTI1MDZmNWE5MDI0MDU3OGYwY2MxMCIsImlhdCI6MTYxNTM5Mjc4MiwiZXhwIjoxNjE2MjU2NzgyfQ.ggtdTg_JHyFmDYd-IqM6Py31IACLG0C13FRij64Tz_4
+
+{
+      "isAdmin": true,
+      "name": "test2"
+}
+
+
+
+
+
+
+
+
+
+#########################  ORDERS BY ID    ##################
+GET http://localhost:5000/orders/5fed5fdb7073bf0b6ce37038
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIyNTYzMCwiZXhwIjoxNjQ2NzgzMjMwfSwiaWF0IjoxNjE1MjI4NDkzLCJleHAiOjE2MTUyMjg1MjN9.rIXB9uySIufe4yNI7Xp9M9eG_tr8K0IoWYnYFoXvCfc
+
+
+
+#######################   PAYPAL CONFIG  #####################
+GET http://localhost:5000/config/paypal
+
+
+
+######################   LOGGED IN USER ORDERS (paid)   #############
+GET http://localhost:5000/orders/myorders
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVhMjM2NzI2ZDRkMGM4NGYyZjY1OSIsImlhdCI6MTYxNTIxMTMwMSwiZXhwIjoxNjE1MjE0OTAxfQ.gTTicFfLdipDV2SbEGSBmVfTK2tEgv5yr3nu1w4vnss
