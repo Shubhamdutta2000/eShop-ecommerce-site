@@ -35,11 +35,19 @@ import { userLogout } from "../redux/actions/userAction";
 
 //////////////////////////   CUSTOM STYLE    /////////////////////////
 import { useStyles } from "./CustomStyles/header";
+import {
+  PeopleAlt,
+  ShoppingBasket,
+  ShoppingCart,
+  SupervisorAccount,
+} from "@material-ui/icons";
 
 export default function Header(props, { isMobile }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElAdmin, setAnchorElAdmin] = useState(null);
   const openEl = Boolean(anchorEl);
+  const openElAdmin = Boolean(anchorElAdmin);
   const [toggle, setToggle] = useState(false);
 
   ////////////////////////    REDUX     ////////////////////////////////
@@ -52,13 +60,24 @@ export default function Header(props, { isMobile }) {
     setAnchorEl(null);
   };
 
-  //////////////////////////    FOR Dropdown Menu    /////////////////////////////
+  ///    FOR Dropdown Menu    ///
+
+  ///  FOR USER  ///
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  ///  FOR ADMIN USER  ///
+  const handleAdminMenu = (event) => {
+    setAnchorElAdmin(event.currentTarget);
+  };
+
+  const handleAdminMenuClose = () => {
+    setAnchorElAdmin(null);
   };
 
   return (
@@ -94,7 +113,7 @@ export default function Header(props, { isMobile }) {
           </Link>
           {userInfo ? (
             ///     DROPDOWN MENU IF USER EXISTS OR LOGGED IN   ///
-            <div>
+            <>
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -156,7 +175,7 @@ export default function Header(props, { isMobile }) {
                   <ListItemText primary="Logout" />
                 </MenuItem>
               </Menu>
-            </div>
+            </>
           ) : (
             ///    LOGIN BUTTON IF USER DOES NOT EXISTS OR LOGGED OUT  ///
 
@@ -167,6 +186,69 @@ export default function Header(props, { isMobile }) {
               </Button>
             </Link>
           )}
+          {/* ///     ADMIN SECTION OF DROPDOWN IF USER ADMIN EXISTS OR LOGGED IN   /// */}
+          {userInfo && userInfo.isAdmin ? (
+            <>
+              <IconButton
+                aria-label="account of admin user"
+                aria-controls="menu-admin-appbar"
+                aria-haspopup="true"
+                onClick={handleAdminMenu}
+                color="inherit"
+                style={{ fontSize: "1.25rem" }}
+              >
+                <SupervisorAccount />
+                &nbsp; Admin
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                className={classes.menu}
+                elevation={4}
+                getContentAnchorEl={null}
+                anchorEl={anchorElAdmin}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+                TransitionComponent={Fade}
+                open={openElAdmin}
+                onClose={handleAdminMenuClose}
+              >
+                {/*//   USER LIST    */}
+                <Link to="/admin/userlist" className={classes.link_menu_item}>
+                  <MenuItem onClick={handleAdminMenuClose}>
+                    <ListItemIcon>
+                      <PeopleAlt />
+                    </ListItemIcon>
+                    <ListItemText primary="Users" />
+                  </MenuItem>
+                </Link>
+                {/*//   PRODUCT LIST    */}
+                <Link to="/admin/userlist" className={classes.link_menu_item}>
+                  <MenuItem onClick={handleAdminMenuClose}>
+                    <ListItemIcon>
+                      <ShoppingBasket />
+                    </ListItemIcon>
+                    <ListItemText primary="Products" />
+                  </MenuItem>
+                </Link>
+                {/*//   ORDERS LIST    */}
+                <Link to="/admin/userlist" className={classes.link_menu_item}>
+                  <MenuItem onClick={handleAdminMenuClose}>
+                    <ListItemIcon>
+                      <ShoppingCart />
+                    </ListItemIcon>
+                    <ListItemText primary="Orders" />
+                  </MenuItem>
+                </Link>
+              </Menu>
+            </>
+          ) : null}
         </Toolbar>
       </AppBar>
 
@@ -175,7 +257,6 @@ export default function Header(props, { isMobile }) {
         <List>
           {userInfo ? (
             ///    LOGOUT BUTTON IF USER EXISTS OR LOGGED IN   ///
-
             <ListItem
               button
               className={classes.link_drawer}

@@ -6,15 +6,21 @@ export const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: "#2196f3",
     color: theme.palette.common.white,
+    paddingLeft: "1.8rem",
   },
   body: {
     fontSize: 14,
+    paddingLeft: "1.4rem",
+    padding: "0.6rem",
   },
 }))(TableCell);
 
 export const StyledTableRow = withStyles((theme) => ({
   root: {
     "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.selected,
+    },
+    "&:hover": {
       backgroundColor: theme.palette.action.hover,
     },
   },
