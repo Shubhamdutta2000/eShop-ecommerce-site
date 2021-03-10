@@ -37,4 +37,11 @@ export const useStyles = makeStyles({
     webkitBackgroundClip: "text",
     webkitTextFillColor: "transparent",
   },
+  check: {
+    color: "#0e890a",
+    fontWeight: "bolder",
+  },
+  cross: {
+    fontWeight: "bolder",
+  },
 });

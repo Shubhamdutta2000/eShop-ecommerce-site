@@ -10,6 +10,9 @@ import TablePagination from "@material-ui/core/TablePagination";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+import CheckIcon from "@material-ui/icons/Check";
+import CloseIcon from "@material-ui/icons/Close";
 
 /// Component  ///
 import Message from "../components/Message";
@@ -63,7 +66,9 @@ const UserListScreen = ({ history, API }) => {
               <TableHead>
                 <TableRow>
                   <StyledTableCell>ID</StyledTableCell>
-                  <StyledTableCell align="right">Name</StyledTableCell>
+                  <StyledTableCell align="right">
+                    Name
+                  </StyledTableCell>
                   <StyledTableCell align="right">Email</StyledTableCell>
                   <StyledTableCell align="right">Admin</StyledTableCell>
                   <StyledTableCell align="right"></StyledTableCell>
@@ -85,9 +90,24 @@ const UserListScreen = ({ history, API }) => {
                           {user.email}
                         </StyledTableCell>
                         <StyledTableCell align="right">
-                          {user.isAdmin.toString()}
+                          {user.isAdmin ? (
+                            <CheckIcon className={classes.check} />
+                          ) : (
+                            <CloseIcon
+                              color="error"
+                              className={classes.cross}
+                            />
+                          )}
                         </StyledTableCell>
                         <StyledTableCell align="right">
+                          {/* Edit user detail */}
+                          <Tooltip title="Edit">
+                            <IconButton aria-label="edit">
+                              <EditIcon color="action" />
+                            </IconButton>
+                          </Tooltip>
+
+                          {/* Delete user detail */}
                           <Tooltip title="Delete">
                             <IconButton aria-label="delete">
                               <DeleteIcon color="error" />
