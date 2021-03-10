@@ -17,6 +17,9 @@ import {
   USER_CHECK_TOKEN_SUCCESS,
   USER_CHECK_TOKEN_FAILED,
   USER_CHECK_TOKEN_RESET,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAILED,
 } from "../actionTypes/userConstants";
 
 ///    LOGIN REDUCER    ///
@@ -169,6 +172,30 @@ export const userAuthToken = (state = {}, action) => {
       };
     case USER_CHECK_TOKEN_RESET:
       return {};
+
+    default:
+      return state;
+  }
+};
+
+///  FOR ADMIN USER   ///
+
+// user list reducer
+export const userListReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_LIST_REQUEST:
+      return { loading: true };
+    case USER_LIST_SUCCESS:
+      return {
+        loading: false,
+        users: action.payload,
+      };
+
+    case USER_LIST_FAILED:
+      return {
+        loading: false,
+        error: action.payload,
+      };
 
     default:
       return state;

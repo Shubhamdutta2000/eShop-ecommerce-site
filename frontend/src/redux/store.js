@@ -13,6 +13,7 @@ import { cartReducer } from "./reducers/cart";
 import {
   userAuthToken,
   userDetailsReducer,
+  userListReducer,
   userLoginReducer,
   userRegisterReducer,
   userUpdateProfileReducer,
@@ -34,6 +35,7 @@ const reducer = combineReducers({
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
   userAuthToken: userAuthToken,
+  userList: userListReducer, // for admin user only
   order: createOrderReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,

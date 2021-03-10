@@ -17,14 +17,16 @@ import {
   USER_CHECK_TOKEN_REQUEST,
   USER_CHECK_TOKEN_SUCCESS,
   USER_CHECK_TOKEN_FAILED,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAILED,
 } from "../actionTypes/userConstants";
 
 import { LIST_MY_ORDER_RESET } from "../actionTypes/orderConstants";
 
-/////////////////////////////////////////////     ACTION      ///////////////////////////////////////////////
+///     ACTION      ///
 
-///////////    LOGIN    ////////////////
-
+/// LOGIN  ///
 const loginReq = () => ({
   type: USER_LOGIN_REQUEST,
 });
@@ -39,8 +41,7 @@ const loginFailed = (err) => ({
   payload: err,
 });
 
-///////////    REGISTER    ////////////////
-
+///  REGISTER  ///
 const registerReq = () => ({
   type: USER_REGISTER_REQUEST,
 });
@@ -55,8 +56,7 @@ const registerFailed = (err) => ({
   payload: err,
 });
 
-///////////    USER DETAILS    ////////////////
-
+///  USER DETAILS  ///
 const profileReq = () => ({
   type: USER_DETAILS_REQUEST,
 });
@@ -71,8 +71,7 @@ const profileFailed = (err) => ({
   payload: err,
 });
 
-///////////   UPDATE USER DETAILS    ////////////////
-
+///  UPDATE USER DETAILS  ///
 const updateProfileReq = () => ({
   type: USER_UPDATE_PROFILE_REQUEST,
 });
@@ -84,6 +83,21 @@ const updateProfile = (user) => ({
 
 const updateProfileFailed = (err) => ({
   type: USER_UPDATE_PROFILE_FAILED,
+  payload: err,
+});
+
+/// USER LIST  ///
+const userListReq = () => ({
+  type: USER_LIST_REQUEST,
+});
+
+const userListSuccess = (users) => ({
+  type: USER_LIST_SUCCESS,
+  payload: users,
+});
+
+const userListFailed = (err) => ({
+  type: USER_LIST_FAILED,
   payload: err,
 });
 
@@ -260,6 +274,38 @@ export const checkUserAuthToken = (API) => async (dispatch, getState) => {
             ? error.response.data.message
             : error.message,
       })
+    );
+  }
+};
+
+///   FOR ADMIN USER   ///
+
+/// USER LIST  ///
+export const listUsers = (API) => async (dispatch, getState) => {
+  try {
+    dispatch(userListReq());
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const token = userInfo && userInfo.token;
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios.get(`${API}/user`, config);
+
+    dispatch(userListSuccess(data));
+  } catch (error) {
+    dispatch(
+      userListFailed(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      )
     );
   }
 };

@@ -13,6 +13,8 @@ import ShippingScreen from "./screen/ShippingScreen";
 import PaymentMethod from "./screen/PaymentMethod";
 import PlaceOrderScreen from "./screen/PlaceOrderScreen";
 import OrderScreen from "./screen/OrderScreen";
+// for admin user
+import UserListScreen from "./screen/UserListScreen.js";
 
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
@@ -127,6 +129,13 @@ function App() {
                   API={API}
                   location={location}
                 />
+              )}
+            />
+
+            <Route
+              path="/admin/userlist"
+              component={({ history }) => (
+                <UserListScreen history={history} API={API} />
               )}
             />
           </div>
