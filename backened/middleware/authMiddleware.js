@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import UserModel from "../models/userModel.js";
 
 // verify with access token
-const authMiddleware = async (req, res, next) => {
+const authProtect = async (req, res, next) => {
   let token;
 
   if (
@@ -36,4 +36,14 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
-export default authMiddleware;
+const adminCheck = (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    res.status(401);
+    const err = new Error("Not authorised as admin");
+    next(err);
+  }
+};
+
+export { authProtect, adminCheck };

@@ -1,5 +1,5 @@
 import express from "express";
-import Protect from "../middleware/authMiddleware.js";
+import { authProtect } from "../middleware/authMiddleware.js";
 import {
   getAllProducts,
   getProductsByCategory,
@@ -12,6 +12,6 @@ const router = express.Router();
 router.route("/").get(getAllProducts);
 router.route("/:category").get(getProductsByCategory);
 router.route("/:category/:id").get(getProductsByCategoryAndId);
-router.route("/:category/:id/reviews").post(Protect, createProductReview);
+router.route("/:category/:id/reviews").post(authProtect, createProductReview);
 
 export default router;

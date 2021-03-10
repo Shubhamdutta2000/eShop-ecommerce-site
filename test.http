@@ -43,20 +43,17 @@ Content-Type: application/json
 }
 
 
-#################  refresh token   ##### #################
-
-POST http://localhost:5000/user/refresh-token
-Content-Type: application/json
-
-{
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIzMjE1MSwiZXhwIjoxNjQ2Nzg5NzUxfQ.0JNPGZiqDyxU8orrj0mj4Kl6Wj0U8tW-Ds9_zAxc40E"
-}
-
 ########################   PROFILE  #####################
 
 GET http://localhost:5000/user/profile
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIyODY4MCwiZXhwIjoxNjE1MjI4NzEwfQ.jOTlWRx6JKJQ12gvqN42ub96E0hwWQeqkdJyPP9vIf8
+
+
+########################   GET user (for admin)   ##########
+
+GET http://localhost:5000/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTM2MDE1MywiZXhwIjoxNjE2MjI0MTUzfQ.xO7MT4QB8UUNAPfDvrwVp0rQtlwMpZW1E5ICygcf9jw
 
 
 #########################  ORDERS BY ID    ##################

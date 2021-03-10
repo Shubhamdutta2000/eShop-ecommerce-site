@@ -120,10 +120,12 @@ const checkAuth = (req, res) => {
   res.json({ message: "Authenticated" });
 };
 
-// @purpose:   Display all users (only for testing)
-// @route:  GET /user
-// @access  Public
-const apiUser = asyncHandler(async (req, res, next) => {
+///   FOR ADMIN USERS   ///
+
+// @purpose:   Display all users
+// @route:  GET /users
+// @access  Private only admin
+const getUsers = asyncHandler(async (req, res, next) => {
   try {
     const users = await UserModel.find();
     res.json(users);
@@ -135,9 +137,9 @@ const apiUser = asyncHandler(async (req, res, next) => {
 
 export {
   authUser,
-  apiUser,
   getUserProfile,
   registerUser,
   updateUserProfile,
   checkAuth,
+  getUsers,
 };

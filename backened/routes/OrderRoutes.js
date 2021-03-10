@@ -1,5 +1,5 @@
 import express from "express";
-import Protect from "../middleware/authMiddleware.js";
+import { authProtect } from "../middleware/authMiddleware.js";
 import {
   addOrderItems,
   getMyOrders,
@@ -9,9 +9,9 @@ import {
 
 const router = express.Router();
 
-router.route("/").post(Protect, addOrderItems);
-router.route("/myorders").get(Protect, getMyOrders);
-router.route("/:id").get(Protect, getOrderById);
-router.route("/:id/payment").put(Protect, updateOrderToPaid);
+router.route("/").post(authProtect, addOrderItems);
+router.route("/myorders").get(authProtect, getMyOrders);
+router.route("/:id").get(authProtect, getOrderById);
+router.route("/:id/payment").put(authProtect, updateOrderToPaid);
 
 export default router;
