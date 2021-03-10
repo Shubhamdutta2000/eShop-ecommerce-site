@@ -99,6 +99,7 @@ export const useStyle = makeStyles((theme) => ({
     color: "#1853F3",
   },
 
+
   back: {
     marginLeft: "0.6rem",
     width: "2rem",

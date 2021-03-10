@@ -48,6 +48,7 @@ export const PayPalCheckout = ({ orderId, API }) => {
         setSdkReady(true);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, orders, successPay]);
 
   // On payment successfully completed

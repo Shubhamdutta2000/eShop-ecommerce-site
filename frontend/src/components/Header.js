@@ -9,7 +9,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";

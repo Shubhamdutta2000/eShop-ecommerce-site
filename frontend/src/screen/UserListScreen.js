@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -46,7 +47,7 @@ const UserListScreen = ({ history, API }) => {
 
   ///  USER DELETE REDUCER  ///
   const userDelete = useSelector((state) => state.userDelete);
-  const { success: successDelete, error: errorDelete } = userDelete;
+  const { success: successDelete } = userDelete;
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -147,11 +148,13 @@ const UserListScreen = ({ history, API }) => {
                           </StyledTableCell>
                           <StyledTableCell align="right">
                             {/* Edit user detail */}
-                            <Tooltip title="Edit">
-                              <IconButton aria-label="edit">
-                                <EditIcon color="inherit" />
-                              </IconButton>
-                            </Tooltip>
+                            <Link to={`/admin/user/${user._id}/edit`}>
+                              <Tooltip title="Edit">
+                                <IconButton aria-label="edit">
+                                  <EditIcon color="inherit" />
+                                </IconButton>
+                              </Tooltip>
+                            </Link>
 
                             {/* Delete user detail */}
                             <Tooltip title="Delete">
@@ -168,18 +171,20 @@ const UserListScreen = ({ history, API }) => {
                 </TableBody>
               </Table>
             </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={users && users.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onChangePage={(event, newPage) => setPage(newPage)}
-              onChangeRowsPerPage={(event) => {
-                setRowsPerPage(parseInt(event.target.value, 10));
-                setPage(0);
-              }}
-            />
+            {users && (
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={users.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={(event, newPage) => setPage(newPage)}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
+                }}
+              />
+            )}
           </Paper>
         </>
       )}

@@ -68,7 +68,7 @@ Content-Type: application/json
 ########################   PROFILE  #####################
 GET http://localhost:5000/user/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTIyODY4MCwiZXhwIjoxNjE1MjI4NzEwfQ.jOTlWRx6JKJQ12gvqN42ub96E0hwWQeqkdJyPP9vIf8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTI1MDZmNWE5MDI0MDU3OGYwY2MxMCIsImlhdCI6MTYxNTM5Mjc4MiwiZXhwIjoxNjE2MjU2NzgyfQ.ggtdTg_JHyFmDYd-IqM6Py31IACLG0C13FRij64Tz_4
 
 
 

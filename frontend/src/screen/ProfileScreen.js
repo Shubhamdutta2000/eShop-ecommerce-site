@@ -77,7 +77,7 @@ const ProfileScreen = ({ history, API }) => {
       alert("Logged Out!! Again log in to view profile");
       dispatch(userLogout());
     }
-  }, [userInfo, user, history, error]);
+  }, [dispatch, userInfo, user, history, error]);
 
   // fetch user details (even after update) and fetch all orders
   useEffect(() => {
