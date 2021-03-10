@@ -178,7 +178,6 @@ export default function Header(props, { isMobile }) {
             </>
           ) : (
             ///    LOGIN BUTTON IF USER DOES NOT EXISTS OR LOGGED OUT  ///
-
             <Link className={classes.link} to="/login">
               <Button color="inherit">
                 <GroupAddIcon />
@@ -229,7 +228,10 @@ export default function Header(props, { isMobile }) {
                   </MenuItem>
                 </Link>
                 {/*//   PRODUCT LIST    */}
-                <Link to="/admin/userlist" className={classes.link_menu_item}>
+                <Link
+                  to="/admin/productlist"
+                  className={classes.link_menu_item}
+                >
                   <MenuItem onClick={handleAdminMenuClose}>
                     <ListItemIcon>
                       <ShoppingBasket />
@@ -238,7 +240,7 @@ export default function Header(props, { isMobile }) {
                   </MenuItem>
                 </Link>
                 {/*//   ORDERS LIST    */}
-                <Link to="/admin/userlist" className={classes.link_menu_item}>
+                <Link to="/admin/orderlist" className={classes.link_menu_item}>
                   <MenuItem onClick={handleAdminMenuClose}>
                     <ListItemIcon>
                       <ShoppingCart />

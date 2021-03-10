@@ -20,6 +20,7 @@ import {
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
   USER_LIST_FAILED,
+  USER_LIST_RESET,
 } from "../actionTypes/userConstants";
 
 ///    LOGIN REDUCER    ///
@@ -196,7 +197,8 @@ export const userListReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
-
+    case USER_LIST_RESET:
+      return {};
     default:
       return state;
   }

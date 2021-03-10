@@ -20,11 +20,12 @@ import {
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
   USER_LIST_FAILED,
+  USER_LIST_RESET,
 } from "../actionTypes/userConstants";
 
 import { LIST_MY_ORDER_RESET } from "../actionTypes/orderConstants";
 
-///     ACTION      ///
+///*     ACTION      ///
 
 /// LOGIN  ///
 const loginReq = () => ({
@@ -86,6 +87,8 @@ const updateProfileFailed = (err) => ({
   payload: err,
 });
 
+///*   FOR ADMIN USER    ///
+
 /// USER LIST  ///
 const userListReq = () => ({
   type: USER_LIST_REQUEST,
@@ -101,9 +104,9 @@ const userListFailed = (err) => ({
   payload: err,
 });
 
-/////////////////////////////////////////////     ACTION CREATOR    ////////////////////////////////////////
+///*    ACTION CREATOR    ///
 
-///////////    LOGIN    ////////////////
+///    LOGIN    ///
 
 export const loginUser = (API, email, password) => async (dispatch) => {
   try {
@@ -120,8 +123,6 @@ export const loginUser = (API, email, password) => async (dispatch) => {
     dispatch(addUser(data));
 
     localStorage.setItem("userInfo", JSON.stringify(data));
-
-    ///////////////////////////////      Remove from localStorage when token expire (time of token expiration)  /////////////////////////
   } catch (error) {
     dispatch(
       loginFailed(
@@ -133,7 +134,7 @@ export const loginUser = (API, email, password) => async (dispatch) => {
   }
 };
 
-///////////    LOGOUT    ////////////////
+///    LOGOUT    ///
 
 export const userLogout = () => (dispatch) => {
   localStorage.removeItem("userInfo");
@@ -142,9 +143,10 @@ export const userLogout = () => (dispatch) => {
   });
   dispatch({ type: LIST_MY_ORDER_RESET });
   dispatch({ type: USER_DETAILS_RESET });
+  dispatch({ type: USER_LIST_RESET });
 };
 
-///////////    REGISTER    ////////////////
+///    REGISTER    ///
 
 export const registerUser = (API, name, email, password) => async (
   dispatch
@@ -164,11 +166,6 @@ export const registerUser = (API, name, email, password) => async (
     dispatch(addUser(data));
 
     localStorage.setItem("userInfo", JSON.stringify(data));
-
-    ///////////////////////////////      Remove from localStorage when token expire (time of token expiration)  /////////////////////////
-    setTimeout(() => {
-      localStorage.removeItem("userInfo");
-    }, 3600000);
   } catch (error) {
     dispatch(
       registerFailed(
@@ -180,7 +177,7 @@ export const registerUser = (API, name, email, password) => async (
   }
 };
 
-////////////////////    USER DETAILS (PROFILE)   ///////////////////////
+///    USER DETAILS (PROFILE)   ///
 
 export const getUserDetails = (API, id) => async (dispatch, getState) => {
   try {
@@ -210,7 +207,7 @@ export const getUserDetails = (API, id) => async (dispatch, getState) => {
   }
 };
 
-////////////////////    UPDATE USER DETAILS (PROFILE)   ///////////////////////
+///    UPDATE USER DETAILS (PROFILE)   ///
 
 export const updateUserProfile = (API, user) => async (dispatch, getState) => {
   try {
@@ -278,7 +275,7 @@ export const checkUserAuthToken = (API) => async (dispatch, getState) => {
   }
 };
 
-///   FOR ADMIN USER   ///
+///*   FOR ADMIN USER   ///
 
 /// USER LIST  ///
 export const listUsers = (API) => async (dispatch, getState) => {
