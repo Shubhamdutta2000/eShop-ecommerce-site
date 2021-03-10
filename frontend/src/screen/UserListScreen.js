@@ -61,76 +61,79 @@ const UserListScreen = ({ history, API }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <>
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>ID</StyledTableCell>
-                  <StyledTableCell align="right">
-                    Name
-                  </StyledTableCell>
-                  <StyledTableCell align="right">Email</StyledTableCell>
-                  <StyledTableCell align="right">Admin</StyledTableCell>
-                  <StyledTableCell align="right"></StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {users &&
-                  users
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((user) => (
-                      <StyledTableRow key={user._id}>
-                        <StyledTableCell component="th" scope="row">
-                          {user._id}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {user.name}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {user.email}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {user.isAdmin ? (
-                            <CheckIcon className={classes.check} />
-                          ) : (
-                            <CloseIcon
-                              color="error"
-                              className={classes.cross}
-                            />
-                          )}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {/* Edit user detail */}
-                          <Tooltip title="Edit">
-                            <IconButton aria-label="edit">
-                              <EditIcon color="action" />
-                            </IconButton>
-                          </Tooltip>
+          <Paper elevation={20}>
+            <TableContainer className={classes.tableContainer}>
+              <Table className={classes.table} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell align="left">ID</StyledTableCell>
+                    <StyledTableCell align="right">Name</StyledTableCell>
+                    <StyledTableCell align="right">Email</StyledTableCell>
+                    <StyledTableCell align="right">Admin</StyledTableCell>
+                    <StyledTableCell align="right"></StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {users &&
+                    users
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((user) => (
+                        <StyledTableRow key={user._id}>
+                          <StyledTableCell component="th" scope="row">
+                            {user._id}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {user.name}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {user.email}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {user.isAdmin ? (
+                              <CheckIcon className={classes.check} />
+                            ) : (
+                              <CloseIcon
+                                color="error"
+                                className={classes.cross}
+                              />
+                            )}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {/* Edit user detail */}
+                            <Tooltip title="Edit">
+                              <IconButton aria-label="edit">
+                                <EditIcon color="action" />
+                              </IconButton>
+                            </Tooltip>
 
-                          {/* Delete user detail */}
-                          <Tooltip title="Delete">
-                            <IconButton aria-label="delete">
-                              <DeleteIcon color="error" />
-                            </IconButton>
-                          </Tooltip>
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={users && users.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={(event, newPage) => setPage(newPage)}
-            onChangeRowsPerPage={(event) => {
-              setRowsPerPage(parseInt(event.target.value, 10));
-              setPage(0);
-            }}
-          />
+                            {/* Delete user detail */}
+                            <Tooltip title="Delete">
+                              <IconButton aria-label="delete">
+                                <DeleteIcon color="error" />
+                              </IconButton>
+                            </Tooltip>
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={users && users.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={(event, newPage) => setPage(newPage)}
+              onChangeRowsPerPage={(event) => {
+                setRowsPerPage(parseInt(event.target.value, 10));
+                setPage(0);
+              }}
+            />
+          </Paper>
         </>
       )}
     </>

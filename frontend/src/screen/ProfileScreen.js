@@ -13,6 +13,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import DoneIcon from "@material-ui/icons/Done";
+import TablePagination from "@material-ui/core/TablePagination";
 
 ///    REDUX     ///
 import { useSelector, useDispatch } from "react-redux";
@@ -42,6 +43,8 @@ const ProfileScreen = ({ history, API }) => {
   const [name, setName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const dispatch = useDispatch();
 
@@ -217,58 +220,75 @@ const ProfileScreen = ({ history, API }) => {
                   </TableHead>
                   <TableBody>
                     {orders &&
-                      orders.map((order) => (
-                        <StyledTableRow key={order._id}>
-                          <StyledTableCell component="th" scope="row">
-                            {order._id}
-                          </StyledTableCell>
-                          <StyledTableCell align="center">
-                            {order.createdAt.substring(0, 10)}
-                          </StyledTableCell>
-                          <StyledTableCell align="center">
-                            {order.totalPrice}
-                          </StyledTableCell>
-                          <StyledTableCell align="center">
-                            {order.isPaid ? (
-                              <div>
-                                <DoneIcon color="primary"></DoneIcon>
-                                &nbsp; &nbsp;
-                                <span>{order.paidAt.substring(0, 10)}</span>
-                              </div>
-                            ) : (
-                              <i
-                                className="fa fa-times"
-                                style={{ color: "#f44336" }}
-                              ></i>
-                            )}
-                          </StyledTableCell>
-                          <StyledTableCell align="center">
-                            {order.isDelivered ? (
-                              order.deliveredAt.substring(0, 10)
-                            ) : (
-                              <i
-                                className="fa fa-times"
-                                style={{ color: "#f44336" }}
-                              ></i>
-                            )}
-                          </StyledTableCell>
+                      orders
+                        .slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                        .map((order) => (
+                          <StyledTableRow key={order._id}>
+                            <StyledTableCell component="th" scope="row">
+                              {order._id}
+                            </StyledTableCell>
+                            <StyledTableCell align="center">
+                              {order.createdAt.substring(0, 10)}
+                            </StyledTableCell>
+                            <StyledTableCell align="center">
+                              {order.totalPrice}
+                            </StyledTableCell>
+                            <StyledTableCell align="center">
+                              {order.isPaid ? (
+                                <div>
+                                  <DoneIcon color="primary"></DoneIcon>
+                                  &nbsp; &nbsp;
+                                  <span>{order.paidAt.substring(0, 10)}</span>
+                                </div>
+                              ) : (
+                                <i
+                                  className="fa fa-times"
+                                  style={{ color: "#f44336" }}
+                                ></i>
+                              )}
+                            </StyledTableCell>
+                            <StyledTableCell align="center">
+                              {order.isDelivered ? (
+                                order.deliveredAt.substring(0, 10)
+                              ) : (
+                                <i
+                                  className="fa fa-times"
+                                  style={{ color: "#f44336" }}
+                                ></i>
+                              )}
+                            </StyledTableCell>
 
-                          <StyledTableCell align="center">
-                            <Link to={`/orders/${order._id}`}>
-                              <MaterialButton
-                                className={classes.details}
-                                variant="outlined"
-                                color="primary"
-                              >
-                                DETAILS
-                              </MaterialButton>
-                            </Link>
-                          </StyledTableCell>
-                        </StyledTableRow>
-                      ))}
+                            <StyledTableCell align="center">
+                              <Link to={`/orders/${order._id}`}>
+                                <MaterialButton
+                                  className={classes.details}
+                                  variant="outlined"
+                                  color="primary"
+                                >
+                                  DETAILS
+                                </MaterialButton>
+                              </Link>
+                            </StyledTableCell>
+                          </StyledTableRow>
+                        ))}
                   </TableBody>
                 </Table>
               </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={orders && orders.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={(event, newPage) => setPage(newPage)}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
+                }}
+              />
             </Paper>
           )}
         </Grid>
