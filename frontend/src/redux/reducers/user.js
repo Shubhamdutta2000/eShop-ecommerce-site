@@ -21,6 +21,9 @@ import {
   USER_LIST_SUCCESS,
   USER_LIST_FAILED,
   USER_LIST_RESET,
+  USER_DELETE_REQUEST,
+  USER_DELETE_FAILED,
+  USER_DELETE_SUCCESS,
 } from "../actionTypes/userConstants";
 
 ///    LOGIN REDUCER    ///
@@ -179,7 +182,7 @@ export const userAuthToken = (state = {}, action) => {
   }
 };
 
-///  FOR ADMIN USER   ///
+///*  FOR ADMIN USER   ///
 
 // user list reducer
 export const userListReducer = (state = {}, action) => {
@@ -199,6 +202,28 @@ export const userListReducer = (state = {}, action) => {
       };
     case USER_LIST_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+// user delete reducer
+export const userDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_DELETE_REQUEST:
+      return { loading: true };
+    case USER_DELETE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+
+    case USER_DELETE_FAILED:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
     default:
       return state;
   }

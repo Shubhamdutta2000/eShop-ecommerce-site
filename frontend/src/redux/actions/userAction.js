@@ -21,6 +21,9 @@ import {
   USER_LIST_SUCCESS,
   USER_LIST_FAILED,
   USER_LIST_RESET,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_FAILED,
 } from "../actionTypes/userConstants";
 
 import { LIST_MY_ORDER_RESET } from "../actionTypes/orderConstants";
@@ -101,6 +104,20 @@ const userListSuccess = (users) => ({
 
 const userListFailed = (err) => ({
   type: USER_LIST_FAILED,
+  payload: err,
+});
+
+///  DELETE USER  ///
+const userDeleteReq = () => ({
+  type: USER_DELETE_REQUEST,
+});
+
+const userDeleteSuccess = () => ({
+  type: USER_DELETE_SUCCESS,
+});
+
+const userDeleteFailed = (err) => ({
+  type: USER_DELETE_FAILED,
   payload: err,
 });
 
@@ -299,6 +316,36 @@ export const listUsers = (API) => async (dispatch, getState) => {
   } catch (error) {
     dispatch(
       userListFailed(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      )
+    );
+  }
+};
+
+/// USER DELETE  ///
+export const deleteUser = (API, userId) => async (dispatch, getState) => {
+  try {
+    dispatch(userDeleteReq());
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const token = userInfo && userInfo.token;
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.delete(`${API}/user/${userId}`, config);
+
+    dispatch(userDeleteSuccess());
+  } catch (error) {
+    dispatch(
+      userDeleteFailed(
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message

@@ -27,7 +27,7 @@ import {
 
 ///  REDUX  ///
 import { useDispatch, useSelector } from "react-redux";
-import { listUsers } from "../redux/actions/userAction";
+import { deleteUser, listUsers } from "../redux/actions/userAction";
 
 const UserListScreen = ({ history, API }) => {
   const classes = useStyles();
@@ -36,13 +36,17 @@ const UserListScreen = ({ history, API }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  ///  USER INFO REDUCER ///
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   ///  USER LIST REDUCER  ///
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
 
-  ///  USER INFO  ///
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  ///  USER DELETE REDUCER  ///
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: successDelete, error: errorDelete } = userDelete;
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -50,7 +54,14 @@ const UserListScreen = ({ history, API }) => {
     } else {
       history.push("/login");
     }
-  }, [dispatch, history, userInfo, API]);
+  }, [dispatch, history, userInfo, successDelete, API]);
+
+  // delete user
+  const handleUserDelete = (userId) => {
+    if (window.confirm("Are you sure to delete this user??")) {
+      dispatch(deleteUser(API, userId));
+    }
+  };
 
   return (
     <>
@@ -144,7 +155,10 @@ const UserListScreen = ({ history, API }) => {
 
                             {/* Delete user detail */}
                             <Tooltip title="Delete">
-                              <IconButton aria-label="delete">
+                              <IconButton
+                                aria-label="delete"
+                                onClick={() => handleUserDelete(user._id)}
+                              >
                                 <DeleteIcon color="error" />
                               </IconButton>
                             </Tooltip>
