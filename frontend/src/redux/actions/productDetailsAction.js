@@ -214,7 +214,10 @@ export const createProduct = (API) => async (dispatch, getState) => {
 };
 
 // update product
-export const updateProduct = (API, product) => async (dispatch, getState) => {
+export const updateProduct = (API, category, product) => async (
+  dispatch,
+  getState
+) => {
   try {
     dispatch(reqProductUpdate());
 
@@ -230,7 +233,7 @@ export const updateProduct = (API, product) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `${API}/products/${product.category}/${product._id}`,
+      `${API}/products/${category}/${product._id}`,
       product,
       config
     );

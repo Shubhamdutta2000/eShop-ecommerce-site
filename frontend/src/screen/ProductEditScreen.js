@@ -47,9 +47,6 @@ const ProductEditScreen = ({ history, match, API }) => {
   const [image, setImage] = useState("");
   const [countInStock, setCountInStock] = useState("");
 
-  const productId = match.params.id;
-  const productCategory = match.params.category;
-
   const dispatch = useDispatch();
 
   ///  USER LOGIN REDUCER  ///
@@ -68,6 +65,9 @@ const ProductEditScreen = ({ history, match, API }) => {
     success: successUpdate,
     error: errorUpdate,
   } = productUpdate;
+
+  const productId = match.params.id;
+  const productCategory = match.params.category;
 
   ///  get product details  ///
   useEffect(() => {
@@ -104,7 +104,7 @@ const ProductEditScreen = ({ history, match, API }) => {
   const submitHandler = (event) => {
     event.preventDefault();
     dispatch(
-      updateProduct(API, {
+      updateProduct(API, productCategory, {
         _id: product._id,
         name: name,
         category: category,
