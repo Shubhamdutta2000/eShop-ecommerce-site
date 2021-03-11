@@ -28,7 +28,9 @@ import {
 
 ///  REDUX  ///
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUser, listUsers } from "../redux/actions/userAction";
+import { listProducts } from "../redux/actions/productListAction";
+import { Grid } from "@material-ui/core";
+import { Button } from "react-bootstrap";
 
 const UserListScreen = ({ history, API }) => {
   const classes = useStyles();
@@ -41,32 +43,35 @@ const UserListScreen = ({ history, API }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  ///  USER LIST REDUCER  ///
-  const userList = useSelector((state) => state.userList);
-  const { loading, error, users } = userList;
-
-  ///  USER DELETE REDUCER  ///
-  const userDelete = useSelector((state) => state.userDelete);
-  const { success: successDelete } = userDelete;
+  ///  PRODUCT LIST REDUCER  ///
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products } = productList;
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispatch(listUsers(API));
+      dispatch(listProducts("", API));
     } else {
       history.push("/login");
     }
-  }, [dispatch, history, userInfo, successDelete, API]);
+  }, [dispatch, history, userInfo, API]);
 
-  // delete user
-  const handleUserDelete = (userId) => {
+  // delete product
+  const handleDeleteProduct = (productId) => {
     if (window.confirm("Are you sure to delete this user??")) {
-      dispatch(deleteUser(API, userId));
+      // TODO: DELETE PRODUCT
     }
   };
 
   return (
     <>
-      <h1 className={classes.heading}>Users</h1>
+      <Grid container>
+        <Grid item md={9}>
+          <h1 className={classes.heading}>Products</h1>
+        </Grid>
+        <Grid item md={3}>
+          <Button className={classes.createProductButton}>Create Product</Button>
+        </Grid>
+      </Grid>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -85,19 +90,22 @@ const UserListScreen = ({ history, API }) => {
                       className={classes.tableHead}
                       align="right"
                     >
-                      Name
+                      NAME
                     </StyledTableCell>
                     <StyledTableCell
                       className={classes.tableHead}
                       align="right"
                     >
-                      Email
+                      PRICE
                     </StyledTableCell>
                     <StyledTableCell
                       className={classes.tableHead}
                       align="right"
                     >
-                      Admin
+                      CATEGORY
+                    </StyledTableCell>
+                    <StyledTableCell style={{ fontSize: "1rem" }} align="right">
+                      BRAND
                     </StyledTableCell>
                     <StyledTableCell
                       style={{ fontSize: "1rem" }}
@@ -106,49 +114,50 @@ const UserListScreen = ({ history, API }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {users &&
-                    users
+                  {products &&
+                    products
                       .slice(
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
-                      .map((user) => (
-                        <StyledTableRow key={user._id}>
+                      .map((product) => (
+                        <StyledTableRow key={product._id}>
                           <StyledTableCell
                             className={classes.tableCol}
                             component="th"
                             scope="row"
                           >
-                            {user._id}
+                            {product._id}
                           </StyledTableCell>
                           <StyledTableCell
                             className={classes.tableCol}
                             align="right"
                           >
-                            {user.name}
+                            {product.name}
                           </StyledTableCell>
                           <StyledTableCell
                             className={classes.tableCol}
                             align="right"
                           >
-                            {user.email}
+                            {product.price}
                           </StyledTableCell>
+
                           <StyledTableCell
                             className={classes.tableCol}
                             align="right"
                           >
-                            {user.isAdmin ? (
-                              <CheckIcon className={classes.check} />
-                            ) : (
-                              <CloseIcon
-                                color="error"
-                                className={classes.cross}
-                              />
-                            )}
+                            {product.category}
+                          </StyledTableCell>
+
+                          <StyledTableCell
+                            className={classes.tableCol}
+                            align="right"
+                          >
+                            {product.brand}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {/* Edit user detail */}
-                            <Link to={`/admin/user/${user._id}/edit`}>
+                            {/* Edit product detail */}
+                            <Link to={`/admin/product/${product._id}/edit`}>
                               <Tooltip title="Edit">
                                 <IconButton aria-label="edit">
                                   <EditIcon color="inherit" />
@@ -156,11 +165,11 @@ const UserListScreen = ({ history, API }) => {
                               </Tooltip>
                             </Link>
 
-                            {/* Delete user detail */}
+                            {/* Delete product detail */}
                             <Tooltip title="Delete">
                               <IconButton
                                 aria-label="delete"
-                                onClick={() => handleUserDelete(user._id)}
+                                onClick={() => handleDeleteProduct(product._id)}
                               >
                                 <DeleteIcon color="error" />
                               </IconButton>
@@ -171,11 +180,11 @@ const UserListScreen = ({ history, API }) => {
                 </TableBody>
               </Table>
             </TableContainer>
-            {users && (
+            {products && (
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25]}
                 component="div"
-                count={users.length}
+                count={products.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={(event, newPage) => setPage(newPage)}

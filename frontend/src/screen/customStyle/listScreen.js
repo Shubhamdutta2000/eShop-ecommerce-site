@@ -42,7 +42,7 @@ export const useStyles = makeStyles({
     fontStyle: "normal",
     fontWeight: "normal",
     fontSize: "3.6rem",
-    lineHeight: "7rem",
+    marginBottom: "2rem",
     letterSpacing: "-0.018em",
     background: "linear-gradient(90deg, #014581 0%, #5eb9ffec 86.54%)",
     backgroundClip: "text",
@@ -55,5 +55,31 @@ export const useStyles = makeStyles({
   },
   cross: {
     fontWeight: "bolder",
+  },
+  createProductButton: {
+    width: "20rem",
+    height: "4rem",
+    border: "none",
+    outline: "none",
+    marginBottom: "2rem",
+    float: "right",
+    background:
+      "linear-gradient( 90deg,  #0663af, 0%, rgba(0, 149, 255, 0.582) 106.57%)",
+    borderRadius: "2.6rem",
+    justifyContent: "center",
+    fontFamily: "Montserrat, sans-serif",
+    fontStyle: "normal",
+    fontWeight: 500,
+    fontSize: "1.45rem",
+    display: "flex",
+    alignItems: "center",
+    textAlign: "center",
+    letterSpacing: "0.005em",
+    color: "#ffffff",
+    filter: "drop-shadow(12px 12px 10px rgba(0, 0, 0, 0.42))",
+    "&:hover": {
+      background:
+        "linear-gradient( 90deg, #0663af, 0%, rgba(0, 149, 255, 0.582) 106.57%)",
+    },
   },
 });
