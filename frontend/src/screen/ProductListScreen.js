@@ -32,7 +32,11 @@ import {
 ///  REDUX  ///
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../redux/actions/productListAction";
-import { deleteProduct } from "../redux/actions/productDetailsAction";
+import {
+  createProduct,
+  deleteProduct,
+} from "../redux/actions/productDetailsAction";
+import { PRODUCT_CREATE_RESET } from "../redux/actionTypes/productDetailsConstants";
 
 const UserListScreen = ({ history, API }) => {
   const classes = useStyles();
@@ -49,9 +53,18 @@ const UserListScreen = ({ history, API }) => {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
-  ///  USER DELETE REDUCER  ///
+  ///  PRODUCT DELETE REDUCER  ///
   const productDelete = useSelector((state) => state.productDelete);
   const { success: successDelete } = productDelete;
+
+  ///  PRODUCT CREATE REDUCER  ///
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: loadingCreate,
+    success: successCreate,
+    error: errorCreate,
+    product: createdProduct,
+  } = productCreate;
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -59,13 +72,26 @@ const UserListScreen = ({ history, API }) => {
     } else {
       history.push("/login");
     }
-  }, [dispatch, history, userInfo, successDelete, API]);
+  }, [dispatch, history, successDelete, successCreate, API]);
+
+  // push to edit screen on creating sample product
+  useEffect(() => {
+    dispatch({ type: PRODUCT_CREATE_RESET });
+    if (successCreate) {
+      history.push(`/admin/product/${createdProduct._id}/edit`);
+    }
+  }, [history, successCreate, createdProduct]);
 
   // delete product
   const handleDeleteProduct = (category, productId) => {
     if (window.confirm("Are you sure to delete this product??")) {
       dispatch(deleteProduct(API, category, productId));
     }
+  };
+
+  // create product
+  const handleCreateProduct = () => {
+    dispatch(createProduct(API));
   };
 
   return (
@@ -75,11 +101,19 @@ const UserListScreen = ({ history, API }) => {
           <h1 className={classes.heading}>Products</h1>
         </Grid>
         <Grid item md={3}>
-          <Button className={classes.createProductButton}>
+          <Button
+            onClick={handleCreateProduct}
+            className={classes.createProductButton}
+          >
             <AddIcon /> Create Product
           </Button>
         </Grid>
       </Grid>
+
+      {/* LOADING OR ERROR VALIDATION FOR SAMPLE PRODUCT CREATE */}
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message variant="danger">{errorCreate}</Message>}
+
       {loading ? (
         <Loader />
       ) : error ? (
