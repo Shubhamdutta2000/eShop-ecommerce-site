@@ -26,7 +26,7 @@ export const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
   },
@@ -48,6 +48,10 @@ export const useStyles = makeStyles({
     backgroundClip: "text",
     webkitBackgroundClip: "text",
     webkitTextFillColor: "transparent",
+
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "3rem",
+    },
   },
   check: {
     color: "#0e890a",
@@ -56,9 +60,11 @@ export const useStyles = makeStyles({
   cross: {
     fontWeight: "bolder",
   },
+
+  // for product list screen only
   createProductButton: {
-    width: "20rem",
-    height: "4rem",
+    width: "18rem",
+    height: "3.6rem",
     border: "none",
     outline: "none",
     marginBottom: "2rem",
@@ -70,12 +76,18 @@ export const useStyles = makeStyles({
     fontFamily: "Montserrat, sans-serif",
     fontStyle: "normal",
     fontWeight: 500,
-    fontSize: "1.45rem",
+    fontSize: "1.25rem",
     display: "flex",
     alignItems: "center",
     textAlign: "center",
     letterSpacing: "0.005em",
     color: "#ffffff",
     filter: "drop-shadow(12px 12px 10px rgba(0, 0, 0, 0.42))",
+
+    [theme.breakpoints.down("xs")]: {
+      width: "14rem",
+      height: "3rem",
+      fontSize: "1rem",
+    },
   },
-});
+}));

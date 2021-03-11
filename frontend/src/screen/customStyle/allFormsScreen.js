@@ -21,6 +21,7 @@ export const useStyle = makeStyles((theme) => ({
     },
   },
 
+  // for user edit screen
   paperUserEdit: {
     width: "60%",
     margin: "auto",
@@ -32,6 +33,7 @@ export const useStyle = makeStyles((theme) => ({
     },
   },
 
+  // for product edit screen
   paperProductEdit: {
     width: "100%",
     margin: "auto",
@@ -41,6 +43,7 @@ export const useStyle = makeStyles((theme) => ({
     paddingTop: theme.spacing(2.4),
     [theme.breakpoints.down("sm")]: {
       width: "100%",
+      padding: "1.6rem",
     },
   },
 
@@ -86,6 +89,7 @@ export const useStyle = makeStyles((theme) => ({
     },
   },
 
+  // for product edit screen
   inputProduct: {
     "& label": {
       color: theme.palette.info.main,
@@ -117,6 +121,7 @@ export const useStyle = makeStyles((theme) => ({
     },
   },
 
+  // for product edit screen
   buttonProduct: {
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
     width: "50%",
@@ -125,7 +130,8 @@ export const useStyle = makeStyles((theme) => ({
     marginBottom: "1rem",
 
     [theme.breakpoints.down("xs")]: {
-      width: "100%",
+      width: "76%",
+      marginBottom: "3rem",
     },
   },
 
