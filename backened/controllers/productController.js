@@ -63,7 +63,6 @@ const getProductsByCategory = asyncHandler(async (req, res, next) => {
 //  @purpose: Fetch particular product of particular id and category
 //  @access:  Public
 //  @route:   GET /products/:category/:id
-
 const getProductsByCategoryAndId = asyncHandler(async (req, res, next) => {
   try {
     const product = await Products.findOne({
@@ -98,10 +97,34 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Create a new product
+// @route   POST /products
+// @access  Private/Admin
+const createSampleProduct = asyncHandler(async (req, res, next) => {
+  try {
+    const sampleProduct = new Products({
+      name: "Sample",
+      image: "/image/category/sample.jpg",
+      price: 0,
+      user: req.user._id,
+      brand: "Sample brand",
+      category: "Sample category",
+      countInStock: 0,
+      numReviews: 0,
+      description: "Sample description",
+    });
+
+    const createdSampleProduct = await sampleProduct.save();
+    res.status(201).json(createdSampleProduct);
+  } catch (error) {
+    res.status(404);
+    next(error);
+  }
+});
+
 //  @purpose: Craete new Reviews
 //  @access:  Private
 //  @route:   POST /products/:category/:id/reviews
-
 const createProductReview = asyncHandler(async (req, res, next) => {
   const { rating, comment } = req.body;
   try {
@@ -146,5 +169,6 @@ export {
   getProductsByCategory,
   getProductsByCategoryAndId,
   deleteProduct,
+  createSampleProduct,
   createProductReview,
 };
