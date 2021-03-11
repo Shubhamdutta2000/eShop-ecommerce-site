@@ -5,11 +5,14 @@ import {
   PRODUCT_CREATE_REVIEW_REQUEST,
   PRODUCT_CREATE_REVIEW_FAILED,
   PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_FAILED,
 } from "../actionTypes/productDetailsConstants";
 
 import axios from "axios";
 
-//////////////////////      ACTIONS    /////////////////////////////
+///*      ACTIONS    ///
 
 // product details
 const reqProduct = () => ({
@@ -40,7 +43,21 @@ const productReviewFailed = (errMess) => ({
   payload: errMess,
 });
 
-///////////////////////   ACTION CREATOR    ///////////////////////////
+//  delete product
+const reqProductDelete = () => ({
+  type: PRODUCT_DELETE_REQUEST,
+});
+
+const successProductDelete = () => ({
+  type: PRODUCT_DELETE_SUCCESS,
+});
+
+const deleteProductFailed = (errMess) => ({
+  type: PRODUCT_DELETE_FAILED,
+  payload: errMess,
+});
+
+///*   ACTION CREATOR    ///
 
 // list all product details
 export const listProductDetails = (API, category, id) => async (dispatch) => {
@@ -90,6 +107,39 @@ export const createProductReview = (API, category, id, review) => async (
   } catch (error) {
     dispatch(
       productReviewFailed(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      )
+    );
+  }
+};
+
+// delete product
+export const deleteProduct = (API, category, id) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch(reqProductDelete());
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      "Content-Type": "application/json",
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.delete(`${API}/products/${category}/${id}`, config);
+
+    dispatch(successProductDelete());
+  } catch (error) {
+    dispatch(
+      deleteProductFailed(
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message

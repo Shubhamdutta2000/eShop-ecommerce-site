@@ -7,11 +7,14 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TablePagination from "@material-ui/core/TablePagination";
+import { Grid } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import AddIcon from "@material-ui/icons/Add";
 import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 
@@ -29,8 +32,7 @@ import {
 ///  REDUX  ///
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../redux/actions/productListAction";
-import { Grid } from "@material-ui/core";
-import { Button } from "react-bootstrap";
+import { deleteProduct } from "../redux/actions/productDetailsAction";
 
 const UserListScreen = ({ history, API }) => {
   const classes = useStyles();
@@ -47,18 +49,22 @@ const UserListScreen = ({ history, API }) => {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
+  ///  USER DELETE REDUCER  ///
+  const productDelete = useSelector((state) => state.productDelete);
+  const { success: successDelete } = productDelete;
+
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listProducts("", API));
     } else {
       history.push("/login");
     }
-  }, [dispatch, history, userInfo, API]);
+  }, [dispatch, history, userInfo, successDelete, API]);
 
   // delete product
-  const handleDeleteProduct = (productId) => {
-    if (window.confirm("Are you sure to delete this user??")) {
-      // TODO: DELETE PRODUCT
+  const handleDeleteProduct = (category, productId) => {
+    if (window.confirm("Are you sure to delete this product??")) {
+      dispatch(deleteProduct(API, category, productId));
     }
   };
 
@@ -69,7 +75,9 @@ const UserListScreen = ({ history, API }) => {
           <h1 className={classes.heading}>Products</h1>
         </Grid>
         <Grid item md={3}>
-          <Button className={classes.createProductButton}>Create Product</Button>
+          <Button className={classes.createProductButton}>
+            <AddIcon /> Create Product
+          </Button>
         </Grid>
       </Grid>
       {loading ? (
@@ -169,7 +177,12 @@ const UserListScreen = ({ history, API }) => {
                             <Tooltip title="Delete">
                               <IconButton
                                 aria-label="delete"
-                                onClick={() => handleDeleteProduct(product._id)}
+                                onClick={() =>
+                                  handleDeleteProduct(
+                                    product.category,
+                                    product._id
+                                  )
+                                }
                               >
                                 <DeleteIcon color="error" />
                               </IconButton>

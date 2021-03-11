@@ -83,6 +83,21 @@ const getProductsByCategoryAndId = asyncHandler(async (req, res, next) => {
   }
 });
 
+// @desc    Delete a product
+// @route   DELETE /products/:category/:id
+// @access  Private/Admin
+const deleteProduct = asyncHandler(async (req, res) => {
+  const product = await Products.findById(req.params.id);
+
+  if (product) {
+    await product.remove();
+    res.json({ message: "Product removed" });
+  } else {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+});
+
 //  @purpose: Craete new Reviews
 //  @access:  Private
 //  @route:   POST /products/:category/:id/reviews
@@ -130,5 +145,6 @@ export {
   getAllProducts,
   getProductsByCategory,
   getProductsByCategoryAndId,
+  deleteProduct,
   createProductReview,
 };

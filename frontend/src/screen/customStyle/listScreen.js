@@ -77,9 +77,5 @@ export const useStyles = makeStyles({
     letterSpacing: "0.005em",
     color: "#ffffff",
     filter: "drop-shadow(12px 12px 10px rgba(0, 0, 0, 0.42))",
-    "&:hover": {
-      background:
-        "linear-gradient( 90deg, #0663af, 0%, rgba(0, 149, 255, 0.582) 106.57%)",
-    },
   },
 });

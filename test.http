@@ -2,7 +2,7 @@
 
 ###########   PRODUCTS BY SEARCH   ########
 
-GET http://localhost:5000/products?keyword=iph
+GET http://localhost:5000/products
 
 
 
@@ -28,9 +28,43 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZ
 
 
 
+#################   Product delete    #################################
+DELETE http://localhost:5000/products/electronics/5fda124ef08b7d0f6c2475c0/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTI1MDZmNWE5MDI0MDU3OGYwY2MxMCIsImlhdCI6MTYxNTM5Mjc4MiwiZXhwIjoxNjE2MjU2NzgyfQ.ggtdTg_JHyFmDYd-IqM6Py31IACLG0C13FRij64Tz_4
 
 
+################   POST new product  #################################
+POST http://localhost:5000/products/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTI1MDZmNWE5MDI0MDU3OGYwY2MxMCIsImlhdCI6MTYxNTM5Mjc4MiwiZXhwIjoxNjE2MjU2NzgyfQ.ggtdTg_JHyFmDYd-IqM6Py31IACLG0C13FRij64Tz_4
 
+  {
+    "price": 49.99,
+    "countInStock": 7,
+    "numReviews": 2,
+    "rating": 2.5,
+    "_id": "5fda124ef08b7d0f6c2475be",
+    "name": "Logitech G-Series Gaming Mouse",
+    "image": "/assets/images/electronics/mouse.jpg",
+    "description": "Get a better handle on your games with this Logitech LIGHTSYNC gaming mouse. The six programmable buttons allow customization for a smooth playing experience",
+    "brand": "Logitech",
+    "category": "electronics",
+    "user": "5fda124ef08b7d0f6c2475b6",
+    "reviews": [
+      {
+        "rating": 4,
+        "_id": "601b81fe71198234800344bc",
+        "name": "Saaho Dutta",
+        "comment": "nunu kata",
+        "user": "5fe5a236726d4d0c84f2f659",
+        "createdAt": "2021-02-04T05:11:26.478Z",
+        "updatedAt": "2021-02-04T05:11:26.478Z"
+      }
+    ],
+    "__v": 2,
+    "createdAt": "2020-12-16T13:57:34.230Z",
+    "updatedAt": "2021-02-04T05:23:23.304Z"
+  }
 
 
 
