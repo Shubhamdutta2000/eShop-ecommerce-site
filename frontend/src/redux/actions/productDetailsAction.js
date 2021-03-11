@@ -11,6 +11,9 @@ import {
   PRODUCT_CREATE_REQUEST,
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_CREATE_FAILED,
+  PRODUCT_UPDATE_REQUEST,
+  PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_UPDATE_FAILED,
 } from "../actionTypes/productDetailsConstants";
 
 import axios from "axios";
@@ -72,6 +75,21 @@ const successProductCreate = (data) => ({
 
 const productCreateFailed = (errMess) => ({
   type: PRODUCT_CREATE_FAILED,
+  payload: errMess,
+});
+
+//  update product
+const reqProductUpdate = () => ({
+  type: PRODUCT_UPDATE_REQUEST,
+});
+
+const successProductUpdate = (data) => ({
+  type: PRODUCT_UPDATE_SUCCESS,
+  payload: data,
+});
+
+const productUpdateFailed = (errMess) => ({
+  type: PRODUCT_UPDATE_FAILED,
   payload: errMess,
 });
 
@@ -187,6 +205,40 @@ export const createProduct = (API) => async (dispatch, getState) => {
   } catch (error) {
     dispatch(
       productCreateFailed(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      )
+    );
+  }
+};
+
+// update product
+export const updateProduct = (API, product) => async (dispatch, getState) => {
+  try {
+    dispatch(reqProductUpdate());
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      "Content-Type": "application/json",
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `${API}/products/${product.category}/${product._id}`,
+      product,
+      config
+    );
+
+    dispatch(successProductUpdate(data));
+  } catch (error) {
+    dispatch(
+      productUpdateFailed(
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message

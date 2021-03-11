@@ -108,7 +108,7 @@ const createSampleProduct = asyncHandler(async (req, res, next) => {
       price: 0,
       user: req.user._id,
       brand: "Sample brand",
-      category: "Sample category",
+      category: "SampleCategory",
       countInStock: 0,
       numReviews: 0,
       description: "Sample description",
@@ -116,6 +116,46 @@ const createSampleProduct = asyncHandler(async (req, res, next) => {
 
     const createdSampleProduct = await sampleProduct.save();
     res.status(201).json(createdSampleProduct);
+  } catch (error) {
+    res.status(404);
+    next(error);
+  }
+});
+
+// @desc    update product
+// @route   PUT /products/:category/:id
+// @access  Private/Admin
+const updateProduct = asyncHandler(async (req, res, next) => {
+  const {
+    name,
+    brand,
+    category,
+    price,
+    image,
+    countInStock,
+    description,
+  } = req.body;
+  try {
+    const product = await Products.findOne({
+      category: req.params.category,
+      _id: req.params.id,
+    });
+    if (product) {
+      product.name = name;
+      product.brand = brand;
+      product.category = category;
+      product.price = price;
+      product.image = image;
+      product.countInStock = countInStock;
+      product.description = description;
+
+      const updatedProduct = await product.save();
+      res.status(201).json(updatedProduct);
+    } else {
+      res.status(404);
+      const err = new Error("Product Not Found");
+      next(err);
+    }
   } catch (error) {
     res.status(404);
     next(error);
@@ -169,6 +209,7 @@ export {
   getProductsByCategory,
   getProductsByCategoryAndId,
   deleteProduct,
+  updateProduct,
   createSampleProduct,
   createProductReview,
 };

@@ -13,6 +13,10 @@ import {
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_CREATE_FAILED,
   PRODUCT_CREATE_RESET,
+  PRODUCT_UPDATE_REQUEST,
+  PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_UPDATE_FAILED,
+  PRODUCT_UPDATE_RESET,
 } from "../actionTypes/productDetailsConstants";
 
 // product details reducer
@@ -74,6 +78,22 @@ export const productCreateReducer = (state = {}, action) => {
     case PRODUCT_CREATE_FAILED:
       return { loading: false, error: action.payload };
     case PRODUCT_CREATE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+// Update product reducer
+export const productUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_UPDATE_REQUEST:
+      return { loading: true };
+    case PRODUCT_UPDATE_SUCCESS:
+      return { loading: false, success: true, product: action.payload };
+    case PRODUCT_UPDATE_FAILED:
+      return { loading: false, error: action.payload };
+    case PRODUCT_UPDATE_RESET:
       return {};
     default:
       return state;

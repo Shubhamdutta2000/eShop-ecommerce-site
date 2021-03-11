@@ -24,13 +24,17 @@ import LocalMall from "@material-ui/icons/LocalMall";
 
 ///     REDUX     ///
 import { useSelector, useDispatch } from "react-redux";
-import { listProductDetails } from "../redux/actions/productDetailsAction";
+import {
+  listProductDetails,
+  updateProduct,
+} from "../redux/actions/productDetailsAction";
 
 ///     CUSTOM STYLE    ///
 import { useStyle } from "./customStyle/allFormsScreen";
 
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import { PRODUCT_UPDATE_RESET } from "../redux/actionTypes/productDetailsConstants";
 
 const ProductEditScreen = ({ history, match, API }) => {
   const classes = useStyle();
@@ -56,14 +60,26 @@ const ProductEditScreen = ({ history, match, API }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, product, error } = productDetails;
 
+  ///  UPDATE PRODUCT DETAILS REDUCER (by id) ///
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const {
+    loading: loadingUpdate,
+    product: updatedProduct,
+    success: successUpdate,
+    error: errorUpdate,
+  } = productUpdate;
+
   ///  get product details  ///
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
+    } else if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET });
+      history.push("/admin/productlist");
     } else {
       dispatch(listProductDetails(API, productCategory, productId));
     }
-  }, [dispatch, API, productId, productCategory, history]);
+  }, [dispatch, API, productId, productCategory, history, successUpdate]);
 
   useEffect(() => {
     if (product) {
@@ -82,10 +98,23 @@ const ProductEditScreen = ({ history, match, API }) => {
     history.goBack();
   };
 
+  console.log(updatedProduct);
+
   ///  update product details  ///
   const submitHandler = (event) => {
     event.preventDefault();
-    // TODO: update product details
+    dispatch(
+      updateProduct(API, {
+        _id: product._id,
+        name: name,
+        category: category,
+        brand: brand,
+        price: price,
+        image: image,
+        countInStock: countInStock,
+        description: description,
+      })
+    );
   };
 
   return (
@@ -123,6 +152,7 @@ const ProductEditScreen = ({ history, match, API }) => {
 
             {/* ///    LOADER    /// */}
             {loading && <Loader />}
+            {loadingUpdate && <Loader />}
 
             <Grid
               container
@@ -306,8 +336,14 @@ const ProductEditScreen = ({ history, match, API }) => {
 
               {/* ///     VALIDATION ERROR MESSAGE     /// */}
               {error && <Message varient="error">{error}</Message>}
+              {errorUpdate && <Message varient="errorUpdate">{error}</Message>}
 
               {/* ///     SUCCESS MESSAGE     /// */}
+              {successUpdate && (
+                <Message varient="success">
+                  Product updated successfully
+                </Message>
+              )}
 
               <ButtonMui
                 className={classes.buttonProduct}
