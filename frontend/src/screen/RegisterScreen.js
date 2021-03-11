@@ -92,7 +92,7 @@ const RegisterScreen = ({ history, location, API }) => {
                 <PeopleIcon className={classes.icon} />
               </InputAdornment>
             }
-            labelWidth={45}
+            labelWidth={55}
           />
         </FormControl>
 
@@ -110,7 +110,7 @@ const RegisterScreen = ({ history, location, API }) => {
                 <EmailIcon className={classes.icon} />
               </InputAdornment>
             }
-            labelWidth={40}
+            labelWidth={54}
           />
         </FormControl>
 
@@ -146,7 +146,7 @@ const RegisterScreen = ({ history, location, API }) => {
                 </IconButton>
               </InputAdornment>
             }
-            labelWidth={70}
+            labelWidth={90}
           />
         </FormControl>
 
@@ -184,7 +184,7 @@ const RegisterScreen = ({ history, location, API }) => {
                 </IconButton>
               </InputAdornment>
             }
-            labelWidth={135}
+            labelWidth={168}
           />
         </FormControl>
 

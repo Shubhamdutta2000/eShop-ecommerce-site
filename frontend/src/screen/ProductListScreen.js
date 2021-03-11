@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -8,7 +10,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TablePagination from "@material-ui/core/TablePagination";
 import { Grid } from "@material-ui/core";
-import { Button } from "@material-ui/core";
 
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -78,7 +79,9 @@ const UserListScreen = ({ history, API }) => {
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
     if (successCreate) {
-      history.push(`/admin/product/${createdProduct._id}/edit`);
+      history.push(
+        `/admin/product/${createdProduct.category}/${createdProduct._id}/edit`
+      );
     }
   }, [history, successCreate, createdProduct]);
 
@@ -94,8 +97,32 @@ const UserListScreen = ({ history, API }) => {
     dispatch(createProduct(API));
   };
 
+  ///     GO BACK      ///
+  const goBack = () => {
+    history.goBack();
+  };
+
   return (
     <>
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <Link to="/">Home</Link>
+          </li>
+
+          <li className="breadcrumb-item active" aria-current="page">
+            Admin
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            Products
+          </li>
+        </ol>
+      </nav>
+
+      <Button onClick={goBack} className="btn btn-light mt-2 mb-4">
+        Go Back
+      </Button>
+
       <Grid container>
         <Grid item md={9}>
           <h1 className={classes.heading}>Products</h1>
@@ -199,7 +226,9 @@ const UserListScreen = ({ history, API }) => {
                           </StyledTableCell>
                           <StyledTableCell align="right">
                             {/* Edit product detail */}
-                            <Link to={`/admin/product/${product._id}/edit`}>
+                            <Link
+                              to={`/admin/product/${product.category}/${product._id}/edit`}
+                            >
                               <Tooltip title="Edit">
                                 <IconButton aria-label="edit">
                                   <EditIcon color="inherit" />

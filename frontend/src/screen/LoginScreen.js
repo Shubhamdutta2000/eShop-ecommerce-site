@@ -86,7 +86,7 @@ const LoginScreen = ({ history, location, API }) => {
                   <EmailIcon className={classes.icon} />
                 </InputAdornment>
               }
-              labelWidth={70}
+              labelWidth={54}
             />
           </FormControl>
 
@@ -122,7 +122,7 @@ const LoginScreen = ({ history, location, API }) => {
                   </IconButton>
                 </InputAdornment>
               }
-              labelWidth={70}
+              labelWidth={90}
             />
           </FormControl>
 

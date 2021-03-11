@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -64,8 +66,32 @@ const UserListScreen = ({ history, API }) => {
     }
   };
 
+  ///     GO BACK      ///
+  const goBack = () => {
+    history.goBack();
+  };
+
   return (
     <>
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <Link to="/">Home</Link>
+          </li>
+
+          <li className="breadcrumb-item active" aria-current="page">
+            Admin
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            Users
+          </li>
+        </ol>
+      </nav>
+
+      <Button onClick={goBack} className="btn btn-light mt-2 mb-4">
+        Go Back
+      </Button>
+
       <h1 className={classes.heading}>Users</h1>
       {loading ? (
         <Loader />

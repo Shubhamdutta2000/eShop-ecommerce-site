@@ -13,7 +13,30 @@ export const useStyle = makeStyles((theme) => ({
   paper: {
     width: "50%",
     margin: "auto",
-    marginTop: "0.4rem",
+    marginTop: "3rem",
+
+    paddingTop: theme.spacing(2.4),
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
+  },
+
+  paperUserEdit: {
+    width: "60%",
+    margin: "auto",
+    marginTop: "1.2rem",
+
+    paddingTop: theme.spacing(2.4),
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
+  },
+
+  paperProductEdit: {
+    width: "100%",
+    margin: "auto",
+    marginTop: "1rem",
+    padding: "3.6rem",
 
     paddingTop: theme.spacing(2.4),
     [theme.breakpoints.down("sm")]: {
@@ -34,10 +57,10 @@ export const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    marginBottom: "0.6rem",
+    marginBottom: "1rem",
     marginTop: "0.6rem",
     color: "#1853F3",
-    fontSize: "1.7rem",
+    fontSize: "2.4rem",
     [theme.breakpoints.down("xs")]: {
       fontSize: "1.4rem",
     },
@@ -46,15 +69,37 @@ export const useStyle = makeStyles((theme) => ({
   input: {
     "& label": {
       color: theme.palette.info.main,
+      fontSize: "1.2rem",
       fontWeight: "550",
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "#46BFE0",
+        borderColor: "#2196f3 ",
+        paddingBottom: "2.8rem",
       },
     },
-    paddingBottom: theme.spacing(2.8),
+    paddingBottom: theme.spacing(3.8),
     width: "80%",
+
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
+  },
+
+  inputProduct: {
+    "& label": {
+      color: theme.palette.info.main,
+      fontSize: "1.2rem",
+      fontWeight: "550",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "#2196f3 ",
+        paddingBottom: "2.8rem",
+      },
+    },
+    paddingBottom: theme.spacing(3.8),
+    width: "100%",
 
     [theme.breakpoints.down("xs")]: {
       width: "100%",
@@ -64,7 +109,20 @@ export const useStyle = makeStyles((theme) => ({
   button: {
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
     width: "80%",
+    marginTop: "1rem",
     marginBottom: "0.8rem",
+
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
+  },
+
+  buttonProduct: {
+    background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
+    width: "50%",
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "1rem",
 
     [theme.breakpoints.down("xs")]: {
       width: "100%",
@@ -98,7 +156,6 @@ export const useStyle = makeStyles((theme) => ({
     textAlign: "center",
     color: "#1853F3",
   },
-
 
   back: {
     marginLeft: "0.6rem",

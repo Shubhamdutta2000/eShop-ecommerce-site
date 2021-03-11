@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 ///    MATERIAL UI    ///
-import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { Avatar, Button } from "@material-ui/core";
+import { Avatar, Grid } from "@material-ui/core";
+import ButtonMui from "@material-ui/core/Button";
 import Switch from "@material-ui/core/Switch";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
@@ -90,89 +91,119 @@ const UserEditScreen = ({ history, match, API }) => {
   };
 
   return (
-    <Paper elevation={14} className={classes.paper}>
-      <div onClick={goBack}>
-        <ArrowBackIosIcon className={classes.back} />
-      </div>
-      <Avatar className={classes.avatar}>
-        <PeopleIcon />
-      </Avatar>
-      <Typography className={classes.heading} component="h1" variant="h5">
-        Edit User
-      </Typography>
+    <>
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="breadcrumb-item" aria-current="page">
+            <Link to="/admin/userlist">Users</Link>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            Edit
+          </li>
+        </ol>
+      </nav>
 
-      {/* ///    LOADER    /// */}
-      {loading && <Loader />}
-      {loadingUpdate && <Loader />}
+      <Grid container spacing={0}>
+        <Grid item md={1}>
+          {/* GO BACK */}
+          <Button onClick={goBack} className="btn btn-light mt-1">
+            Go Back
+          </Button>
+        </Grid>
+        <Grid item md={11}>
+          <Paper elevation={14} className={classes.paperUserEdit}>
+            {/* <div onClick={goBack}>
+          <ArrowBackIosIcon className={classes.back} />
+        </div> */}
+            <Avatar className={classes.avatar}>
+              <PeopleIcon />
+            </Avatar>
+            <Typography className={classes.heading} component="h1" variant="h5">
+              Edit User
+            </Typography>
 
-      <form className={classes.form}>
-        <FormControl variant="outlined" className={classes.input}>
-          <InputLabel htmlFor="outlined-adornment-name">Name</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-name"
-            placeholder="Your Name"
-            required
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            startAdornment={
-              <InputAdornment position="start">
-                <PeopleIcon className={classes.icon} />
-              </InputAdornment>
-            }
-            labelWidth={45}
-          />
-        </FormControl>
+            {/* ///    LOADER    /// */}
+            {loading && <Loader />}
+            {loadingUpdate && <Loader />}
 
-        <FormControl variant="outlined" className={classes.input}>
-          <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-email"
-            placeholder="Email Address"
-            required
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            startAdornment={
-              <InputAdornment position="start">
-                <EmailIcon className={classes.icon} />
-              </InputAdornment>
-            }
-            labelWidth={40}
-          />
-        </FormControl>
+            <form className={classes.form}>
+              <FormControl variant="outlined" className={classes.input}>
+                <InputLabel htmlFor="outlined-adornment-name">Name</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-name"
+                  placeholder="Your Name"
+                  required
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <PeopleIcon className={classes.icon} />
+                    </InputAdornment>
+                  }
+                  labelWidth={45}
+                />
+              </FormControl>
 
-        <FormControlLabel
-          control={
-            <Switch
-              checked={isAdmin}
-              onChange={() => setIsAdmin(!isAdmin)}
-              name="Is Admin"
-              color="primary"
-            />
-          }
-          label="Is Admin"
-        />
+              <FormControl variant="outlined" className={classes.input}>
+                <InputLabel htmlFor="outlined-adornment-email">
+                  Email
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-email"
+                  placeholder="Email Address"
+                  required
+                  type="text"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <EmailIcon className={classes.icon} />
+                    </InputAdornment>
+                  }
+                  labelWidth={40}
+                />
+              </FormControl>
 
-        {/* ///     VALIDATION ERROR MESSAGE     /// */}
-        {error && <Message varient="error">{error}</Message>}
-        {errorUpdate && <Message varient="error">{errorUpdate}</Message>}
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={isAdmin}
+                    onChange={() => setIsAdmin(!isAdmin)}
+                    name="Is Admin"
+                    color="primary"
+                  />
+                }
+                label="Is Admin"
+              />
 
-        {/* ///     SUCCESS MESSAGE     /// */}
-        {successUpdate && (
-          <Message varient="success">User Details Editted Successfully</Message>
-        )}
-        <Button
-          className={classes.button}
-          onClick={submitHandler}
-          size="large"
-          variant="contained"
-          color="primary"
-        >
-          UPDATE
-        </Button>
-      </form>
-    </Paper>
+              {/* ///     VALIDATION ERROR MESSAGE     /// */}
+              {error && <Message varient="error">{error}</Message>}
+              {errorUpdate && <Message varient="error">{errorUpdate}</Message>}
+
+              {/* ///     SUCCESS MESSAGE     /// */}
+              {successUpdate && (
+                <Message varient="success">
+                  User Details Editted Successfully
+                </Message>
+              )}
+              <ButtonMui
+                className={classes.button}
+                onClick={submitHandler}
+                size="large"
+                variant="contained"
+                color="primary"
+              >
+                UPDATE
+              </ButtonMui>
+            </form>
+          </Paper>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 
