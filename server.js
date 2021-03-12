@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import path from "path";
 dotenv.config();
 import colors from "colors";
 import express from "express";
@@ -12,8 +13,9 @@ import ProductRoutes from "./backened/routes/productRoutes.js";
 import UserRoutes from "./backened/routes/userRouter.js";
 import OrderRoutes from "./backened/routes/OrderRoutes.js";
 import stripePaymentRoute from "./backened/routes/stripePaymentRoute.js";
+import UploadRoute from "./backened/routes/uploadRoutes.js";
 
-////////////    Configuring all .env files   /////////////
+///    Configuring all .env files   ///
 
 dbConnection();
 
@@ -27,12 +29,12 @@ app.use(cors());
 
 app.use(express.json());
 
-////////////   base route (for testing)     //////////////
+///   base route (for testing)     ///
 app.get("/", (req, res) => {
   res.send("API works Fine");
 });
 
-////////////    Routes      //////////////
+///    Routes      ///
 app.use("/products", ProductRoutes);
 app.use("/user", UserRoutes);
 app.use("/orders", OrderRoutes);
@@ -40,9 +42,12 @@ app.get("/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
 app.use("/payment/stripe", stripePaymentRoute);
+app.use("/upload", UploadRoute);
 
-///////////    For error handling   //////////////
+// file upload
+app.use("/myUploads", express.static(path.join(__dirname, "/myUploads")));
 
+///    For error handling   ///
 app.use(NotFound);
 app.use(errorhandler);
 
