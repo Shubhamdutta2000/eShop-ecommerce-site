@@ -45,6 +45,7 @@ app.use("/payment/stripe", stripePaymentRoute);
 app.use("/upload", UploadRoute);
 
 // file upload
+const __dirname = path.resolve();
 app.use("/myUploads", express.static(path.join(__dirname, "/myUploads")));
 
 ///    For error handling   ///

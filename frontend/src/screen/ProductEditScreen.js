@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import axios from "axios";
 
 ///    MATERIAL UI    ///
 import Paper from "@material-ui/core/Paper";
@@ -9,8 +10,10 @@ import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import FormControl from "@material-ui/core/FormControl";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { Avatar, Grid } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Avatar from "@material-ui/core/Avatar";
 import ButtonMui from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
 
 ///      MATERIAL UI ICONS     ///
 import AttachMoney from "@material-ui/icons/AttachMoney";
@@ -21,6 +24,7 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import ShopIcon from "@material-ui/icons/Shop";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalMall from "@material-ui/icons/LocalMall";
+import AddIcon from "@material-ui/icons/Add";
 
 ///     REDUX     ///
 import { useSelector, useDispatch } from "react-redux";
@@ -42,10 +46,11 @@ const ProductEditScreen = ({ history, match, API }) => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [countInStock, setCountInStock] = useState("");
+  const [countInStock, setCountInStock] = useState(0);
+  const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -69,7 +74,7 @@ const ProductEditScreen = ({ history, match, API }) => {
   const productId = match.params.id;
   const productCategory = match.params.category;
 
-  ///  get product details  ///
+  ///  get product details and reset update details and push to productScreen on successUpdate  ///
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
@@ -82,7 +87,7 @@ const ProductEditScreen = ({ history, match, API }) => {
   }, [dispatch, API, productId, productCategory, history, successUpdate]);
 
   useEffect(() => {
-    if (product) {
+    if (product || !product.image) {
       setName(product.name);
       setCategory(product.category);
       setBrand(product.brand);
@@ -97,8 +102,6 @@ const ProductEditScreen = ({ history, match, API }) => {
   const goBack = () => {
     history.goBack();
   };
-
-  console.log(updatedProduct);
 
   ///  update product details  ///
   const submitHandler = (event) => {
@@ -115,6 +118,33 @@ const ProductEditScreen = ({ history, match, API }) => {
         description: description,
       })
     );
+  };
+
+  // handle upload image
+  const handleUploadImage = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    setUploading(true);
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      const { data } = await axios.post(`${API}/upload`, formData, config);
+
+      // set images readable instance of image being uploaded using multer
+      setImage(URL.createObjectURL(e.target.files[0]));
+      setUploading(false);
+    } catch (error) {
+      console.error(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
+      setUploading(false);
+    }
   };
 
   return (
@@ -154,13 +184,7 @@ const ProductEditScreen = ({ history, match, API }) => {
             {loading && <Loader />}
             {loadingUpdate && <Loader />}
 
-            <Grid
-              container
-              spacing={10}
-              direction="row"
-              justify="space-evenly"
-              alignItems="flex-end"
-            >
+            <Grid container spacing={10} direction="row" justify="space-evenly">
               <Grid item md={6} xs={12}>
                 {/* Product Name */}
                 <FormControl
@@ -283,6 +307,28 @@ const ProductEditScreen = ({ history, match, API }) => {
                   />
                 </FormControl>
 
+                {/* UPLOAD IMAGE */}
+                <InputLabel
+                  htmlFor="upload-image"
+                  className={classes.uploadButton}
+                >
+                  <input
+                    id="upload-image"
+                    name="upload-image"
+                    type="file"
+                    onChange={handleUploadImage}
+                  />
+                  {/* <Fab
+                    color="primary"
+                    size="small"
+                    component="span"
+                    aria-label="add"
+                    variant="extended"
+                  >
+                    <AddIcon /> Upload Image
+                  </Fab> */}
+                </InputLabel>
+
                 {/* Product CountInStock */}
                 <FormControl
                   variant="outlined"
@@ -320,7 +366,7 @@ const ProductEditScreen = ({ history, match, API }) => {
                     placeholder="Enter Description"
                     required
                     multiline
-                    rows={5}
+                    rows={4}
                     type="text"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -333,17 +379,6 @@ const ProductEditScreen = ({ history, match, API }) => {
                   />
                 </FormControl>
               </Grid>
-
-              {/* ///     VALIDATION ERROR MESSAGE     /// */}
-              {error && <Message varient="error">{error}</Message>}
-              {errorUpdate && <Message varient="errorUpdate">{error}</Message>}
-
-              {/* ///     SUCCESS MESSAGE     /// */}
-              {successUpdate && (
-                <Message varient="success">
-                  Product updated successfully
-                </Message>
-              )}
 
               <ButtonMui
                 className={classes.buttonProduct}

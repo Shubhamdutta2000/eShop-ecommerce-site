@@ -135,6 +135,14 @@ export const useStyle = makeStyles((theme) => ({
     },
   },
 
+  // upload image button
+  uploadButton: {
+    marginTop: "-1rem",
+    marginBottom: "2.4rem",
+    marginRight: "0",
+    width: "100%",
+  },
+
   icon: {
     width: "1.2rem",
   },

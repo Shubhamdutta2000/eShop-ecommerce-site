@@ -6,7 +6,7 @@ const router = express.Router();
 // storage of file
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "my-uploads/");
+    cb(null, "myUploads/");
   },
   filename: function (req, file, cb) {
     cb(
@@ -38,7 +38,7 @@ var upload = multer({
 
 router.post("/", upload.single("image"), (req, res, next) => {
   res.status(200);
-  res.send(`${req.file.path}`);
+  res.send(`/${req.file.path}`); // not needed
 });
 
 export default router;
