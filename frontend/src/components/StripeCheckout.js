@@ -1,4 +1,4 @@
-import { Button, makeStyles, withStyles } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import React, { useEffect } from "react";
 import StripeCheckoutButton from "react-stripe-checkout";
 
