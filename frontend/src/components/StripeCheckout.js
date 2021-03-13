@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, makeStyles, withStyles } from "@material-ui/core";
 import React, { useEffect } from "react";
 import StripeCheckoutButton from "react-stripe-checkout";
 
@@ -11,7 +11,17 @@ import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
 import Loader from "./Loader";
 import axios from "axios";
 
+// custom style for stripe checkout button
+const useStyle = makeStyles(() => ({
+  stripeButton: {
+    background: "linear-gradient(45deg, #007fe4 30%, #00c3f1 90%)",
+    color: "#fff",
+  },
+}));
+
 export const StripeCheckout = ({ orderId, API }) => {
+  const classes = useStyle();
+
   const dispatch = useDispatch();
 
   // Order details
@@ -79,7 +89,7 @@ export const StripeCheckout = ({ orderId, API }) => {
             style={{ width: "100%" }}
             variant="contained"
             size="large"
-            color="primary"
+            className={classes.stripeButton}
           >
             Pay With Stripe
           </Button>

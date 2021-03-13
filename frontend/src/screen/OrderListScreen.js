@@ -231,16 +231,6 @@ const OrderListScreen = ({ history, API }) => {
                             <Link to={`/orders/${order._id}`}>
                               <Button color="primary">Details</Button>
                             </Link>
-
-                            {/* Delete order detail */}
-                            {/* <Tooltip title="Delete">
-                              <IconButton
-                                aria-label="delete"
-                                onClick={() => handleorderDelete(order._id)}
-                              >
-                                <DeleteIcon color="error" />
-                              </IconButton>
-                            </Tooltip> */}
                           </StyledTableCell>
                         </StyledTableRow>
                       ))}
