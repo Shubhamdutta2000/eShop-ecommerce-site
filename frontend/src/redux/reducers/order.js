@@ -15,8 +15,12 @@ import {
   LIST_MY_ORDER_SUCCESS,
   LIST_MY_ORDER_FAILED,
   LIST_MY_ORDER_RESET,
+  LIST_ALL_ORDER_REQUEST,
+  LIST_ALL_ORDER_SUCCESS,
+  LIST_ALL_ORDER_FAILED,
 } from "../actionTypes/orderConstants";
 
+// create order reducer
 export const createOrderReducer = (
   state = {
     loading: false,
@@ -49,6 +53,8 @@ export const createOrderReducer = (
       return state;
   }
 };
+
+// get order details by id of particular user reducer
 export const orderDetailsReducer = (
   state = {
     loading: true,
@@ -83,6 +89,7 @@ export const orderDetailsReducer = (
   }
 };
 
+// update order to paid reducer
 export const orderPayReducer = (state = {}, action) => {
   switch (action.type) {
     case ORDER_PAY_REQUEST:
@@ -108,6 +115,7 @@ export const orderPayReducer = (state = {}, action) => {
   }
 };
 
+// get my orders of particular user reducer
 export const myOrdersReducer = (
   state = { loading: false, orders: null, error: null },
   action
@@ -131,6 +139,32 @@ export const myOrdersReducer = (
     case LIST_MY_ORDER_RESET:
       return {
         orders: [],
+      };
+
+    default:
+      return state;
+  }
+};
+
+//  get all orders reducer (for admin user)
+export const allOrdersReducer = (
+  state = { loading: false, orders: null, error: null },
+  action
+) => {
+  switch (action.type) {
+    case LIST_ALL_ORDER_REQUEST:
+      return { loading: true };
+
+    case LIST_ALL_ORDER_SUCCESS:
+      return {
+        loading: false,
+        orders: action.payload,
+      };
+
+    case LIST_ALL_ORDER_FAILED:
+      return {
+        loading: false,
+        error: action.payload,
       };
 
     default:

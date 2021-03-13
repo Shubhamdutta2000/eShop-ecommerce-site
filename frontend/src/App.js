@@ -18,6 +18,7 @@ import UserListScreen from "./screen/UserListScreen";
 import UserEditScreen from "./screen/UserEditScreen";
 import ProductListScreen from "./screen/ProductListScreen";
 import ProductEditScreen from "./screen/ProductEditScreen";
+import OrderListScreen from "./screen/OrderListScreen";
 
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
@@ -159,6 +160,13 @@ function App() {
               path="/admin/product/:category/:id/edit"
               component={({ history, match }) => (
                 <ProductEditScreen history={history} match={match} API={API} />
+              )}
+            />
+
+            <Route
+              path="/admin/orderlist"
+              component={({ history }) => (
+                <OrderListScreen history={history} API={API} />
               )}
             />
           </div>
