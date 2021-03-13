@@ -13,7 +13,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import { Avatar, Grid } from "@material-ui/core";
 import ButtonMui from "@material-ui/core/Button";
 import Switch from "@material-ui/core/Switch";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 ///      MATERIAL UI ICONS     ///
 import EmailIcon from "@material-ui/icons/Email";
@@ -75,7 +74,7 @@ const UserEditScreen = ({ history, match, API }) => {
       setEmail(user.email);
       setIsAdmin(user.isAdmin);
     }
-  }, [userInfo, user, history, successUpdate]);
+  }, [dispatch, userInfo, user, history, successUpdate]);
 
   ///   GO BACK    ///
   const goBack = () => {

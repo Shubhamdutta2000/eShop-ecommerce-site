@@ -13,7 +13,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import ButtonMui from "@material-ui/core/Button";
-import Fab from "@material-ui/core/Fab";
 
 ///      MATERIAL UI ICONS     ///
 import AttachMoney from "@material-ui/icons/AttachMoney";
@@ -24,7 +23,6 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import ShopIcon from "@material-ui/icons/Shop";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalMall from "@material-ui/icons/LocalMall";
-import AddIcon from "@material-ui/icons/Add";
 
 ///     REDUX     ///
 import { useSelector, useDispatch } from "react-redux";
@@ -39,7 +37,6 @@ import { useStyle } from "./customStyle/allFormsScreen";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { PRODUCT_UPDATE_RESET } from "../redux/actionTypes/productDetailsConstants";
-import { TextField } from "@material-ui/core";
 
 const ProductEditScreen = ({ history, match, API }) => {
   const classes = useStyle();
@@ -61,13 +58,12 @@ const ProductEditScreen = ({ history, match, API }) => {
 
   ///  PRODUCT DETAILS REDUCER (by id) ///
   const productDetails = useSelector((state) => state.productDetails);
-  const { loading, product, error } = productDetails;
+  const { loading, product } = productDetails;
 
   ///  UPDATE PRODUCT DETAILS REDUCER (by id) ///
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
     loading: loadingUpdate,
-    product: updatedProduct,
     success: successUpdate,
     error: errorUpdate,
   } = productUpdate;
@@ -85,7 +81,15 @@ const ProductEditScreen = ({ history, match, API }) => {
     } else {
       dispatch(listProductDetails(API, productCategory, productId));
     }
-  }, [dispatch, API, productId, productCategory, history, successUpdate]);
+  }, [
+    dispatch,
+    API,
+    userInfo,
+    productId,
+    productCategory,
+    history,
+    successUpdate,
+  ]);
 
   useEffect(() => {
     if (product || !product.image) {
@@ -133,7 +137,7 @@ const ProductEditScreen = ({ history, match, API }) => {
           "Content-Type": "multipart/form-data",
         },
       };
-      const { data } = await axios.post(`${API}/upload`, formData, config);
+      await axios.post(`${API}/upload`, formData, config);
 
       // set images readable instance of image being uploaded using multer
       setImage(URL.createObjectURL(e.target.files[0]));
@@ -367,7 +371,8 @@ const ProductEditScreen = ({ history, match, API }) => {
                   />
                 </FormControl>
               </Grid>
-
+              {successUpdate && <Message>updated Successfully</Message>}
+              {errorUpdate && <Message>{errorUpdate}</Message>}
               <ButtonMui
                 className={classes.buttonProduct}
                 onClick={submitHandler}

@@ -16,8 +16,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
-import CheckIcon from "@material-ui/icons/Check";
-import CloseIcon from "@material-ui/icons/Close";
 
 /// Component  ///
 import Message from "../components/Message";
@@ -73,7 +71,7 @@ const UserListScreen = ({ history, API }) => {
     } else {
       history.push("/login");
     }
-  }, [dispatch, history, successDelete, successCreate, API]);
+  }, [dispatch, userInfo, history, successDelete, successCreate, API]);
 
   // push to edit screen on creating sample product
   useEffect(() => {
@@ -83,7 +81,7 @@ const UserListScreen = ({ history, API }) => {
         `/admin/product/${createdProduct.category}/${createdProduct._id}/edit`
       );
     }
-  }, [history, successCreate, createdProduct]);
+  }, [dispatch, history, successCreate, createdProduct]);
 
   // delete product
   const handleDeleteProduct = (category, productId) => {

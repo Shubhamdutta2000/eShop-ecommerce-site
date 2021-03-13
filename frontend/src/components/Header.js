@@ -41,7 +41,7 @@ import {
   SupervisorAccount,
 } from "@material-ui/icons";
 
-export default function Header(props, { isMobile }) {
+export default function Header({ isMobile }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElAdmin, setAnchorElAdmin] = useState(null);
@@ -174,6 +174,80 @@ export default function Header(props, { isMobile }) {
                   <ListItemText primary="Logout" />
                 </MenuItem>
               </Menu>
+
+              {/* ///     ADMIN SECTION OF DROPDOWN IF USER ADMIN EXISTS OR LOGGED IN   /// */}
+              {userInfo.isAdmin ? (
+                <>
+                  <IconButton
+                    aria-label="account of admin user"
+                    aria-controls="menu-admin-appbar"
+                    aria-haspopup="true"
+                    onClick={handleAdminMenu}
+                    color="inherit"
+                    style={{ fontSize: "1.25rem" }}
+                  >
+                    <SupervisorAccount />
+                    &nbsp;
+                    {!isMobile ? "Admin" : null}
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    className={classes.menu}
+                    elevation={4}
+                    getContentAnchorEl={null}
+                    anchorEl={anchorElAdmin}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "center",
+                    }}
+                    TransitionComponent={Fade}
+                    open={openElAdmin}
+                    onClose={handleAdminMenuClose}
+                  >
+                    {/*//   USER LIST    */}
+                    <Link
+                      to="/admin/userlist"
+                      className={classes.link_menu_item}
+                    >
+                      <MenuItem onClick={handleAdminMenuClose}>
+                        <ListItemIcon>
+                          <PeopleAlt />
+                        </ListItemIcon>
+                        <ListItemText primary="Users" />
+                      </MenuItem>
+                    </Link>
+                    {/*//   PRODUCT LIST    */}
+                    <Link
+                      to="/admin/productlist"
+                      className={classes.link_menu_item}
+                    >
+                      <MenuItem onClick={handleAdminMenuClose}>
+                        <ListItemIcon>
+                          <ShoppingBasket />
+                        </ListItemIcon>
+                        <ListItemText primary="Products" />
+                      </MenuItem>
+                    </Link>
+                    {/*//   ORDERS LIST    */}
+                    <Link
+                      to="/admin/orderlist"
+                      className={classes.link_menu_item}
+                    >
+                      <MenuItem onClick={handleAdminMenuClose}>
+                        <ListItemIcon>
+                          <ShoppingCart />
+                        </ListItemIcon>
+                        <ListItemText primary="Orders" />
+                      </MenuItem>
+                    </Link>
+                  </Menu>
+                </>
+              ) : null}
             </>
           ) : (
             ///    LOGIN BUTTON IF USER DOES NOT EXISTS OR LOGGED OUT  ///
@@ -184,72 +258,6 @@ export default function Header(props, { isMobile }) {
               </Button>
             </Link>
           )}
-          {/* ///     ADMIN SECTION OF DROPDOWN IF USER ADMIN EXISTS OR LOGGED IN   /// */}
-          {userInfo && userInfo.isAdmin ? (
-            <>
-              <IconButton
-                aria-label="account of admin user"
-                aria-controls="menu-admin-appbar"
-                aria-haspopup="true"
-                onClick={handleAdminMenu}
-                color="inherit"
-                style={{ fontSize: "1.25rem" }}
-              >
-                <SupervisorAccount />
-                &nbsp; Admin
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                className={classes.menu}
-                elevation={4}
-                getContentAnchorEl={null}
-                anchorEl={anchorElAdmin}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "center",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "center",
-                }}
-                TransitionComponent={Fade}
-                open={openElAdmin}
-                onClose={handleAdminMenuClose}
-              >
-                {/*//   USER LIST    */}
-                <Link to="/admin/userlist" className={classes.link_menu_item}>
-                  <MenuItem onClick={handleAdminMenuClose}>
-                    <ListItemIcon>
-                      <PeopleAlt />
-                    </ListItemIcon>
-                    <ListItemText primary="Users" />
-                  </MenuItem>
-                </Link>
-                {/*//   PRODUCT LIST    */}
-                <Link
-                  to="/admin/productlist"
-                  className={classes.link_menu_item}
-                >
-                  <MenuItem onClick={handleAdminMenuClose}>
-                    <ListItemIcon>
-                      <ShoppingBasket />
-                    </ListItemIcon>
-                    <ListItemText primary="Products" />
-                  </MenuItem>
-                </Link>
-                {/*//   ORDERS LIST    */}
-                <Link to="/admin/orderlist" className={classes.link_menu_item}>
-                  <MenuItem onClick={handleAdminMenuClose}>
-                    <ListItemIcon>
-                      <ShoppingCart />
-                    </ListItemIcon>
-                    <ListItemText primary="Orders" />
-                  </MenuItem>
-                </Link>
-              </Menu>
-            </>
-          ) : null}
         </Toolbar>
       </AppBar>
 
