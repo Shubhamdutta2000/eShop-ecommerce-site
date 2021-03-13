@@ -34,6 +34,7 @@ import {
 
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import Meta from "../components/Meta";
 
 const ProfileScreen = ({ history, API }) => {
   const classes = useStyles();
@@ -101,6 +102,8 @@ const ProfileScreen = ({ history, API }) => {
   };
   return (
     <>
+      {/* /// add custom title in User Profile / */}
+      <Meta title="User profile" />
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">

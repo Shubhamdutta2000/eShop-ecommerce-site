@@ -15,6 +15,7 @@
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",
+    "react-helmet": "^6.1.0",
     "react-owl-carousel": "^2.3.1",
     "react-paypal-button-v2": "^2.6.2",
     "react-paypal-express-checkout": "^1.0.5",
