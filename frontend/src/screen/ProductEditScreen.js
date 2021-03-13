@@ -39,6 +39,7 @@ import { useStyle } from "./customStyle/allFormsScreen";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { PRODUCT_UPDATE_RESET } from "../redux/actionTypes/productDetailsConstants";
+import { TextField } from "@material-ui/core";
 
 const ProductEditScreen = ({ history, match, API }) => {
   const classes = useStyle();
@@ -305,29 +306,16 @@ const ProductEditScreen = ({ history, match, API }) => {
                     }
                     labelWidth={60}
                   />
-                </FormControl>
-
-                {/* UPLOAD IMAGE */}
-                <InputLabel
-                  htmlFor="upload-image"
-                  className={classes.uploadButton}
-                >
-                  <input
+                  {/* UPLOAD IMAGE */}
+                  <TextField
                     id="upload-image"
                     name="upload-image"
+                    className={classes.uploadButton}
                     type="file"
                     onChange={handleUploadImage}
                   />
-                  {/* <Fab
-                    color="primary"
-                    size="small"
-                    component="span"
-                    aria-label="add"
-                    variant="extended"
-                  >
-                    <AddIcon /> Upload Image
-                  </Fab> */}
-                </InputLabel>
+                  {uploading && <Loader />}
+                </FormControl>
 
                 {/* Product CountInStock */}
                 <FormControl
