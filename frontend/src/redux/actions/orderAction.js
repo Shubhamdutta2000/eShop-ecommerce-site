@@ -266,11 +266,8 @@ export const deliverOrder = (API, orderId) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.put(
-      `${API}/orders/${orderId}/deliver`,
-      config
-    );
-    dispatch(updateOrderToDelivered(data));
+    await axios.put(`${API}/orders/${orderId}/deliver`, {}, config);
+    dispatch(updateOrderToDelivered());
   } catch (error) {
     deliverOrderFailed(
       error.response && error.response.data.message

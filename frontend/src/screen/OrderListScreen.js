@@ -215,16 +215,19 @@ const OrderListScreen = ({ history, API }) => {
                             align="right"
                           >
                             {order.isDelivered ? (
-                              <CheckIcon className={classes.check} />
+                              <>
+                                <CheckIcon className={classes.check} />
+                                {order.deliveredAt.substring(0, 10)}
+                              </>
                             ) : (
                               <CloseIcon
                                 color="error"
                                 className={classes.cross}
                               />
-                            )}
+                            )}{" "}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {/*Order details (can marked as delivered) */}
+                            {/*Order details (redirect to order screen and can marked as delivered) */}
                             <Link to={`/orders/${order._id}`}>
                               <Button color="primary">Details</Button>
                             </Link>

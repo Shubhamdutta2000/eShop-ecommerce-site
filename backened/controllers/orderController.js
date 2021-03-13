@@ -3,7 +3,7 @@ import asyncHandler from "express-async-handler";
 
 //  @purpose: create new orders
 //  @access:  Private
-//  @route:   POST /order
+//  @route:   POST /orders
 export const addOrderItems = asyncHandler(async (req, res, next) => {
   const {
     orderItems,
@@ -41,7 +41,7 @@ export const addOrderItems = asyncHandler(async (req, res, next) => {
 
 //  @purpose: get order by id
 //  @access:  Private
-//  @route:   GET /order/:id
+//  @route:   GET /orders/:id
 export const getOrderById = asyncHandler(async (req, res, next) => {
   try {
     const order = await OrderModel.findById(req.params.id).populate(
@@ -63,7 +63,7 @@ export const getOrderById = asyncHandler(async (req, res, next) => {
 
 //  @purpose: UPDATE order model to paid with payapl
 //  @access:  Private
-//  @route:   UPDATE /order/:id/payment
+//  @route:   UPDATE /orders/:id/payment
 export const updateOrderToPaid = asyncHandler(async (req, res, next) => {
   try {
     const order = await OrderModel.findById(req.params.id);
@@ -103,7 +103,7 @@ export const updateOrderToPaid = asyncHandler(async (req, res, next) => {
 
 //  @purpose: GET logged in user orders
 //  @access:  Private
-//  @route:   GET /order/myorders
+//  @route:   GET /orders/myorders
 export const getMyOrders = asyncHandler(async (req, res, next) => {
   try {
     const order = await OrderModel.find({ user: req.user._id });
@@ -116,7 +116,7 @@ export const getMyOrders = asyncHandler(async (req, res, next) => {
 
 //  @purpose: GET all orders
 //  @access:  Private/Admin
-//  @route:   GET /order
+//  @route:   GET /orders
 export const getAllOrders = asyncHandler(async (req, res, next) => {
   try {
     const order = await OrderModel.find({}).populate("user", "_id, name");
@@ -129,7 +129,7 @@ export const getAllOrders = asyncHandler(async (req, res, next) => {
 
 //  @purpose: UPDATE order model to delivered
 //  @access:  Private/Admin
-//  @route:   UPDATE /order/:id/deliver
+//  @route:   UPDATE /orders/:id/deliver
 export const updateOrderToDelivered = asyncHandler(async (req, res, next) => {
   try {
     const order = await OrderModel.findById(req.params.id);

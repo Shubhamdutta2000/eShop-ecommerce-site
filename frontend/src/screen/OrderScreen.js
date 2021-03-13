@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 ///////////////////////////     MATERIAL UI   ////////////////////////////////
 
@@ -13,7 +14,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
-import { Container } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
 
 //////////////////////////////    / Components   ////////////////////////
 import Message from "../components/Message";
@@ -22,11 +23,14 @@ import { PayPalCheckout } from "../components/PayPalCheckout";
 
 ///////////////////////////    REDUX     ///////////////////////////////
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderDetails } from "../redux/actions/orderAction";
+import { getOrderDetails, deliverOrder } from "../redux/actions/orderAction";
+import { ORDER_DELIVER_RESET } from "../redux/actionTypes/orderConstants";
 
 ///////////////////////////    CUSTOM STYLES     ///////////////////////////////
 import { useStyles } from "./customStyle/PlaceOrderScreen";
+import "../styles/Screen/OrderScreen.css";
 import OrderScreenSkeleton from "./skeletons/OrderScreenSkeleton";
+import Loader from "../components/Loader";
 
 const OrderScreen = ({ match, history, API, isMobile }) => {
   const classes = useStyles();
@@ -34,25 +38,34 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
 
   const dispatch = useDispatch();
 
-  // User Login Credentials
+  // User Login Credentials reducer
   const login = useSelector((state) => state.userLogin);
   const { userInfo } = login;
 
-  // Order details
+  // Order details reducer
   const orderDetails = useSelector((state) => state.orderDetails);
   const { loading, orders, error } = orderDetails;
 
-  // PAYPAL PAYMENT INTEGRATION
+  // PAYMENT INTEGRATION (update order to paid) reducer
   const orderPay = useSelector((state) => state.orderPay);
   const { success: successPay } = orderPay;
+
+  // Update order to deliver reducer
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
 
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     } else {
+      dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(getOrderDetails(API, orderId));
     }
-  }, [dispatch, orderId, successPay, userInfo, history, API]);
+  }, [dispatch, orderId, successPay, successDeliver, userInfo, history, API]);
+
+  const handleDeliver = () => {
+    dispatch(deliverOrder(API, orderId));
+  };
 
   return loading ? (
     <OrderScreenSkeleton />
@@ -129,7 +142,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
               <div className={classes.message}>
                 {orders.isDelivered ? (
                   <Message varient="success">
-                    Delivered at {orders.deliveredAt}
+                    Delivered at {orders.deliveredAt.substring(0, 10)}
                   </Message>
                 ) : (
                   <Message varient="error">Not Delivered</Message>
@@ -346,8 +359,28 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
                   </Grid>
                 </ListItem>
               ) : (
-                <Message>Payment Done Successfully</Message>
+                userInfo &&
+                !userInfo.isAdmin && (
+                  <Message>Payment Done Successfully</Message>
+                )
               )}
+              <ListItem>
+                {/*/// Marked As Delivered BUTTON showed if order is not delivered and if admin user  ///*/}
+                {userInfo &&
+                  userInfo.isAdmin &&
+                  orders.isPaid &&
+                  !orders.isDelivered && (
+                    <>
+                      <Button
+                        className="btn-block p-2 order_deliver_button"
+                        onClick={handleDeliver}
+                      >
+                        MARKED AS DELIVERED
+                      </Button>
+                      {loadingDeliver && <Loader />}
+                    </>
+                  )}
+              </ListItem>
             </List>
           </Paper>
         </Grid>
