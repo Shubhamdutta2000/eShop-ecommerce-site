@@ -6,8 +6,7 @@ import {
   PRODUCT_LIST_FAILED,
 } from "../actionTypes/productListConstants";
 
-
-/////////////////////    ACTIONS    ///////////////////////////////
+///*   ACTIONS    ///
 
 const reqProducts = () => ({
   type: PRODUCT_LIST_REQUEST,
@@ -23,7 +22,7 @@ const productsFailed = (errMess) => ({
   payload: errMess,
 });
 
-////////////////////     ACTION CREATOR     ////////////////////////
+///*     ACTION CREATOR     ///
 
 export const listProducts = (keyword = "", API) => async (dispatch) => {
   try {

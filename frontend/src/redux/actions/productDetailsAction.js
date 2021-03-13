@@ -151,6 +151,8 @@ export const createProductReview = (API, category, id, review) => async (
   }
 };
 
+///*   ADMIN USER   ///
+
 // delete product
 export const deleteProduct = (API, category, id) => async (
   dispatch,

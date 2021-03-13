@@ -11,12 +11,19 @@ import {
   LIST_MY_ORDER_REQUEST,
   LIST_MY_ORDER_SUCCESS,
   LIST_MY_ORDER_FAILED,
+  LIST_ALL_ORDER_REQUEST,
+  LIST_ALL_ORDER_SUCCESS,
+  LIST_ALL_ORDER_FAILED,
+  ORDER_DELIVER_REQUEST,
+  ORDER_DELIVER_SUCCESS,
+  ORDER_DELIVER_FAILED,
 } from "../actionTypes/orderConstants";
 
 import axios from "axios";
-//////////////////////////////    ACTIONS    ///////////////////////////////
 
-/////////////   ORDER CREATE    ///////////////
+///*    ACTIONS   ///
+
+///     ORDER CREATE    ///
 const reqOrder = () => ({
   type: CREATE_ORDER_REQUEST,
 });
@@ -31,7 +38,7 @@ const orderFailed = (error) => ({
   payload: error,
 });
 
-/////////////   Order Details   ///////////////
+///   Order Details   ///
 const reqOrderDetails = () => ({
   type: ORDER_DETAILS_REQUEST,
 });
@@ -46,7 +53,7 @@ const orderDetailsFailed = (error) => ({
   payload: error,
 });
 
-// /////////////   PAY Order   ///////////////
+///    PAY Order   ///
 const reqPayOrder = () => ({
   type: ORDER_PAY_REQUEST,
 });
@@ -61,7 +68,7 @@ const payOrderFailed = (error) => ({
   payload: error,
 });
 
-/////////////   MY ORDERS   ///////////////
+///   MY ORDERS   ///
 const reqMyOrders = () => ({
   type: LIST_MY_ORDER_REQUEST,
 });
@@ -76,9 +83,39 @@ const myOrdersFailed = (error) => ({
   payload: error,
 });
 
-/////////////////////////////    ACTION CREATOR    ///////////////////////////
+///   ALL ORDERS   ///
+const reqAllOrders = () => ({
+  type: LIST_ALL_ORDER_REQUEST,
+});
 
-//////////////    ORDER CREATE    ///////////////
+const addAllOrders = (orders) => ({
+  type: LIST_ALL_ORDER_SUCCESS,
+  payload: orders,
+});
+
+const allOrdersFailed = (error) => ({
+  type: LIST_ALL_ORDER_FAILED,
+  payload: error,
+});
+
+///   UPDATE ORDER TO PAID   ///
+const reqDeliverOrder = () => ({
+  type: ORDER_DELIVER_REQUEST,
+});
+
+const updateOrderToDelivered = () => ({
+  type: ORDER_DELIVER_SUCCESS,
+  success: true,
+});
+
+const deliverOrderFailed = (error) => ({
+  type: ORDER_DELIVER_FAILED,
+  payload: error,
+});
+
+///*     ACTION CREATOR    ///
+
+///    ORDER CREATE    ///
 export const createOrder = (API, order) => async (dispatch, getState) => {
   try {
     dispatch(reqOrder());
@@ -94,7 +131,6 @@ export const createOrder = (API, order) => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.post(`${API}/orders`, order, config);
-
     dispatch(addOrder(data));
   } catch (error) {
     orderFailed(
@@ -105,7 +141,7 @@ export const createOrder = (API, order) => async (dispatch, getState) => {
   }
 };
 
-//////////////    ORDER DETAILS    ///////////////
+///    ORDER DETAILS    ///
 export const getOrderDetails = (API, id) => async (dispatch, getState) => {
   try {
     dispatch(reqOrderDetails());
@@ -121,7 +157,6 @@ export const getOrderDetails = (API, id) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(`${API}/orders/${id}`, config);
-
     dispatch(addOrderDetails(data));
   } catch (error) {
     orderDetailsFailed(
@@ -132,7 +167,7 @@ export const getOrderDetails = (API, id) => async (dispatch, getState) => {
   }
 };
 
-// //////////////    PAY ORDER AND UPDATE ORDER TO PAID    ///////////////
+///    PAY ORDER AND UPDATE ORDER TO PAID    ///
 export const payOrder = (API, orderId, paymentResult) => async (
   dispatch,
   getState
@@ -165,7 +200,7 @@ export const payOrder = (API, orderId, paymentResult) => async (
   }
 };
 
-//////////////    LIST MY ORDERS (PARTICULAR USER)    ///////////////
+///    LIST MY ORDERS (PARTICULAR USER)    ///
 export const listMyOrders = (API) => async (dispatch, getState) => {
   try {
     dispatch(reqMyOrders());
@@ -180,10 +215,61 @@ export const listMyOrders = (API) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(`${API}/orders/myorders`, config);
-
     dispatch(addMyOrders(data));
   } catch (error) {
     myOrdersFailed(
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    );
+  }
+};
+
+///* ADMIN USER   ///
+
+///    LIST ALL ORDERS   ///
+export const listAllOrders = (API) => async (dispatch, getState) => {
+  try {
+    dispatch(reqAllOrders());
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`${API}/orders`, config);
+    dispatch(addAllOrders(data));
+  } catch (error) {
+    allOrdersFailed(
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    );
+  }
+};
+
+///    UPDATE ORDER TO DELIVERED    ///
+export const deliverOrder = (API, orderId) => async (dispatch, getState) => {
+  try {
+    dispatch(reqDeliverOrder());
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      "Content-Type": "application/json",
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    await axios.put(`${API}/orders/${orderId}/deliver`, {}, config);
+    dispatch(updateOrderToDelivered());
+  } catch (error) {
+    deliverOrderFailed(
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message

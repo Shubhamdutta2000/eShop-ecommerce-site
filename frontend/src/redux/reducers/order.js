@@ -15,8 +15,16 @@ import {
   LIST_MY_ORDER_SUCCESS,
   LIST_MY_ORDER_FAILED,
   LIST_MY_ORDER_RESET,
+  LIST_ALL_ORDER_REQUEST,
+  LIST_ALL_ORDER_SUCCESS,
+  LIST_ALL_ORDER_FAILED,
+  ORDER_DELIVER_REQUEST,
+  ORDER_DELIVER_FAILED,
+  ORDER_DELIVER_SUCCESS,
+  ORDER_DELIVER_RESET,
 } from "../actionTypes/orderConstants";
 
+// create order reducer
 export const createOrderReducer = (
   state = {
     loading: false,
@@ -49,6 +57,8 @@ export const createOrderReducer = (
       return state;
   }
 };
+
+// get order details by id of particular user reducer
 export const orderDetailsReducer = (
   state = {
     loading: true,
@@ -83,6 +93,7 @@ export const orderDetailsReducer = (
   }
 };
 
+// update order to paid reducer
 export const orderPayReducer = (state = {}, action) => {
   switch (action.type) {
     case ORDER_PAY_REQUEST:
@@ -108,6 +119,7 @@ export const orderPayReducer = (state = {}, action) => {
   }
 };
 
+// get my orders of particular user reducer
 export const myOrdersReducer = (
   state = { loading: false, orders: null, error: null },
   action
@@ -133,6 +145,54 @@ export const myOrdersReducer = (
         orders: [],
       };
 
+    default:
+      return state;
+  }
+};
+
+//  get all orders reducer (for admin user)
+export const allOrdersReducer = (
+  state = { loading: false, orders: null, error: null },
+  action
+) => {
+  switch (action.type) {
+    case LIST_ALL_ORDER_REQUEST:
+      return { loading: true };
+
+    case LIST_ALL_ORDER_SUCCESS:
+      return {
+        loading: false,
+        orders: action.payload,
+      };
+
+    case LIST_ALL_ORDER_FAILED:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+// update order to delivered reducer
+export const orderDeliverReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_DELIVER_REQUEST:
+      return { loading: true };
+    case ORDER_DELIVER_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case ORDER_DELIVER_FAILED:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case ORDER_DELIVER_RESET:
+      return {};
     default:
       return state;
   }

@@ -58,5 +58,31 @@ export const useStyles = makeStyles((theme) =>
       fontSize: "1.3rem",
       fontWeight: "450",
     },
+
+    deliver_button: {
+      width: "100%",
+      height: "3.6rem",
+      border: "none",
+      outline: "none",
+      float: "right",
+      background: "linear-gradient(45deg, #2196f3 30%, #21cbf3 90%)",
+      justifyContent: "center",
+      fontFamily: "Montserrat, sans-serif",
+      fontStyle: "normal",
+      fontWeight: 500,
+      fontSize: "1.25rem",
+      display: "flex",
+      alignItems: "center",
+      textAlign: "center",
+      letterSpacing: "0.005em",
+      color: "#ffffff",
+      filter: "drop-shadow(12px 12px 10px rgba(0, 0, 0, 0.42))",
+
+      [theme.breakpoints.down("xs")]: {
+        width: "14rem",
+        height: "3rem",
+        fontSize: "1rem",
+      },
+    },
   })
 );

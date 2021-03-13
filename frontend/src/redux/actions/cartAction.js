@@ -8,7 +8,7 @@ import {
   CART_ITEM_RESET,
 } from "../actionTypes/cartConstants";
 
-///////////////////////////        ACTIONS        /////////////////////////////////
+///*     ACTIONS      ///
 
 const addCart = (data, qty) => ({
   type: CART_ITEM_ADD,
@@ -38,9 +38,9 @@ const paymentMethod = (data) => ({
   payload: data,
 });
 
-////////////////////////////       ACTION CREATOR     //////////////////////////
+///*     ACTION CREATOR    ///
 
-//////////   ADD TO CART   ///////////////////
+///   ADD TO CART   ///
 export const addToCart = (API, id, category, qty) => async (
   dispatch,
   getState
@@ -51,28 +51,28 @@ export const addToCart = (API, id, category, qty) => async (
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 
-//////////   REMOVE FROM CART   ///////////////////
+///   REMOVE FROM CART   ///
 export const removeFromCart = (id) => (dispatch, getState) => {
   dispatch(removeCart(id));
   // Adding to localStorage after removing particular product
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 
-//////////   SAVE SHIPPING ADDRESS   ///////////////////
+///   SAVE SHIPPING ADDRESS   ///
 export const addShippingAddress = (data) => (dispatch) => {
   dispatch(shippingAddress(data));
 
   localStorage.setItem("shippingAddress", JSON.stringify(data));
 };
 
-//////////   SAVE PAYMENT METHOD   ///////////////////
+///   SAVE PAYMENT METHOD   ///
 export const addPaymentMethod = (data) => (dispatch) => {
   dispatch(paymentMethod(data));
 
   localStorage.setItem("paymentMethod", JSON.stringify(data));
 };
 
-//////////   RESET CART ITEMS   ///////////////////
+///   RESET CART ITEMS   ///
 export const emptyCart = () => (dispatch) => {
   dispatch({ type: CART_ITEM_RESET });
 
