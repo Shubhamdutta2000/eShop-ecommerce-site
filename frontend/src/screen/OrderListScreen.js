@@ -10,10 +10,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TablePagination from "@material-ui/core/TablePagination";
 
-import IconButton from "@material-ui/core/IconButton";
-import Tooltip from "@material-ui/core/Tooltip";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
 import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 
@@ -108,24 +104,24 @@ const OrderListScreen = ({ history, API }) => {
                     >
                       USER
                     </StyledTableCell>
-                    <StyledTableCell
+                    {/* <StyledTableCell
                       className={classes.tableHead}
                       align="right"
                     >
                       ADDRESS
-                    </StyledTableCell>
+                    </StyledTableCell> */}
                     <StyledTableCell
                       className={classes.tableHead}
                       align="right"
                     >
                       DATE
                     </StyledTableCell>
-                    {/* <StyledTableCell
+                    <StyledTableCell
                       className={classes.tableHead}
                       align="right"
                     >
                       PAYMENT METHOD
-                    </StyledTableCell> */}
+                    </StyledTableCell>
                     <StyledTableCell
                       className={classes.tableHead}
                       align="right"
@@ -173,26 +169,26 @@ const OrderListScreen = ({ history, API }) => {
                           >
                             {order.user && order.user.name.split(" ")[0]}
                           </StyledTableCell>
-                          <StyledTableCell
+                          {/* <StyledTableCell
                             className={classes.tableCol}
                             align="right"
                           >
                             {order.shippingAddress.city},{" "}
                             {order.shippingAddress.postalCode},{" "}
                             {order.shippingAddress.country}
-                          </StyledTableCell>
+                          </StyledTableCell> */}
                           <StyledTableCell
                             className={classes.tableCol}
                             align="right"
                           >
                             {order.createdAt.substring(0, 10)}
                           </StyledTableCell>
-                          {/* <StyledTableCell
+                          <StyledTableCell
                             className={classes.tableCol}
                             align="right"
                           >
                             {order.paymentMethod}
-                          </StyledTableCell> */}
+                          </StyledTableCell>
 
                           <StyledTableCell
                             className={classes.tableCol}
