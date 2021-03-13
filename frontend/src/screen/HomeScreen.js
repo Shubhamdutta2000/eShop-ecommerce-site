@@ -15,6 +15,7 @@ import { listProducts } from "../redux/actions/productListAction";
 import Loader from "../components/Loader";
 import ErrMess from "../components/Message";
 import Paginate from "../components/Paginate";
+import Meta from "../components/Meta";
 
 // Carousal Data
 import { carousalData } from "../utils/carousalData";
@@ -136,8 +137,8 @@ export default function Home({ location, API, isMobile }) {
 
   return (
     <>
+      <Meta />
       {/*//   CAROUSAL   /// */}
-
       <OwlCarousel
         key={products.length}
         className="owl-carousel owl-theme"

@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 //////////////////    COMPONENTS     //////////////////////////
 import Rating from "../components/Rating";
 import Message from "../components/Message";
+import Meta from "../components/Meta";
 import Skeleton from "./skeletons/ProductScreenSkeleton";
 
 /////////////////     REDUX    ///////////////////////////////////
@@ -114,6 +115,8 @@ export default function ProductScreen({ history, match, API, isMobile }) {
         <Message varient="#FC308B">{error}</Message>
       ) : (
         <>
+          {/* /// add custom title in productScreen (of product name) / */}
+          <Meta title={`${product.name}`} />
           <Row>
             <Col md={6}>
               <Image

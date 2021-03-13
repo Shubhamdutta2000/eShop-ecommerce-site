@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 //////////////////   CSS style   //////////////////////////////
 
 import "../styles/Screen/CartScreen.css";
+import Meta from "../components/Meta";
 
 const CartScreen = ({ match, location, history, isMobile, API }) => {
   const productId = match.params.id;
@@ -63,8 +64,9 @@ const CartScreen = ({ match, location, history, isMobile, API }) => {
 
   return (
     <>
+      {/* /// add custom title in Cart Screen / */}
+      <Meta title="Cart Screen" />
       {/*///  BREADCRUMB OF NAV  /*/}
-
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">

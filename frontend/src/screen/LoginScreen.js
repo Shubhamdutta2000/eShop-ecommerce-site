@@ -29,6 +29,7 @@ import { useStyle } from "./customStyle/allFormsScreen";
 import CheckoutStepper from "../components/CheckoutStepper";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import Meta from "../components/Meta";
 
 const LoginScreen = ({ history, location, API }) => {
   const classes = useStyle();
@@ -59,6 +60,8 @@ const LoginScreen = ({ history, location, API }) => {
 
   return (
     <>
+      {/* /// add custom title in Login Screen / */}
+      <Meta title="Login Screen" />
       {redirect === "shipping" ? <CheckoutStepper step={0} /> : null}
       <Paper elevation={14} className={classes.paper}>
         <Avatar className={classes.avatar}>
