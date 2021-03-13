@@ -113,3 +113,16 @@ export const getMyOrders = asyncHandler(async (req, res, next) => {
     next(error);
   }
 });
+
+//  @purpose: GET all orders
+//  @access:  Private/Admin
+//  @route:   GET /order
+export const getAllOrders = asyncHandler(async (req, res, next) => {
+  try {
+    const order = await OrderModel.find({}).populate("user", "_id, name");
+    res.json(order);
+  } catch (error) {
+    res.status(404);
+    next(error);
+  }
+});

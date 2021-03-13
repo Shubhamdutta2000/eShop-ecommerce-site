@@ -155,3 +155,9 @@ GET http://localhost:5000/config/paypal
 ######################   LOGGED IN USER ORDERS (paid)   #############
 GET http://localhost:5000/orders/myorders
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTVhMjM2NzI2ZDRkMGM4NGYyZjY1OSIsImlhdCI6MTYxNTIxMTMwMSwiZXhwIjoxNjE1MjE0OTAxfQ.gTTicFfLdipDV2SbEGSBmVfTK2tEgv5yr3nu1w4vnss
+
+
+
+######################   ALL ORDERS (for admin user)   #############
+GET http://localhost:5000/orders
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTI1MDZmNWE5MDI0MDU3OGYwY2MxMCIsImlhdCI6MTYxNTM5Mjc4MiwiZXhwIjoxNjE2MjU2NzgyfQ.ggtdTg_JHyFmDYd-IqM6Py31IACLG0C13FRij64Tz_4
