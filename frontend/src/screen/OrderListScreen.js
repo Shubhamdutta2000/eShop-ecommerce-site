@@ -224,8 +224,8 @@ const OrderListScreen = ({ history, API }) => {
                             )}
                           </StyledTableCell>
                           <StyledTableCell align="right">
-                            {/* Edit order detail */}
-                            <Link to={`/admin/order/${order._id}`}>
+                            {/*Order details (can marked as delivered) */}
+                            <Link to={`/orders/${order._id}`}>
                               <Button color="primary">Details</Button>
                             </Link>
 

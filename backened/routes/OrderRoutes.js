@@ -5,7 +5,8 @@ import {
   getMyOrders,
   getOrderById,
   updateOrderToPaid,
-  getAllOrders, //for admin user
+  getAllOrders,
+  updateOrderToDelivered, //for admin user
 } from "../controllers/orderController.js";
 
 const router = express.Router();
@@ -17,5 +18,8 @@ router
 router.route("/myorders").get(authProtect, getMyOrders);
 router.route("/:id").get(authProtect, getOrderById);
 router.route("/:id/payment").put(authProtect, updateOrderToPaid);
+router
+  .route("/:id/deliver")
+  .put(authProtect, adminCheck, updateOrderToDelivered);
 
 export default router;

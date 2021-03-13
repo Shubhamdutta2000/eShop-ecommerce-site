@@ -126,3 +126,27 @@ export const getAllOrders = asyncHandler(async (req, res, next) => {
     next(error);
   }
 });
+
+//  @purpose: UPDATE order model to delivered
+//  @access:  Private/Admin
+//  @route:   UPDATE /order/:id/deliver
+export const updateOrderToDelivered = asyncHandler(async (req, res, next) => {
+  try {
+    const order = await OrderModel.findById(req.params.id);
+
+    if (order) {
+      order.isDelivered = true;
+      order.deliveredAt = Date.now();
+      const updatedOrder = await order.save();
+      res.status(201);
+      res.json(updatedOrder);
+    } else {
+      res.status(404);
+      const err = new Error("Order not Found");
+      next(err);
+    }
+  } catch (error) {
+    res.status(404);
+    next(error);
+  }
+});

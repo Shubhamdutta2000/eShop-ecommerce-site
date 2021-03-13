@@ -30,6 +30,7 @@ import {
   orderPayReducer,
   myOrdersReducer,
   allOrdersReducer,
+  orderDeliverReducer,
 } from "./reducers/order";
 
 const reducer = combineReducers({
@@ -53,6 +54,7 @@ const reducer = combineReducers({
   orderPay: orderPayReducer,
   myOrders: myOrdersReducer,
   allOrders: allOrdersReducer, // for admin user only
+  orderDeliver: orderDeliverReducer, // for admin user only
 });
 
 // GET all cart Items from local Storage
