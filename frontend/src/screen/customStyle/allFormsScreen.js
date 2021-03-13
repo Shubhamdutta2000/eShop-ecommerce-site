@@ -137,18 +137,13 @@ export const useStyle = makeStyles((theme) => ({
 
   // upload image button
   uploadButton: {
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "#f0f0f0",
-        "&:hover": {
-          cursor: "pointer",
-        },
-      },
-    },
-
-    marginTop: "0.4rem",
+    marginTop: "0.8rem",
+    marginBottom: "0.4rem",
     marginRight: "0rem",
     width: "100%",
+    "&:hover": {
+      cursor: "pointer",
+    },
   },
 
   icon: {

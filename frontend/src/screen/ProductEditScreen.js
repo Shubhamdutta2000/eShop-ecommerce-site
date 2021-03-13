@@ -307,7 +307,7 @@ const ProductEditScreen = ({ history, match, API }) => {
                     labelWidth={60}
                   />
                   {/* UPLOAD IMAGE */}
-                  <TextField
+                  <input
                     id="upload-image"
                     name="upload-image"
                     className={classes.uploadButton}
