@@ -16,6 +16,7 @@ import CloseIcon from "@material-ui/icons/Close";
 /// Component  ///
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import Meta from "../components/Meta";
 
 /// Custom Style  ///
 import {
@@ -58,6 +59,8 @@ const OrderListScreen = ({ history, API }) => {
 
   return (
     <>
+      {/* /// add custom title in dmin OrderList Screen / */}
+      <Meta title="eShop Admin: Order List" />
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">

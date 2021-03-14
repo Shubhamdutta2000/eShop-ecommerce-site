@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-///////////////////////////     MATERIAL UI   ////////////////////////////////
-
+///     MATERIAL UI   ///
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -16,21 +15,22 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 
-//////////////////////////////    / Components   ////////////////////////
+///    Components   ///
 import Message from "../components/Message";
+import Loader from "../components/Loader";
+import Meta from "../components/Meta";
 import { StripeCheckout } from "../components/StripeCheckout";
 import { PayPalCheckout } from "../components/PayPalCheckout";
 
-///////////////////////////    REDUX     ///////////////////////////////
+///    REDUX     ///
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, deliverOrder } from "../redux/actions/orderAction";
 import { ORDER_DELIVER_RESET } from "../redux/actionTypes/orderConstants";
 
-///////////////////////////    CUSTOM STYLES     ///////////////////////////////
+///    CUSTOM STYLES     ///
 import { useStyles } from "./customStyle/PlaceOrderScreen";
 import "../styles/Screen/OrderScreen.css";
 import OrderScreenSkeleton from "./skeletons/OrderScreenSkeleton";
-import Loader from "../components/Loader";
 
 const OrderScreen = ({ match, history, API, isMobile }) => {
   const classes = useStyles();
@@ -73,6 +73,8 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
     <Message varient="danger">{error}</Message>
   ) : (
     <>
+      {/* /// add custom title in Order Screen / */}
+      <Meta title="Order Screen" />
       <br />
       <Typography
         variant={isMobile ? "h6" : "h4"}
@@ -89,7 +91,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
       <br />
       <br />
       <Grid container spacing={4}>
-        {/*/////////////////////   LEFT SIDE    ///////////////////////////////////*/}
+        {/* ///   LEFT SIDE    // */}
         <Grid item md={8} xs={12}>
           <Paper className={classes.paper} elevation={6}>
             <List className={classes.list}>
@@ -250,7 +252,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
           </Paper>
         </Grid>
 
-        {/*/////////////////////   RIGHT SIDE    ///////////////////////////////////*/}
+        {/* ///   RIGHT SIDE    /// */}
         <Grid item md={4} xs={12}>
           <Paper elevation={6}>
             <List>

@@ -30,13 +30,15 @@ import {
   listProductDetails,
   updateProduct,
 } from "../redux/actions/productDetailsAction";
+import { PRODUCT_UPDATE_RESET } from "../redux/actionTypes/productDetailsConstants";
+
+///  COMPONENT  ///
+import Message from "../components/Message";
+import Loader from "../components/Loader";
+import Meta from "../components/Meta";
 
 ///     CUSTOM STYLE    ///
 import { useStyle } from "./customStyle/allFormsScreen";
-
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import { PRODUCT_UPDATE_RESET } from "../redux/actionTypes/productDetailsConstants";
 
 const ProductEditScreen = ({ history, match, API }) => {
   const classes = useStyle();
@@ -154,6 +156,8 @@ const ProductEditScreen = ({ history, match, API }) => {
 
   return (
     <>
+      {/* /// add custom title in Admin Productedit Screen / */}
+      <Meta title="eShop Admin: Product Edit" />
       {/* BREADCRUMB */}
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-/////////////////////////////////////////    MATERIAL UI    ////////////////////////////////
+///    MATERIAL UI    ///
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -9,7 +9,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { Avatar, Button } from "@material-ui/core";
 
-///////////////////////////////////////      MATERIAL UI ICONS     ///////////////////////////////
+///      MATERIAL UI ICONS     ///
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import LocationCityIcon from "@material-ui/icons/LocationCity";
@@ -17,23 +17,25 @@ import FiberPinIcon from "@material-ui/icons/FiberPin";
 import LanguageIcon from "@material-ui/icons/Language";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
-////////////////////////////////////////     REDUX          /////////////////////////////////////
+///     REDUX       ///
 import { useSelector, useDispatch } from "react-redux";
 import { addShippingAddress } from "../redux/actions/cartAction";
 
+///   COMPONENT   ///
 import CheckoutStepper from "../components/CheckoutStepper";
+import Meta from "../components/Meta";
 
-///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
+///     CUSTOM STYLE    ///
 import { useStyle } from "./customStyle/allFormsScreen";
 
 const ShippingScreen = ({ history }) => {
   const classes = useStyle();
 
-  ////////////////////     REDUX  REDUCER   ////////////////////
+  ///     REDUX  REDUCER   ///
   const shippingAdd = useSelector((state) => state.cart);
   const { shippingAddress } = shippingAdd;
 
-  ////////////////////    SHIPPING ADDRESS STATE (DEFAULT: FROM LOCAL STORAGE)    ////////////////////////
+  ///    SHIPPING ADDRESS STATE (DEFAULT: FROM LOCAL STORAGE)    ///
   const [address, setAddress] = useState(shippingAddress.address);
   const [city, setCity] = useState(shippingAddress.city);
   const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
@@ -59,13 +61,15 @@ const ShippingScreen = ({ history }) => {
     history.push("/paymentMethod");
   };
 
-  /////////////////////    GO BACK      ////////////////////////
+  ///    GO BACK      ///
   const goBack = () => {
     history.goBack();
   };
 
   return (
     <>
+      {/* /// add custom title in Shipping Screen / */}
+      <Meta title="Shipping Address" />
       <CheckoutStepper step={1} />
       <Paper elevation={14} className={classes.paper}>
         <div onClick={goBack}>

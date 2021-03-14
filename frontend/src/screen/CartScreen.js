@@ -65,7 +65,7 @@ const CartScreen = ({ match, location, history, isMobile, API }) => {
   return (
     <>
       {/* /// add custom title in Cart Screen / */}
-      <Meta title="Cart Screen" />
+      <Meta title="Shopping Cart" />
       {/*///  BREADCRUMB OF NAV  /*/}
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">

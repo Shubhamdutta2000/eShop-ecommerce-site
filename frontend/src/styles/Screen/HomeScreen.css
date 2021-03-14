@@ -4,12 +4,19 @@
 /* DESKTOP VIEW */
 
 .products_section {
-  margin: 6rem;
+  margin-left: 6rem;
+  margin-right: 6rem;
+  margin-top: 0;
 }
 
 .category_heading {
   font-family: "Montserrat", sans-serif;
-  color: rgb(0, 98, 173);
+  color: rgb(0, 89, 156);
+  font-size: 2.6rem;
+}
+
+.noProduct {
+  color: rgb(0, 139, 58);
 }
 
 /* OWL CAROUSAL FOR HERO SECTION */
@@ -97,9 +104,14 @@
 }
 
 .category_heading_phone {
-  font-size: 1.14rem;
+  font-size: 1.15rem;
   font-family: "Montserrat", sans-serif;
   color: rgb(0, 98, 173);
+}
+
+.noProduct_phone {
+  font-size: 1.2rem;
+  color: rgb(0, 139, 58);
 }
 
 /* CAROUSAL MOBILE VIEW */
@@ -182,7 +194,6 @@
 /* OWL CAROUSAL */
 .owl-carousel .owl-nav {
   overflow: hidden;
-  height: 0px;
 }
 
 .owl-theme .owl-dots {

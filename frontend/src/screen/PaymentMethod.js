@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-/////////////////////////////////////////    MATERIAL UI    ////////////////////////////////
+///    MATERIAL UI    ///
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Radio from "@material-ui/core/Radio";
@@ -11,29 +11,30 @@ import { Avatar, Button } from "@material-ui/core";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
+///   COMPONENTS   ///
 import CheckoutStepper from "../components/CheckoutStepper";
+import Meta from "../components/Meta";
 
-////////////////////////////////////////     REDUX          /////////////////////////////////////
+///    REDUX      ///
 import { useSelector, useDispatch } from "react-redux";
 import { addPaymentMethod } from "../redux/actions/cartAction";
 
-///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
+///     CUSTOM STYLE    ///
 import { useStyle } from "./customStyle/allFormsScreen";
 
 const PaymentMethodScreen = ({ history }) => {
   const classes = useStyle();
 
-  ////////////////////     REDUX  REDUCER of Shipping Address   ////////////////////
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const dispatch = useDispatch();
+
+  ///     REDUX  REDUCER of Shipping Address   ///
   const shippingAdd = useSelector((state) => state.cart);
   const { shippingAddress } = shippingAdd;
 
   if (!shippingAddress) {
     history.push("/shipping");
   }
-
-  const [paymentMethod, setPaymentMethod] = useState("");
-
-  const dispatch = useDispatch();
 
   // User Login Credentials
   const login = useSelector((state) => state.userLogin);
@@ -48,18 +49,20 @@ const PaymentMethodScreen = ({ history }) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    /////////////////////////      DISPATCH PAYMENT METHOD and push to /placeorder   ////////////////
+    ///      DISPATCH PAYMENT METHOD and push to /placeorder   ///
     dispatch(addPaymentMethod(paymentMethod));
     history.push("/placeorder");
   };
 
-  /////////////////////    GO BACK      ////////////////////////
+  ///    GO BACK      ///
   const goBack = () => {
     history.goBack();
   };
 
   return (
     <>
+      {/* /// add custom title in PaymentMethod Screen / */}
+      <Meta title="Payment Method" />
       <CheckoutStepper step={2} />
       <Paper elevation={14} className={classes.paper}>
         <div onClick={goBack}>

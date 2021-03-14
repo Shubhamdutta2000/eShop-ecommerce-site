@@ -18,16 +18,19 @@ import Switch from "@material-ui/core/Switch";
 import EmailIcon from "@material-ui/icons/Email";
 import PeopleIcon from "@material-ui/icons/People";
 
-///     REDUX     ///
-import { useSelector, useDispatch } from "react-redux";
-import { getUserDetails, updateUser } from "../redux/actions/userAction";
-
-///     CUSTOM STYLE    ///
-import { useStyle } from "./customStyle/allFormsScreen";
+///   COMPONENT  ///
 
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import Meta from "../components/Meta";
+
+///     REDUX     ///
+import { useSelector, useDispatch } from "react-redux";
+import { getUserDetails, updateUser } from "../redux/actions/userAction";
 import { USER_UPDATE_RESET } from "../redux/actionTypes/userConstants";
+
+///     CUSTOM STYLE    ///
+import { useStyle } from "./customStyle/allFormsScreen";
 
 const UserEditScreen = ({ history, match, API }) => {
   const classes = useStyle();
@@ -91,6 +94,8 @@ const UserEditScreen = ({ history, match, API }) => {
 
   return (
     <>
+      {/* /// add custom title in Login Screen / */}
+      <Meta title="eShop Admin: User Edit" />
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
