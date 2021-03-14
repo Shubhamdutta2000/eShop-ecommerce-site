@@ -61,7 +61,7 @@ const LoginScreen = ({ history, location, API }) => {
   return (
     <>
       {/* /// add custom title in Login Screen / */}
-      <Meta title="Login Screen" />
+      <Meta title="eShop Login" />
       {redirect === "shipping" ? <CheckoutStepper step={0} /> : null}
       <Paper elevation={14} className={classes.paper}>
         <Avatar className={classes.avatar}>

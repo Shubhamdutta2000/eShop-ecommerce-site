@@ -69,7 +69,7 @@ const RegisterScreen = ({ history, location, API }) => {
   return (
     <>
       {/* /// add custom title in Register Screen / */}
-      <Meta title="Register Screen" />
+      <Meta title="eShop Register" />
       <Paper elevation={14} className={classes.paper}>
         <Avatar className={classes.avatar}>
           <PeopleIcon />

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-///////////////////////////     MATERIAL UI   ////////////////////////////////
+import { Button } from "react-bootstrap";
 
+///     MATERIAL UI   ///
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -12,20 +13,20 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 
-import ErrMess from "../components/Message";
-
-///////////////////////////    REDUX     ///////////////////////////////
+///    REDUX     ///
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../redux/actions/cartAction";
 import { createOrder } from "../redux/actions/orderAction";
 import { CREATE_ORDER_RESET } from "../redux/actionTypes/orderConstants";
 
+///  COMPONENTS   ///
+import ErrMess from "../components/Message";
 import CheckoutStepper from "../components/CheckoutStepper";
-import { Button } from "react-bootstrap";
-import { Container } from "@material-ui/core";
+import Meta from "../components/Meta";
 
-///////////////////////////    CUSTOM STYLES     ///////////////////////////////
+///    CUSTOM STYLES     ///
 import { useStyles } from "./customStyle/PlaceOrderScreen";
 
 const PlaceOrderScreen = ({ history, API, isMobile }) => {
@@ -41,25 +42,25 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
   const cart = useSelector((state) => state.cart);
   const { cartItems, shippingAddress, paymentMethod } = cart;
 
-  /////////////////////  Items Price   ////////////////////
+  ///  Items Price   ///
   cart.itemsPrice = cartItems
     .reduce((acc, item) => acc + item.qty * item.price, 0)
     .toFixed(2);
 
-  ////////////////////   Shipping Price  /////////////////////////////
+  ///   Shipping Price  ///
   cart.shippingPrice = (cart.itemsPrice > 150 ? 100 : 0).toFixed(2);
 
-  //////////////////////  Tax Price  /////////////////////////////
+  ///  Tax Price  ///
   cart.taxPrice = ((cart.itemsPrice * 25) / 100).toFixed(2);
 
-  /////////////////////   TOTAL PRICE  /////////////////////////////
+  ///   TOTAL PRICE  ///
   cart.totalPrice = (
     Number(cart.itemsPrice) +
     Number(cart.shippingPrice) +
     Number(cart.taxPrice)
   ).toFixed(2);
 
-  /////////////////  REMOVE ORDER FROM CART   //////////////
+  ///  REMOVE ORDER FROM CART   ///
   const removeCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
@@ -67,7 +68,7 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
   const placeOrder = useSelector((state) => state.order);
   const { order, success } = placeOrder;
 
-  //////////////////  PLACE ORDER   //////////////////////
+  ///  PLACE ORDER   ///
   const placeOrderHandler = () => {
     dispatch(
       createOrder(API, {
@@ -94,10 +95,11 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
 
   return (
     <>
+      {/* /// add custom title in Place Order Screen / */}
+      <Meta title="Place Order" />
       <CheckoutStepper step={3} />
-
       <Grid container spacing={4}>
-        {/*/////////////////////   LEFT SIDE    ///////////////////////////////////*/}
+        {/* ///   LEFT SIDE    /// */}
         <Grid item md={8} xs={12}>
           <Paper className={classes.paper} elevation={6}>
             <List className={classes.list}>
@@ -220,7 +222,7 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
           </Paper>
         </Grid>
 
-        {/*/////////////////////   RIGHT SIDE    ///////////////////////////////////*/}
+        {/* ///   RIGHT SIDE    /// */}
         <Grid item md={4} xs={12}>
           <Paper elevation={6}>
             <List>

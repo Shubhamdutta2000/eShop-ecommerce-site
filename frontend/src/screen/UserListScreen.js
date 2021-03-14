@@ -20,6 +20,7 @@ import CloseIcon from "@material-ui/icons/Close";
 /// Component  ///
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import Meta from "../components/Meta";
 
 /// Custom Style  ///
 import {
@@ -73,6 +74,8 @@ const UserListScreen = ({ history, API }) => {
 
   return (
     <>
+      {/* /// add custom title in User List Screen / */}
+      <Meta title="eShop Admin: User List" />
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
