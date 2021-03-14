@@ -139,10 +139,10 @@ const ProductEditScreen = ({ history, match, API }) => {
           "Content-Type": "multipart/form-data",
         },
       };
-      await axios.post(`${API}/upload`, formData, config);
+      const { data } = await axios.post(`${API}/upload`, formData, config);
 
       // set images readable instance of image being uploaded using multer
-      setImage(URL.createObjectURL(e.target.files[0]));
+      setImage(data);
       setUploading(false);
     } catch (error) {
       console.error(

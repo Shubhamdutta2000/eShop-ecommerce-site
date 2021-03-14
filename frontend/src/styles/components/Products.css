@@ -1,7 +1,7 @@
 .card {
   overflow: hidden;
   border: none;
-  box-shadow: 0 10px 20px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 18px 2px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;
 }
 
