@@ -44,11 +44,10 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: "3.6rem",
     marginBottom: "2rem",
     letterSpacing: "-0.018em",
-    background: "linear-gradient(90deg, #014581 0%, #5eb9ffec 86.54%)",
+    background: "linear-gradient(90deg, #0063bbdb 0%, #4ca8efcc 86.54%)",
     backgroundClip: "text",
-    webkitBackgroundClip: "text",
-    webkitTextFillColor: "transparent",
-
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
     [theme.breakpoints.down("xs")]: {
       fontSize: "3rem",
     },
