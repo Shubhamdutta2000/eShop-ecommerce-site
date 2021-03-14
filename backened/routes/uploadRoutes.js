@@ -9,7 +9,7 @@ console.log(API);
 // storage of file
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "myUploads/");
+    cb(null, "myuploads/");
   },
   filename: function (req, file, cb) {
     cb(

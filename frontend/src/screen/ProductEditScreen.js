@@ -140,9 +140,9 @@ const ProductEditScreen = ({ history, match, API }) => {
         },
       };
       const { data } = await axios.post(`${API}/upload`, formData, config);
-
+      const imageUrl = data.replace(/\\/g, "/");
       // set images readable instance of image being uploaded using multer
-      setImage(data);
+      setImage(imageUrl);
       setUploading(false);
     } catch (error) {
       console.error(
