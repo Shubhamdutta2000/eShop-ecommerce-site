@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Row, Col } from "react-bootstrap";
-import Product from "../components/Products";
+import { Link } from "react-router-dom";
+import { Row, Col, Button } from "react-bootstrap";
 
 // Owl Carousal
 import OwlCarousel from "react-owl-carousel";
@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../redux/actions/productListAction";
 
 // Components
+import Product from "../components/Products";
 import Loader from "../components/Loader";
 import ErrMess from "../components/Message";
 import Paginate from "../components/Paginate";
@@ -23,7 +24,7 @@ import { carousalData } from "../utils/carousalData";
 // Styling
 import "../styles/Screen/HomeScreen.css";
 
-export default function Home({ location, API, isMobile }) {
+export default function Home({ location, history, API, isMobile }) {
   // option for card carousal
   const options = {
     loop: false,
@@ -135,59 +136,86 @@ export default function Home({ location, API, isMobile }) {
     }
   };
 
+  ///   GO BACK   ///
+  const goBack = () => {
+    history.goBack();
+  };
+
+  console.log(currentProducts);
+
   return (
     <>
       <Meta />
       {/*//   CAROUSAL   /// */}
-      <OwlCarousel
-        key={products.length}
-        className="owl-carousel owl-theme"
-        {...options2}
-      >
-        {carousalData.map((data, index) => (
-          <Col key={index}>
-            <div
-              className={isMobile ? "carousal_phone" : "carousal"}
-              style={
-                isMobile
-                  ? {
-                      background: `url(${data.image_mobile})`,
-                      backgroundPosition: "-30px",
-                      backgroundSize: "cover",
-                      backgroundRepeat: "no-repeat",
-                    }
-                  : {
-                      background: `url(${data.image_desktop})`,
-                      backgroundPosition: "center",
-                      backgroundSize: "cover",
-                      backgroundRepeat: "no-repeat",
-                    }
-              }
-            >
-              <h1
-                className={
-                  isMobile ? "carousal_heading_phone" : "carousal_heading"
+      {!isQuerying ? (
+        <OwlCarousel
+          key={products.length}
+          className="owl-carousel owl-theme"
+          {...options2}
+        >
+          {carousalData.map((data, index) => (
+            <Col key={index}>
+              <div
+                className={isMobile ? "carousal_phone" : "carousal"}
+                style={
+                  isMobile
+                    ? {
+                        background: `url(${data.image_mobile})`,
+                        backgroundPosition: "-30px",
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                      }
+                    : {
+                        background: `url(${data.image_desktop})`,
+                        backgroundPosition: "center",
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                      }
                 }
               >
-                {data.heading}
-              </h1>
-              <h2
-                className={isMobile ? "carousal_para_phone" : "carousal_para"}
-              >
-                {data.para}
-              </h2>
-              <button
-                onClick={() => executeScroll(data.id)}
-                className={
-                  isMobile ? "carousal_button_phone" : "carousal_button"
-                }
-              >
-                SHOP NOW
-              </button>
-            </div>
-          </Col>
-        ))}
-      </OwlCarousel>
+                <h1
+                  className={
+                    isMobile ? "carousal_heading_phone" : "carousal_heading"
+                  }
+                >
+                  {data.heading}
+                </h1>
+                <h2
+                  className={isMobile ? "carousal_para_phone" : "carousal_para"}
+                >
+                  {data.para}
+                </h2>
+                <button
+                  onClick={() => executeScroll(data.id)}
+                  className={
+                    isMobile ? "carousal_button_phone" : "carousal_button"
+                  }
+                >
+                  SHOP NOW
+                </button>
+              </div>
+            </Col>
+          ))}
+        </OwlCarousel>
+      ) : (
+        <>
+          <div className={!isMobile ? "mx-5 px-4 py-4" : "mx-3 px-3 py-4"}>
+            <nav aria-label="breadcrumb">
+              <ol className="breadcrumb">
+                <li className="breadcrumb-item">
+                  <Link to="/">Home</Link>
+                </li>
+                <li className="breadcrumb-item active" aria-current="page">
+                  Search
+                </li>
+              </ol>
+            </nav>
+            <Button onClick={goBack} className="btn btn-light mt-2 mb-4">
+              Go Back
+            </Button>
+          </div>
+        </>
+      )}
 
       {/* /////////////////    BUG: Render carusal before children ////////// */}
       {/*//////////////////    SOLUTION: ADD key to OwlCarousal  */}
@@ -344,30 +372,49 @@ export default function Home({ location, API, isMobile }) {
 
         {/*// CAROUSAL ENDS //*/}
 
-        {/* ALL PRODUCTS */}
+        {/* ALL PRODUCTS || Searched Products */}
         <h1
           className={
-            isMobile
+            isQuerying && isMobile
+              ? "category_heading_phone mb-4"
+              : isQuerying
+              ? "category_heading mb-5"
+              : isMobile
               ? "category_heading_phone  pt-5 mt-4"
-              : "category_heading pt-5 mt-4"
+              : "category_heading pt-5 mt-5"
           }
         >
-          Latest Products
+          {!isQuerying ? "Latest Products" : `Results of ${keyword}`}
         </h1>
 
         <Row>
           {loading ? (
-            <Loader />
+            isQuerying ? (
+              <>
+                <Loader />
+                <h2>Searching...</h2>
+              </>
+            ) : (
+              <Loader />
+            )
           ) : error ? (
             <ErrMess varient="#FC308B">{error}</ErrMess>
-          ) : (
+          ) : currentProducts.length !== 0 ? (
             currentProducts.map((product, index) => (
               <Col md={4} lg={3} key={index}>
                 <Product product={product} />
               </Col>
             ))
+          ) : (
+            <>
+              {/* No Products found  */}
+              <Col xs={12} className="text-center">
+                <h2 className={isMobile ? "noProduct_phone" : "noProduct"}>
+                  No Products Found
+                </h2>
+              </Col>
+            </>
           )}
-
           {/*// PAGINATION COMPONENT //*/}
           <Paginate
             totalPage={totalPage}

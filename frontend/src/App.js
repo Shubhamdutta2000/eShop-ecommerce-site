@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./screen/HomeScreen";
-import "./index.css";
 import ProductScreen from "./screen/ProductScreen";
 import CartScreen from "./screen/CartScreen";
 import LoginScreen from "./screen/LoginScreen";
@@ -19,6 +18,9 @@ import UserEditScreen from "./screen/UserEditScreen";
 import ProductListScreen from "./screen/ProductListScreen";
 import ProductEditScreen from "./screen/ProductEditScreen";
 import OrderListScreen from "./screen/OrderListScreen";
+
+///  STYLE   ///
+import "./styles/styles.css";
 
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
@@ -52,11 +54,16 @@ function App() {
     <Router>
       <div className="body">
         <Header isMobile={isMobile} />
-        <main>
+        <main className="screens">
           <Route
             path="/search"
-            render={({ location }) => (
-              <Home location={location} API={API} isMobile={isMobile} />
+            render={({ location, history }) => (
+              <Home
+                location={location}
+                API={API}
+                isMobile={isMobile}
+                history={history}
+              />
             )}
           />
           <Route
