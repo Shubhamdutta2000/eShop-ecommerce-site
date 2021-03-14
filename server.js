@@ -46,7 +46,7 @@ app.use("/upload", UploadRoute);
 
 // file upload
 const __dirname = path.resolve();
-app.use("/myUploads", express.static(path.join(__dirname, "/myUploads")));
+app.use("/myuploads", express.static(path.join(__dirname, "/myuploads")));
 
 ///    For error handling   ///
 app.use(NotFound);
