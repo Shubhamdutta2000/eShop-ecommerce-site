@@ -4,9 +4,11 @@ eShop official website where you can buy various products at very less price.
 
 > eCommerce website made with MERN stack with redux as state management system
 
-![screenshot](https://github.com/Shubhamdutta2000/eShop/blob/main/frontend/public/assets/images/screenshots/carousal.PNG)
+![screenshot](https://github.com/Shubhamdutta2000/eShop/blob/main/frontend/public/assets/images/screenshots/carousalAdmin2.PNG)
 
 ## Features
+
+### v1:
 
 - Full featured shopping cart
 - Payment Integration:
@@ -26,6 +28,26 @@ eShop official website where you can buy various products at very less price.
   - PaymentMethod Screen
   - PlaceOrder Screen
 - Breadcrumb
+
+### v2:
+
+- Sticky Navbar
+- Custom title in each screen (in meta tag)
+- Logout on JWT expire
+- Descent Search Screen look
+- Add upload image functionality (locally) (by accessing backend url)
+- Admin Panel:
+  - UserList
+  - UserEdit
+  - Product List
+  - Product Edit
+  - Product Create
+  - OrderList
+  - Order Edit (marked As Delivered)
+
+### v3:
+
+- Add Upload functionality ( stored in firebase cloud storage ) in product admin section
 
 ## Usage
 
