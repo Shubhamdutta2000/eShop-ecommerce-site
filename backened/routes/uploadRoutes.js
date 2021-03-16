@@ -44,7 +44,7 @@ var upload = multer({
 
 router.post("/", upload.single("image"), (req, res, next) => {
   res.status(200);
-  res.send(`http://localhost:5000/${req.file.path}`); // not needed
+  res.send(`${API}/${req.file.path}`);
 });
 
 export default router;
