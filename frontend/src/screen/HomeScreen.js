@@ -141,8 +141,6 @@ export default function Home({ location, history, API, isMobile }) {
     history.goBack();
   };
 
-  console.log(currentProducts);
-
   return (
     <>
       <Meta />

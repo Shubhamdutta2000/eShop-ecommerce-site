@@ -1,10 +1,13 @@
 import multer from "multer";
 import path from "path";
 import express from "express";
+
 const router = express.Router();
 const API = process.env.API;
 
 console.log(API);
+
+///   MULTER CONFIG.   ///
 
 // storage of file
 var storage = multer.diskStorage({
@@ -41,7 +44,7 @@ var upload = multer({
 
 router.post("/", upload.single("image"), (req, res, next) => {
   res.status(200);
-  res.send(`${API}/${req.file.path}`); // not needed
+  res.send(`http://localhost:5000/${req.file.path}`); // not needed
 });
 
 export default router;

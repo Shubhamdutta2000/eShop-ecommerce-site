@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import axios from "axios";
+
+///   FILE UPLOAD   ///
+import { multerStorage } from "../imageUpload/multerStorage";
+import { firebaseStorage } from "../imageUpload/firebaseStorage";
 
 ///    MATERIAL UI    ///
 import Paper from "@material-ui/core/Paper";
@@ -42,6 +45,7 @@ import { useStyle } from "./customStyle/allFormsScreen";
 
 const ProductEditScreen = ({ history, match, API }) => {
   const classes = useStyle();
+  const UPLOAD_TYPE = process.env.REACT_APP_UPLOAD_TYPE;
 
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
@@ -127,30 +131,17 @@ const ProductEditScreen = ({ history, match, API }) => {
     );
   };
 
-  // handle upload image
+  ///  handle upload image  ///
   const handleUploadImage = async (e) => {
     const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("image", file);
-    setUploading(true);
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      };
-      const { data } = await axios.post(`${API}/upload`, formData, config);
-      const imageUrl = data.replace(/\\/g, "/");
-      // set images readable instance of image being uploaded using multer
-      setImage(imageUrl);
-      setUploading(false);
-    } catch (error) {
-      console.error(
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
-      );
-      setUploading(false);
+
+    // Upload images locally
+    if (UPLOAD_TYPE === "multer") {
+      await multerStorage(API, file, setUploading, setImage);
+    }
+    // upload images in firebase storage
+    else if (UPLOAD_TYPE === "firebase") {
+      await firebaseStorage(file, category, setUploading, setImage);
     }
   };
 
