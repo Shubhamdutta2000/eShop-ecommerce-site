@@ -2,7 +2,7 @@
 
 eShop official website where you can buy various products at very less price.
 
-> eCommerce website made with MERN stack with redux as state management system with pwa functionality
+> eCommerce website made with MERN stack with redux as state management system with Progressive Web App feature
 
 ![screenshot](https://github.com/Shubhamdutta2000/eShop/blob/main/frontend/public/assets/images/screenshots/carousalAdmin2.PNG)
 
@@ -48,7 +48,7 @@ eShop official website where you can buy various products at very less price.
 ### v3:
 
 - Add Upload functionality ( stored in firebase cloud storage ) in product admin section
-- Add PWA functionality to web app for highr engagement which prompt user to add to their mobile home screen
+- Add PWA feature to web app for highr engagement which prompt user to add to their mobile home screen
 
 ## Usage
 
