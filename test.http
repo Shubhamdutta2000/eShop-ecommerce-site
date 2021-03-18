@@ -72,8 +72,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTI1MDZmN
 ################  Auth Check  ########################
 
 GET http://localhost:5000/user/auth
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDYzNTcwZjcyNDRlMWI3ODZiMGJjMCIsImlhdCI6MTYxNTI5NTIyNywiZXhwIjoxNjE1Mjk1MjU3fQ.hLmOipLRaDRf6deJWjZd7WcdQUmAwR0BPwDzjuA5x4w
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTI1MDZmNWE5MDI0MDU3OGYwY2MxMCIsImlhdCI6MTYxNjA3MTYzOSwiZXhwIjoxNjE2MDcxNjY5fQ.Z688fjFmBNU7LuJUxNSaU-me1g4OTHCk5Y-xTe3OdDM
 
 
 #######################     LOGIN   ####################
