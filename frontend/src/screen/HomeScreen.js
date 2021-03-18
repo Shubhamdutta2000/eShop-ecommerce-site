@@ -52,7 +52,6 @@ export default function Home({ location, history, API, isMobile }) {
   const options2 = {
     loop: true,
     margin: 100,
-    nav: true,
     autoplay: true,
     autoplayTimeout: 4000,
     lazyLoad: true,
@@ -208,7 +207,7 @@ export default function Home({ location, history, API, isMobile }) {
                 </li>
               </ol>
             </nav>
-            <Button onClick={goBack} className="btn btn-light mt-2 mb-4">
+            <Button onClick={goBack} className="btn btn-light mt-2 mb-3">
               Go Back
             </Button>
           </div>
@@ -227,8 +226,8 @@ export default function Home({ location, history, API, isMobile }) {
               ref={electronicsRef}
               className={
                 isMobile
-                  ? "category_heading_phone  pt-5 mt-4"
-                  : " category_heading pt-5 mt-5"
+                  ? "category_heading_phone mt-4"
+                  : " category_heading mt-5"
               }
             >
               Electronics Accessories
@@ -263,7 +262,7 @@ export default function Home({ location, history, API, isMobile }) {
               ref={homeRef}
               className={
                 isMobile
-                  ? "category_heading_phone  pt-5 mt-4"
+                  ? "category_heading_phone  pt-2 mt-4"
                   : "category_heading pt-5 mt-5"
               }
             >
@@ -299,7 +298,7 @@ export default function Home({ location, history, API, isMobile }) {
               ref={mensRef}
               className={
                 isMobile
-                  ? "category_heading_phone  pt-5 mt-4"
+                  ? "category_heading_phone  pt-2 mt-4"
                   : "category_heading pt-5 mt-5"
               }
             >
@@ -335,7 +334,7 @@ export default function Home({ location, history, API, isMobile }) {
               ref={womensRef}
               className={
                 isMobile
-                  ? "category_heading_phone  pt-5 mt-4"
+                  ? "category_heading_phone  pt-2 mt-4"
                   : "category_heading pt-5 mt-5"
               }
             >
@@ -378,7 +377,7 @@ export default function Home({ location, history, API, isMobile }) {
               : isQuerying
               ? "category_heading mb-5"
               : isMobile
-              ? "category_heading_phone  pt-5 mt-4"
+              ? "category_heading_phone"
               : "category_heading pt-5 mt-5"
           }
         >
