@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import path from "path";
+///    Configuring all .env files   ///
 dotenv.config();
 import colors from "colors";
 import express from "express";
@@ -9,13 +10,12 @@ import cors from "cors";
 
 import { NotFound, errorhandler } from "./backened/middleware/errorHandling.js";
 
+import HomeRouter from "./backened/routes/homeRouter.js";
 import ProductRoutes from "./backened/routes/productRoutes.js";
 import UserRoutes from "./backened/routes/userRouter.js";
 import OrderRoutes from "./backened/routes/OrderRoutes.js";
 import stripePaymentRoute from "./backened/routes/stripePaymentRoute.js";
 import UploadRoute from "./backened/routes/uploadRoutes.js";
-
-///    Configuring all .env files   ///
 
 dbConnection();
 
@@ -29,12 +29,8 @@ app.use(cors());
 
 app.use(express.json());
 
-///   base route (for testing)     ///
-app.get("/", (req, res) => {
-  res.send("API works Fine");
-});
-
 ///    Routes      ///
+app.use("/", HomeRouter);
 app.use("/products", ProductRoutes);
 app.use("/user", UserRoutes);
 app.use("/orders", OrderRoutes);
