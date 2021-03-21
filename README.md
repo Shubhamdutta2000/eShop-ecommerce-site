@@ -48,7 +48,8 @@ eShop official website where you can buy various products at very less price.
 ### v3:
 
 - Add Upload functionality ( stored in firebase cloud storage ) in product admin section
-- Add PWA feature to web app for highr engagement which prompt user to add to their mobile home screen
+- Add PWA feature to web app for higher engagement which prompt user to add to their mobile home screen
+- Add Offline Page if no internet connection.
 
 ## Usage
 
