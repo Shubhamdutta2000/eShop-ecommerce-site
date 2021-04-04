@@ -1,7 +1,7 @@
 import UserModel from "../models/userModel.js";
 import resetPasswordModel from "../models/resetPasswordModel.js";
 import asyncHandler from "express-async-handler";
-import forgetPassword_mailer from "../mailers/forgetPassword_mailer.js";
+import resetPassword_mailer from "../mailers/resetPassword_mailer.js";
 import { v4 as uuidv4 } from "uuid";
 
 import { generateAccessToken } from "../utils/tokenGeneration.js";
@@ -230,7 +230,7 @@ const emailVerification = asyncHandler(async (req, res, next) => {
       .populate("user");
     console.log(resetPasswordReq);
     // Sending Mail
-    forgetPassword_mailer(resetPasswordReq);
+    resetPassword_mailer(resetPasswordReq);
 
     res.json({ accessToken: resetPassword.accessToken });
   } catch (error) {
