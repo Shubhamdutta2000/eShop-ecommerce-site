@@ -10,6 +10,8 @@ import {
   getUserById,
   updateUser,
   deleteUser,
+  emailVerification,
+  passwordReset,
 } from "../controllers/userController.js";
 
 import { authProtect, adminCheck } from "../middleware/authMiddleware.js";
@@ -31,5 +33,9 @@ router
   .get(authProtect, adminCheck, getUserById)
   .put(authProtect, adminCheck, updateUser)
   .delete(authProtect, adminCheck, deleteUser);
+
+///  FOR RESET PASSWORD  ///
+router.route("/email-verify").post(emailVerification);
+router.route("/reset-password/:accessToken").post(passwordReset);
 
 export default router;

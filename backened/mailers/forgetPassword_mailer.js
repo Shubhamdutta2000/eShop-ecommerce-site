@@ -1,10 +1,10 @@
 import { transporter, renderTemplate } from "../config/nodemailer.js";
 
-export default forgetPassword_mail = (resetPassword) => {
-  console.log("Inside forget assword mailer");
+const forgetPassword_mailer = (resetPassword) => {
+  console.log("Inside forget assword mailer", resetPassword);
   transporter.sendMail(
     {
-      from: "shubhamdutta1511@gmil.com",
+      from: "shubhamdutta1511@gmail.com",
       to: resetPassword.user.email,
       subject: "Forget Password Request!",
       html: `<h1>Your access token for password reset is ${resetPassword.accessToken} <h1>`,
@@ -19,3 +19,5 @@ export default forgetPassword_mail = (resetPassword) => {
     }
   );
 };
+
+export default forgetPassword_mailer;

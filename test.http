@@ -81,7 +81,7 @@ Content-Type: application/json
 
 {
       "email": "mita@gmail.com",
-      "password": "user1234"
+      "password": "user12345"
 }
 
 
@@ -135,10 +135,25 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZTI1MDZmN
 
 
 
+##################   FORGET PASSWORD   ########################
 
 
+########   email verification  ##########
+POST http://localhost:5000/user/email-verify
+Content-Type: application/json
+
+{
+      "email": "mita@gmail.com"
+}
 
 
+########  reset password   #########
+POST http://localhost:5000/user/reset-password/5fd82c40-0bae-4442-8fef-630de800169a
+Content-Type: application/json
+
+{
+      "password": "user12345"
+}
 
 #########################  ORDERS BY ID    ##################
 GET http://localhost:5000/orders/5fed5fdb7073bf0b6ce37038
