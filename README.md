@@ -80,3 +80,6 @@ npm run build
 ## DEMO
 
 - See this app live:- https://eshop-shubham.netlify.app/
+
+## License Used
+- Apache 2.0 License
