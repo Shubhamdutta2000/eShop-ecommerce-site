@@ -19,10 +19,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
       # Install NodeJS
-      - name: Use Node.js 12.x
+      - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 14.x
       # Run npm install and build on our code
       - name: Install Dependency and Build
         working-directory: ./frontend
