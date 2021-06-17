@@ -6,7 +6,6 @@ on:
   pull_request:
     branches:
       - dev
-  
 
 # Jobs to carry out
 jobs:
@@ -38,4 +37,3 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         with:
           args: deploy --dir=./frontend/build --prod
-          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
