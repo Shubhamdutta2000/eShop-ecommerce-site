@@ -5,8 +5,8 @@ name: Production workflow
 on:
   pull_request:
     branches: [main]
-  push:
-    branches: [main]
+  # push:
+  #   branches: [main]
 
 # Jobs to carry out
 jobs:
@@ -38,7 +38,7 @@ jobs:
         run: |
           npm ci
           npm run build
-      # Deploy to Netlify using our dev secrets
+      # Deploy to Netlify using our production secrets
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
         env:
