@@ -180,7 +180,7 @@ const LoginScreen = ({ isMobile, history, location, API }) => {
 
         <Grid item xs={false} sm={false} md={3}>
           <img
-            src="/assets/images/auth/shopping.svg"
+            src="/assets/images/auth/payments.svg"
             className={isMobile ? classes.display : classes.image2}
             alt="Login"
           />

@@ -242,7 +242,7 @@ const RegisterScreen = ({ isMobile, history, location, API }) => {
 
         <Grid item xs={false} sm={false} md={3}>
           <img
-            src="/assets/images/auth/online_shopping.svg"
+            src="/assets/images/auth/shopping.svg"
             className={isMobile ? classes.display : classes.image2}
             alt="Login"
           />
