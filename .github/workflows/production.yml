@@ -40,6 +40,8 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          REACT_APP_API: https://backend-eshop.herokuapp.com
+          REACT_APP_API: ${{ secrets.REACT_APP_API }}
+          REACT_APP_STRIPE_PUBLISHABLE_KEY: ${{ secrets.REACT_APP_STRIPE_PUBLISHABLE_KEY }}
+          REACT_APP_UPLOAD_TYPE: ${{ secrets.REACT_APP_UPLOAD_TYPE }}
         with:
           args: deploy --dir=./frontend/build --prod
