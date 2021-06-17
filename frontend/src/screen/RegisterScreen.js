@@ -38,9 +38,8 @@ const RegisterScreen = ({ history, location, API }) => {
   const [name, setName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(
-    false
-  );
+  const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
+    useState(false);
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
