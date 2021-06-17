@@ -100,13 +100,19 @@ function App() {
             <Route
               path="/login"
               render={({ location, history }) => (
-                <LoginScreen location={location} history={history} API={API} />
+                <LoginScreen
+                  isMobile={isMobile}
+                  location={location}
+                  history={history}
+                  API={API}
+                />
               )}
             />
             <Route
               path="/register"
               render={({ location, history }) => (
                 <RegisterScreen
+                  isMobile={isMobile}
                   location={location}
                   history={history}
                   API={API}
