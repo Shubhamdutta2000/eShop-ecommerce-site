@@ -169,7 +169,7 @@ export const useStyle = makeStyles((theme) => ({
 
   register: {
     paddingTop: theme.spacing(2.8),
-    marginLeft: "6rem",
+    marginLeft: "10rem",
 
     [theme.breakpoints.down("xs")]: {
       marginLeft: "auto",
@@ -178,7 +178,7 @@ export const useStyle = makeStyles((theme) => ({
 
   login: {
     paddingTop: theme.spacing(2),
-    marginLeft: "6.8rem",
+    marginLeft: "10rem",
 
     [theme.breakpoints.down("xs")]: {
       marginLeft: "auto",
