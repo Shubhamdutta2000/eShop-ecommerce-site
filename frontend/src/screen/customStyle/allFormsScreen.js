@@ -3,6 +3,23 @@ import { makeStyles } from "@material-ui/core/styles";
 //////////////////////////////    CUSTOM STYLES   /////////////////////////////
 
 export const useStyle = makeStyles((theme) => ({
+  root: {
+    // height: '100vh',
+    background: "#fff",
+  },
+  image: {
+    // height: '100vh',
+    width: "100%",
+    marginTop: "16%",
+  },
+  image2: {
+    marginTop: "40vh",
+    // height: '100vh',
+    width: "100%",
+  },
+  display: {
+    display: "none",
+  },
   form: {
     padding: theme.spacing(2.6),
     display: "flex",
@@ -11,7 +28,7 @@ export const useStyle = makeStyles((theme) => ({
     alignItems: "center",
   },
   paper: {
-    width: "50%",
+    width: "80%",
     margin: "auto",
     marginTop: "3rem",
 
@@ -51,7 +68,7 @@ export const useStyle = makeStyles((theme) => ({
     width: "3.1rem",
     height: "3.1rem",
     marginLeft: "50%",
-    marginBottom: "0.8rem",
+    marginBottom: "0.6rem",
     transform: "translateX(-50%)",
     backgroundImage: "linear-gradient(45deg, #2196f3,  70%, #045694 90%)",
   },
@@ -60,10 +77,10 @@ export const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    marginBottom: "1rem",
+    marginBottom: "0.4rem",
     marginTop: "0.6rem",
     color: "#1853F3",
-    fontSize: "2.4rem",
+    fontSize: "2rem",
     [theme.breakpoints.down("xs")]: {
       fontSize: "1.4rem",
     },
@@ -81,7 +98,7 @@ export const useStyle = makeStyles((theme) => ({
         paddingBottom: "2.8rem",
       },
     },
-    paddingBottom: theme.spacing(3.8),
+    paddingBottom: theme.spacing(2.8),
     width: "80%",
 
     [theme.breakpoints.down("xs")]: {
@@ -113,8 +130,8 @@ export const useStyle = makeStyles((theme) => ({
   button: {
     background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
     width: "80%",
-    marginTop: "1rem",
-    marginBottom: "0.8rem",
+    marginTop: "0.8rem",
+    marginBottom: "0rem",
 
     [theme.breakpoints.down("xs")]: {
       width: "100%",
@@ -160,8 +177,8 @@ export const useStyle = makeStyles((theme) => ({
   },
 
   login: {
-    paddingTop: theme.spacing(2.8),
-    marginLeft: "6rem",
+    paddingTop: theme.spacing(2),
+    marginLeft: "6.8rem",
 
     [theme.breakpoints.down("xs")]: {
       marginLeft: "auto",
