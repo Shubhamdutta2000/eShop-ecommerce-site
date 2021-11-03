@@ -1,12 +1,8 @@
-# eShop
+![[object Object]](https://socialify.git.ci/Shubhamdutta2000/eShop-ecommerce-site/image?description=1&font=Bitter&forks=1&issues=1&language=1&name=1&owner=1&pattern=Signal&stargazers=1&theme=Light)
 
-eShop official website where you can buy various products at very less price.
+<br />
 
-> eCommerce website made with MERN stack with redux as state management system with Progressive Web App feature
-
-![screenshot](https://github.com/Shubhamdutta2000/eShop/blob/main/frontend/public/assets/images/screenshots/carousalAdmin2.PNG)
-
-## Features
+# Features
 
 ### v1:
 
@@ -50,6 +46,14 @@ eShop official website where you can buy various products at very less price.
 - Add Upload functionality ( stored in firebase cloud storage ) in product admin section
 - Add PWA feature to web app for higher engagement which prompt user to add to their mobile home screen
 - Add Offline Page if no internet connection.
+
+
+<br />
+
+# Hero Section
+
+![screenshot](https://github.com/Shubhamdutta2000/eShop/blob/main/frontend/public/assets/images/screenshots/carousalAdmin2.PNG)
+
 
 ## Usage
 
