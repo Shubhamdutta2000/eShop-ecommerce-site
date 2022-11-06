@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { PayPalButton } from "react-paypal-button-v2";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { PayPalButton } from 'react-paypal-button-v2';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { useDispatch, useSelector } from "react-redux";
-import { payOrder } from "../redux/actions/orderAction";
-import { emptyCart } from "../redux/actions/cartAction";
-import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
-
-import axios from "axios";
-import Loader from "./Loader";
+import { ORDER_PAY_RESET } from '../redux/actionTypes/orderConstants';
+import { emptyCart } from '../redux/actions/cartAction';
+import { payOrder } from '../redux/actions/orderAction';
+import Loader from './Loader';
 
 export const PayPalCheckout = ({ orderId, API }) => {
   const dispatch = useDispatch();
 
-  const orderDetails = useSelector((state) => state.orderDetails);
+  const orderDetails = useSelector(state => state.orderDetails);
   const { orders } = orderDetails;
 
   // PAYPAL PAYMENT INTEGRATION
-  const orderPay = useSelector((state) => state.orderPay);
+  const orderPay = useSelector(state => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
 
   const [sdkReady, setSdkReady] = useState(false);
@@ -25,8 +24,8 @@ export const PayPalCheckout = ({ orderId, API }) => {
   const addPayPalScript = async () => {
     const { data: clientId } = await axios.get(`${API}/config/paypal`);
     console.log(clientId);
-    const script = document.createElement("script");
-    script.type = "text/javascript";
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
     script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
     script.async = true;
     script.onload = () => {
@@ -52,22 +51,22 @@ export const PayPalCheckout = ({ orderId, API }) => {
   }, [dispatch, orders, successPay]);
 
   // On payment successfully completed
-  const successPaymentHandler = (paymentResult) => {
+  const successPaymentHandler = paymentResult => {
     console.log(paymentResult);
     dispatch(payOrder(API, orderId, paymentResult));
     // alert("Transaction completed by " + paymentResult.payer.name.given_name);
-    alert("Transaction completed by " + orders.user.name + " through paypal");
+    alert('Transaction completed by ' + orders.user.name + ' through paypal');
   };
 
   // Error handling in payment
-  const errorPaymentHandler = (err) => {
+  const errorPaymentHandler = err => {
     console.log(err);
     alert(err);
   };
 
   // On cancel of payment
-  const cancelPaymentHandler = (msg) => {
-    alert("Order " + msg.orderID + " Cancelled");
+  const cancelPaymentHandler = msg => {
+    alert('Order ' + msg.orderID + ' Cancelled');
   };
 
   return (

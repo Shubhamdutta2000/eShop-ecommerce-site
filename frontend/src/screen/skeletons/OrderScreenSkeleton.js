@@ -1,18 +1,11 @@
-import React from "react";
-
-import { Grid } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
+import { Grid } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
+import React from 'react';
 
 const OrderScreenSkeleton = () => {
   return (
     <>
-      <Skeleton
-        className="mt-4"
-        width={600}
-        height={60}
-        variant="text"
-        component="h2"
-      />
+      <Skeleton className="mt-4" width={600} height={60} variant="text" component="h2" />
       <Grid className="mt-3" container spacing={4}>
         <Grid item md={8} xs={12}>
           <Skeleton variant="rect" height={500} />

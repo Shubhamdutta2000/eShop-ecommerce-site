@@ -1,5 +1,6 @@
-import OrderModel from "../models/orderModel.js";
-import asyncHandler from "express-async-handler";
+import asyncHandler from 'express-async-handler';
+
+import OrderModel from '../models/orderModel.js';
 
 //  @purpose: create new orders
 //  @access:  Private
@@ -12,12 +13,12 @@ export const addOrderItems = asyncHandler(async (req, res, next) => {
     itemsPrice,
     shippingPrice,
     taxPrice,
-    totalPrice,
+    totalPrice
   } = req.body;
   try {
     if (orderItems && orderItems.length == 0) {
       res.status(400);
-      const err = new Error("No order found");
+      const err = new Error('No order found');
       next(err);
     } else {
       const order = new OrderModel({
@@ -28,7 +29,7 @@ export const addOrderItems = asyncHandler(async (req, res, next) => {
         itemsPrice,
         shippingPrice,
         taxPrice,
-        totalPrice,
+        totalPrice
       });
       const createdOrder = await order.save();
       res.status(201).json(createdOrder);
@@ -44,15 +45,12 @@ export const addOrderItems = asyncHandler(async (req, res, next) => {
 //  @route:   GET /orders/:id
 export const getOrderById = asyncHandler(async (req, res, next) => {
   try {
-    const order = await OrderModel.findById(req.params.id).populate(
-      "user",
-      "name email"
-    );
+    const order = await OrderModel.findById(req.params.id).populate('user', 'name email');
     if (order) {
       res.json(order);
     } else {
       res.status(404);
-      const err = new Error("Order not Found");
+      const err = new Error('Order not Found');
       next(err);
     }
   } catch (error) {
@@ -72,19 +70,19 @@ export const updateOrderToPaid = asyncHandler(async (req, res, next) => {
       order.paidAt = Date.now();
       // paymentResult according to type of payment method
       order.paymentResult =
-        order.paymentMethod === "PayPal"
+        order.paymentMethod === 'PayPal'
           ? {
               id: req.body.id,
               status: req.body.status,
               updateTime: req.body.update_time,
-              emailAddress: req.body.payer.email_address,
+              emailAddress: req.body.payer.email_address
             }
-          : order.paymentMethod === "Stripe"
+          : order.paymentMethod === 'Stripe'
           ? {
               id: req.body.charge.id,
               status: req.body.charge.status,
               receipt_email: req.body.charge.receipt_email,
-              receipt_url: req.body.charge.receipt_url,
+              receipt_url: req.body.charge.receipt_url
             }
           : null;
 
@@ -92,7 +90,7 @@ export const updateOrderToPaid = asyncHandler(async (req, res, next) => {
       res.json(updatedOrder);
     } else {
       res.status(404);
-      const err = new Error("Order not Found");
+      const err = new Error('Order not Found');
       next(err);
     }
   } catch (error) {
@@ -119,7 +117,7 @@ export const getMyOrders = asyncHandler(async (req, res, next) => {
 //  @route:   GET /orders
 export const getAllOrders = asyncHandler(async (req, res, next) => {
   try {
-    const order = await OrderModel.find({}).populate("user", "_id, name");
+    const order = await OrderModel.find({}).populate('user', '_id, name');
     res.json(order);
   } catch (error) {
     res.status(404);
@@ -142,7 +140,7 @@ export const updateOrderToDelivered = asyncHandler(async (req, res, next) => {
       res.json(updatedOrder);
     } else {
       res.status(404);
-      const err = new Error("Order not Found");
+      const err = new Error('Order not Found');
       next(err);
     }
   } catch (error) {

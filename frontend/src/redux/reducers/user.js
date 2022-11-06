@@ -1,4 +1,19 @@
 import {
+  USER_CHECK_TOKEN_FAILED,
+  USER_CHECK_TOKEN_REQUEST,
+  USER_CHECK_TOKEN_RESET,
+  USER_CHECK_TOKEN_SUCCESS,
+  USER_DELETE_FAILED,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
+  USER_DETAILS_FAILED,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_RESET,
+  USER_DETAILS_SUCCESS,
+  USER_LIST_FAILED,
+  USER_LIST_REQUEST,
+  USER_LIST_RESET,
+  USER_LIST_SUCCESS,
   USER_LOGIN_FAILED,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -6,29 +21,14 @@ import {
   USER_REGISTER_FAILED,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_DETAILS_FAILED,
-  USER_DETAILS_REQUEST,
-  USER_DETAILS_SUCCESS,
+  USER_UPDATE_FAILED,
+  USER_UPDATE_PROFILE_FAILED,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
-  USER_UPDATE_PROFILE_FAILED,
-  USER_DETAILS_RESET,
-  USER_CHECK_TOKEN_REQUEST,
-  USER_CHECK_TOKEN_SUCCESS,
-  USER_CHECK_TOKEN_FAILED,
-  USER_CHECK_TOKEN_RESET,
-  USER_LIST_REQUEST,
-  USER_LIST_SUCCESS,
-  USER_LIST_FAILED,
-  USER_LIST_RESET,
-  USER_DELETE_REQUEST,
-  USER_DELETE_FAILED,
-  USER_DELETE_SUCCESS,
   USER_UPDATE_REQUEST,
-  USER_UPDATE_SUCCESS,
-  USER_UPDATE_FAILED,
   USER_UPDATE_RESET,
-} from "../actionTypes/userConstants";
+  USER_UPDATE_SUCCESS
+} from '../actionTypes/userConstants';
 
 ///    LOGIN REDUCER    ///
 
@@ -37,7 +37,7 @@ export const userLoginReducer = (
     loading: false,
     isAuthenticated: false,
     userInfo: null,
-    error: null,
+    error: null
   },
   action
 ) => {
@@ -48,19 +48,19 @@ export const userLoginReducer = (
       return {
         loading: false,
         isAuthenticated: true,
-        userInfo: action.payload,
+        userInfo: action.payload
       };
 
     case USER_LOGIN_FAILED:
       return {
         loading: false,
         isAuthenticated: false,
-        error: action.payload,
+        error: action.payload
       };
 
     case USER_LOGOUT:
       return {
-        isAuthenticated: false,
+        isAuthenticated: false
       };
 
     default:
@@ -75,7 +75,7 @@ export const userRegisterReducer = (
     loading: false,
     isAuthenticated: false,
     userInfo: null,
-    error: null,
+    error: null
   },
   action
 ) => {
@@ -86,18 +86,18 @@ export const userRegisterReducer = (
       return {
         loading: false,
         isAuthenticated: true,
-        userInfo: action.payload,
+        userInfo: action.payload
       };
 
     case USER_REGISTER_FAILED:
       return {
         loading: false,
         isAuthenticated: false,
-        error: action.payload,
+        error: action.payload
       };
     case USER_LOGOUT:
       return {
-        isAuthenticated: false,
+        isAuthenticated: false
       };
 
     default:
@@ -117,18 +117,18 @@ export const userDetailsReducer = (
     case USER_DETAILS_SUCCESS:
       return {
         loading: false,
-        user: action.payload,
+        user: action.payload
       };
 
     case USER_DETAILS_FAILED:
       return {
         loading: false,
-        error: action.payload,
+        error: action.payload
       };
 
     case USER_DETAILS_RESET:
       return {
-        user: null,
+        user: null
       };
     default:
       return state;
@@ -148,13 +148,13 @@ export const userUpdateProfileReducer = (
       return {
         loading: false,
         userInfo: action.payload,
-        success: true,
+        success: true
       };
 
     case USER_UPDATE_PROFILE_FAILED:
       return {
         loading: false,
-        error: action.payload,
+        error: action.payload
       };
 
     default:
@@ -170,13 +170,13 @@ export const userAuthToken = (state = {}, action) => {
     case USER_CHECK_TOKEN_SUCCESS:
       return {
         loading: false,
-        success: action.payload,
+        success: action.payload
       };
 
     case USER_CHECK_TOKEN_FAILED:
       return {
         loading: false,
-        error: action.payload,
+        error: action.payload
       };
     case USER_CHECK_TOKEN_RESET:
       return {};
@@ -196,13 +196,13 @@ export const userListReducer = (state = {}, action) => {
     case USER_LIST_SUCCESS:
       return {
         loading: false,
-        users: action.payload,
+        users: action.payload
       };
 
     case USER_LIST_FAILED:
       return {
         loading: false,
-        error: action.payload,
+        error: action.payload
       };
     case USER_LIST_RESET:
       return {};
@@ -219,13 +219,13 @@ export const userDeleteReducer = (state = {}, action) => {
     case USER_DELETE_SUCCESS:
       return {
         loading: false,
-        success: true,
+        success: true
       };
 
     case USER_DELETE_FAILED:
       return {
         loading: false,
-        error: action.payload,
+        error: action.payload
       };
 
     default:
@@ -243,13 +243,13 @@ export const userUpdateReducer = (state = {}, action) => {
       return {
         loading: false,
         user: action.payload,
-        success: true,
+        success: true
       };
 
     case USER_UPDATE_FAILED:
       return {
         loading: false,
-        error: action.payload,
+        error: action.payload
       };
     case USER_UPDATE_RESET:
       return {};

@@ -1,8 +1,8 @@
 import {
-  PRODUCT_LIST_REQUEST,
-  PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_FAILED,
-} from "../actionTypes/productListConstants";
+  PRODUCT_LIST_REQUEST,
+  PRODUCT_LIST_SUCCESS
+} from '../actionTypes/productListConstants';
 
 export const productListsReducer = (
   state = { loading: false, products: [], error: null },
@@ -16,7 +16,7 @@ export const productListsReducer = (
       return {
         loading: false,
         products: action.payload,
-        error: null,
+        error: null
       };
 
     case PRODUCT_LIST_FAILED:

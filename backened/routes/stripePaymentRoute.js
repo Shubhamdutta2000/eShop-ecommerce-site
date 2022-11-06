@@ -1,12 +1,13 @@
-import express from "express";
-import { makePaymentWithStripe } from "../controllers/stripePaymentController.js";
-import { authProtect } from "../middleware/authMiddleware.js";
+import dotenv from 'dotenv';
+import express from 'express';
 
-import dotenv from "dotenv";
+import { makePaymentWithStripe } from '../controllers/stripePaymentController.js';
+import { authProtect } from '../middleware/authMiddleware.js';
+
 dotenv.config();
 
 const router = express.Router();
 
-router.route("/").post(authProtect, makePaymentWithStripe);
+router.route('/').post(authProtect, makePaymentWithStripe);
 
 export default router;

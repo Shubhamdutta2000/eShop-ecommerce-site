@@ -1,42 +1,31 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
-
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import TablePagination from "@material-ui/core/TablePagination";
-import { Grid } from "@material-ui/core";
-
-import IconButton from "@material-ui/core/IconButton";
-import Tooltip from "@material-ui/core/Tooltip";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import AddIcon from "@material-ui/icons/Add";
-
-/// Component  ///
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import Meta from "../components/Meta";
-
-/// Custom Style  ///
-import {
-  useStyles,
-  StyledTableCell,
-  StyledTableRow,
-} from "./customStyle/listScreen";
-
+import { Grid } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import Tooltip from '@material-ui/core/Tooltip';
+import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import React, { useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 ///  REDUX  ///
-import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../redux/actions/productListAction";
-import {
-  createProduct,
-  deleteProduct,
-} from "../redux/actions/productDetailsAction";
-import { PRODUCT_CREATE_RESET } from "../redux/actionTypes/productDetailsConstants";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import Loader from '../components/Loader';
+/// Component  ///
+import Message from '../components/Message';
+import Meta from '../components/Meta';
+import { PRODUCT_CREATE_RESET } from '../redux/actionTypes/productDetailsConstants';
+import { createProduct, deleteProduct } from '../redux/actions/productDetailsAction';
+import { listProducts } from '../redux/actions/productListAction';
+/// Custom Style  ///
+import { StyledTableCell, StyledTableRow, useStyles } from './customStyle/listScreen';
 
 const UserListScreen = ({ history, API }) => {
   const classes = useStyles();
@@ -46,31 +35,31 @@ const UserListScreen = ({ history, API }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   ///  USER INFO REDUCER ///
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
   ///  PRODUCT LIST REDUCER  ///
-  const productList = useSelector((state) => state.productList);
+  const productList = useSelector(state => state.productList);
   const { loading, error, products } = productList;
 
   ///  PRODUCT DELETE REDUCER  ///
-  const productDelete = useSelector((state) => state.productDelete);
+  const productDelete = useSelector(state => state.productDelete);
   const { success: successDelete } = productDelete;
 
   ///  PRODUCT CREATE REDUCER  ///
-  const productCreate = useSelector((state) => state.productCreate);
+  const productCreate = useSelector(state => state.productCreate);
   const {
     loading: loadingCreate,
     success: successCreate,
     error: errorCreate,
-    product: createdProduct,
+    product: createdProduct
   } = productCreate;
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts("", API));
+      dispatch(listProducts('', API));
     } else {
-      history.push("/login");
+      history.push('/login');
     }
   }, [dispatch, userInfo, history, successDelete, successCreate, API]);
 
@@ -78,15 +67,13 @@ const UserListScreen = ({ history, API }) => {
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
     if (successCreate) {
-      history.push(
-        `/admin/product/${createdProduct.category}/${createdProduct._id}/edit`
-      );
+      history.push(`/admin/product/${createdProduct.category}/${createdProduct._id}/edit`);
     }
   }, [dispatch, history, successCreate, createdProduct]);
 
   // delete product
   const handleDeleteProduct = (category, productId) => {
-    if (window.confirm("Are you sure to delete this product??")) {
+    if (window.confirm('Are you sure to delete this product??')) {
       dispatch(deleteProduct(API, category, productId));
     }
   };
@@ -129,10 +116,7 @@ const UserListScreen = ({ history, API }) => {
           <h1 className={classes.heading}>Products</h1>
         </Grid>
         <Grid item md={3}>
-          <Button
-            onClick={handleCreateProduct}
-            className={classes.createProductButton}
-          >
+          <Button onClick={handleCreateProduct} className={classes.createProductButton}>
             <AddIcon /> Create Product
           </Button>
         </Grid>
@@ -156,29 +140,20 @@ const UserListScreen = ({ history, API }) => {
                     <StyledTableCell className={classes.tableHead} align="left">
                       ID
                     </StyledTableCell>
-                    <StyledTableCell
-                      className={classes.tableHead}
-                      align="right"
-                    >
+                    <StyledTableCell className={classes.tableHead} align="right">
                       NAME
                     </StyledTableCell>
-                    <StyledTableCell
-                      className={classes.tableHead}
-                      align="right"
-                    >
+                    <StyledTableCell className={classes.tableHead} align="right">
                       PRICE
                     </StyledTableCell>
-                    <StyledTableCell
-                      className={classes.tableHead}
-                      align="right"
-                    >
+                    <StyledTableCell className={classes.tableHead} align="right">
                       CATEGORY
                     </StyledTableCell>
-                    <StyledTableCell style={{ fontSize: "1rem" }} align="right">
+                    <StyledTableCell style={{ fontSize: '1rem' }} align="right">
                       BRAND
                     </StyledTableCell>
                     <StyledTableCell
-                      style={{ fontSize: "1rem" }}
+                      style={{ fontSize: '1rem' }}
                       align="right"
                     ></StyledTableCell>
                   </TableRow>
@@ -186,11 +161,8 @@ const UserListScreen = ({ history, API }) => {
                 <TableBody>
                   {products &&
                     products
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((product) => (
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map(product => (
                         <StyledTableRow key={product._id}>
                           <StyledTableCell
                             className={classes.tableCol}
@@ -199,37 +171,23 @@ const UserListScreen = ({ history, API }) => {
                           >
                             {product._id}
                           </StyledTableCell>
-                          <StyledTableCell
-                            className={classes.tableCol}
-                            align="right"
-                          >
+                          <StyledTableCell className={classes.tableCol} align="right">
                             {product.name}
                           </StyledTableCell>
-                          <StyledTableCell
-                            className={classes.tableCol}
-                            align="right"
-                          >
+                          <StyledTableCell className={classes.tableCol} align="right">
                             {product.price}
                           </StyledTableCell>
 
-                          <StyledTableCell
-                            className={classes.tableCol}
-                            align="right"
-                          >
+                          <StyledTableCell className={classes.tableCol} align="right">
                             {product.category}
                           </StyledTableCell>
 
-                          <StyledTableCell
-                            className={classes.tableCol}
-                            align="right"
-                          >
+                          <StyledTableCell className={classes.tableCol} align="right">
                             {product.brand}
                           </StyledTableCell>
                           <StyledTableCell align="right">
                             {/* Edit product detail */}
-                            <Link
-                              to={`/admin/product/${product.category}/${product._id}/edit`}
-                            >
+                            <Link to={`/admin/product/${product.category}/${product._id}/edit`}>
                               <Tooltip title="Edit">
                                 <IconButton aria-label="edit">
                                   <EditIcon color="inherit" />
@@ -242,10 +200,7 @@ const UserListScreen = ({ history, API }) => {
                               <IconButton
                                 aria-label="delete"
                                 onClick={() =>
-                                  handleDeleteProduct(
-                                    product.category,
-                                    product._id
-                                  )
+                                  handleDeleteProduct(product.category, product._id)
                                 }
                               >
                                 <DeleteIcon color="error" />
@@ -265,7 +220,7 @@ const UserListScreen = ({ history, API }) => {
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={(event, newPage) => setPage(newPage)}
-                onChangeRowsPerPage={(event) => {
+                onChangeRowsPerPage={event => {
                   setRowsPerPage(parseInt(event.target.value, 10));
                   setPage(0);
                 }}

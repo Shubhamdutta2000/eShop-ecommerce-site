@@ -1,33 +1,30 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
-
+import Avatar from '@material-ui/core/Avatar';
+import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
 ///     MATERIAL UI   ///
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import Divider from "@material-ui/core/Divider";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import React, { useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 ///    REDUX     ///
-import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart } from "../redux/actions/cartAction";
-import { createOrder } from "../redux/actions/orderAction";
-import { CREATE_ORDER_RESET } from "../redux/actionTypes/orderConstants";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import CheckoutStepper from '../components/CheckoutStepper';
 ///  COMPONENTS   ///
-import ErrMess from "../components/Message";
-import CheckoutStepper from "../components/CheckoutStepper";
-import Meta from "../components/Meta";
-
+import ErrMess from '../components/Message';
+import Meta from '../components/Meta';
+import { CREATE_ORDER_RESET } from '../redux/actionTypes/orderConstants';
+import { removeFromCart } from '../redux/actions/cartAction';
+import { createOrder } from '../redux/actions/orderAction';
 ///    CUSTOM STYLES     ///
-import { useStyles } from "./customStyle/PlaceOrderScreen";
+import { useStyles } from './customStyle/PlaceOrderScreen';
 
 const PlaceOrderScreen = ({ history, API, isMobile }) => {
   const classes = useStyles();
@@ -35,17 +32,15 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
   const dispatch = useDispatch();
 
   // User Login Credentials
-  const login = useSelector((state) => state.userLogin);
+  const login = useSelector(state => state.userLogin);
   const { userInfo } = login;
 
   // cart details
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector(state => state.cart);
   const { cartItems, shippingAddress, paymentMethod } = cart;
 
   ///  Items Price   ///
-  cart.itemsPrice = cartItems
-    .reduce((acc, item) => acc + item.qty * item.price, 0)
-    .toFixed(2);
+  cart.itemsPrice = cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2);
 
   ///   Shipping Price  ///
   cart.shippingPrice = (cart.itemsPrice > 150 ? 100 : 0).toFixed(2);
@@ -61,11 +56,11 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
   ).toFixed(2);
 
   ///  REMOVE ORDER FROM CART   ///
-  const removeCartHandler = (id) => {
+  const removeCartHandler = id => {
     dispatch(removeFromCart(id));
   };
 
-  const placeOrder = useSelector((state) => state.order);
+  const placeOrder = useSelector(state => state.order);
   const { order, success } = placeOrder;
 
   ///  PLACE ORDER   ///
@@ -78,14 +73,14 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
         itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice,
+        totalPrice: cart.totalPrice
       })
     );
   };
 
   useEffect(() => {
     if (!userInfo) {
-      history.push("/login");
+      history.push('/login');
     }
     if (success) {
       history.push(`/orders/${order._id}`);
@@ -104,11 +99,7 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
           <Paper className={classes.paper} elevation={6}>
             <List className={classes.list}>
               <ListItem className={classes.list_item}>
-                <Typography
-                  color="primary"
-                  variant={isMobile ? "h6" : "h5"}
-                  component="h3"
-                >
+                <Typography color="primary" variant={isMobile ? 'h6' : 'h5'} component="h3">
                   <strong>SHIPPING DETAILS</strong>
                 </Typography>
               </ListItem>
@@ -129,11 +120,7 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
 
             <List className={classes.list}>
               <ListItem className={classes.list_item}>
-                <Typography
-                  color="primary"
-                  variant={isMobile ? "h6" : "h5"}
-                  component="h3"
-                >
+                <Typography color="primary" variant={isMobile ? 'h6' : 'h5'} component="h3">
                   <strong>PAYMENT METHOD</strong>
                 </Typography>
               </ListItem>
@@ -164,10 +151,7 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
               <List>
                 {cartItems.map((item, index) => (
                   <div key={index}>
-                    <ListItem
-                      className={classes.list_item}
-                      alignItems="flex-start"
-                    >
+                    <ListItem className={classes.list_item} alignItems="flex-start">
                       <ListItemAvatar>
                         <Avatar
                           className={classes.avatar}
@@ -185,21 +169,16 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
                           secondary={
                             <Typography
                               color="primary"
-                              variant={isMobile ? "span" : "body2"}
+                              variant={isMobile ? 'span' : 'body2'}
                               component="span"
                             >
-                              {item.qty} x {item.price} ={" "}
-                              {(item.qty * item.price).toFixed(2)}
+                              {item.qty} x {item.price} = {(item.qty * item.price).toFixed(2)}
                             </Typography>
                           }
                         />
                       </Link>
                       <ListItemSecondaryAction
-                        style={
-                          isMobile
-                            ? { marginTop: "2.2rem", marginRight: "-1.8rem" }
-                            : {}
-                        }
+                        style={isMobile ? { marginTop: '2.2rem', marginRight: '-1.8rem' } : {}}
                       >
                         <Button
                           type="button"
@@ -210,11 +189,7 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
                         </Button>
                       </ListItemSecondaryAction>
                     </ListItem>
-                    <Divider
-                      variant="fullWidth"
-                      className={classes.divider}
-                      component="li"
-                    />
+                    <Divider variant="fullWidth" className={classes.divider} component="li" />
                   </div>
                 ))}
               </List>
@@ -254,11 +229,7 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
                 </Grid>
               </ListItem>
 
-              <Divider
-                variant="fullWidth"
-                className={classes.divider}
-                component="li"
-              />
+              <Divider variant="fullWidth" className={classes.divider} component="li" />
 
               <ListItem>
                 <Grid container>
@@ -275,11 +246,7 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
                 </Grid>
               </ListItem>
 
-              <Divider
-                variant="fullWidth"
-                className={classes.divider}
-                component="li"
-              />
+              <Divider variant="fullWidth" className={classes.divider} component="li" />
 
               <ListItem>
                 <Grid container>
@@ -296,11 +263,7 @@ const PlaceOrderScreen = ({ history, API, isMobile }) => {
                 </Grid>
               </ListItem>
 
-              <Divider
-                variant="fullWidth"
-                className={classes.divider}
-                component="li"
-              />
+              <Divider variant="fullWidth" className={classes.divider} component="li" />
 
               <ListItem>
                 <Grid container>

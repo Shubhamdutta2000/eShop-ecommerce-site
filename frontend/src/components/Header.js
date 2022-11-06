@@ -1,45 +1,35 @@
-import React, { useState } from "react";
-import { Route, Link } from "react-router-dom";
-
 ///////////////////////    MATERIAL UI Component    //////////////////
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import Button from "@material-ui/core/Button";
-import Fade from "@material-ui/core/Fade";
-
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import Drawer from '@material-ui/core/Drawer';
+import Fade from '@material-ui/core/Fade';
+import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 ///////////////////////   MATERIAL ICONS     ///////////////////////
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import GroupAddIcon from "@material-ui/icons/GroupAdd";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import PersonIcon from "@material-ui/icons/Person";
-
-///////////////////////// Search Box component   ///////////////////
-import SearchBox from "./SearchProductBox";
-
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { PeopleAlt, ShoppingBasket, ShoppingCart, SupervisorAccount } from '@material-ui/icons';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import MenuIcon from '@material-ui/icons/Menu';
+import PersonIcon from '@material-ui/icons/Person';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import React, { useState } from 'react';
 /////////////////////////    REDUX     //////////////////////////////
-import { useSelector, useDispatch } from "react-redux";
-import { userLogout } from "../redux/actions/userAction";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Route } from 'react-router-dom';
 
+import { userLogout } from '../redux/actions/userAction';
 //////////////////////////   CUSTOM STYLE    /////////////////////////
-import { useStyles } from "./CustomStyles/header";
-import {
-  PeopleAlt,
-  ShoppingBasket,
-  ShoppingCart,
-  SupervisorAccount,
-} from "@material-ui/icons";
+import { useStyles } from './CustomStyles/header';
+///////////////////////// Search Box component   ///////////////////
+import SearchBox from './SearchProductBox';
 
 export default function Header({ isMobile }) {
   const classes = useStyles();
@@ -51,7 +41,7 @@ export default function Header({ isMobile }) {
 
   ////////////////////////    REDUX     ////////////////////////////////
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
   const logoutHandler = () => {
@@ -62,7 +52,7 @@ export default function Header({ isMobile }) {
   ///    FOR Dropdown Menu    ///
 
   ///  FOR USER  ///
-  const handleMenu = (event) => {
+  const handleMenu = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -71,7 +61,7 @@ export default function Header({ isMobile }) {
   };
 
   ///  FOR ADMIN USER  ///
-  const handleAdminMenu = (event) => {
+  const handleAdminMenu = event => {
     setAnchorElAdmin(event.currentTarget);
   };
 
@@ -101,10 +91,7 @@ export default function Header({ isMobile }) {
           <Route render={({ history }) => <SearchBox history={history} />} />
           &nbsp; &nbsp; &nbsp; &nbsp;
           {/*//  CART BUTTON (if logged in goes to /cart otherwise redirect to /login )  //*/}
-          <Link
-            className={classes.link}
-            to={userInfo ? "/cart" : "/login?redirect=cart"}
-          >
+          <Link className={classes.link} to={userInfo ? '/cart' : '/login?redirect=cart'}>
             <Button color="inherit">
               <ShoppingCartIcon />
               &nbsp; Cart
@@ -119,11 +106,11 @@ export default function Header({ isMobile }) {
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
-                style={{ fontSize: "1.25rem" }}
+                style={{ fontSize: '1.25rem' }}
               >
                 <AccountCircle />
                 &nbsp;
-                {!isMobile ? userInfo.name.split(" ")[0] : null}
+                {!isMobile ? userInfo.name.split(' ')[0] : null}
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -132,13 +119,13 @@ export default function Header({ isMobile }) {
                 getContentAnchorEl={null}
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "center",
+                  vertical: 'bottom',
+                  horizontal: 'center'
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: "top",
-                  horizontal: "center",
+                  vertical: 'top',
+                  horizontal: 'center'
                 }}
                 TransitionComponent={Fade}
                 open={openEl}
@@ -150,7 +137,7 @@ export default function Header({ isMobile }) {
                     <IconButton>
                       <AccountCircle />
                     </IconButton>
-                    <ListItemText primary={userInfo.name.split(" ")[0]} />
+                    <ListItemText primary={userInfo.name.split(' ')[0]} />
                   </MenuItem>
                 ) : null}
                 {/*//      PROFILE BUTTON if user is logged in      */}
@@ -164,10 +151,7 @@ export default function Header({ isMobile }) {
                 </Link>
 
                 {/*//    LOGOUT BUTTON (if user is logged in)    //*/}
-                <MenuItem
-                  onClick={logoutHandler}
-                  className={classes.link_menu_item}
-                >
+                <MenuItem onClick={logoutHandler} className={classes.link_menu_item}>
                   <ListItemIcon>
                     <ExitToAppIcon />
                   </ListItemIcon>
@@ -184,11 +168,11 @@ export default function Header({ isMobile }) {
                     aria-haspopup="true"
                     onClick={handleAdminMenu}
                     color="inherit"
-                    style={{ fontSize: "1.25rem" }}
+                    style={{ fontSize: '1.25rem' }}
                   >
                     <SupervisorAccount />
                     &nbsp;
-                    {!isMobile ? "Admin" : null}
+                    {!isMobile ? 'Admin' : null}
                   </IconButton>
                   <Menu
                     id="menu-appbar"
@@ -197,23 +181,20 @@ export default function Header({ isMobile }) {
                     getContentAnchorEl={null}
                     anchorEl={anchorElAdmin}
                     anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "center",
+                      vertical: 'bottom',
+                      horizontal: 'center'
                     }}
                     keepMounted
                     transformOrigin={{
-                      vertical: "top",
-                      horizontal: "center",
+                      vertical: 'top',
+                      horizontal: 'center'
                     }}
                     TransitionComponent={Fade}
                     open={openElAdmin}
                     onClose={handleAdminMenuClose}
                   >
                     {/*//   USER LIST    */}
-                    <Link
-                      to="/admin/userlist"
-                      className={classes.link_menu_item}
-                    >
+                    <Link to="/admin/userlist" className={classes.link_menu_item}>
                       <MenuItem onClick={handleAdminMenuClose}>
                         <ListItemIcon>
                           <PeopleAlt />
@@ -222,10 +203,7 @@ export default function Header({ isMobile }) {
                       </MenuItem>
                     </Link>
                     {/*//   PRODUCT LIST    */}
-                    <Link
-                      to="/admin/productlist"
-                      className={classes.link_menu_item}
-                    >
+                    <Link to="/admin/productlist" className={classes.link_menu_item}>
                       <MenuItem onClick={handleAdminMenuClose}>
                         <ListItemIcon>
                           <ShoppingBasket />
@@ -234,10 +212,7 @@ export default function Header({ isMobile }) {
                       </MenuItem>
                     </Link>
                     {/*//   ORDERS LIST    */}
-                    <Link
-                      to="/admin/orderlist"
-                      className={classes.link_menu_item}
-                    >
+                    <Link to="/admin/orderlist" className={classes.link_menu_item}>
                       <MenuItem onClick={handleAdminMenuClose}>
                         <ListItemIcon>
                           <ShoppingCart />
@@ -266,15 +241,11 @@ export default function Header({ isMobile }) {
         <List>
           {userInfo ? (
             ///    LOGOUT BUTTON IF USER EXISTS OR LOGGED IN   ///
-            <ListItem
-              button
-              className={classes.link_drawer}
-              onClick={logoutHandler}
-            >
+            <ListItem button className={classes.link_drawer} onClick={logoutHandler}>
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>
-              <ListItemText primary={"Logout"} />
+              <ListItemText primary={'Logout'} />
             </ListItem>
           ) : (
             ///    LOGIN BUTTON IF USER DOES NOT EXISTS OR LOGGED OUT    ///
@@ -284,20 +255,20 @@ export default function Header({ isMobile }) {
                 <ListItemIcon>
                   <GroupAddIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Login"} />
+                <ListItemText primary={'Login'} />
               </ListItem>
             </Link>
           )}
 
           <Link
             className={classes.link_drawer}
-            to={userInfo ? "/cart" : "/login?redirect=cart"}
+            to={userInfo ? '/cart' : '/login?redirect=cart'}
           >
             <ListItem button>
               <ListItemIcon>
                 <ShoppingCartIcon />
               </ListItemIcon>
-              <ListItemText primary={"Cart"} />
+              <ListItemText primary={'Cart'} />
             </ListItem>
           </Link>
         </List>

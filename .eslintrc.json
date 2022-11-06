@@ -1,0 +1,26 @@
+{
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "extends": ["eslint:recommended", "prettier"],
+  "env": {
+    // "es2021": true,
+    "node": true
+  },
+  "rules": {
+    // "no-console": "error",
+    // "camelcase": "error",
+    "no-duplicate-imports": "error",
+    "no-irregular-whitespace": "error",
+    "no-duplicate-case": "error",
+    "no-unused-vars": "error",
+    // "no-await-in-loop": "error",
+    "no-const-assign": "error",
+    "quotes": ["error", "single"],
+    "no-trailing-spaces": ["error", { "ignoreComments": true }],
+    "no-mixed-spaces-and-tabs": "error",
+    "arrow-spacing": ["error", { "before": true, "after": true }]
+  }
+}

@@ -1,36 +1,31 @@
-import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
-import {
-  AccountBalance,
-  LocalShipping,
-  PeopleAlt,
-  ShoppingBasket,
-} from "@material-ui/icons";
+import { makeStyles } from '@material-ui/core/styles';
+import { AccountBalance, LocalShipping, PeopleAlt, ShoppingBasket } from '@material-ui/icons';
+import clsx from 'clsx';
 
 /////////////////////////////////////////////   Style Step Icon   //////////////////////////////////////////////
-export const useStepIconStyles = makeStyles((theme) => ({
+export const useStepIconStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: "#ccc",
+    backgroundColor: '#ccc',
     zIndex: 1,
-    color: "#fff",
-    width: "3.2rem",
-    height: "3.2rem",
-    display: "flex",
-    borderRadius: "50%",
-    justifyContent: "center",
-    alignItems: "center",
-    [theme.breakpoints.down("xs")]: {
-      width: "2.4rem",
-      height: "2.4rem",
-    },
+    color: '#fff',
+    width: '3.2rem',
+    height: '3.2rem',
+    display: 'flex',
+    borderRadius: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    [theme.breakpoints.down('xs')]: {
+      width: '2.4rem',
+      height: '2.4rem'
+    }
   },
   active: {
-    backgroundImage: "linear-gradient(45deg, #045694,  30%, #2196f3 90%)",
-    boxShadow: "0 8px 22px 0 rgba(0,0,0,.25)",
+    backgroundImage: 'linear-gradient(45deg, #045694,  30%, #2196f3 90%)',
+    boxShadow: '0 8px 22px 0 rgba(0,0,0,.25)'
   },
   completed: {
-    backgroundImage: "linear-gradient(45deg, #045694,  30%, #2196f3 90%)",
-  },
+    backgroundImage: 'linear-gradient(45deg, #045694,  30%, #2196f3 90%)'
+  }
 }));
 
 ////////////////////////////////////////////   Step Icon   /////////////////////////////////////////////
@@ -42,14 +37,14 @@ export function StepIcon(props) {
     1: <PeopleAlt fontSize="small" />,
     2: <LocalShipping fontSize="small" />,
     3: <AccountBalance fontSize="small" />,
-    4: <ShoppingBasket fontSize="small" />,
+    4: <ShoppingBasket fontSize="small" />
   };
 
   return (
     <div
       className={clsx(classes.root, {
         [classes.active]: active,
-        [classes.completed]: completed,
+        [classes.completed]: completed
       })}
     >
       {icons[String(props.icon)]}

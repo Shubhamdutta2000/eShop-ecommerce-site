@@ -1,31 +1,30 @@
-import { useEffect } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Home from "./screen/HomeScreen";
-import ProductScreen from "./screen/ProductScreen";
-import CartScreen from "./screen/CartScreen";
-import LoginScreen from "./screen/LoginScreen";
-import RegisterScreen from "./screen/RegisterScreen";
-import ProfileScreen from "./screen/ProfileScreen";
-import ShippingScreen from "./screen/ShippingScreen";
-import PaymentMethod from "./screen/PaymentMethod";
-import PlaceOrderScreen from "./screen/PlaceOrderScreen";
-import OrderScreen from "./screen/OrderScreen";
-// for admin user
-import UserListScreen from "./screen/UserListScreen";
-import UserEditScreen from "./screen/UserEditScreen";
-import ProductListScreen from "./screen/ProductListScreen";
-import ProductEditScreen from "./screen/ProductEditScreen";
-import OrderListScreen from "./screen/OrderListScreen";
-
-///  STYLE   ///
-import "./styles/styles.css";
-
+import { useEffect } from 'react';
 //REDUX
-import { useDispatch, useSelector } from "react-redux";
-import { userLogout, checkUserAuthToken } from "./redux/actions/userAction";
-import { USER_CHECK_TOKEN_RESET } from "./redux/actionTypes/userConstants";
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+
+import Footer from './components/Footer';
+import Header from './components/Header';
+import { USER_CHECK_TOKEN_RESET } from './redux/actionTypes/userConstants';
+import { checkUserAuthToken, userLogout } from './redux/actions/userAction';
+import CartScreen from './screen/CartScreen';
+import Home from './screen/HomeScreen';
+import LoginScreen from './screen/LoginScreen';
+import OrderListScreen from './screen/OrderListScreen';
+import OrderScreen from './screen/OrderScreen';
+import PaymentMethod from './screen/PaymentMethod';
+import PlaceOrderScreen from './screen/PlaceOrderScreen';
+import ProductEditScreen from './screen/ProductEditScreen';
+import ProductListScreen from './screen/ProductListScreen';
+import ProductScreen from './screen/ProductScreen';
+import ProfileScreen from './screen/ProfileScreen';
+import RegisterScreen from './screen/RegisterScreen';
+import ShippingScreen from './screen/ShippingScreen';
+import UserEditScreen from './screen/UserEditScreen';
+// for admin user
+import UserListScreen from './screen/UserListScreen';
+///  STYLE   ///
+import './styles/styles.css';
 
 function App() {
   // MOBILE BREAKPOINT
@@ -33,8 +32,8 @@ function App() {
   const API = process.env.REACT_APP_API;
 
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.userLogin);
-  const { error } = useSelector((state) => state.userAuthToken);
+  const { userInfo } = useSelector(state => state.userLogin);
+  const { error } = useSelector(state => state.userAuthToken);
 
   // verify if auth token expired or not
   useEffect(() => {
@@ -43,8 +42,8 @@ function App() {
 
   // if jwt token expired then logged out
   useEffect(() => {
-    if (userInfo && error === "jwt expired") {
-      alert("Logged out!! Again login to do shopping!!");
+    if (userInfo && error === 'jwt expired') {
+      alert('Logged out!! Again login to do shopping!!');
       dispatch(userLogout());
       dispatch({ type: USER_CHECK_TOKEN_RESET });
     }
@@ -58,12 +57,7 @@ function App() {
           <Route
             path="/search"
             render={({ location, history }) => (
-              <Home
-                location={location}
-                API={API}
-                isMobile={isMobile}
-                history={history}
-              />
+              <Home location={location} API={API} isMobile={isMobile} history={history} />
             )}
           />
           <Route
@@ -73,26 +67,17 @@ function App() {
             )}
             exact
           />
-          <div className={!isMobile ? "mx-5 px-4 py-4" : "mx-3 px-3 py-4"}>
+          <div className={!isMobile ? 'mx-5 px-4 py-4' : 'mx-3 px-3 py-4'}>
             <Route
               path="/placeorder"
               render={({ history }) => (
-                <PlaceOrderScreen
-                  history={history}
-                  API={API}
-                  isMobile={isMobile}
-                />
+                <PlaceOrderScreen history={history} API={API} isMobile={isMobile} />
               )}
             />
             <Route
               path="/orders/:id"
               render={({ history, match }) => (
-                <OrderScreen
-                  match={match}
-                  history={history}
-                  API={API}
-                  isMobile={isMobile}
-                />
+                <OrderScreen match={match} history={history} API={API} isMobile={isMobile} />
               )}
             />
             <Route path="/shipping" component={ShippingScreen} />
@@ -121,19 +106,12 @@ function App() {
             />
             <Route
               path="/profile"
-              render={({ history }) => (
-                <ProfileScreen history={history} API={API} />
-              )}
+              render={({ history }) => <ProfileScreen history={history} API={API} />}
             />
             <Route
               path="/products/:category/:id"
               render={({ history, match }) => (
-                <ProductScreen
-                  history={history}
-                  API={API}
-                  match={match}
-                  isMobile={isMobile}
-                />
+                <ProductScreen history={history} API={API} match={match} isMobile={isMobile} />
               )}
             />
             <Route
@@ -151,9 +129,7 @@ function App() {
 
             <Route
               path="/admin/userlist"
-              component={({ history }) => (
-                <UserListScreen history={history} API={API} />
-              )}
+              component={({ history }) => <UserListScreen history={history} API={API} />}
             />
             <Route
               path="/admin/user/:id/edit"
@@ -164,9 +140,7 @@ function App() {
 
             <Route
               path="/admin/productlist"
-              component={({ history }) => (
-                <ProductListScreen history={history} API={API} />
-              )}
+              component={({ history }) => <ProductListScreen history={history} API={API} />}
             />
 
             <Route
@@ -178,9 +152,7 @@ function App() {
 
             <Route
               path="/admin/orderlist"
-              component={({ history }) => (
-                <OrderListScreen history={history} API={API} />
-              )}
+              component={({ history }) => <OrderListScreen history={history} API={API} />}
             />
           </div>
         </main>

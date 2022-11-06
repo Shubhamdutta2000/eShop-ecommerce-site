@@ -1,5 +1,5 @@
-import React from "react";
-import { Alert } from "@material-ui/lab";
+import { Alert } from '@material-ui/lab';
+import React from 'react';
 
 const Message = ({ varient, children }) => {
   return (

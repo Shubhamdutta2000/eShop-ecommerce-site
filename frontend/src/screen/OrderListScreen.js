@@ -1,33 +1,25 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
-
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import TablePagination from "@material-ui/core/TablePagination";
-
-import CheckIcon from "@material-ui/icons/Check";
-import CloseIcon from "@material-ui/icons/Close";
-
-/// Component  ///
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import Meta from "../components/Meta";
-
-/// Custom Style  ///
-import {
-  useStyles,
-  StyledTableCell,
-  StyledTableRow,
-} from "./customStyle/listScreen";
-
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+import React, { useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 ///  REDUX  ///
-import { useDispatch, useSelector } from "react-redux";
-import { listAllOrders } from "../redux/actions/orderAction";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import Loader from '../components/Loader';
+/// Component  ///
+import Message from '../components/Message';
+import Meta from '../components/Meta';
+import { listAllOrders } from '../redux/actions/orderAction';
+/// Custom Style  ///
+import { StyledTableCell, StyledTableRow, useStyles } from './customStyle/listScreen';
 
 const OrderListScreen = ({ history, API }) => {
   const classes = useStyles();
@@ -37,18 +29,18 @@ const OrderListScreen = ({ history, API }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   ///  USER INFO REDUCER ///
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
   ///  ALL ORDERS REDUCER  ///
-  const allOrders = useSelector((state) => state.allOrders);
+  const allOrders = useSelector(state => state.allOrders);
   const { loading, error, orders } = allOrders;
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listAllOrders(API));
     } else {
-      history.push("/login");
+      history.push('/login');
     }
   }, [dispatch, history, userInfo, API]);
 
@@ -95,16 +87,10 @@ const OrderListScreen = ({ history, API }) => {
                     <StyledTableCell className={classes.tableHead} align="left">
                       ID
                     </StyledTableCell>
-                    <StyledTableCell
-                      className={classes.tableHead}
-                      align="right"
-                    >
+                    <StyledTableCell className={classes.tableHead} align="right">
                       AMOUNT
                     </StyledTableCell>
-                    <StyledTableCell
-                      className={classes.tableHead}
-                      align="right"
-                    >
+                    <StyledTableCell className={classes.tableHead} align="right">
                       USER
                     </StyledTableCell>
                     {/* <StyledTableCell
@@ -113,28 +99,16 @@ const OrderListScreen = ({ history, API }) => {
                     >
                       ADDRESS
                     </StyledTableCell> */}
-                    <StyledTableCell
-                      className={classes.tableHead}
-                      align="right"
-                    >
+                    <StyledTableCell className={classes.tableHead} align="right">
                       DATE
                     </StyledTableCell>
-                    <StyledTableCell
-                      className={classes.tableHead}
-                      align="right"
-                    >
+                    <StyledTableCell className={classes.tableHead} align="right">
                       PAYMENT METHOD
                     </StyledTableCell>
-                    <StyledTableCell
-                      className={classes.tableHead}
-                      align="right"
-                    >
+                    <StyledTableCell className={classes.tableHead} align="right">
                       PAID
                     </StyledTableCell>
-                    <StyledTableCell
-                      className={classes.tableHead}
-                      align="right"
-                    >
+                    <StyledTableCell className={classes.tableHead} align="right">
                       DELIVERED
                     </StyledTableCell>
                     <StyledTableCell
@@ -146,11 +120,8 @@ const OrderListScreen = ({ history, API }) => {
                 <TableBody>
                   {orders &&
                     orders
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((order) => (
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map(order => (
                         <StyledTableRow key={order._id}>
                           <StyledTableCell
                             className={classes.tableCol}
@@ -166,11 +137,8 @@ const OrderListScreen = ({ history, API }) => {
                           >
                             ${order.totalPrice}
                           </StyledTableCell>
-                          <StyledTableCell
-                            className={classes.tableCol}
-                            align="right"
-                          >
-                            {order.user && order.user.name.split(" ")[0]}
+                          <StyledTableCell className={classes.tableCol} align="right">
+                            {order.user && order.user.name.split(' ')[0]}
                           </StyledTableCell>
                           {/* <StyledTableCell
                             className={classes.tableCol}
@@ -180,50 +148,32 @@ const OrderListScreen = ({ history, API }) => {
                             {order.shippingAddress.postalCode},{" "}
                             {order.shippingAddress.country}
                           </StyledTableCell> */}
-                          <StyledTableCell
-                            className={classes.tableCol}
-                            align="right"
-                          >
+                          <StyledTableCell className={classes.tableCol} align="right">
                             {order.createdAt.substring(0, 10)}
                           </StyledTableCell>
-                          <StyledTableCell
-                            className={classes.tableCol}
-                            align="right"
-                          >
+                          <StyledTableCell className={classes.tableCol} align="right">
                             {order.paymentMethod}
                           </StyledTableCell>
 
-                          <StyledTableCell
-                            className={classes.tableCol}
-                            align="right"
-                          >
+                          <StyledTableCell className={classes.tableCol} align="right">
                             {order.isPaid ? (
                               <>
                                 <CheckIcon className={classes.check} />
                                 {order.paidAt.substring(0, 10)}
                               </>
                             ) : (
-                              <CloseIcon
-                                color="error"
-                                className={classes.cross}
-                              />
+                              <CloseIcon color="error" className={classes.cross} />
                             )}
                           </StyledTableCell>
-                          <StyledTableCell
-                            className={classes.tableCol}
-                            align="right"
-                          >
+                          <StyledTableCell className={classes.tableCol} align="right">
                             {order.isDelivered ? (
                               <>
                                 <CheckIcon className={classes.check} />
                                 {order.deliveredAt.substring(0, 10)}
                               </>
                             ) : (
-                              <CloseIcon
-                                color="error"
-                                className={classes.cross}
-                              />
-                            )}{" "}
+                              <CloseIcon color="error" className={classes.cross} />
+                            )}{' '}
                           </StyledTableCell>
                           <StyledTableCell align="right">
                             {/*Order details (redirect to order screen and can marked as delivered) */}
@@ -244,7 +194,7 @@ const OrderListScreen = ({ history, API }) => {
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={(event, newPage) => setPage(newPage)}
-                onChangeRowsPerPage={(event) => {
+                onChangeRowsPerPage={event => {
                   setRowsPerPage(parseInt(event.target.value, 10));
                   setPage(0);
                 }}

@@ -1,31 +1,31 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Pagination from "@material-ui/lab/Pagination";
+import { makeStyles } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
+import React from 'react';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    "& > *": {
+    '& > *': {
       marginTop: theme.spacing(2),
-      width: "70rem",
-      display: "flex",
-      justifyContent: "center",
-    },
+      width: '70rem',
+      display: 'flex',
+      justifyContent: 'center'
+    }
   },
   mobile: {
     marginTop: theme.spacing(2),
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-  },
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center'
+  }
 }));
 
 export default function BasicPagination({ totalPage, setPaginate, isMobile }) {
   const classes = useStyles();
 
   const handleChange = (event, page) => {
-    setPaginate((prev) => ({
+    setPaginate(prev => ({
       ...prev,
-      currentPage: page,
+      currentPage: page
     }));
     if (isMobile) {
       window.scrollTo(0, 2820);
@@ -42,7 +42,7 @@ export default function BasicPagination({ totalPage, setPaginate, isMobile }) {
         onChange={handleChange}
         shape="rounded"
         color="primary"
-        size={isMobile ? "small" : "large"}
+        size={isMobile ? 'small' : 'large'}
       />
     </div>
   );

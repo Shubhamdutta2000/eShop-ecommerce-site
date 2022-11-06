@@ -1,57 +1,54 @@
-import React, { useState, useEffect } from "react";
-
+import { Avatar, Button } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 ///    MATERIAL UI    ///
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import { Avatar, Button } from "@material-ui/core";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import Paper from '@material-ui/core/Paper';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Typography from '@material-ui/core/Typography';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import React, { useEffect, useState } from 'react';
+///    REDUX      ///
+import { useDispatch, useSelector } from 'react-redux';
 
 ///   COMPONENTS   ///
-import CheckoutStepper from "../components/CheckoutStepper";
-import Meta from "../components/Meta";
-
-///    REDUX      ///
-import { useSelector, useDispatch } from "react-redux";
-import { addPaymentMethod } from "../redux/actions/cartAction";
-
+import CheckoutStepper from '../components/CheckoutStepper';
+import Meta from '../components/Meta';
+import { addPaymentMethod } from '../redux/actions/cartAction';
 ///     CUSTOM STYLE    ///
-import { useStyle } from "./customStyle/allFormsScreen";
+import { useStyle } from './customStyle/allFormsScreen';
 
 const PaymentMethodScreen = ({ history }) => {
   const classes = useStyle();
 
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState('');
   const dispatch = useDispatch();
 
   ///     REDUX  REDUCER of Shipping Address   ///
-  const shippingAdd = useSelector((state) => state.cart);
+  const shippingAdd = useSelector(state => state.cart);
   const { shippingAddress } = shippingAdd;
 
   if (!shippingAddress) {
-    history.push("/shipping");
+    history.push('/shipping');
   }
 
   // User Login Credentials
-  const login = useSelector((state) => state.userLogin);
+  const login = useSelector(state => state.userLogin);
   const { userInfo } = login;
 
   // Redirect to loginScreen on logout
   useEffect(() => {
     if (!userInfo) {
-      history.push("/login");
+      history.push('/login');
     }
   }, [history, userInfo]);
 
-  const submitHandler = (event) => {
+  const submitHandler = event => {
     event.preventDefault();
     ///      DISPATCH PAYMENT METHOD and push to /placeorder   ///
     dispatch(addPaymentMethod(paymentMethod));
-    history.push("/placeorder");
+    history.push('/placeorder');
   };
 
   ///    GO BACK      ///
@@ -85,18 +82,10 @@ const PaymentMethodScreen = ({ history }) => {
               aria-label="payment method"
               name="payment method"
               value={paymentMethod}
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              onChange={e => setPaymentMethod(e.target.value)}
             >
-              <FormControlLabel
-                value="PayPal"
-                control={<Radio required />}
-                label="PayPal"
-              />
-              <FormControlLabel
-                value="Stripe"
-                control={<Radio required />}
-                label="Stripe"
-              />
+              <FormControlLabel value="PayPal" control={<Radio required />} label="PayPal" />
+              <FormControlLabel value="Stripe" control={<Radio required />} label="Stripe" />
             </RadioGroup>
           </FormControl>
 

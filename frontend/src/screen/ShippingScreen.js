@@ -1,38 +1,34 @@
-import React, { useEffect, useState } from "react";
-
+import { Avatar, Button } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 ///    MATERIAL UI    ///
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import InputLabel from "@material-ui/core/InputLabel";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import FormControl from "@material-ui/core/FormControl";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import { Avatar, Button } from "@material-ui/core";
-
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import FiberPinIcon from '@material-ui/icons/FiberPin';
+import LanguageIcon from '@material-ui/icons/Language';
 ///      MATERIAL UI ICONS     ///
-import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import LocationCityIcon from "@material-ui/icons/LocationCity";
-import FiberPinIcon from "@material-ui/icons/FiberPin";
-import LanguageIcon from "@material-ui/icons/Language";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import React, { useEffect, useState } from 'react';
 ///     REDUX       ///
-import { useSelector, useDispatch } from "react-redux";
-import { addShippingAddress } from "../redux/actions/cartAction";
+import { useDispatch, useSelector } from 'react-redux';
 
 ///   COMPONENT   ///
-import CheckoutStepper from "../components/CheckoutStepper";
-import Meta from "../components/Meta";
-
+import CheckoutStepper from '../components/CheckoutStepper';
+import Meta from '../components/Meta';
+import { addShippingAddress } from '../redux/actions/cartAction';
 ///     CUSTOM STYLE    ///
-import { useStyle } from "./customStyle/allFormsScreen";
+import { useStyle } from './customStyle/allFormsScreen';
 
 const ShippingScreen = ({ history }) => {
   const classes = useStyle();
 
   ///     REDUX  REDUCER   ///
-  const shippingAdd = useSelector((state) => state.cart);
+  const shippingAdd = useSelector(state => state.cart);
   const { shippingAddress } = shippingAdd;
 
   ///    SHIPPING ADDRESS STATE (DEFAULT: FROM LOCAL STORAGE)    ///
@@ -44,21 +40,21 @@ const ShippingScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   // User Login Credentials
-  const login = useSelector((state) => state.userLogin);
+  const login = useSelector(state => state.userLogin);
   const { userInfo } = login;
 
   // Redirect to loginScreen on logout
   useEffect(() => {
     if (!userInfo) {
-      history.push("/login");
+      history.push('/login');
     }
   }, [history, userInfo]);
 
-  const submitHandler = (event) => {
+  const submitHandler = event => {
     event.preventDefault();
     //DISPATCH SHIPPING ADDRESS
     dispatch(addShippingAddress({ address, city, postalCode, country }));
-    history.push("/paymentMethod");
+    history.push('/paymentMethod');
   };
 
   ///    GO BACK      ///
@@ -84,16 +80,14 @@ const ShippingScreen = ({ history }) => {
 
         <form className={classes.form}>
           <FormControl variant="outlined" className={classes.input}>
-            <InputLabel htmlFor="outlined-adornment-address">
-              Address
-            </InputLabel>
+            <InputLabel htmlFor="outlined-adornment-address">Address</InputLabel>
             <OutlinedInput
               id="outlined-adornment-address"
               placeholder="Your Address"
               required
               type="text"
               value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              onChange={e => setAddress(e.target.value)}
               startAdornment={
                 <InputAdornment position="start">
                   <LocationOnIcon className={classes.icon} />
@@ -111,7 +105,7 @@ const ShippingScreen = ({ history }) => {
               required
               type="text"
               value={city}
-              onChange={(e) => setCity(e.target.value)}
+              onChange={e => setCity(e.target.value)}
               startAdornment={
                 <InputAdornment position="start">
                   <LocationCityIcon className={classes.icon} />
@@ -122,16 +116,14 @@ const ShippingScreen = ({ history }) => {
           </FormControl>
 
           <FormControl variant="outlined" className={classes.input}>
-            <InputLabel htmlFor="outlined-adornment-postalCode">
-              Postal Code
-            </InputLabel>
+            <InputLabel htmlFor="outlined-adornment-postalCode">Postal Code</InputLabel>
             <OutlinedInput
               id="outlined-adornment-postalCode"
               placeholder="Postal Code"
               required
               type="text"
               value={postalCode}
-              onChange={(e) => setPostalCode(e.target.value)}
+              onChange={e => setPostalCode(e.target.value)}
               startAdornment={
                 <InputAdornment position="start">
                   <FiberPinIcon className={classes.icon} />
@@ -142,16 +134,14 @@ const ShippingScreen = ({ history }) => {
           </FormControl>
 
           <FormControl variant="outlined" className={classes.input}>
-            <InputLabel htmlFor="outlined-adornment-confirmPassword">
-              Country
-            </InputLabel>
+            <InputLabel htmlFor="outlined-adornment-confirmPassword">Country</InputLabel>
             <OutlinedInput
               id="outlined-adornment-country"
               placeholder="Your Country"
               required
               type="text"
               value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              onChange={e => setCountry(e.target.value)}
               startAdornment={
                 <InputAdornment position="start">
                   <LanguageIcon className={classes.icon} />

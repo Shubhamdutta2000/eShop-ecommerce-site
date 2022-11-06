@@ -1,22 +1,21 @@
-import { Button, makeStyles } from "@material-ui/core";
-import React, { useEffect } from "react";
-import StripeCheckoutButton from "react-stripe-checkout";
-
+import { Button, makeStyles } from '@material-ui/core';
+import axios from 'axios';
+import React, { useEffect } from 'react';
 // REDUX
-import { useDispatch, useSelector } from "react-redux";
-import { payOrder } from "../redux/actions/orderAction";
-import { emptyCart } from "../redux/actions/cartAction";
-import { ORDER_PAY_RESET } from "../redux/actionTypes/orderConstants";
+import { useDispatch, useSelector } from 'react-redux';
+import StripeCheckoutButton from 'react-stripe-checkout';
 
-import Loader from "./Loader";
-import axios from "axios";
+import { ORDER_PAY_RESET } from '../redux/actionTypes/orderConstants';
+import { emptyCart } from '../redux/actions/cartAction';
+import { payOrder } from '../redux/actions/orderAction';
+import Loader from './Loader';
 
 // custom style for stripe checkout button
 const useStyle = makeStyles(() => ({
   stripeButton: {
-    background: "linear-gradient(45deg, #007fe4 30%, #00c3f1 90%)",
-    color: "#fff",
-  },
+    background: 'linear-gradient(45deg, #007fe4 30%, #00c3f1 90%)',
+    color: '#fff'
+  }
 }));
 
 export const StripeCheckout = ({ orderId, API }) => {
@@ -25,15 +24,15 @@ export const StripeCheckout = ({ orderId, API }) => {
   const dispatch = useDispatch();
 
   // Order details
-  const orderDetails = useSelector((state) => state.orderDetails);
+  const orderDetails = useSelector(state => state.orderDetails);
   const { orders } = orderDetails;
 
   // User Login Credentials
-  const login = useSelector((state) => state.userLogin);
+  const login = useSelector(state => state.userLogin);
   const { userInfo } = login;
 
   // Updated Order after paid
-  const orderPay = useSelector((state) => state.orderPay);
+  const orderPay = useSelector(state => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
 
   // if paid successfully reset
@@ -46,25 +45,23 @@ export const StripeCheckout = ({ orderId, API }) => {
   }, [dispatch, successPay]);
 
   // make payment through stripe by post request data to backend
-  const makePayment = async (token) => {
+  const makePayment = async token => {
     console.log(token);
     try {
       const { data } = await axios.post(
         `${API}/payment/stripe`,
         { token, orderId },
         {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
+            Authorization: `Bearer ${userInfo.token}`
+          }
         }
       );
       console.log(data);
       if (data) {
         dispatch(payOrder(API, orderId, data));
-        alert(
-          "Transaction completed by " + orders.user.name + " through stripe"
-        );
+        alert('Transaction completed by ' + orders.user.name + ' through stripe');
       }
     } catch (error) {
       console.log(error);
@@ -86,7 +83,7 @@ export const StripeCheckout = ({ orderId, API }) => {
           billingAddress
         >
           <Button
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
             variant="contained"
             size="large"
             className={classes.stripeButton}

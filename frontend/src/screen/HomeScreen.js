@@ -1,28 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Button } from "react-bootstrap";
-
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
 // Owl Carousal
-import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
-
+import OwlCarousel from 'react-owl-carousel';
 // Redux
-import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../redux/actions/productListAction";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import Loader from '../components/Loader';
+import ErrMess from '../components/Message';
+import Meta from '../components/Meta';
+import Paginate from '../components/Paginate';
 // Components
-import Product from "../components/Products";
-import Loader from "../components/Loader";
-import ErrMess from "../components/Message";
-import Paginate from "../components/Paginate";
-import Meta from "../components/Meta";
-
-// Carousal Data
-import { carousalData } from "../utils/carousalData";
-
+import Product from '../components/Products';
+import { listProducts } from '../redux/actions/productListAction';
 // Styling
-import "../styles/Screen/HomeScreen.css";
+import '../styles/Screen/HomeScreen.css';
+// Carousal Data
+import { carousalData } from '../utils/carousalData';
 
 export default function Home({ location, history, API, isMobile }) {
   // option for card carousal
@@ -33,19 +29,19 @@ export default function Home({ location, history, API, isMobile }) {
     nav: true,
     navText: [
       "<i class='fa fa-2x fa-angle-left'></i>",
-      "<i class='fa fa-2x fa-angle-right'></i>",
+      "<i class='fa fa-2x fa-angle-right'></i>"
     ],
     responsive: {
       320: {
-        items: 1,
+        items: 1
       },
       768: {
-        items: 3,
+        items: 3
       },
       1000: {
-        items: 4,
-      },
-    },
+        items: 4
+      }
+    }
   };
 
   // option for hero section carousal
@@ -56,25 +52,25 @@ export default function Home({ location, history, API, isMobile }) {
     autoplayTimeout: 4000,
     lazyLoad: true,
     smartSpeed: 1000,
-    items: 1,
+    items: 1
   };
 
   //   fetching datas of productList from redux state
   const dispatch = useDispatch();
-  const productList = useSelector((state) => state.productList);
+  const productList = useSelector(state => state.productList);
   const { loading, products, error } = productList;
 
   // PAGINATION CALCULATIONS
   const [paginate, setPaginate] = useState({
     allProducts: [],
     currentPage: 1,
-    allProductsPerPage: !isMobile ? 6 : 1,
+    allProductsPerPage: !isMobile ? 6 : 1
   });
 
   useEffect(() => {
-    setPaginate((prev) => ({
+    setPaginate(prev => ({
       ...prev,
-      allProducts: products,
+      allProducts: products
     }));
 
     window.scrollTo(0, 0);
@@ -85,10 +81,7 @@ export default function Home({ location, history, API, isMobile }) {
   // Logic for displaying current allProducts
   const indexOfLastProduct = currentPage * allProductsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - allProductsPerPage;
-  const currentProducts = allProducts.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
+  const currentProducts = allProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPage = Math.ceil(allProducts.length / allProductsPerPage);
   // ENDS PAGINATION CALCULATIONS
 
@@ -96,7 +89,7 @@ export default function Home({ location, history, API, isMobile }) {
   const [isQuerying, setIsQuerying] = useState(false);
 
   const query = new URLSearchParams(location.search);
-  const keyword = query.get("name") || "";
+  const keyword = query.get('name') || '';
   // const pageNumber = parseInt(query.get("pageNumber")) || "";
 
   useEffect(() => {
@@ -115,22 +108,22 @@ export default function Home({ location, history, API, isMobile }) {
   const womensRef = useRef(null); // To Womens Accessories
 
   // function to scroll to desired position smoothly
-  const executeScroll = (id) => {
-    if (id === "#electronics") {
+  const executeScroll = id => {
+    if (id === '#electronics') {
       electronicsRef.current.scrollIntoView({
-        behavior: "smooth",
+        behavior: 'smooth'
       });
-    } else if (id === "#home_appliances") {
+    } else if (id === '#home_appliances') {
       homeRef.current.scrollIntoView({
-        behavior: "smooth",
+        behavior: 'smooth'
       });
-    } else if (id === "#mens_accessories") {
+    } else if (id === '#mens_accessories') {
       mensRef.current.scrollIntoView({
-        behavior: "smooth",
+        behavior: 'smooth'
       });
-    } else if (id === "#womens_accessories") {
+    } else if (id === '#womens_accessories') {
       womensRef.current.scrollIntoView({
-        behavior: "smooth",
+        behavior: 'smooth'
       });
     }
   };
@@ -145,48 +138,36 @@ export default function Home({ location, history, API, isMobile }) {
       <Meta />
       {/*//   CAROUSAL   /// */}
       {!isQuerying ? (
-        <OwlCarousel
-          key={products.length}
-          className="owl-carousel owl-theme"
-          {...options2}
-        >
+        <OwlCarousel key={products.length} className="owl-carousel owl-theme" {...options2}>
           {carousalData.map((data, index) => (
             <Col key={index}>
               <div
-                className={isMobile ? "carousal_phone" : "carousal"}
+                className={isMobile ? 'carousal_phone' : 'carousal'}
                 style={
                   isMobile
                     ? {
                         background: `url(${data.image_mobile})`,
-                        backgroundPosition: "-30px",
-                        backgroundSize: "cover",
-                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: '-30px',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat'
                       }
                     : {
                         background: `url(${data.image_desktop})`,
-                        backgroundPosition: "center",
-                        backgroundSize: "cover",
-                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat'
                       }
                 }
               >
-                <h1
-                  className={
-                    isMobile ? "carousal_heading_phone" : "carousal_heading"
-                  }
-                >
+                <h1 className={isMobile ? 'carousal_heading_phone' : 'carousal_heading'}>
                   {data.heading}
                 </h1>
-                <h2
-                  className={isMobile ? "carousal_para_phone" : "carousal_para"}
-                >
+                <h2 className={isMobile ? 'carousal_para_phone' : 'carousal_para'}>
                   {data.para}
                 </h2>
                 <button
                   onClick={() => executeScroll(data.id)}
-                  className={
-                    isMobile ? "carousal_button_phone" : "carousal_button"
-                  }
+                  className={isMobile ? 'carousal_button_phone' : 'carousal_button'}
                 >
                   SHOP NOW
                 </button>
@@ -196,7 +177,7 @@ export default function Home({ location, history, API, isMobile }) {
         </OwlCarousel>
       ) : (
         <>
-          <div className={!isMobile ? "mx-5 px-4 py-4" : "mx-3 px-3 py-4"}>
+          <div className={!isMobile ? 'mx-5 px-4 py-4' : 'mx-3 px-3 py-4'}>
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
@@ -217,18 +198,14 @@ export default function Home({ location, history, API, isMobile }) {
       {/* /////////////////    BUG: Render carusal before children ////////// */}
       {/*//////////////////    SOLUTION: ADD key to OwlCarousal  */}
 
-      <div className={isMobile ? "products_section_phone" : "products_section"}>
+      <div className={isMobile ? 'products_section_phone' : 'products_section'}>
         {/*// if nothing there to search then show all category division of products otherwise not //*/}
         {!isQuerying ? (
           <>
             {/* ELECTRONICS */}
             <h1
               ref={electronicsRef}
-              className={
-                isMobile
-                  ? "category_heading_phone mt-4"
-                  : " category_heading mt-5"
-              }
+              className={isMobile ? 'category_heading_phone mt-4' : ' category_heading mt-5'}
             >
               Electronics Accessories
             </h1>
@@ -240,13 +217,9 @@ export default function Home({ location, history, API, isMobile }) {
                 <ErrMess varient="#FC308B">{error}</ErrMess>
               ) : (
                 products && (
-                  <OwlCarousel
-                    key={products.length}
-                    className="owl-theme"
-                    {...options}
-                  >
+                  <OwlCarousel key={products.length} className="owl-theme" {...options}>
                     {products
-                      .filter((p) => p.category === "electronics")
+                      .filter(p => p.category === 'electronics')
                       .map((electronic, index) => (
                         <Col key={index}>
                           <Product product={electronic} />
@@ -261,9 +234,7 @@ export default function Home({ location, history, API, isMobile }) {
             <h1
               ref={homeRef}
               className={
-                isMobile
-                  ? "category_heading_phone  pt-2 mt-4"
-                  : "category_heading pt-5 mt-5"
+                isMobile ? 'category_heading_phone  pt-2 mt-4' : 'category_heading pt-5 mt-5'
               }
             >
               Home Appliances
@@ -276,13 +247,9 @@ export default function Home({ location, history, API, isMobile }) {
                 <ErrMess varient="#FC308B">{error}</ErrMess>
               ) : (
                 products && (
-                  <OwlCarousel
-                    key={products.length}
-                    className="owl-theme"
-                    {...options}
-                  >
+                  <OwlCarousel key={products.length} className="owl-theme" {...options}>
                     {products
-                      .filter((p) => p.category === "home_appliances")
+                      .filter(p => p.category === 'home_appliances')
                       .map((home_appliance, index) => (
                         <Col key={index}>
                           <Product product={home_appliance} />
@@ -297,9 +264,7 @@ export default function Home({ location, history, API, isMobile }) {
             <h1
               ref={mensRef}
               className={
-                isMobile
-                  ? "category_heading_phone  pt-2 mt-4"
-                  : "category_heading pt-5 mt-5"
+                isMobile ? 'category_heading_phone  pt-2 mt-4' : 'category_heading pt-5 mt-5'
               }
             >
               Men's Accessories
@@ -312,13 +277,9 @@ export default function Home({ location, history, API, isMobile }) {
                 <ErrMess varient="#FC308B">{error}</ErrMess>
               ) : (
                 products && (
-                  <OwlCarousel
-                    key={products.length}
-                    className="owl-theme"
-                    {...options}
-                  >
+                  <OwlCarousel key={products.length} className="owl-theme" {...options}>
                     {products
-                      .filter((p) => p.category === "mens_accessories")
+                      .filter(p => p.category === 'mens_accessories')
                       .map((mens_accessory, index) => (
                         <Col key={index}>
                           <Product product={mens_accessory} />
@@ -333,9 +294,7 @@ export default function Home({ location, history, API, isMobile }) {
             <h1
               ref={womensRef}
               className={
-                isMobile
-                  ? "category_heading_phone  pt-2 mt-4"
-                  : "category_heading pt-5 mt-5"
+                isMobile ? 'category_heading_phone  pt-2 mt-4' : 'category_heading pt-5 mt-5'
               }
             >
               Women's Accessories
@@ -348,13 +307,9 @@ export default function Home({ location, history, API, isMobile }) {
                 <ErrMess varient="#FC308B">{error}</ErrMess>
               ) : (
                 products && (
-                  <OwlCarousel
-                    key={products.length}
-                    className="owl-theme"
-                    {...options}
-                  >
+                  <OwlCarousel key={products.length} className="owl-theme" {...options}>
                     {products
-                      .filter((p) => p.category === "womens_accessories")
+                      .filter(p => p.category === 'womens_accessories')
                       .map((womens_accessory, index) => (
                         <Col key={index}>
                           <Product product={womens_accessory} />
@@ -373,15 +328,15 @@ export default function Home({ location, history, API, isMobile }) {
         <h1
           className={
             isQuerying && isMobile
-              ? "category_heading_phone mb-4"
+              ? 'category_heading_phone mb-4'
               : isQuerying
-              ? "category_heading mb-5"
+              ? 'category_heading mb-5'
               : isMobile
-              ? "category_heading_phone"
-              : "category_heading pt-5 mt-5"
+              ? 'category_heading_phone'
+              : 'category_heading pt-5 mt-5'
           }
         >
-          {!isQuerying ? "Latest Products" : `Results of ${keyword}`}
+          {!isQuerying ? 'Latest Products' : `Results of ${keyword}`}
         </h1>
 
         <Row>
@@ -406,7 +361,7 @@ export default function Home({ location, history, API, isMobile }) {
             <>
               {/* No Products found  */}
               <Col xs={12} className="text-center">
-                <h2 className={isMobile ? "noProduct_phone" : "noProduct"}>
+                <h2 className={isMobile ? 'noProduct_phone' : 'noProduct'}>
                   No Products Found
                 </h2>
               </Col>

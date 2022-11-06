@@ -1,7 +1,6 @@
-import React from "react";
-
-import { Skeleton } from "@material-ui/lab";
-import { Col, Row } from "react-bootstrap";
+import { Skeleton } from '@material-ui/lab';
+import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 
 const ProductScreenSkeleton = () => {
   return (

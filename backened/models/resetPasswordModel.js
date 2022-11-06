@@ -1,18 +1,18 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const resetPasswordSchema = mongoose.Schema({
   user: {
     type: mongoose.Types.ObjectId,
-    ref: "User",
+    ref: 'User'
   },
   accessToken: {
-    type: String,
+    type: String
   },
   isValid: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 });
 
-const resetPassword = mongoose.model("resetPassword", resetPasswordSchema);
+const resetPassword = mongoose.model('resetPassword', resetPasswordSchema);
 export default resetPassword;

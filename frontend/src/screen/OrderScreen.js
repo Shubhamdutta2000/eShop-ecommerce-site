@@ -1,36 +1,33 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
-
+import Avatar from '@material-ui/core/Avatar';
+import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
 ///     MATERIAL UI   ///
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import Divider from "@material-ui/core/Divider";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-
-///    Components   ///
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import Meta from "../components/Meta";
-import { StripeCheckout } from "../components/StripeCheckout";
-import { PayPalCheckout } from "../components/PayPalCheckout";
-
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import React, { useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 ///    REDUX     ///
-import { useDispatch, useSelector } from "react-redux";
-import { getOrderDetails, deliverOrder } from "../redux/actions/orderAction";
-import { ORDER_DELIVER_RESET } from "../redux/actionTypes/orderConstants";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import Loader from '../components/Loader';
+///    Components   ///
+import Message from '../components/Message';
+import Meta from '../components/Meta';
+import { PayPalCheckout } from '../components/PayPalCheckout';
+import { StripeCheckout } from '../components/StripeCheckout';
+import { ORDER_DELIVER_RESET } from '../redux/actionTypes/orderConstants';
+import { deliverOrder, getOrderDetails } from '../redux/actions/orderAction';
+import '../styles/Screen/OrderScreen.css';
 ///    CUSTOM STYLES     ///
-import { useStyles } from "./customStyle/PlaceOrderScreen";
-import "../styles/Screen/OrderScreen.css";
-import OrderScreenSkeleton from "./skeletons/OrderScreenSkeleton";
+import { useStyles } from './customStyle/PlaceOrderScreen';
+import OrderScreenSkeleton from './skeletons/OrderScreenSkeleton';
 
 const OrderScreen = ({ match, history, API, isMobile }) => {
   const classes = useStyles();
@@ -39,24 +36,24 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
   const dispatch = useDispatch();
 
   // User Login Credentials reducer
-  const login = useSelector((state) => state.userLogin);
+  const login = useSelector(state => state.userLogin);
   const { userInfo } = login;
 
   // Order details reducer
-  const orderDetails = useSelector((state) => state.orderDetails);
+  const orderDetails = useSelector(state => state.orderDetails);
   const { loading, orders, error } = orderDetails;
 
   // PAYMENT INTEGRATION (update order to paid) reducer
-  const orderPay = useSelector((state) => state.orderPay);
+  const orderPay = useSelector(state => state.orderPay);
   const { success: successPay } = orderPay;
 
   // Update order to deliver reducer
-  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const orderDeliver = useSelector(state => state.orderDeliver);
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
 
   useEffect(() => {
     if (!userInfo) {
-      history.push("/login");
+      history.push('/login');
     } else {
       dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(getOrderDetails(API, orderId));
@@ -76,16 +73,8 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
       {/* /// add custom title in Order Screen / */}
       <Meta title="Order Screen" />
       <br />
-      <Typography
-        variant={isMobile ? "h6" : "h4"}
-        component="h4"
-        color="textSecondary"
-      >
-        <span
-          style={isMobile ? { display: "flex", justifyContent: "center" } : {}}
-        >
-          ORDER
-        </span>{" "}
+      <Typography variant={isMobile ? 'h6' : 'h4'} component="h4" color="textSecondary">
+        <span style={isMobile ? { display: 'flex', justifyContent: 'center' } : {}}>ORDER</span>{' '}
         {orders._id}
       </Typography>
       <br />
@@ -96,11 +85,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
           <Paper className={classes.paper} elevation={6}>
             <List className={classes.list}>
               <ListItem className={classes.list_item}>
-                <Typography
-                  color="primary"
-                  variant={isMobile ? "h6" : "h4"}
-                  component="h3"
-                >
+                <Typography color="primary" variant={isMobile ? 'h6' : 'h4'} component="h3">
                   <strong>SHIPPING DETAILS</strong>
                 </Typography>
               </ListItem>
@@ -126,19 +111,13 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
                   <strong>Address: </strong>
                   <span className="ml-4">{orders.shippingAddress.address}</span>
                   <br />
-                  <span className="ml-5 pl-5">
-                    {orders.shippingAddress.city}
-                  </span>
+                  <span className="ml-5 pl-5">{orders.shippingAddress.city}</span>
 
                   <br />
-                  <span className="ml-5 pl-5">
-                    {orders.shippingAddress.country},
-                  </span>
+                  <span className="ml-5 pl-5">{orders.shippingAddress.country},</span>
 
                   <br />
-                  <span className="ml-5 pl-5">
-                    {orders.shippingAddress.postalCode}
-                  </span>
+                  <span className="ml-5 pl-5">{orders.shippingAddress.postalCode}</span>
                 </Typography>
               </ListItem>
               <div className={classes.message}>
@@ -154,11 +133,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
 
             <List className={classes.list}>
               <ListItem className={classes.list_item}>
-                <Typography
-                  color="primary"
-                  variant={isMobile ? "h6" : "h4"}
-                  component="h3"
-                >
+                <Typography color="primary" variant={isMobile ? 'h6' : 'h4'} component="h3">
                   <strong>PAYMENT METHOD</strong>
                 </Typography>
               </ListItem>
@@ -171,9 +146,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
               </ListItem>
               <div className={classes.message}>
                 {orders.isPaid ? (
-                  <Message varient="success">
-                    Paid on {orders.paidAt.substring(0, 10)}
-                  </Message>
+                  <Message varient="success">Paid on {orders.paidAt.substring(0, 10)}</Message>
                 ) : (
                   <Message varient="error">Not Paid</Message>
                 )}
@@ -184,11 +157,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
           <Paper className={classes.paper} elevation={6}>
             <List className={classes.list}>
               <ListItem className={classes.list_item}>
-                <Typography
-                  color="primary"
-                  variant={isMobile ? "h5" : "h4"}
-                  component="h3"
-                >
+                <Typography color="primary" variant={isMobile ? 'h5' : 'h4'} component="h3">
                   <strong>ORDER DETAILS</strong>
                 </Typography>
               </ListItem>
@@ -204,10 +173,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
               <List>
                 {orders.orderItems.map((item, index) => (
                   <div key={index}>
-                    <ListItem
-                      className={classes.list_item}
-                      alignItems="flex-start"
-                    >
+                    <ListItem className={classes.list_item} alignItems="flex-start">
                       <ListItemAvatar>
                         <Avatar
                           className={classes.avatar}
@@ -225,11 +191,10 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
                           secondary={
                             <Typography
                               color="primary"
-                              variant={isMobile ? "span" : "body2"}
+                              variant={isMobile ? 'span' : 'body2'}
                               component="span"
                             >
-                              {item.qty} x {item.price} ={" "}
-                              {(item.qty * item.price).toFixed(2)}
+                              {item.qty} x {item.price} = {(item.qty * item.price).toFixed(2)}
                             </Typography>
                           }
                         />
@@ -240,11 +205,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
                         </ListItemSecondaryAction>
                       ) : null}
                     </ListItem>
-                    <Divider
-                      variant="fullWidth"
-                      className={classes.divider}
-                      component="li"
-                    />
+                    <Divider variant="fullWidth" className={classes.divider} component="li" />
                   </div>
                 ))}
               </List>
@@ -284,11 +245,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
                 </Grid>
               </ListItem>
 
-              <Divider
-                variant="fullWidth"
-                className={classes.divider}
-                component="li"
-              />
+              <Divider variant="fullWidth" className={classes.divider} component="li" />
 
               <ListItem>
                 <Grid container>
@@ -305,11 +262,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
                 </Grid>
               </ListItem>
 
-              <Divider
-                variant="fullWidth"
-                className={classes.divider}
-                component="li"
-              />
+              <Divider variant="fullWidth" className={classes.divider} component="li" />
 
               <ListItem>
                 <Grid container>
@@ -326,11 +279,7 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
                 </Grid>
               </ListItem>
 
-              <Divider
-                variant="fullWidth"
-                className={classes.divider}
-                component="li"
-              />
+              <Divider variant="fullWidth" className={classes.divider} component="li" />
 
               <ListItem>
                 <Grid container>
@@ -353,35 +302,29 @@ const OrderScreen = ({ match, history, API, isMobile }) => {
               {!orders.isPaid ? (
                 <ListItem>
                   <Grid item xs={12}>
-                    {orders.paymentMethod === "PayPal" ? (
+                    {orders.paymentMethod === 'PayPal' ? (
                       <PayPalCheckout orderId={orderId} API={API} />
-                    ) : orders.paymentMethod === "Stripe" ? (
+                    ) : orders.paymentMethod === 'Stripe' ? (
                       <StripeCheckout orderId={orderId} API={API} />
                     ) : null}
                   </Grid>
                 </ListItem>
               ) : (
-                userInfo &&
-                !userInfo.isAdmin && (
-                  <Message>Payment Done Successfully</Message>
-                )
+                userInfo && !userInfo.isAdmin && <Message>Payment Done Successfully</Message>
               )}
               <ListItem>
                 {/*/// Marked As Delivered BUTTON showed if order is not delivered and if admin user  ///*/}
-                {userInfo &&
-                  userInfo.isAdmin &&
-                  orders.isPaid &&
-                  !orders.isDelivered && (
-                    <>
-                      <Button
-                        className="btn-block p-2 order_deliver_button"
-                        onClick={handleDeliver}
-                      >
-                        MARKED AS DELIVERED
-                      </Button>
-                      {loadingDeliver && <Loader />}
-                    </>
-                  )}
+                {userInfo && userInfo.isAdmin && orders.isPaid && !orders.isDelivered && (
+                  <>
+                    <Button
+                      className="btn-block p-2 order_deliver_button"
+                      onClick={handleDeliver}
+                    >
+                      MARKED AS DELIVERED
+                    </Button>
+                    {loadingDeliver && <Loader />}
+                  </>
+                )}
               </ListItem>
             </List>
           </Paper>

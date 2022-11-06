@@ -1,22 +1,22 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Stepper from '@material-ui/core/Stepper';
+import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 
 ////////////////////////////////////    CUSTOM STYLE COMPONENTS   /////////////////////////////////////////
-import { CheckoutStepConnector } from "./CustomStyles/CheckoutStepper/StepConnector";
-import { StepIcon } from "./CustomStyles/CheckoutStepper/StepIcon";
+import { CheckoutStepConnector } from './CustomStyles/CheckoutStepper/StepConnector';
+import { StepIcon } from './CustomStyles/CheckoutStepper/StepIcon';
 
 function getSteps() {
-  return ["Sign In", "Shipping", "Payment", "Place Order"];
+  return ['Sign In', 'Shipping', 'Payment', 'Place Order'];
 }
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: "flex",
-    justifyContent: "center",
-  },
+    display: 'flex',
+    justifyContent: 'center'
+  }
 }));
 
 export default function CheckoutStepper({ step }) {
@@ -31,7 +31,7 @@ export default function CheckoutStepper({ step }) {
         alternativeLabel
         connector={<CheckoutStepConnector />}
       >
-        {steps.map((label) => (
+        {steps.map(label => (
           <Step key={label}>
             <StepLabel StepIconComponent={StepIcon}>{label}</StepLabel>
           </Step>

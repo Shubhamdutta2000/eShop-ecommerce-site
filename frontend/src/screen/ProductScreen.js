@@ -1,53 +1,37 @@
-import React, { useState, useEffect } from "react";
-import {
-  Row,
-  Col,
-  Image,
-  ListGroup,
-  Card,
-  Button,
-  Form,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
-
-//////////////////    COMPONENTS     //////////////////////////
-import Rating from "../components/Rating";
-import Message from "../components/Message";
-import Meta from "../components/Meta";
-import Skeleton from "./skeletons/ProductScreenSkeleton";
-
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Col, Form, Image, ListGroup, Row } from 'react-bootstrap';
 /////////////////     REDUX    ///////////////////////////////////
-import { useDispatch, useSelector } from "react-redux";
-import {
-  listProductDetails,
-  createProductReview,
-} from "../redux/actions/productDetailsAction";
-import { PRODUCT_CREATE_REVIEW_RESET } from "../redux/actionTypes/productDetailsConstants";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import "../styles/Screen/ProductScreen.css";
+import Message from '../components/Message';
+import Meta from '../components/Meta';
+//////////////////    COMPONENTS     //////////////////////////
+import Rating from '../components/Rating';
+import { PRODUCT_CREATE_REVIEW_RESET } from '../redux/actionTypes/productDetailsConstants';
+import { createProductReview, listProductDetails } from '../redux/actions/productDetailsAction';
+import '../styles/Screen/ProductScreen.css';
+import Skeleton from './skeletons/ProductScreenSkeleton';
 
 export default function ProductScreen({ history, match, API, isMobile }) {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
 
   //////////////////     fetching datas of productList from redux state   ////////////////////////
 
   const dispatch = useDispatch();
 
   // product details
-  const productDetails = useSelector((state) => state.productDetails);
+  const productDetails = useSelector(state => state.productDetails);
   const { loading, product, error } = productDetails;
 
   // create product review reducer
-  const productCreateReview = useSelector((state) => state.productCreateReview);
-  const {
-    success: successProductReview,
-    error: errorProductReview,
-  } = productCreateReview;
+  const productCreateReview = useSelector(state => state.productCreateReview);
+  const { success: successProductReview, error: errorProductReview } = productCreateReview;
 
   // user login credentials
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
@@ -57,9 +41,9 @@ export default function ProductScreen({ history, match, API, isMobile }) {
   useEffect(() => {
     if (successProductReview) {
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
-      alert("Review Submitted Successfully");
+      alert('Review Submitted Successfully');
       setRating(0);
-      setComment("");
+      setComment('');
     }
     dispatch(listProductDetails(API, match.params.category, match.params.id));
   }, [dispatch, match, successProductReview, API]);
@@ -68,18 +52,16 @@ export default function ProductScreen({ history, match, API, isMobile }) {
   //////////////////////    Redirect to Cart page      ///////////////////////
 
   const addToCartHandler = () => {
-    history.push(
-      `/cart/${match.params.category}/${match.params.id}?qty=${qty}`
-    );
+    history.push(`/cart/${match.params.category}/${match.params.id}?qty=${qty}`);
   };
 
   // submit product review
-  const submitReviewHandler = (e) => {
+  const submitReviewHandler = e => {
     e.preventDefault();
     dispatch(
       createProductReview(API, match.params.category, match.params.id, {
         rating: rating,
-        comment: comment,
+        comment: comment
       })
     );
   };
@@ -119,20 +101,13 @@ export default function ProductScreen({ history, match, API, isMobile }) {
           <Meta title={`${product.name}`} />
           <Row>
             <Col md={6}>
-              <Image
-                className="shadow"
-                src={product.image}
-                alt={product.name}
-                fluid
-              />
+              <Image className="shadow" src={product.image} alt={product.name} fluid />
             </Col>
 
             <Col md={3}>
               <ListGroup className="shadow" varient="flush">
                 <ListGroup.Item>
-                  <h3 className="font-weight-bold text-primary">
-                    {product.name}
-                  </h3>
+                  <h3 className="font-weight-bold text-primary">{product.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <strong>
@@ -142,17 +117,12 @@ export default function ProductScreen({ history, match, API, isMobile }) {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <strong>
-                    <h5 className="font-weight-bold text-secondary">
-                      Description:
-                    </h5>
+                    <h5 className="font-weight-bold text-secondary">Description:</h5>
                   </strong>
                   <p>{product.description}</p>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  />
+                  <Rating value={product.rating} text={`${product.numReviews} reviews`} />
                 </ListGroup.Item>
               </ListGroup>
             </Col>
@@ -172,9 +142,7 @@ export default function ProductScreen({ history, match, API, isMobile }) {
                     <Row>
                       <Col>Status: </Col>
                       <Col>
-                        <strong>
-                          ${product.countInStock ? "In Stock" : "Out Of Stock"}
-                        </strong>
+                        <strong>${product.countInStock ? 'In Stock' : 'Out Of Stock'}</strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -186,15 +154,13 @@ export default function ProductScreen({ history, match, API, isMobile }) {
                           <Form.Control
                             as="select"
                             value={qty}
-                            onChange={(e) => setQty(e.target.value)}
+                            onChange={e => setQty(e.target.value)}
                           >
-                            {[...Array(product.countInStock).keys()].map(
-                              (q) => (
-                                <option key={q + 1} value={q + 1}>
-                                  {q + 1}
-                                </option>
-                              )
-                            )}
+                            {[...Array(product.countInStock).keys()].map(q => (
+                              <option key={q + 1} value={q + 1}>
+                                {q + 1}
+                              </option>
+                            ))}
                           </Form.Control>
                         </Col>
                       </Row>
@@ -203,9 +169,7 @@ export default function ProductScreen({ history, match, API, isMobile }) {
                   <ListGroup.Item>
                     <Button
                       className={
-                        product.countInStock === 0
-                          ? "btn-block p-3 disabled"
-                          : "btn-block p-3"
+                        product.countInStock === 0 ? 'btn-block p-3 disabled' : 'btn-block p-3'
                       }
                       onClick={addToCartHandler}
                       type="button"
@@ -223,24 +187,22 @@ export default function ProductScreen({ history, match, API, isMobile }) {
             <Col sm={12} md={9}>
               <h2
                 className="mt-5 font-weight-bolder  text-primary display-5"
-                style={isMobile ? { fontSize: "2rem" } : { fontSize: "3rem" }}
+                style={isMobile ? { fontSize: '2rem' } : { fontSize: '3rem' }}
               >
                 Product Reviews
               </h2>
               <Rating value={product.rating} />
-              {product.reviews && product.reviews.length === 0 && (
-                <Message>No Reviews</Message>
-              )}
+              {product.reviews && product.reviews.length === 0 && <Message>No Reviews</Message>}
 
               <ListGroup className="pt-3" variant="flush">
                 {product.reviews &&
-                  product.reviews.map((review) => {
+                  product.reviews.map(review => {
                     return (
                       <ListGroup.Item key={review._id}>
                         <div>
                           <h4>
                             <strong>{review.name}</strong>
-                          </h4>{" "}
+                          </h4>{' '}
                           <Rating value={review.rating} />
                         </div>
 
@@ -257,9 +219,7 @@ export default function ProductScreen({ history, match, API, isMobile }) {
                 <ListGroup.Item className="pt-2 mt-4">
                   <h2
                     className="font-weight-bold pb-2 text-primary"
-                    style={
-                      isMobile ? { fontSize: "1.5rem" } : { fontSize: "2.3rem" }
-                    }
+                    style={isMobile ? { fontSize: '1.5rem' } : { fontSize: '2.3rem' }}
                   >
                     Write Your Review
                   </h2>
@@ -270,7 +230,7 @@ export default function ProductScreen({ history, match, API, isMobile }) {
                     <Form>
                       <Form.Group controlId="rating">
                         <Form.Label
-                          style={isMobile ? { fontSize: "1.3rem" } : {}}
+                          style={isMobile ? { fontSize: '1.3rem' } : {}}
                           className="review_form_label  text-primary"
                         >
                           Rating
@@ -278,7 +238,7 @@ export default function ProductScreen({ history, match, API, isMobile }) {
                         <Form.Control
                           as="select"
                           value={rating}
-                          onChange={(e) => setRating(e.target.value)}
+                          onChange={e => setRating(e.target.value)}
                         >
                           <option>Select Rating...</option>
                           <option value="1">1 - Very Bad</option>
@@ -290,7 +250,7 @@ export default function ProductScreen({ history, match, API, isMobile }) {
                       </Form.Group>
                       <Form.Group controlId="comment">
                         <Form.Label
-                          style={isMobile ? { fontSize: "1.3rem" } : {}}
+                          style={isMobile ? { fontSize: '1.3rem' } : {}}
                           className="review_form_label  text-primary"
                         >
                           Your Comment
@@ -299,7 +259,7 @@ export default function ProductScreen({ history, match, API, isMobile }) {
                           as="textarea"
                           row="8"
                           value={comment}
-                          onChange={(e) => setComment(e.target.value)}
+                          onChange={e => setComment(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                       <Button

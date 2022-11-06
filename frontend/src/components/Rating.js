@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import "../styles/components/Rating.css";
+import '../styles/components/Rating.css';
 
 export default function Rating({ value, text, color }) {
   return (
@@ -9,11 +9,7 @@ export default function Rating({ value, text, color }) {
         <span>
           <i
             className={
-              value >= 1
-                ? "fas fa-star"
-                : value >= 0.5
-                ? "fas fa-star-half-alt"
-                : "far fa-star"
+              value >= 1 ? 'fas fa-star' : value >= 0.5 ? 'fas fa-star-half-alt' : 'far fa-star'
             }
             style={{ color: color }}
           ></i>
@@ -21,11 +17,7 @@ export default function Rating({ value, text, color }) {
         <span>
           <i
             className={
-              value >= 2
-                ? "fas fa-star"
-                : value >= 1.5
-                ? "fas fa-star-half-alt"
-                : "far fa-star"
+              value >= 2 ? 'fas fa-star' : value >= 1.5 ? 'fas fa-star-half-alt' : 'far fa-star'
             }
             style={{ color: color }}
           ></i>
@@ -33,11 +25,7 @@ export default function Rating({ value, text, color }) {
         <span>
           <i
             className={
-              value >= 3
-                ? "fas fa-star"
-                : value >= 2.5
-                ? "fas fa-star-half-alt"
-                : "far fa-star"
+              value >= 3 ? 'fas fa-star' : value >= 2.5 ? 'fas fa-star-half-alt' : 'far fa-star'
             }
             style={{ color: color }}
           ></i>
@@ -45,11 +33,7 @@ export default function Rating({ value, text, color }) {
         <span>
           <i
             className={
-              value >= 4
-                ? "fas fa-star"
-                : value >= 3.5
-                ? "fas fa-star-half-alt"
-                : "far fa-star"
+              value >= 4 ? 'fas fa-star' : value >= 3.5 ? 'fas fa-star-half-alt' : 'far fa-star'
             }
             style={{ color: color }}
           ></i>
@@ -57,11 +41,7 @@ export default function Rating({ value, text, color }) {
         <span>
           <i
             className={
-              value >= 5
-                ? "fas fa-star"
-                : value >= 4.5
-                ? "fas fa-star-half-alt"
-                : "far fa-star"
+              value >= 5 ? 'fas fa-star' : value >= 4.5 ? 'fas fa-star-half-alt' : 'far fa-star'
             }
             style={{ color: color }}
           ></i>
@@ -73,5 +53,5 @@ export default function Rating({ value, text, color }) {
 }
 
 Rating.defaultProps = {
-  color: "#FAAE20",
+  color: '#FAAE20'
 };

@@ -4,7 +4,7 @@
 echo '🏗️👷 Styling, testing and building your project before committing to skip add --no-verify at end'
 
 
-npm run format:write || 
+npm run format || 
 (
         echo 'Something might be messed up while formatting';
         

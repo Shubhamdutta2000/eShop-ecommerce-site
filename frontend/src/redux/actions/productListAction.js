@@ -1,45 +1,47 @@
-import axios from "axios";
+import axios from 'axios';
 
 import {
-  PRODUCT_LIST_REQUEST,
-  PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_FAILED,
-} from "../actionTypes/productListConstants";
+  PRODUCT_LIST_REQUEST,
+  PRODUCT_LIST_SUCCESS
+} from '../actionTypes/productListConstants';
 
 ///*   ACTIONS    ///
 
 const reqProducts = () => ({
-  type: PRODUCT_LIST_REQUEST,
+  type: PRODUCT_LIST_REQUEST
 });
 
-const addProducts = (products) => ({
+const addProducts = products => ({
   type: PRODUCT_LIST_SUCCESS,
-  payload: products,
+  payload: products
 });
 
-const productsFailed = (errMess) => ({
+const productsFailed = errMess => ({
   type: PRODUCT_LIST_FAILED,
-  payload: errMess,
+  payload: errMess
 });
 
 ///*     ACTION CREATOR     ///
 
-export const listProducts = (keyword = "", API) => async (dispatch) => {
-  try {
-    dispatch(reqProducts());
+export const listProducts =
+  (keyword = '', API) =>
+  async dispatch => {
+    try {
+      dispatch(reqProducts());
 
-    const { data } = await axios.get(`${API}/products?keyword=${keyword}`);
+      const { data } = await axios.get(`${API}/products?keyword=${keyword}`);
 
-    dispatch(addProducts(data));
+      dispatch(addProducts(data));
 
-    console.log(data);
-  } catch (error) {
-    dispatch(
-      productsFailed(
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
-      )
-    );
-  }
-};
+      console.log(data);
+    } catch (error) {
+      dispatch(
+        productsFailed(
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        )
+      );
+    }
+  };

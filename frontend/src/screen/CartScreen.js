@@ -1,60 +1,49 @@
-import React, { useEffect } from "react";
-import {
-  Row,
-  Col,
-  Button,
-  Card,
-  ListGroup,
-  Image,
-  Form,
-} from "react-bootstrap";
+import React, { useEffect } from 'react';
+import { Button, Card, Col, Form, Image, ListGroup, Row } from 'react-bootstrap';
+/////////////////     REDUX    ///////////////////////////////////
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 //////////////////    COMPONENTS     //////////////////////////
-import Message from "../components/Message";
-
-/////////////////     REDUX    ///////////////////////////////////
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../redux/actions/cartAction";
-import { Link } from "react-router-dom";
-
+import Message from '../components/Message';
+import Meta from '../components/Meta';
+import { addToCart, removeFromCart } from '../redux/actions/cartAction';
 //////////////////   CSS style   //////////////////////////////
-
-import "../styles/Screen/CartScreen.css";
-import Meta from "../components/Meta";
+import '../styles/Screen/CartScreen.css';
 
 const CartScreen = ({ match, location, history, isMobile, API }) => {
   const productId = match.params.id;
   const category = match.params.category;
-  const qty = location.search ? Number(location.search.split("=")[1]) : 1;
+  const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
   const dispatch = useDispatch();
 
   /// User Login Credentials  ///
-  const login = useSelector((state) => state.userLogin);
+  const login = useSelector(state => state.userLogin);
   const { userInfo } = login;
 
   ///  cart reducer  ///
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector(state => state.cart);
   const { cartItems } = cart;
 
   useEffect(() => {
     if (!userInfo) {
-      history.push("/login");
+      history.push('/login');
     } else if (productId) {
       dispatch(addToCart(API, productId, category, qty));
     }
   }, [dispatch, productId, qty, category, userInfo, history, API]);
 
   ///    remove cart Handler  ///
-  const removecartHandler = (productId) => {
+  const removecartHandler = productId => {
     console.log(productId);
     dispatch(removeFromCart(productId));
   };
 
   ///   Checkout Process Handler  ///
   const checkoutHandler = () => {
-    history.push("/login?redirect=shipping");
-    console.log("CHECKOUT");
+    history.push('/login?redirect=shipping');
+    console.log('CHECKOUT');
   };
 
   ///  GO BACK   ///
@@ -121,13 +110,13 @@ const CartScreen = ({ match, location, history, isMobile, API }) => {
                   </Row>
                 </ListGroup.Item>
               ) : null}
-              {cartItems.map((item) => (
+              {cartItems.map(item => (
                 <ListGroup.Item key={item.product}>
                   <Row>
                     <Col sm={3}>
                       <Image
                         className="cart__left__item__image"
-                        width={isMobile ? "360" : "200"}
+                        width={isMobile ? '360' : '200'}
                         src={item.image}
                         alt={item.name}
                         fluid
@@ -145,29 +134,25 @@ const CartScreen = ({ match, location, history, isMobile, API }) => {
                     <Col sm={2} className="cart__left__item__price">
                       ${item.price}
                     </Col>
-                    <Col className={isMobile ? "mt-3" : ""} sm={2}>
+                    <Col className={isMobile ? 'mt-3' : ''} sm={2}>
                       <Form.Control
                         as="select"
-                        style={{ border: "none", outline: "none" }}
+                        style={{ border: 'none', outline: 'none' }}
                         value={item.qty}
-                        onChange={(e) =>
+                        onChange={e =>
                           dispatch(
-                            addToCart(
-                              item.product,
-                              item.category,
-                              Number(e.target.value)
-                            )
+                            addToCart(item.product, item.category, Number(e.target.value))
                           )
                         }
                       >
-                        {[...Array(item.countInStock).keys()].map((q) => (
+                        {[...Array(item.countInStock).keys()].map(q => (
                           <option key={q + 1} value={q + 1}>
                             {q + 1}
                           </option>
                         ))}
                       </Form.Control>
                     </Col>
-                    <Col className={isMobile ? "mt-3 mb-2" : ""} sm={2}>
+                    <Col className={isMobile ? 'mt-3 mb-2' : ''} sm={2}>
                       <Button
                         className="cart__left__item__remove"
                         type="button"
@@ -188,7 +173,7 @@ const CartScreen = ({ match, location, history, isMobile, API }) => {
         <Col md={4}>
           <Card>
             <ListGroup>
-              <ListGroup.Item className={isMobile ? "pt-4" : "pb-4"}>
+              <ListGroup.Item className={isMobile ? 'pt-4' : 'pb-4'}>
                 <Button
                   className="btn-block p-2 cart__right__checkout"
                   disabled={cartItems.length === 0}

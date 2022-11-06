@@ -1,37 +1,29 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
-
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import TablePagination from "@material-ui/core/TablePagination";
-
-import IconButton from "@material-ui/core/IconButton";
-import Tooltip from "@material-ui/core/Tooltip";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import CheckIcon from "@material-ui/icons/Check";
-import CloseIcon from "@material-ui/icons/Close";
-
-/// Component  ///
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import Meta from "../components/Meta";
-
-/// Custom Style  ///
-import {
-  useStyles,
-  StyledTableCell,
-  StyledTableRow,
-} from "./customStyle/listScreen";
-
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import Tooltip from '@material-ui/core/Tooltip';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import React, { useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 ///  REDUX  ///
-import { useDispatch, useSelector } from "react-redux";
-import { deleteUser, listUsers } from "../redux/actions/userAction";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import Loader from '../components/Loader';
+/// Component  ///
+import Message from '../components/Message';
+import Meta from '../components/Meta';
+import { deleteUser, listUsers } from '../redux/actions/userAction';
+/// Custom Style  ///
+import { StyledTableCell, StyledTableRow, useStyles } from './customStyle/listScreen';
 
 const UserListScreen = ({ history, API }) => {
   const classes = useStyles();
@@ -41,28 +33,28 @@ const UserListScreen = ({ history, API }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   ///  USER INFO REDUCER ///
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
   ///  USER LIST REDUCER  ///
-  const userList = useSelector((state) => state.userList);
+  const userList = useSelector(state => state.userList);
   const { loading, error, users } = userList;
 
   ///  USER DELETE REDUCER  ///
-  const userDelete = useSelector((state) => state.userDelete);
+  const userDelete = useSelector(state => state.userDelete);
   const { success: successDelete } = userDelete;
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listUsers(API));
     } else {
-      history.push("/login");
+      history.push('/login');
     }
   }, [dispatch, history, userInfo, successDelete, API]);
 
   // delete user
-  const handleUserDelete = (userId) => {
-    if (window.confirm("Are you sure to delete this user??")) {
+  const handleUserDelete = userId => {
+    if (window.confirm('Are you sure to delete this user??')) {
       dispatch(deleteUser(API, userId));
     }
   };
@@ -110,26 +102,17 @@ const UserListScreen = ({ history, API }) => {
                     <StyledTableCell className={classes.tableHead} align="left">
                       ID
                     </StyledTableCell>
-                    <StyledTableCell
-                      className={classes.tableHead}
-                      align="right"
-                    >
+                    <StyledTableCell className={classes.tableHead} align="right">
                       Name
                     </StyledTableCell>
-                    <StyledTableCell
-                      className={classes.tableHead}
-                      align="right"
-                    >
+                    <StyledTableCell className={classes.tableHead} align="right">
                       Email
                     </StyledTableCell>
-                    <StyledTableCell
-                      className={classes.tableHead}
-                      align="right"
-                    >
+                    <StyledTableCell className={classes.tableHead} align="right">
                       Admin
                     </StyledTableCell>
                     <StyledTableCell
-                      style={{ fontSize: "1rem" }}
+                      style={{ fontSize: '1rem' }}
                       align="right"
                     ></StyledTableCell>
                   </TableRow>
@@ -137,11 +120,8 @@ const UserListScreen = ({ history, API }) => {
                 <TableBody>
                   {users &&
                     users
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((user) => (
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map(user => (
                         <StyledTableRow key={user._id}>
                           <StyledTableCell
                             className={classes.tableCol}
@@ -150,29 +130,17 @@ const UserListScreen = ({ history, API }) => {
                           >
                             {user._id}
                           </StyledTableCell>
-                          <StyledTableCell
-                            className={classes.tableCol}
-                            align="right"
-                          >
+                          <StyledTableCell className={classes.tableCol} align="right">
                             {user.name}
                           </StyledTableCell>
-                          <StyledTableCell
-                            className={classes.tableCol}
-                            align="right"
-                          >
+                          <StyledTableCell className={classes.tableCol} align="right">
                             {user.email}
                           </StyledTableCell>
-                          <StyledTableCell
-                            className={classes.tableCol}
-                            align="right"
-                          >
+                          <StyledTableCell className={classes.tableCol} align="right">
                             {user.isAdmin ? (
                               <CheckIcon className={classes.check} />
                             ) : (
-                              <CloseIcon
-                                color="error"
-                                className={classes.cross}
-                              />
+                              <CloseIcon color="error" className={classes.cross} />
                             )}
                           </StyledTableCell>
                           <StyledTableCell align="right">
@@ -208,7 +176,7 @@ const UserListScreen = ({ history, API }) => {
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={(event, newPage) => setPage(newPage)}
-                onChangeRowsPerPage={(event) => {
+                onChangeRowsPerPage={event => {
                   setRowsPerPage(parseInt(event.target.value, 10));
                   setPage(0);
                 }}

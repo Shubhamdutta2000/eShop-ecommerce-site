@@ -1,19 +1,14 @@
-import mongoose from "mongoose";
-
-//////////////////// SAMPLE DATAS    /////////////////////////////
-
-import productsData from "./data/products.js";
-import usersData from "./data/users.js";
+import dotenv from 'dotenv';
 
 ///////////////////   config   ////////////////////////////
-import connectDB from "./config/db.js";
-import dotenv from "dotenv";
-
+import connectDB from './config/db.js';
+//////////////////// SAMPLE DATAS    /////////////////////////////
+import productsData from './data/products.js';
+import usersData from './data/users.js';
+import Order from './models/orderModel.js';
+import Product from './models/productsModel.js';
 //////////////////   MODELS    /////////////////////////////
-
-import User from "./models/userModel.js";
-import Order from "./models/orderModel.js";
-import Product from "./models/productsModel.js";
+import User from './models/userModel.js';
 
 ////////   Loads .env file contents into | process.env
 dotenv.config();
@@ -39,14 +34,14 @@ const importData = async () => {
     const adminUser = createdUser[0]._id;
 
     // add admin user to each sample product
-    const sampleProducts = productsData.map((product) => {
+    const sampleProducts = productsData.map(product => {
       return { ...product, user: adminUser };
     });
 
     // Product data inserted to database
     await Product.insertMany(sampleProducts);
 
-    console.log(`Data imported successfully `);
+    console.log('Data imported successfully ');
 
     process.exit();
   } catch (error) {
@@ -63,7 +58,7 @@ const deleteData = async () => {
     await User.deleteMany();
     await Order.deleteMany();
     await Product.deleteMany();
-    console.log(`Data deleted successfully `);
+    console.log('Data deleted successfully ');
 
     process.exit();
   } catch (error) {
@@ -72,7 +67,7 @@ const deleteData = async () => {
   }
 };
 
-if (process.argv[2] == "-d") {
+if (process.argv[2] == '-d') {
   deleteData();
 } else {
   importData();

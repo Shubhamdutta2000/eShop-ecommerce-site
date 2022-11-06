@@ -1,52 +1,47 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Avatar, Button } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
 /////////////////////////////////////////    MATERIAL UI    ////////////////////////////////
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import InputLabel from "@material-ui/core/InputLabel";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import FormControl from "@material-ui/core/FormControl";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import { Avatar, Button } from "@material-ui/core";
-
+import Grid from '@material-ui/core/Grid';
 ///////////////////////////////////////      MATERIAL UI ICONS     ///////////////////////////////
-import IconButton from "@material-ui/core/IconButton";
-import EmailIcon from "@material-ui/icons/Email";
-import PeopleIcon from "@material-ui/icons/People";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
-import LockIcon from "@material-ui/icons/Lock";
-
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import EmailIcon from '@material-ui/icons/Email';
+import LockIcon from '@material-ui/icons/Lock';
+import PeopleIcon from '@material-ui/icons/People';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import React, { useEffect, useState } from 'react';
 ////////////////////////////////////////     REDUX          /////////////////////////////////////
-import { useSelector, useDispatch } from "react-redux";
-import { registerUser } from "../redux/actions/userAction";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+import Meta from '../components/Meta';
+import { registerUser } from '../redux/actions/userAction';
 ///////////////////////////////////////     CUSTOM STYLE    /////////////////////////////////////
-import { useStyle } from "./customStyle/allFormsScreen";
-
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import Meta from "../components/Meta";
+import { useStyle } from './customStyle/allFormsScreen';
 
 const RegisterScreen = ({ isMobile, history, location, API }) => {
   const classes = useStyle();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
-    useState(false);
+  const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(false);
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
-  const register = useSelector((state) => state.userRegister);
+  const register = useSelector(state => state.userRegister);
   const { loading, error, userInfo } = register;
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const redirect = location.search ? location.search.split('=')[1] : '/';
 
   useEffect(() => {
     if (userInfo) {
@@ -54,14 +49,14 @@ const RegisterScreen = ({ isMobile, history, location, API }) => {
     }
   }, [userInfo, history, redirect]);
 
-  const submitHandler = (event) => {
+  const submitHandler = event => {
     event.preventDefault();
 
     //DISPATCH REGISTER
     if (password === confirmPassword) {
       dispatch(registerUser(API, name, email, password));
     } else {
-      setMessage("Password does not match");
+      setMessage('Password does not match');
     }
   };
 
@@ -100,7 +95,7 @@ const RegisterScreen = ({ isMobile, history, location, API }) => {
                   required
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={e => setName(e.target.value)}
                   startAdornment={
                     <InputAdornment position="start">
                       <PeopleIcon className={classes.icon} />
@@ -111,16 +106,14 @@ const RegisterScreen = ({ isMobile, history, location, API }) => {
               </FormControl>
 
               <FormControl variant="outlined" className={classes.input}>
-                <InputLabel htmlFor="outlined-adornment-email">
-                  Email
-                </InputLabel>
+                <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-email"
                   placeholder="Email Address"
                   required
                   type="text"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                   startAdornment={
                     <InputAdornment position="start">
                       <EmailIcon className={classes.icon} />
@@ -131,16 +124,14 @@ const RegisterScreen = ({ isMobile, history, location, API }) => {
               </FormControl>
 
               <FormControl variant="outlined" className={classes.input}>
-                <InputLabel htmlFor="outlined-adornment-password">
-                  Password
-                </InputLabel>
+                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-password"
                   placeholder="Password"
                   required
-                  type={passwordVisibility ? "text" : "password"}
+                  type={passwordVisibility ? 'text' : 'password'}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={e => setPassword(e.target.value)}
                   startAdornment={
                     <InputAdornment position="start">
                       <LockIcon className={classes.icon} />
@@ -150,17 +141,11 @@ const RegisterScreen = ({ isMobile, history, location, API }) => {
                     <InputAdornment position="end">
                       <IconButton
                         aria-label="toggle password visibility"
-                        onClick={() =>
-                          setPasswordVisibility(!passwordVisibility)
-                        }
-                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => setPasswordVisibility(!passwordVisibility)}
+                        onMouseDown={e => e.preventDefault()}
                         edge="end"
                       >
-                        {passwordVisibility ? (
-                          <VisibilityIcon />
-                        ) : (
-                          <VisibilityOffIcon />
-                        )}
+                        {passwordVisibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
                       </IconButton>
                     </InputAdornment>
                   }
@@ -176,9 +161,9 @@ const RegisterScreen = ({ isMobile, history, location, API }) => {
                   id="outlined-adornment-confirmPassword"
                   placeholder="Confirm Password"
                   required
-                  type={confirmPasswordVisibility ? "text" : "password"}
+                  type={confirmPasswordVisibility ? 'text' : 'password'}
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={e => setConfirmPassword(e.target.value)}
                   startAdornment={
                     <InputAdornment position="start">
                       <LockIcon className={classes.icon} />
@@ -188,19 +173,11 @@ const RegisterScreen = ({ isMobile, history, location, API }) => {
                     <InputAdornment position="end">
                       <IconButton
                         aria-label="toggle password visibility"
-                        onClick={() =>
-                          setConfirmPasswordVisibility(
-                            !confirmPasswordVisibility
-                          )
-                        }
-                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => setConfirmPasswordVisibility(!confirmPasswordVisibility)}
+                        onMouseDown={e => e.preventDefault()}
                         edge="end"
                       >
-                        {confirmPasswordVisibility ? (
-                          <VisibilityIcon />
-                        ) : (
-                          <VisibilityOffIcon />
-                        )}
+                        {confirmPasswordVisibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
                       </IconButton>
                     </InputAdornment>
                   }
@@ -228,7 +205,7 @@ const RegisterScreen = ({ isMobile, history, location, API }) => {
                   <Typography component="h5" className={classes.login}>
                     Already Registered? &nbsp;
                     <Link
-                      to={redirect ? `/login?redirect=${redirect}` : "/login"}
+                      to={redirect ? `/login?redirect=${redirect}` : '/login'}
                       variant="body2"
                     >
                       Login

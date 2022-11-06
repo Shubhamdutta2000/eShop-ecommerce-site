@@ -1,42 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
-
+import { Avatar, Grid } from '@material-ui/core';
+import ButtonMui from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 ///    MATERIAL UI    ///
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import InputLabel from "@material-ui/core/InputLabel";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import { Avatar, Grid } from "@material-ui/core";
-import ButtonMui from "@material-ui/core/Button";
-import Switch from "@material-ui/core/Switch";
-
+import Paper from '@material-ui/core/Paper';
+import Switch from '@material-ui/core/Switch';
+import Typography from '@material-ui/core/Typography';
 ///      MATERIAL UI ICONS     ///
-import EmailIcon from "@material-ui/icons/Email";
-import PeopleIcon from "@material-ui/icons/People";
-
-///   COMPONENT  ///
-
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import Meta from "../components/Meta";
-
+import EmailIcon from '@material-ui/icons/Email';
+import PeopleIcon from '@material-ui/icons/People';
+import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 ///     REDUX     ///
-import { useSelector, useDispatch } from "react-redux";
-import { getUserDetails, updateUser } from "../redux/actions/userAction";
-import { USER_UPDATE_RESET } from "../redux/actionTypes/userConstants";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import Loader from '../components/Loader';
+///   COMPONENT  ///
+import Message from '../components/Message';
+import Meta from '../components/Meta';
+import { USER_UPDATE_RESET } from '../redux/actionTypes/userConstants';
+import { getUserDetails, updateUser } from '../redux/actions/userAction';
 ///     CUSTOM STYLE    ///
-import { useStyle } from "./customStyle/allFormsScreen";
+import { useStyle } from './customStyle/allFormsScreen';
 
 const UserEditScreen = ({ history, match, API }) => {
   const classes = useStyle();
 
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
 
   const userId = match.params.id;
@@ -44,25 +39,21 @@ const UserEditScreen = ({ history, match, API }) => {
   const dispatch = useDispatch();
 
   ///  USER LOGIN REDUCER  ///
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
   ///  USER DETAILS REDUCER (by id) ///
-  const userDetails = useSelector((state) => state.userDetails);
+  const userDetails = useSelector(state => state.userDetails);
   const { loading, error, user } = userDetails;
 
   ///  USER UPDATE REDUCER (by id) ///
-  const userUpdate = useSelector((state) => state.userUpdate);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = userUpdate;
+  const userUpdate = useSelector(state => state.userUpdate);
+  const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = userUpdate;
 
   ///  get user details  ///
   useEffect(() => {
     if (!userInfo) {
-      history.push("/login");
+      history.push('/login');
     } else {
       dispatch(getUserDetails(API, userId));
     }
@@ -71,7 +62,7 @@ const UserEditScreen = ({ history, match, API }) => {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: USER_UPDATE_RESET });
-      history.push("/admin/userlist");
+      history.push('/admin/userlist');
     } else if (user) {
       setName(user.name);
       setEmail(user.email);
@@ -85,11 +76,9 @@ const UserEditScreen = ({ history, match, API }) => {
   };
 
   ///  update user details  ///
-  const submitHandler = (event) => {
+  const submitHandler = event => {
     event.preventDefault();
-    dispatch(
-      updateUser(API, userId, { name: name, email: email, isAdmin: isAdmin })
-    );
+    dispatch(updateUser(API, userId, { name: name, email: email, isAdmin: isAdmin }));
   };
 
   return (
@@ -142,7 +131,7 @@ const UserEditScreen = ({ history, match, API }) => {
                   required
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={e => setName(e.target.value)}
                   startAdornment={
                     <InputAdornment position="start">
                       <PeopleIcon className={classes.icon} />
@@ -153,16 +142,14 @@ const UserEditScreen = ({ history, match, API }) => {
               </FormControl>
 
               <FormControl variant="outlined" className={classes.input}>
-                <InputLabel htmlFor="outlined-adornment-email">
-                  Email
-                </InputLabel>
+                <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-email"
                   placeholder="Email Address"
                   required
                   type="text"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                   startAdornment={
                     <InputAdornment position="start">
                       <EmailIcon className={classes.icon} />
@@ -190,9 +177,7 @@ const UserEditScreen = ({ history, match, API }) => {
 
               {/* ///     SUCCESS MESSAGE     /// */}
               {successUpdate && (
-                <Message varient="success">
-                  User Details Editted Successfully
-                </Message>
+                <Message varient="success">User Details Editted Successfully</Message>
               )}
               <ButtonMui
                 className={classes.button}

@@ -1,18 +1,18 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const multerStorage = async (API, file, setUploading, setImage) => {
   const formData = new FormData();
-  formData.append("image", file);
+  formData.append('image', file);
 
   setUploading(true);
   try {
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data",
-      },
+        'Content-Type': 'multipart/form-data'
+      }
     };
     const { data } = await axios.post(`${API}/upload`, formData, config);
-    const imageUrl = data.replace(/\\/g, "/");
+    const imageUrl = data.replace(/\\/g, '/');
     // set images readable instance of image being uploaded using multer
     setImage(imageUrl);
     setUploading(false);
