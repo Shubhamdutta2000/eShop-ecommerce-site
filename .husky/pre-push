@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo '🤔🤔🤔🤔... Alright... Code looks good to me...before pusing Trying to build now. 🤔🤔🤔🤔 /n /n add --no-verify at tail to skip'
+
+npm run build ||
+(
+    echo '❌👷🔨❌ Better call Bob... Because your build failed ❌👷🔨❌
+            Next build failed: View the errors above to see why. 
+    '
+    false;
+)
